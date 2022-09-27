@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  AlRawabi
+
+  Created by SandipanMacmini on 30/08/22.
+  
+*/
+
+
+"msg_networkerror" = "Network Error! something went wrong, please try again later";
+"msg_servererror" = "Server Error! something went wrong, please try again later";
+
+"msg_wishlistadd" = "Product has been succesfully added to your wishlist.";
+
+"msg_reviewadd" = "Your review has been submitted succesfully.";
+
+"msg_addtocart" = "Product has been added to your cart succesfully.";

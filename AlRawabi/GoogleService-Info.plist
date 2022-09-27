@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>347066073138-n4urvgh738ekd6uev6dlfcrcdc9h8dfs.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.347066073138-n4urvgh738ekd6uev6dlfcrcdc9h8dfs</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAN13bGjamT2RSVbK8BrjWTLuhvwpdGX38</string>
+	<key>GCM_SENDER_ID</key>
+	<string>347066073138</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.citytech.alrawabi</string>
+	<key>PROJECT_ID</key>
+	<string>alrawabi-dd9d4</string>
+	<key>STORAGE_BUCKET</key>
+	<string>alrawabi-dd9d4.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:347066073138:ios:e1e1feba346f25bc7bfc2b</string>
+</dict>
+</plist>
