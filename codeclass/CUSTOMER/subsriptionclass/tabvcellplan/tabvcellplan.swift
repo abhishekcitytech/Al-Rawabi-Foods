@@ -12,8 +12,7 @@ class tabvcellplan: UITableViewCell {
     @IBOutlet weak var viewcell: UIView!
     @IBOutlet weak var lbl1: UILabel!
     @IBOutlet weak var lbl2: UILabel!
-    @IBOutlet weak var btnselect: UIButton!
-    
+    @IBOutlet weak var lblselect: UILabel!
     
     
     

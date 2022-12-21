@@ -71,8 +71,7 @@ func printDictJson(dic: NSDictionary?) {
     let jsonData = try! JSONSerialization.data(withJSONObject: di, options: JSONSerialization.WritingOptions.prettyPrinted)
     
     let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-    
-    // print(jsonString)
+    print(jsonString)
     
 #endif
 }

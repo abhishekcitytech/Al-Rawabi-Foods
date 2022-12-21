@@ -233,13 +233,13 @@ class myaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSource
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                      let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     //print("strstatus",strstatus)
-                     //print("strsuccess",strsuccess)
-                     //print("strmessage",strmessage)
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMmyaddresslist.count > 0{
                                 self.arrMmyaddresslist.removeAllObjects()
@@ -251,7 +251,7 @@ class myaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSource
                             print("aarrm1",aarrm1.count)
                             
                             var selectedindex = -1
-                            var arrm2 = NSMutableArray()
+                            let arrm2 = NSMutableArray()
                             for x in 0 ..< aarrm1.count
                             {
                                 let dictemp = aarrm1.object(at: x)as? NSDictionary
@@ -279,7 +279,7 @@ class myaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSource
                             print("arrMmyaddresslist --->",self.arrMmyaddresslist)
                             
                             if self.arrMmyaddresslist.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = "No addresses found!"
                             }
                             
                             self.tabvmyaddress.reloadData()
@@ -287,7 +287,7 @@ class myaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSource
                             
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")

@@ -17,6 +17,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var viewtop: UIView!
     @IBOutlet weak var lbldeliveryslotdate: UILabel!
     @IBOutlet weak var txtchoosedeliverydate: UITextField!
+    @IBOutlet weak var imgccalendarchoosedeliverydate: UIImageView!
     @IBOutlet weak var btnmorning: UIButton!
     @IBOutlet weak var btnafternoon: UIButton!
     @IBOutlet weak var btnevening: UIButton!
@@ -47,6 +48,11 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     var strfromCouponpage = ""
     var strfromCouponpageCouponCode = ""
     
+    var arrMAvailbleTimeSlots = NSMutableArray()
+    
+    var strSelectedTimeSlotID = ""
+    var strSelectedTimeSlotNAME = ""
+    
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -75,6 +81,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.postCartlistOrderonceAPIMethod()
     }
     
+    //MARK: - viewDidLoad Method
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
@@ -85,6 +92,11 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
+
+        txtchoosedeliverydate.layer.borderWidth = 1.0
+        txtchoosedeliverydate.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
+        txtchoosedeliverydate.layer.cornerRadius = 6.0
+        txtchoosedeliverydate.layer.masksToBounds = true
         
         btnupdatelocation.layer.cornerRadius = 5.0
         btnupdatelocation.layer.masksToBounds = true
@@ -117,14 +129,53 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.navigationController?.popViewController(animated: true)
     }
     
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.txtchoosedeliverydate.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language96"))
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.txtchoosedeliverydate.textAlignment = .left
+            self.imgccalendarchoosedeliverydate.frame = CGRect(x:self.txtchoosedeliverydate.frame.size.width - self.imgccalendarchoosedeliverydate.frame.size.width - 5, y: self.imgccalendarchoosedeliverydate.frame.origin.y, width: self.imgccalendarchoosedeliverydate.frame.size.width, height: self.imgccalendarchoosedeliverydate.frame.size.height)
+        }
+        else
+        {
+            self.txtchoosedeliverydate.textAlignment = .right
+            self.imgccalendarchoosedeliverydate.frame = CGRect(x:self.txtchoosedeliverydate.frame.minX + 10, y: self.imgccalendarchoosedeliverydate.frame.origin.y, width: self.imgccalendarchoosedeliverydate.frame.size.width, height: self.imgccalendarchoosedeliverydate.frame.size.height)
+        }
+        
+    }
+    
     //MARK: - press Pay&Checkout method
     @IBAction func presspaycheckout(_ sender: Any)
     {
-        UserDefaults.standard.set("1", forKey: "payfromOrderonce")
-        UserDefaults.standard.synchronize()
         
-        let ctrl = paymentmethod(nibName: "paymentmethod", bundle: nil)
-        self.navigationController?.pushViewController(ctrl, animated: true)
+        if txtchoosedeliverydate.text == ""
+        {
+            let uiAlert = UIAlertController(title: "", message: "Please select delivery expected date", preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else if strSelectedTimeSlotID.count == 0
+        {
+            let uiAlert = UIAlertController(title: "", message: "Please select delivery preferred time slot.", preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else
+        {
+            
+            self.postTimeSlotDeliveryDateMethod()
+        }
+        
     }
     
     //MARK: - press Apply Discount method
@@ -146,16 +197,55 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         btnmorning.isSelected = true
         btnafternoon.isSelected = false
         btnevening.isSelected = false
+        
+        for x in 0 ..< self.arrMAvailbleTimeSlots.count
+        {
+            let dictemp = self.arrMAvailbleTimeSlots.object(at: x)as? NSDictionary
+            let strslotid = String(format: "%@", dictemp?.value(forKey: "interval_id")as! CVarArg)
+            let strname = String(format: "%@", dictemp?.value(forKey: "label")as? String ?? "")
+            
+            if strname.containsIgnoreCase("Morning"){
+                self.strSelectedTimeSlotID = strslotid
+                self.strSelectedTimeSlotNAME = strname
+                return
+            }
+        }
     }
     @IBAction func pressafternoon(_ sender: Any) {
         btnmorning.isSelected = false
         btnafternoon.isSelected = true
         btnevening.isSelected = false
+        
+        for x in 0 ..< self.arrMAvailbleTimeSlots.count
+        {
+            let dictemp = self.arrMAvailbleTimeSlots.object(at: x)as? NSDictionary
+            let strslotid = String(format: "%@", dictemp?.value(forKey: "interval_id")as! CVarArg)
+            let strname = String(format: "%@", dictemp?.value(forKey: "label")as? String ?? "")
+            
+            if strname.containsIgnoreCase("Afternoon"){
+                self.strSelectedTimeSlotID = strslotid
+                self.strSelectedTimeSlotNAME = strname
+                return
+            }
+        }
     }
     @IBAction func pressevening(_ sender: Any) {
         btnmorning.isSelected = false
         btnafternoon.isSelected = false
         btnevening.isSelected = true
+        
+        for x in 0 ..< self.arrMAvailbleTimeSlots.count
+        {
+            let dictemp = self.arrMAvailbleTimeSlots.object(at: x)as? NSDictionary
+            let strslotid = String(format: "%@", dictemp?.value(forKey: "interval_id")as! CVarArg)
+            let strname = String(format: "%@", dictemp?.value(forKey: "label")as? String ?? "")
+            
+            if strname.containsIgnoreCase("Evening"){
+                self.strSelectedTimeSlotID = strslotid
+                self.strSelectedTimeSlotNAME = strname
+                return
+            }
+        }
     }
     
     //MARK: -  press update location method
@@ -170,16 +260,23 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         var dateComponents = DateComponents()
         dateComponents.month = +1
         let monthago = Calendar.current.date(byAdding: dateComponents, to: currentDate)
-
+        print("monthago",monthago as Any)
+        
+        let next7days = Calendar.current.date(byAdding: .day, value: +7, to: currentDate)!
+        let formatter1 = DateFormatter()
+        formatter1.dateFormat = "yyyy-MM-dd"
+        let maxdate = formatter1.string(from: next7days)
+        print("maxdate",maxdate)
+        
         datePicker.show("Choose Delivery Date",
                         doneButtonTitle: "Done",
                         cancelButtonTitle: "Cancel",
                         minimumDate: currentDate,
-                        //maximumDate: monthago,
+                        maximumDate: next7days,
                         datePickerMode: .date) { (date) in
             if let dt = date {
                 let formatter = DateFormatter()
-                formatter.dateFormat = "dd/MM/yyyy"
+                formatter.dateFormat = "yyyy-MM-dd"
                 print("action")
                 self.txtchoosedeliverydate.text = formatter.string(from: dt)
             }
@@ -279,13 +376,13 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let dict = arrMcartItems.object(at: indexPath.section)as! NSDictionary
         
-        let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
+        //let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
         let strname = String(format: "%@", dict.value(forKey: "name") as? String ?? "")
         let strprice = String(format: "%@", dict.value(forKey: "price") as? String ?? "")
         let strqty = String(format: "%@", dict.value(forKey: "qty") as! CVarArg)
-        let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as? String ?? "")
-        let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as? String ?? "")
-        let strproduct_url = String(format: "%@", dict.value(forKey: "product_url") as? String ?? "")
+        //let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as? String ?? "")
+        //let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as? String ?? "")
+        //let strproduct_url = String(format: "%@", dict.value(forKey: "product_url") as? String ?? "")
         let strimageurl = String(format: "%@", dict.value(forKey: "imageurl") as? String ?? "")
         
         let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
@@ -336,9 +433,9 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     @objc func pressplus(sender:UIButton)
     {
         let dict = arrMcartItems.object(at: sender.tag)as! NSDictionary
-        let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
-        let strname = String(format: "%@", dict.value(forKey: "name") as? String ?? "")
-        let strprice = String(format: "%@", dict.value(forKey: "price") as? String ?? "")
+        //let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
+        //let strname = String(format: "%@", dict.value(forKey: "name") as? String ?? "")
+        //let strprice = String(format: "%@", dict.value(forKey: "price") as? String ?? "")
         let strqty = String(format: "%@", dict.value(forKey: "qty") as! CVarArg)
         let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as? String ?? "")
         let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as? String ?? "")
@@ -358,9 +455,9 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     @objc func pressminus(sender:UIButton)
     {
         let dict = arrMcartItems.object(at: sender.tag)as! NSDictionary
-        let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
-        let strname = String(format: "%@", dict.value(forKey: "name") as? String ?? "")
-        let strprice = String(format: "%@", dict.value(forKey: "price") as? String ?? "")
+        //let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
+        //let strname = String(format: "%@", dict.value(forKey: "name") as? String ?? "")
+        //let strprice = String(format: "%@", dict.value(forKey: "price") as? String ?? "")
         let strqty = String(format: "%@", dict.value(forKey: "qty") as! CVarArg)
         let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as? String ?? "")
         let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as? String ?? "")
@@ -394,7 +491,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     @objc func pressRemove(sender:UIButton)
     {
         let dict = arrMcartItems.object(at: sender.tag)as! NSDictionary
-        let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
+        //let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
         let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as? String ?? "")
         let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as? String ?? "")
         
@@ -456,13 +553,15 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.viewoverall.isHidden = false
                     self.view.activityStopAnimating()
+                    
+                    self.getAvailbleTimeSlotsAPIMethod()
                 }
                 print("Error=\(String(describing: error))")
                 return
@@ -480,15 +579,15 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
                         self.viewoverall.isHidden = false
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMcartItems.count > 0{
                                 self.arrMcartItems.removeAllObjects()
@@ -515,9 +614,13 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                                 self.viewbottom.isHidden = false
                                 self.btnpaycheckout.isHidden = false
                                 
-                                let str1 = String (format: "%@", dictemp.value(forKey: "subtotal")as? String ?? "")
-                                let str2 = String (format: "%@", dictemp.value(forKey: "shippingAmount")as? String ?? "")
-                                let str3 = String (format: "%@", dictemp.value(forKey: "grandtotal")as? String ?? "")
+                                let str1 = String (format: "%@", dictemp.value(forKey: "subtotal")as? String ?? "0.00")
+                                let str2 = String (format: "%@", dictemp.value(forKey: "shippingAmount")as? String ?? "0.00")
+                                let str3 = String (format: "%@", dictemp.value(forKey: "grandtotal")as! CVarArg)
+                                
+                                print("str1",str1)
+                                print("str2",str2)
+                                print("str3",str3)
                                 
                                 let str5 = String (format: "%@", dictemp.value(forKey: "discount_value")as! CVarArg)
                                 let str6 = String (format: "%@", dictemp.value(forKey: "coupon_code")as? String ?? "")
@@ -568,12 +671,14 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                             self.tabvcart.reloadData()
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
+                        
+                        self.getAvailbleTimeSlotsAPIMethod()
                     }
                 }
             }
@@ -581,13 +686,15 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.viewoverall.isHidden = false
                     self.view.activityStopAnimating()
+                    
+                    self.getAvailbleTimeSlotsAPIMethod()
                 }
                 print("Error -> \(error)")
             }
@@ -630,7 +737,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -654,9 +761,9 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -669,7 +776,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                             self.postCartlistOrderonceAPIMethod()
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -682,7 +789,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -732,7 +839,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -758,9 +865,9 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -773,7 +880,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                             self.postCartlistOrderonceAPIMethod()
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -786,7 +893,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -800,6 +907,205 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         task.resume()
     }
     
+    
+    //MARK: - get Availble Time Slots API method
+    func getAvailbleTimeSlotsAPIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+       
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod72)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        //let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        //let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        //print("json string = \(jsonString)")
+        //request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    //print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strstatus == 200
+                        {
+                            if self.arrMAvailbleTimeSlots.count > 0{
+                                self.arrMAvailbleTimeSlots.removeAllObjects()
+                            }
+                            let arrmproducts = json.value(forKey: "timeslot") as? NSArray ?? []
+                            self.arrMAvailbleTimeSlots = NSMutableArray(array: arrmproducts)
+                            //print("arrMAvailbleTimeSlots --->",self.arrMAvailbleTimeSlots)
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - post Time Slot API Method
+    func postTimeSlotDeliveryDateMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.isUserInteractionEnabled = false
+            //self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strcustomerid = UserDefaults.standard.value(forKey: "customerid")as? String ?? ""
+        print("strcustomerid",strcustomerid)
+        
+       
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        let parameters = ["date": txtchoosedeliverydate.text!,
+                          "comment": "",
+                          "timeintervalid": strSelectedTimeSlotID] as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod54)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.isUserInteractionEnabled = true
+                    //self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.isUserInteractionEnabled = true
+                        //self.view.activityStopAnimating()
+                    }
+                
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strstatus == 200
+                        {
+                            UserDefaults.standard.set("1", forKey: "payfromOrderonce")
+                            UserDefaults.standard.synchronize()
+                            let ctrl = OrderOnceSelectShippingAddress(nibName: "OrderOnceSelectShippingAddress", bundle: nil)
+                            self.navigationController?.pushViewController(ctrl, animated: true)
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    self.view.isUserInteractionEnabled = true
+                    //self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
 
 }
 extension UILabel {

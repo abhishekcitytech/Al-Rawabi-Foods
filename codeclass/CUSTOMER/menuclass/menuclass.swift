@@ -20,10 +20,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     var arrMenu = NSMutableArray()
     var arrmAccount = NSMutableArray()
-    
-    var arrMenuimage = NSMutableArray()
-    var arrmAccountimage = NSMutableArray()
-
+  
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -38,6 +35,17 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = true
 
+        btnmenu.backgroundColor =  UIColor(named: "themecolor")!
+        btnmenu.setTitleColor(.white, for: .normal)
+        btnaccount.backgroundColor =  UIColor.white
+        btnaccount.setTitleColor(.black, for: .normal)
+        
+        self.tabvlist.isHidden = true
+        self.postAllCategoryHomepageAPImethod()
+        
+        self.createAccountArraylist()
+        
+        setupRTLLTR()
     }
     
     // MARK: - viewDidLoad method
@@ -53,18 +61,36 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
         tabvlist.separatorColor=UIColor.clear
         tabvlist.showsVerticalScrollIndicator = false
         
-        btnmenu.backgroundColor =  UIColor(named: "themecolor")!
-        btnmenu.setTitleColor(.white, for: .normal)
-        imgvmenu.image = UIImage(named: "mn1")
         
-        btnaccount.backgroundColor =  UIColor.white
-        btnaccount.setTitleColor(.black, for: .normal)
-        imgvaccount.image = UIImage(named: "acc1")
         
-        self.tabvlist.isHidden = true
-        self.postAllCategoryHomepageAPImethod()
+    }
+    
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        self.createAccountArraylist()
+        btnmenu.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language145")), for: .normal)
+        btnaccount.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language146")), for: .normal)
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            imgvmenu.image = UIImage(named: "mn1")
+            imgvaccount.image = UIImage(named: "acc1")
+            
+            self.btnmenu.frame = CGRect(x:0, y: self.btnmenu.frame.origin.y, width: self.btnmenu.frame.size.width, height: self.btnmenu.frame.size.height)
+            self.btnaccount.frame = CGRect(x:self.btnmenu.frame.maxX, y: self.btnaccount.frame.origin.y, width: self.btnaccount.frame.size.width, height: self.btnaccount.frame.size.height)
+        }
+        else
+        {
+            imgvmenu.image = UIImage(named: "acc1")
+            imgvaccount.image = UIImage(named: "mn1")
+            
+            self.btnaccount.frame = CGRect(x:0, y: self.btnaccount.frame.origin.y, width: self.btnaccount.frame.size.width, height: self.btnaccount.frame.size.height)
+            self.btnmenu.frame = CGRect(x:self.btnaccount.frame.maxX, y: self.btnmenu.frame.origin.y, width: self.btnmenu.frame.size.width, height: self.btnmenu.frame.size.height)
+            
+        }
         
     }
     
@@ -73,11 +99,21 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         btnmenu.backgroundColor =  UIColor(named: "themecolor")!
         btnmenu.setTitleColor(.white, for: .normal)
-        imgvmenu.image = UIImage(named: "mn1")
         
         btnaccount.backgroundColor =  UIColor.white
         btnaccount.setTitleColor(.black, for: .normal)
-        imgvaccount.image = UIImage(named: "acc1")
+        
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            imgvmenu.image = UIImage(named: "mn1")
+            imgvaccount.image = UIImage(named: "acc1")
+        }
+        else{
+            imgvmenu.image = UIImage(named: "acc1")
+            imgvaccount.image = UIImage(named: "mn1")
+        }
         
         tabvlist.tag = 100
         tabvlist.reloadData()
@@ -88,11 +124,21 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         btnaccount.backgroundColor =  UIColor(named: "themecolor")!
         btnaccount.setTitleColor(.white, for: .normal)
-        imgvaccount.image = UIImage(named: "acc2")
         
         btnmenu.backgroundColor =  UIColor.white
         btnmenu.setTitleColor(.black, for: .normal)
-        imgvmenu.image = UIImage(named: "mn2")
+        
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            imgvaccount.image = UIImage(named: "acc2")
+            imgvmenu.image = UIImage(named: "mn2")
+        }
+        else{
+            imgvmenu.image = UIImage(named: "acc2")
+            imgvaccount.image = UIImage(named: "mn2")
+        }
         
         tabvlist.tag = 200
         tabvlist.reloadData()
@@ -102,12 +148,26 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
     //MARK: - create Account Tab Array List Method
     @objc func createAccountArraylist()
     {
+        if self.arrmAccount.count > 0{
+            self.arrmAccount.removeAllObjects()
+        }
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         var arr1 = NSMutableArray()
         var arr2 = NSMutableArray()
         
-        arr1 = ["View edit profile","My Wish List","View order history","View up-coming deliveries","Pause/restart recurring orders","Add/edit/delete sub-accounts","Top up/view balance","Re-order from old orders","Vacation/time-off settings","Loyalty point balance","Upgrade/downgrade/cancel membership","Returns/refunds","Manage multiple shipping address","Change Password"]
+       /* arr1 = ["View edit profile","My Wish List","View order history","View up-coming deliveries","My Subscriptions","Add/edit/delete sub-accounts","Top up/view balance","Re-order from old orders","Vacation/time-off settings","Loyalty point balance","Upgrade/downgrade/cancel membership","Returns/refunds","Manage multiple shipping address","Change Password"]
+        arr2 = ["acc01.png","fav1.png","acc02.png","acc3.png","acc4.png","acc5.png","acc6.png","acc7.png","acc8.png","acc9.png","acc10.png","acc11.png","acc12.png","acc13.png"]*/
         
-        arr2 = ["acc01.png","fav1.png","acc02.png","acc3.png","acc4.png","acc5.png","acc6.png","acc7.png","acc8.png","acc9.png","acc10.png","acc11.png","acc12.png","acc13.png"]
+        arr1 = [myAppDelegate.changeLanguage(key: "msg_language122"),myAppDelegate.changeLanguage(key: "msg_language123")
+                ,myAppDelegate.changeLanguage(key: "msg_language273"),myAppDelegate.changeLanguage(key: "msg_language274"),myAppDelegate.changeLanguage(key: "msg_language128")
+                ,myAppDelegate.changeLanguage(key: "msg_language129"),myAppDelegate.changeLanguage(key: "msg_language131"),myAppDelegate.changeLanguage(key: "msg_language133")
+                ,myAppDelegate.changeLanguage(key: "msg_language134"),myAppDelegate.changeLanguage(key: "msg_language275"),myAppDelegate.changeLanguage(key: "msg_language276")]
+        
+        //arr1 = ["View edit profile","My Wish List","View order history","My Subscriptions","Maid Accounts","Top up/view balance","Re-order from old orders","Loyalty point balance","Returns/refunds","Manage multiple shipping address","Change Password & Language","Logout"]
+        
+        arr2 = ["acc01.png","fav1.png","acc4.png","acc5.png","acc6.png","acc7.png","acc9.png","acc11.png","acc12.png","acc13.png","logout"]
         
         for x in 0 ..< arr1.count
         {
@@ -145,7 +205,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if tabvlist.tag == 200{
-            return 44
+            return 1
         }
         return 5
     }
@@ -157,26 +217,8 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
         if tabvlist.tag == 200{
             
             let headerView = UIView()
-            headerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44)
+            headerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
             headerView.backgroundColor = UIColor.white
-            
-            
-            let title1 = UILabel(frame: CGRect(x: 0, y: 0, width:  (tableView.frame.size.width)/2, height: 44))
-            title1.textAlignment = .right
-            title1.textColor = UIColor.black
-            title1.text = "Current Subscription:"
-            title1.backgroundColor = UIColor.clear
-            title1.font = UIFont(name: "NunitoSans-Bold", size: 14)
-            headerView.addSubview(title1)
-            
-            let title2 = UILabel(frame: CGRect(x: title1.frame.maxX + 10, y: 0, width:  (tableView.frame.size.width)/2 - 20, height: 44))
-            title2.textAlignment = .left
-            title2.textColor = UIColor(named: "greencolor")!
-            title2.text = "Monthly"
-            title2.backgroundColor = UIColor.clear
-            title2.font = UIFont(name: "NunitoSans-Bold", size: 14)
-            headerView.addSubview(title2)
-            
             return headerView
         }
         let headerView = UIView()
@@ -207,6 +249,18 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
             let strplanname = String(format: "%@", dic.value(forKey: "value")as? String ?? "")
             let strplanimage = String(format: "%@", dic.value(forKey: "image")as? String ?? "")
             
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                cell.lblname.textAlignment = .left
+                cell.imgvicon.frame = CGRect(x: 20, y: cell.imgvicon.frame.origin.y, width: cell.imgvicon.frame.size.width, height: cell.imgvicon.frame.size.height)
+            }
+            else{
+                cell.lblname.textAlignment = .right
+                cell.imgvicon.frame = CGRect(x: tabvlist.frame.size.width - cell.imgvicon.frame.size.width - 10, y: cell.imgvicon.frame.origin.y, width: cell.imgvicon.frame.size.width, height: cell.imgvicon.frame.size.height)
+            }
+
+            
             cell.lblname.text = strplanname
             
             if strplanimage.contains("https")
@@ -226,6 +280,18 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
             let strplanname = String(format: "%@", dic.value(forKey: "value")as? String ?? "")
             let strplanimage = String(format: "%@", dic.value(forKey: "image")as? String ?? "")
             
+            
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                cell.lblname.textAlignment = .left
+                cell.imgvicon.frame = CGRect(x: 20, y: cell.imgvicon.frame.origin.y, width: cell.imgvicon.frame.size.width, height: cell.imgvicon.frame.size.height)
+            }
+            else{
+                cell.lblname.textAlignment = .right
+                cell.imgvicon.frame = CGRect(x: tabvlist.frame.size.width - cell.imgvicon.frame.size.width - 10, y: cell.imgvicon.frame.origin.y, width: cell.imgvicon.frame.size.width, height: cell.imgvicon.frame.size.height)
+            }
+            
             cell.lblname.text = strplanname
             cell.imgvicon.image = UIImage(named: strplanimage)
             
@@ -238,22 +304,47 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if tabvlist.tag == 100
         {
             let dic = arrMenu.object(at: indexPath.row) as! NSDictionary
+            print("dic",dic)
             let strplanname = String(format: "%@", dic.value(forKey: "value")as? String ?? "")
             let strplanimage = String(format: "%@", dic.value(forKey: "image")as? String ?? "")
+            print("strplanimage",strplanimage)
             
-            if strplanname == "Home"
+            if strplanname == myAppDelegate.changeLanguage(key: "msg_language136")
             {
-                self.tabBarController?.selectedIndex = 0
+                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                if (strLangCode == "en")
+                {
+                    self.tabBarController?.selectedIndex = 0
+                }else{
+                    self.tabBarController?.selectedIndex = 3
+                }
+                
             }
-            else if strplanname == "Order by Subscription"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language137")
             {
-                self.tabBarController?.selectedIndex = 1
+                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                if (strLangCode == "en")
+                {
+                    self.tabBarController?.selectedIndex = 1
+                }else{
+                    self.tabBarController?.selectedIndex = 2
+                }
+                
             }
-            else if strplanname == "Order Once"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language104")
             {
+                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                if (strLangCode == "en")
+                {
+                    self.tabBarController?.selectedIndex = 2
+                }else{
+                    self.tabBarController?.selectedIndex = 1
+                }
                 
             }
             else if strplanname == "Dairy"
@@ -276,75 +367,96 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
             {
                 
             }
-            else if strplanname == "Review Order"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language143")
             {
-                
-            }
-            else if strplanname == "Cart"
-            {
-                let ctrl = shoppingcart(nibName: "shoppingcart", bundle: nil)
+                let ctrl = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
                 self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == "Contact"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language144")
             {
-                
+                let ctrl = contactus(nibName: "contactus", bundle: nil)
+                self.navigationController?.pushViewController(ctrl, animated: true)
             }
         }
         else
         {
+            
             let dic = arrmAccount.object(at: indexPath.row) as! NSDictionary
             let strplanname = String(format: "%@", dic.value(forKey: "value")as? String ?? "")
             let strplanimage = String(format: "%@", dic.value(forKey: "image")as? String ?? "")
+            print("strplanimage",strplanimage)
             
-            if strplanname == "View edit profile"
+            if strplanname == myAppDelegate.changeLanguage(key: "msg_language122")
             {
+                let ctrl = myprofile(nibName: "myprofile", bundle: nil)
+                self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == "View order history"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language123")
+            {
+                let ctrl = mywishlist(nibName: "mywishlist", bundle: nil)
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+            /*else if strplanname == myAppDelegate.changeLanguage(key: "msg_language124")
             {
                 let ctrl = myorderhistory(nibName: "myorderhistory", bundle: nil)
                 self.navigationController?.pushViewController(ctrl, animated: true)
-            }
-            else if strplanname == "View up-coming deliveries"
+            }*/
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language273")
             {
+                let ctrl = mysubscriptions(nibName: "mysubscriptions", bundle: nil)
+                self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == "Pause/restart recurring orders"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language274")
             {
+                let ctrl = maidaccounts(nibName: "maidaccounts", bundle: nil)
+                self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == "Add/edit/delete sub-accounts"
-            {
-            }
-            else if strplanname == "Top up/view balance"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language128")
             {
                 let ctrl = mywallet(nibName: "mywallet", bundle: nil)
                 self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == "Re-order from old orders"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language129")
             {
+                let ctrl = reordermyorderoncelist(nibName: "reordermyorderoncelist", bundle: nil)
+                self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == "Vacation/time-off settings"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language131")
             {
+                let ctrl = loyaltypointbalance(nibName: "loyaltypointbalance", bundle: nil)
+                self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == "Loyalty point balance"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language133")
             {
+                let ctrl = returnrefundslisting(nibName: "returnrefundslisting", bundle: nil)
+                self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == "Upgrade/downgrade/cancel membership"
-            {
-            }
-            else if strplanname == "Returns/refunds"
-            {
-            }
-            else if strplanname == "Manage multiple shipping address"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language134")
             {
                 let ctrl = myaddresslist(nibName: "myaddresslist", bundle: nil)
                 self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == "Change Password"
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language275")
             {
-            }
-            else if strplanname == "My Wish List"
-            {
-                let ctrl = mywishlist(nibName: "mywishlist", bundle: nil)
+                let ctrl = changepassword(nibName: "changepassword", bundle: nil)
                 self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language276")
+            {
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language277"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                    print("Handle Delete Logic here")
+                    
+                    self.dismiss(animated: true, completion: nil)
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.tabSetting(type: "login")
+                   // self.navigationController?.popToRootViewController(animated: true)
+                    
+                }))
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                      print("Handle Cancel Logic here")
+                }))
+                self.present(refreshAlert, animated: true, completion: nil)
             }
         }
     }
@@ -353,6 +465,10 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
     //MARK: - post All Category Home Page method
     func postAllCategoryHomepageAPImethod()
     {
+        if self.arrMenu.count > 0{
+            self.arrMenu.removeAllObjects()
+        }
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -383,7 +499,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -408,13 +524,15 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                        
+                        if strsuccess == true
                         {
                             let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
                             print("strbearertoken",strbearertoken)
@@ -429,19 +547,19 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                                 
                                 let dic1 = NSMutableDictionary()
                                 dic1.setValue("sl1.png", forKey: "image")
-                                dic1.setValue("Home", forKey: "value")
+                                dic1.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language136")), forKey: "value")
                                 dic1.setValue("", forKey: "id")
                                 self.arrMenu.add(dic1)
                                 
                                 let dic2 = NSMutableDictionary()
                                 dic2.setValue("sl2.png", forKey: "image")
-                                dic2.setValue("Order by Subscription", forKey: "value")
+                                dic2.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language137")), forKey: "value")
                                 dic2.setValue("", forKey: "id")
                                 self.arrMenu.add(dic2)
                                 
                                 let dic3 = NSMutableDictionary()
                                 dic3.setValue("sl3.png", forKey: "image")
-                                dic3.setValue("Order Once", forKey: "value")
+                                dic3.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language104")), forKey: "value")
                                 dic3.setValue("", forKey: "id")
                                 self.arrMenu.add(dic3)
                                 
@@ -462,19 +580,19 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                                     dic.setValue(strimage, forKey: "image")
                                     dic.setValue(strname, forKey: "value")
                                     dic.setValue(strid, forKey: "id")
-                                    dic.setValue(arrm11, forKey: "children")
+                                    //dic.setValue(arrm11, forKey: "children")
                                     self.arrMenu.add(dic)
                                 }
                                 
                                 let dic4 = NSMutableDictionary()
                                 dic4.setValue("sl10.png", forKey: "image")
-                                dic4.setValue("Cart", forKey: "value")
+                                dic4.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language143")), forKey: "value")
                                 dic4.setValue("", forKey: "id")
                                 self.arrMenu.add(dic4)
                                 
                                 let dic5 = NSMutableDictionary()
                                 dic5.setValue("sl11.png", forKey: "image")
-                                dic5.setValue("Contact", forKey: "value")
+                                dic5.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language144")), forKey: "value")
                                 dic5.setValue("", forKey: "id")
                                 self.arrMenu.add(dic5)
                             }
@@ -488,19 +606,19 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                                 
                                 let dic1 = NSMutableDictionary()
                                 dic1.setValue("sl1.png", forKey: "image")
-                                dic1.setValue("Home", forKey: "value")
+                                dic1.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language136")), forKey: "value")
                                 dic1.setValue("", forKey: "id")
                                 self.arrMenu.add(dic1)
                                 
                                 let dic2 = NSMutableDictionary()
                                 dic2.setValue("sl2.png", forKey: "image")
-                                dic2.setValue("Order by Subscription", forKey: "value")
+                                dic2.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language137")), forKey: "value")
                                 dic2.setValue("", forKey: "id")
                                 self.arrMenu.add(dic2)
                                 
                                 let dic3 = NSMutableDictionary()
                                 dic3.setValue("sl3.png", forKey: "image")
-                                dic3.setValue("Order Once", forKey: "value")
+                                dic3.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language104")), forKey: "value")
                                 dic3.setValue("", forKey: "id")
                                 self.arrMenu.add(dic3)
                                 
@@ -526,7 +644,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                                 
                                 let dic5 = NSMutableDictionary()
                                 dic5.setValue("sl11.png", forKey: "image")
-                                dic5.setValue("Contact", forKey: "value")
+                                dic5.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language144")), forKey: "value")
                                 dic5.setValue("", forKey: "id")
                                 self.arrMenu.add(dic5)
                                 
@@ -542,7 +660,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                             
                             self.errorchecklistarray()
                             
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -556,7 +674,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -574,37 +692,37 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
     {
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         if strbearertoken != ""
         {
             //Loggedin
             let dic1 = NSMutableDictionary()
             dic1.setValue("sl1.png", forKey: "image")
-            dic1.setValue("Home", forKey: "value")
+            dic1.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language136")), forKey: "value")
             dic1.setValue("", forKey: "id")
             self.arrMenu.add(dic1)
             
             let dic2 = NSMutableDictionary()
             dic2.setValue("sl2.png", forKey: "image")
-            dic2.setValue("Order by Subscription", forKey: "value")
+            dic2.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language137")), forKey: "value")
             dic2.setValue("", forKey: "id")
             self.arrMenu.add(dic2)
             
             let dic3 = NSMutableDictionary()
             dic3.setValue("sl3.png", forKey: "image")
-            dic3.setValue("Order Once", forKey: "value")
+            dic3.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language104")), forKey: "value")
             dic3.setValue("", forKey: "id")
             self.arrMenu.add(dic3)
             
             let dic4 = NSMutableDictionary()
             dic4.setValue("sl10.png", forKey: "image")
-            dic4.setValue("Cart", forKey: "value")
+            dic4.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language143")), forKey: "value")
             dic4.setValue("", forKey: "id")
             self.arrMenu.add(dic4)
             
             let dic5 = NSMutableDictionary()
             dic5.setValue("sl11.png", forKey: "image")
-            dic5.setValue("Contact", forKey: "value")
+            dic5.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language144")), forKey: "value")
             dic5.setValue("", forKey: "id")
             self.arrMenu.add(dic5)
         }
@@ -613,25 +731,25 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
             
             let dic1 = NSMutableDictionary()
             dic1.setValue("sl1.png", forKey: "image")
-            dic1.setValue("Home", forKey: "value")
+            dic1.setValue(myAppDelegate.changeLanguage(key: "msg_language136"), forKey: "value")
             dic1.setValue("", forKey: "id")
             self.arrMenu.add(dic1)
             
             let dic2 = NSMutableDictionary()
             dic2.setValue("sl2.png", forKey: "image")
-            dic2.setValue("Order by Subscription", forKey: "value")
+            dic2.setValue(myAppDelegate.changeLanguage(key: "msg_language137"), forKey: "value")
             dic2.setValue("", forKey: "id")
             self.arrMenu.add(dic2)
             
             let dic3 = NSMutableDictionary()
             dic3.setValue("sl3.png", forKey: "image")
-            dic3.setValue("Order Once", forKey: "value")
+            dic3.setValue(myAppDelegate.changeLanguage(key: "msg_language104"), forKey: "value")
             dic3.setValue("", forKey: "id")
             self.arrMenu.add(dic3)
             
             let dic5 = NSMutableDictionary()
             dic5.setValue("sl11.png", forKey: "image")
-            dic5.setValue("Contact", forKey: "value")
+            dic5.setValue(myAppDelegate.changeLanguage(key: "msg_language144"), forKey: "value")
             dic5.setValue("", forKey: "id")
             self.arrMenu.add(dic5)
         }

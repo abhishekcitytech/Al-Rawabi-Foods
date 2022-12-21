@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A380" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Dailymodel" representedClassName="Dailymodel" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="day" optional="YES" attributeType="String"/>
@@ -43,6 +43,7 @@
         <attribute name="subtotal" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Subscriptionmodel" representedClassName="Subscriptionmodel" syncable="YES" codeGenerationType="class">
+        <attribute name="isrenew" optional="YES" attributeType="String"/>
         <attribute name="subscriptionid" optional="YES" attributeType="String"/>
         <attribute name="subscriptiontype" optional="YES" attributeType="String"/>
         <attribute name="userid" optional="YES" attributeType="String"/>

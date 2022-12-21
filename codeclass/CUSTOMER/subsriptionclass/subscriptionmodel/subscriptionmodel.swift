@@ -60,6 +60,8 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
+        self.fetchDataDAILYSubscriptionmodelTableAUTORENEW()
+        
         self.fetchDataDailymodelTable()
         
     }
@@ -128,7 +130,17 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
     }
     
     //MARK: - press auto renew method
-    @IBAction func pressautorenew(_ sender: Any) {
+    @IBAction func pressautorenew(_ sender: Any)
+    {
+        if self.btnautorenew.isSelected == true
+        {
+            self.updateDataDAILYSubscriptionmodelTableAUTORENEW(strselectedautorenew: "0")
+            self.btnautorenew.isSelected = false
+        }
+        else{
+            self.updateDataDAILYSubscriptionmodelTableAUTORENEW(strselectedautorenew: "1")
+            self.btnautorenew.isSelected = true
+        }
     }
     
     //MARK: - calculate time date
@@ -311,10 +323,8 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
     {
         let appDel = UIApplication.shared.delegate as! AppDelegate
         if tableView == tabveditpopupitems{
-            
-            let dict = appDel.arrMDATEWISEPRODUCTPLAN.object(at: tabveditpopupitems.tag)as? NSMutableDictionary
-            let arrm = dict?.value(forKey: "items")as! NSMutableArray
-            return arrm.count
+
+            return 1
         }
         
         return 1
@@ -374,19 +384,12 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
             
             let appDel = UIApplication.shared.delegate as! AppDelegate
             
-            let dict = appDel.arrMDATEWISEPRODUCTPLAN.object(at: tabveditpopupitems.tag)as? NSMutableDictionary
-            let arrm = dict?.value(forKey: "items")as! NSMutableArray
-            let dictm = arrm.object(at: indexPath.row)as! NSMutableDictionary
-            let strid = String(format: "%@", dictm.value(forKey: "id")as? String ?? "")
-            let strname = String(format: "%@", dictm.value(forKey: "name")as? String ?? "")
-            let strqty = String(format: "%@", dictm.value(forKey: "qty")as? String ?? "")
-            let strprice = String(format: "%@", dictm.value(forKey: "price")as? String ?? "")
             
-            cell.lblname.text = strname
-            cell.lblspec.text = "1.5 ltr"
-            cell.lblunitprice.text = String(format: "AED %@", strprice)
+            //cell.lblname.text = strname
+            //cell.lblspec.text = "1.5 ltr"
+            //cell.lblunitprice.text = String(format: "AED %@", strprice)
             
-            cell.txtplusminus.text = strqty
+            //cell.txtplusminus.text = strqty
             
             cell.viewplusminus.layer.cornerRadius = 14.0
             cell.viewplusminus.layer.borderWidth = 1.0
@@ -494,6 +497,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         if flttotalprice == 0.00
         {
             //no products
+            cell.lbldate.backgroundColor = .clear
             cell.lbldate.textColor = .black
             cell.lblday.textColor = .darkGray
             cell.lblprice.textColor = UIColor(named: "orangecolor")!
@@ -516,45 +520,37 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         {
             //GREEN
             
-            cell.lbldate.backgroundColor = UIColor(named: "darkgreencolor")!
-            cell.lbldate.textColor = .white
-            cell.lblday.textColor = .white
-            cell.lblprice.textColor = .white
-            
-            cell.btnaddplus.isHidden = true
-            cell.btneditpencil.isHidden = false
-
-            
-            cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
-            cell.viewcell.layer.masksToBounds = false
-            cell.viewcell.layer.cornerRadius = 6.0
-            cell.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
-            cell.viewcell.layer.borderWidth = 2.0
-            cell.viewcell.layer.shadowColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0).cgColor
-            cell.viewcell.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-            cell.viewcell.layer.shadowOpacity = 1.0
-            cell.viewcell.layer.shadowRadius = 6.0
-        }
-        else if flttotalprice < 15.00
-        {
-            //RED
-            cell.lbldate.backgroundColor = UIColor(named: "darkmostredcolor")!
+            cell.lbldate.backgroundColor = .clear
             cell.lbldate.textColor = .black
             cell.lblday.textColor = .darkGray
             cell.lblprice.textColor = .black
             
             cell.btnaddplus.isHidden = true
-            cell.btneditpencil.isHidden = false
+            cell.btneditpencil.isHidden = true
+
             
-            cell.viewcell.backgroundColor = UIColor(named: "darkredcolor")!
-            cell.viewcell.layer.masksToBounds = false
+            cell.viewcell.backgroundColor = UIColor(named: "plate2")!
+            cell.viewcell.layer.cornerRadius = 6.0
+            cell.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+            cell.viewcell.layer.borderWidth = 2.0
+            cell.viewcell.layer.masksToBounds = true
+        }
+        else if flttotalprice < 15.00
+        {
+            //RED
+            cell.lbldate.backgroundColor = .clear
+            cell.lbldate.textColor = .black
+            cell.lblday.textColor = .darkGray
+            cell.lblprice.textColor = .black
+            
+            cell.btnaddplus.isHidden = true
+            cell.btneditpencil.isHidden = true
+            
+            cell.viewcell.backgroundColor = UIColor(named: "plate4")!
             cell.viewcell.layer.cornerRadius = 6.0
             cell.viewcell.layer.borderColor = UIColor(named: "darkredcolor")!.cgColor
             cell.viewcell.layer.borderWidth = 2.0
-            cell.viewcell.layer.shadowColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0).cgColor
-            cell.viewcell.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-            cell.viewcell.layer.shadowOpacity = 1.0
-            cell.viewcell.layer.shadowRadius = 6.0
+            cell.viewcell.layer.masksToBounds = true
         }
 
         cell.btnaddplus.tag = indexPath.section
@@ -867,26 +863,8 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         
         let appDel = UIApplication.shared.delegate as! AppDelegate
         
-        let dict = appDel.arrMDATEWISEPRODUCTPLAN.object(at: selecteddateindex)as? NSMutableDictionary
-        let strdate = String(format: "%@", dict?.value(forKey: "date")as? String ?? "")
-        let strday = String(format: "%@", dict?.value(forKey: "day")as? String ?? "")
-        
-        let arrm = dict?.value(forKey: "items")as! NSMutableArray
-        
-        var intvalueTotal = 0
-        for x in 0 ..< arrm.count
-        {
-            let dict = arrm.object(at: x)as? NSMutableDictionary
-            let strunitprice = String(format: "%@", dict?.value(forKey: "price")as? String ?? "")
-            let intvalue = Int(strunitprice)
-            intvalueTotal = intvalueTotal + intvalue!
-            
-        }
-        let strtotalprice = String(format: "%d", intvalueTotal)
-        print("Sub-Total Price",strtotalprice)
-        
-        self.lbleditpopupDateDay.text = String(format: "%@ (%@)", strdate,strday)
-        self.lblsubtotaleditpopup.text = String(format: "AED %@", strtotalprice)
+        //self.lbleditpopupDateDay.text = String(format: "%@ (%@)", strdate,strday)
+        //self.lblsubtotaleditpopup.text = String(format: "AED %@", strtotalprice)
         
         self.viewpopupedititems.layer.cornerRadius = 6.0
         self.viewpopupedititems.layer.masksToBounds = true
@@ -959,6 +937,16 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
             print("err")
         }
         
+        //----IF DAILY SUBSCRIPTION ALREADY EXIST DATE LIST ----//
+        let dict = self.arrMDateBlock.object(at: 0)as! NSMutableDictionary
+        let strstartdate = String(format: "%@", dict.value(forKey: "date")as? String ?? "")
+        let dict1 = self.arrMDateBlock.lastObject as! NSMutableDictionary
+        let strenddate = String(format: "%@", dict1.value(forKey: "date")as? String ?? "")
+        self.txtstartdate.text = strstartdate
+        self.txtenddate.text = strenddate
+        
+        
+        
         self.tabvdates.reloadData()
     }
     
@@ -990,5 +978,72 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         
         self.tabvdates.reloadData()
     }
+    
+    //MARK: - Fetch SubscriptionmodelTable data Daily AUTONENEW exist or not
+    func fetchDataDAILYSubscriptionmodelTableAUTORENEW()
+    {
+        let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let manageContent = appDelegate.persistentContainer.viewContext
+        let fetchData = NSFetchRequest<NSFetchRequestResult>(entityName: "Subscriptionmodel")
+        fetchData.predicate = NSPredicate(format: "userid == %@ && subscriptiontype == %@", strcustomerid,"Daily")
+        do {
+            let result = try manageContent.fetch(fetchData)
+            print("result",result)
+            if result.count > 0
+            {
+                // result available
+                
+                for data in result as! [NSManagedObject]{
+                    
+                    let strautonewcode = data.value(forKeyPath: "isrenew") ?? ""
+                    print("strautonewcode", strautonewcode)
+
+                    if strautonewcode as! String == "0"
+                    {
+                        self.btnautorenew.isSelected = false
+                    }
+                    else{
+                        self.btnautorenew.isSelected = true
+                    }
+                }
+            }
+            else{
+                //result not available
+            }
+        }catch {
+            print("err")
+        }
+    }
+    //MARK: - Update SubscriptionmodelTable data Daily AUTONENEW exist or not
+    func updateDataDAILYSubscriptionmodelTableAUTORENEW(strselectedautorenew:String)
+    {
+        let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let manageContent = appDelegate.persistentContainer.viewContext
+        let fetchData = NSFetchRequest<NSFetchRequestResult>(entityName: "Subscriptionmodel")
+        fetchData.predicate = NSPredicate(format: "userid == %@ && subscriptiontype == %@", strcustomerid,"Daily")
+        do {
+            let result = try manageContent.fetch(fetchData)
+            print("result",result)
+            if result.count > 0
+            {
+                // result available
+                
+                for data in result as! [NSManagedObject]{
+                    
+                    data.setValue(strselectedautorenew, forKey: "isrenew")
+                }
+            }
+            else{
+                //result not available
+            }
+        }catch {
+            print("err")
+        }
+    }
+    
     
 }

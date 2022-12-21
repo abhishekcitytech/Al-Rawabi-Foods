@@ -61,6 +61,8 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = false
         
+        fetchDataDailymodelTable()
+        postAllCategoryHomepageAPImethod()
     }
     
     // MARK: - viewDidLoad method
@@ -76,10 +78,8 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         self.navigationItem.leftBarButtonItem = back
         
         createOrderonGallery()
-        fetchDataDailymodelTable()
         
         createCategoryGallery()
-        postAllCategoryHomepageAPImethod()
         
         createProductGallery()
         
@@ -92,8 +92,12 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
     }
     
     //MARK: - press ReviewOrder Method
-    @IBAction func pressreviewOrder(_ sender: Any){
-        
+    @IBAction func pressreviewOrder(_ sender: Any)
+    {
+        let ctrl = subscriptionorderreview(nibName: "subscriptionorderreview", bundle: nil)
+        ctrl.strpageidentifier = "100"
+        ctrl.strpageidentifierplanname = "Daily"
+        self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
     //MARK: - press Sortby Method
@@ -106,6 +110,45 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
     {
         let ctrl = productfilerpage(nibName: "productfilerpage", bundle: nil)
         self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    
+    // MARK: - Textfield Delegate Method
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+    }
+    func textFieldDidEndEditing(_ textField: UITextField)
+    {
+    }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
+    {
+        return true;
+    }
+    func textFieldShouldClear(_ textField: UITextField) -> Bool
+    {
+        return true;
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool
+    {
+        return true;
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        return true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        if textField == txtsearchbox
+        {
+            let dict = self.arrmcatlist.object(at: Int(strSelectedCat)!) as! NSDictionary
+            let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
+            self.getProductListingAPIMethod(strselectedcategoryid: strid)
+        }
+        
+        textField.resignFirstResponder();
+        return true;
+    }
+    @objc func textFieldDidChange(_ textField: UITextField)
+    {
     }
     
     //MARK: - create order on date list gallery method
@@ -158,7 +201,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
     // MARK: - UICollectionView Delegate & DataSource Method
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        let appDel = UIApplication.shared.delegate as! AppDelegate
+        //let appDel = UIApplication.shared.delegate as! AppDelegate
         if collectionView == colorderon
         {
             return self.arrmorderon.count
@@ -179,7 +222,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
     {
         if collectionView == colorderon
         {
-            let appDel = UIApplication.shared.delegate as! AppDelegate
+            //let appDel = UIApplication.shared.delegate as! AppDelegate
             
             let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier2, for: indexPath as IndexPath) as! cellcolordernow
             cellA.contentView.backgroundColor = .white
@@ -212,6 +255,9 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             let strselected = String(format: "%@", dict?.value(forKey: "selected")as? String ?? "")
             var strisrenew = String(format: "%@", dict?.value(forKey: "isrenew")as? String ?? "")
             var strsubscriptionid = String(format: "%@", dict?.value(forKey: "subscriptionid")as? String ?? "")
+            print("strselected",strselected)
+            print("strisrenew",strisrenew)
+            print("strsubscriptionid",strsubscriptionid)
             
             cellA.lbldate.text = strdate
             cellA.lblday.text = strday
@@ -238,13 +284,13 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                             let qtyall = data2.value(forKeyPath: "qtyall") ?? ""
                             let productprice = data2.value(forKeyPath: "productprice") ?? ""
                             
-                            var intqtyonce = Float(String(format: "%@", qtyonce as! CVarArg))
-                            var intqtyall = Float(String(format: "%@", qtyall as! CVarArg))
-                            var intproductprice = Float(String(format: "%@", productprice as! CVarArg))
+                            let intqtyonce = Float(String(format: "%@", qtyonce as! CVarArg))
+                            let intqtyall = Float(String(format: "%@", qtyall as! CVarArg))
+                            let intproductprice = Float(String(format: "%@", productprice as! CVarArg))
                             
                             var inttotalqty = Float()
                             inttotalqty = intqtyonce! + intqtyall!
-                            var fltsubtotalprice = Float(Float(intproductprice!) * Float(inttotalqty))
+                            let fltsubtotalprice = Float(Float(intproductprice!) * Float(inttotalqty))
                             print("fltsubtotalprice",fltsubtotalprice as Any)
                             
                             flttotalprice = flttotalprice + Double(fltsubtotalprice)
@@ -346,26 +392,23 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             cellA.viewcell.layer.cornerRadius = 6.0
             cellA.viewcell.layer.masksToBounds = true
             
-            if strtext.contains("Dairy"){
+            if strtext.containsIgnoreCase("Dairy"){
                 cellA.viewcell.backgroundColor = UIColor(named: "plate1")!
             }
-            else if strtext.contains("Juice"){
+            else if strtext.containsIgnoreCase("Juice"){
                 cellA.viewcell.backgroundColor = UIColor(named: "plate2")!
             }
-            else if strtext.contains("Bakery"){
+            else if strtext.containsIgnoreCase("Bakery"){
                 cellA.viewcell.backgroundColor = UIColor(named: "plate3")!
             }
-            else if strtext.contains("Meat & Poultry"){
+            else if strtext.containsIgnoreCase("Meat"){
                 cellA.viewcell.backgroundColor = UIColor(named: "plate4")!
             }
-            else if strtext.contains("Functional"){
+            else if strtext.containsIgnoreCase("Functional"){
                 cellA.viewcell.backgroundColor = UIColor(named: "plate5")!
             }
-            else if strtext.contains("Offers"){
-                cellA.viewcell.backgroundColor = .white
-            }
             else{
-                cellA.viewcell.backgroundColor = .white
+                cellA.viewcell.backgroundColor = UIColor(named: "plate7")!
             }
             
             cellA.lblcell.text =  strtext
@@ -374,7 +417,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             
             if self.strSelectedCat == String(format: "%d", indexPath.row){
                 cellA.viewcell.layer.borderWidth = 2.0
-                cellA.viewcell.layer.borderColor = UIColor.darkGray.cgColor
+                cellA.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
             }
@@ -400,11 +443,11 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         
         let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
         let strname = String(format: "%@", dict!.value(forKey: "name") as? String ?? "")
-        let strsku = String(format: "%@", dict!.value(forKey: "sku") as? String ?? "")
+        //let strsku = String(format: "%@", dict!.value(forKey: "sku") as? String ?? "")
         let strprice = String(format: "%@", dict!.value(forKey: "price") as? String ?? "")
         let strsize = String(format: "%@", dict!.value(forKey: "size") as? String ?? "")
         let strbrand = String(format: "%@", dict!.value(forKey: "brand") as? String ?? "")
-        let strstatus = String(format: "%@", dict!.value(forKey: "productStatus") as? String ?? "")
+        //let strstatus = String(format: "%@", dict!.value(forKey: "productStatus") as? String ?? "")
         
         let strcurrent_currencecode = String(format: "%@", dict!.value(forKey: "current_currencecode") as? String ?? "")
         
@@ -503,7 +546,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         cellA.btnminusATA.addTarget(self, action: #selector(pressminusATA), for: .touchUpInside)
         
         //-----Fetch qtyonce && qtyall for each product id from Dailyproduct Table ----//
-        let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+        //let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let manageContent = appDelegate.persistentContainer.viewContext
         let fetchData = NSFetchRequest<NSFetchRequestResult>(entityName: "Dailyproduct")
@@ -524,7 +567,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                     if qtyoo as! String != "0"{
                         cellA.btnaddonce.isHidden = true
                         cellA.viewplusminus.isHidden = false
-                        cellA.txtplusminus.text = qtyoo as! String
+                        cellA.txtplusminus.text = (qtyoo as! String)
                     }else{
                         cellA.btnaddonce.isHidden = false
                         cellA.viewplusminus.isHidden = true
@@ -533,7 +576,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                     if qtyaa as! String != "0"{
                         cellA.btnaddtoall.isHidden = true
                         cellA.viewplusminusATA.isHidden = false
-                        cellA.txtplusminusATA.text = qtyaa as! String
+                        cellA.txtplusminusATA.text = (qtyaa as! String)
                     }else{
                         cellA.btnaddtoall.isHidden = false
                         cellA.viewplusminusATA.isHidden = true
@@ -567,6 +610,9 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             let strselected = String(format: "%@", dict?.value(forKey: "selected")as? String ?? "")
             var strisrenew = String(format: "%@", dict?.value(forKey: "isrenew")as? String ?? "")
             var strsubscriptionid = String(format: "%@", dict?.value(forKey: "subscriptionid")as? String ?? "")
+            print("strselected",strselected)
+            print("strisrenew",strisrenew)
+            print("strsubscriptionid",strsubscriptionid)
             
             self.strselecteddateindex = String(format: "%d", indexPath.row)
             self.strselecteddateindexdate = strdate
@@ -578,7 +624,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         else if collectionView == colcategory
         {
             let dict = arrmcatlist.object(at: indexPath.row) as! NSDictionary
-            let strtext = String(format: "%@", dict.value(forKey: "text") as? String ?? "")
+            //let strtext = String(format: "%@", dict.value(forKey: "text") as? String ?? "")
             let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
             
             self.strSelectedCat = String(format: "%d", indexPath.row)
@@ -588,7 +634,27 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         }
         else if collectionView == colproductlist
         {
+            let dict = arrmproductlist.object(at: indexPath.row)as? NSDictionary
+            let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
             
+            let strname = String(format: "%@", dict!.value(forKey: "name") as? String ?? "")
+            let strprice = String(format: "%@", dict!.value(forKey: "price") as? String ?? "")
+            let strsize = String(format: "%@", dict!.value(forKey: "size") as? String ?? "")
+            let arrmedia = dict!.value(forKey: "media")as? NSArray ?? []
+            let strimageurl = String(format: "%@", arrmedia.object(at: 0)as? String ?? "")
+            let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
+            
+            let ctrl = subscriptionproductdetails(nibName: "subscriptionproductdetails", bundle: nil)
+            ctrl.strpageidentifier = "100"
+            ctrl.strselecteddateindex = strselecteddateindex
+            ctrl.strselecteddateindexdate = strselecteddateindexdate
+            ctrl.strselecteddateindexday = strselecteddateindexday
+            ctrl.strSelectedProductID = strproductid
+            ctrl.strprdnamefromlist = strname
+            ctrl.strprdimagefromlist = strFinalurl
+            ctrl.strprdsizefromlist = strsize
+            ctrl.strprdpricefromlist = strprice
+            self.navigationController?.pushViewController(ctrl, animated: true)
         }
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
@@ -1170,7 +1236,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1217,7 +1283,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                             self.getProductListingAPIMethod(strselectedcategoryid: strid)
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -1230,7 +1296,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1254,8 +1320,13 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
+        var strsearchkeyword = String(format: "%@", self.txtsearchbox.text!)
+        if strsearchkeyword == " " || strsearchkeyword == "" || strsearchkeyword.count == 0{
+            strsearchkeyword = ""
+        }
+        
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid)
+        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,strsearchkeyword)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{
@@ -1311,7 +1382,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                             
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")

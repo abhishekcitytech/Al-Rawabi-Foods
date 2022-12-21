@@ -42,7 +42,8 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
         
-        self.title = "My Wish List"
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language123")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -56,7 +57,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
         
         colproductlist.backgroundColor = .clear
         let layout = colproductlist.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/2.0 - 15, height: 316)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/2.0 - 15, height: 275)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colproductlist.register(UINib(nibName: "colcelltopdeals", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)
@@ -138,6 +139,8 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
             
             let stris_addedwishlist = String(format: "%@", dict!.value(forKey: "is_addedwishlist") as? String ?? "")
             
+            cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)
+            
             print("stris_addedwishlist",stris_addedwishlist)
             if stris_addedwishlist == "True"
             {
@@ -148,17 +151,13 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
             cellA.btnright.isHidden = true
         }
         
-        cellA.btnaddonce.backgroundColor = .white
-        cellA.btnaddonce.setTitle("ADD TO CART", for: .normal)
-        cellA.btnaddonce.setTitleColor(UIColor(named: "themecolor")!, for: .normal)
-        cellA.btnaddonce.titleLabel?.font = UIFont (name: "NunitoSans-Bold", size: 16)
+        cellA.btnaddonce.layer.borderWidth = 1.0
+        cellA.btnaddonce.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+        cellA.btnaddonce.layer.cornerRadius = 16.0
+        cellA.btnaddonce.layer.masksToBounds = true
         
-        cellA.btnaddonce.isHidden = false
-        cellA.btnaddtoall.isHidden = true
-        cellA.viewplusminus.isHidden = true
-        cellA.viewplusminusATA.isHidden = true
-        
-        cellA.btnaddonce.frame = CGRect(x: cellA.btnaddonce.frame.origin.x, y: cellA.btnaddonce.frame.origin.y + 20, width: cellA.btnaddonce.frame.size.width, height: cellA.btnaddonce.frame.size.height)
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        cellA.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language47")), for: .normal)
         
         cellA.btnaddonce.tag = indexPath.row
         cellA.btnaddonce.addTarget(self, action: #selector(pressaddonce), for: .touchUpInside)
@@ -236,7 +235,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -279,7 +278,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
                             
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -292,7 +291,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -337,7 +336,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -373,7 +372,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
 
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -386,7 +385,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")

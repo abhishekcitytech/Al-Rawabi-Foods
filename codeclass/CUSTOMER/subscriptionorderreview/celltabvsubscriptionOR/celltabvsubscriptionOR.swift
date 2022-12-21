@@ -13,12 +13,20 @@ class celltabvsubscriptionOR: UITableViewCell {
     @IBOutlet weak var viewleft: UIView!
     @IBOutlet weak var lblseparator: UILabel!
     @IBOutlet weak var btnwarning: UIButton!
+    @IBOutlet weak var lblwarning: UILabel!
+    
+    @IBOutlet weak var lblsubscriptiondate: UILabel!
+    @IBOutlet weak var lblsubscriptionday: UILabel!
+    
     
     @IBOutlet weak var lbltotalproducts: UILabel!
     @IBOutlet weak var lblsubtotal: UILabel!
     
     @IBOutlet weak var lbldeliverydate: UILabel!
     @IBOutlet weak var lbldeliverydate1: UILabel!
+    
+    @IBOutlet weak var btnAddMore: UIButton!
+    
     
     @IBOutlet weak var btndetail: UIButton!
     override func awakeFromNib() {

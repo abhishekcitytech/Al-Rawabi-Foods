@@ -19,10 +19,6 @@ class cellcolbuyonce: UICollectionViewCell {
     
     @IBOutlet weak var btnfav: UIButton!
 
-    @IBOutlet weak var viewplusminus: UIView!
-    @IBOutlet weak var btnminus: UIButton!
-    @IBOutlet weak var btnplus: UIButton!
-    @IBOutlet weak var txtplusminus: UITextField!
     @IBOutlet weak var btnaddtocart: UIButton!
     
     override func awakeFromNib() {

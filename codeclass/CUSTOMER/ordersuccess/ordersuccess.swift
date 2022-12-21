@@ -13,6 +13,7 @@ class ordersuccess: UIViewController
     
     @IBOutlet weak var viewtick: UIView!
     
+    @IBOutlet weak var lblorderid: UILabel!
     @IBOutlet weak var lbl1: UILabel!
     @IBOutlet weak var lbl2: UILabel!
     
@@ -20,6 +21,8 @@ class ordersuccess: UIViewController
     @IBOutlet weak var btncontinueshopping: UIButton!
     
 
+    var strorderid = ""
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -35,6 +38,8 @@ class ordersuccess: UIViewController
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        lblorderid.text = String(format: "Order #%@", strorderid)
     }
     
     // MARK: - viewDidLoad Method
@@ -61,6 +66,8 @@ class ordersuccess: UIViewController
         btncontinueshopping.layer.cornerRadius = 16.0
         btncontinueshopping.layer.masksToBounds = true
         
+        btntrackorder.isHidden = true
+        
     }
     
     //MARK: - press back method
@@ -72,8 +79,8 @@ class ordersuccess: UIViewController
     //MARK: - press Track Order Method
     @IBAction func presstrackorder(_ sender: Any)
     {
-        let ctrl = trackorder(nibName: "trackorder", bundle: nil)
-        self.navigationController?.pushViewController(ctrl, animated: true)
+        //let ctrl = trackorder(nibName: "trackorder", bundle: nil)
+        //self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
     //MARK: - press Continue Shopping Method
@@ -85,30 +92,37 @@ class ordersuccess: UIViewController
 
         if strpayfromOrderonce == "1"
         {
+            //SUBSCRIPTION CREATE
             guard let vc = self.navigationController?.viewControllers else { return }
-
             for controller in vc {
-               if controller.isKind(of: orderonceclass.self) {
-                  let tabVC = controller as! orderonceclass
-                   tabVC.strfromContinuehsopping = "1"
+               if controller.isKind(of: homeclass.self) {
+                  let tabVC = controller as! homeclass
+                  self.navigationController?.popToViewController(tabVC, animated: true)
+               }
+            }
+        }
+        else if strpayfromOrderonce == "3"
+        {
+            //RENEW
+            guard let vc = self.navigationController?.viewControllers else { return }
+            for controller in vc {
+               if controller.isKind(of: mysubscriptions.self) {
+                  let tabVC = controller as! mysubscriptions
                   self.navigationController?.popToViewController(tabVC, animated: true)
                }
             }
         }
         else
         {
-            
+            //ORDER ONCE
             guard let vc = self.navigationController?.viewControllers else { return }
-
             for controller in vc {
                if controller.isKind(of: subsriptionclass.self) {
                   let tabVC = controller as! subsriptionclass
-                   tabVC.strfromContinuehsopping = "1"
                   self.navigationController?.popToViewController(tabVC, animated: true)
                }
             }
         }
-        
         
     }
 }

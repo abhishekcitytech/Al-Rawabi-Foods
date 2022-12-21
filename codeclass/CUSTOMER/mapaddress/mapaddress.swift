@@ -44,7 +44,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     @IBOutlet var viewPopupMyAddress: UIView!
     @IBOutlet weak var btnCrossPopupMyAddress: UIButton!
     @IBOutlet weak var tabvPopupMyAddress: UITableView!
-    var reuseIdentifier2 = "celltabvprodustitemsedit"
+    var reuseIdentifier2 = "celltabvmyaddresschoose"
     var viewPopupAddNewExistingBG2 = UIView()
     var arrMMyaddresslist = NSMutableArray()
     
@@ -161,7 +161,6 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             self.getcustomeraddresslist()
         }
         
-        
         //self.btnsearch.isHidden = true
         
         self.mapview.delegate = self
@@ -181,16 +180,29 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         locationManager.requestAlwaysAuthorization()
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.delegate = self
-        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
-        
         
         self.mapview.mapType = .standard
         
         //self.setUpGeofenceForPlayaGrandeBeachMultiple()
+        self.addPolygonZoneArea()
         
-
+        self.createMultiPolygon()
+        
+        //self.drawpolygon1()
+        //self.drawpolygon2()
+        
+        btnChooseMyAddressList.layer.borderWidth = 1.0
+        btnChooseMyAddressList.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+        btnChooseMyAddressList.layer.cornerRadius = 16.0
+        btnChooseMyAddressList.layer.masksToBounds = true
+        
+    }
+    
+    //MARK: - Add All Polygon Zone Area Method
+    func addPolygonZoneArea()
+    {
         let dict1 = NSMutableDictionary()
         dict1.setValue("JLT Dubai", forKey: "name")
         let arrm1 = NSMutableArray()
@@ -258,21 +270,31 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         arrm2.add(String(format: "%@", "25.089024, 55.152970"))
         dict2.setValue(arrm2, forKey: "coordinates")
         
+        
+        let dict3 = NSMutableDictionary()
+        dict3.setValue("Al Khawaneej", forKey: "name")
+        let arrm3 = NSMutableArray()
+        arrm3.add(String(format: "%@", "25.267297, 55.471900"))
+        arrm3.add(String(format: "%@", "25.253270, 55.511848"))
+        arrm3.add(String(format: "%@", "25.234973, 55.563339"))
+        arrm3.add(String(format: "%@", "25.212336, 55.552654"))
+        arrm3.add(String(format: "%@", "25.191936, 55.532475"))
+        arrm3.add(String(format: "%@", "25.193568, 55.526613"))
+        arrm3.add(String(format: "%@", "25.198362, 55.521766"))
+        arrm3.add(String(format: "%@", "25.212336, 55.508689"))
+        arrm3.add(String(format: "%@", "25.222844, 55.503526"))
+        arrm3.add(String(format: "%@", "25.226087, 55.482496"))
+        arrm3.add(String(format: "%@", "25.228755, 55.464619"))
+        arrm3.add(String(format: "%@", "25.249593, 55.468673"))
+        arrm3.add(String(format: "%@", "25.255094, 55.468673"))
+        arrm3.add(String(format: "%@", "25.267283, 55.471931"))
+        dict3.setValue(arrm3, forKey: "coordinates")
+        
         arrmPolygonlist.add(dict1)
         arrmPolygonlist.add(dict2)
+        arrmPolygonlist.add(dict3)
         
         print("arrmPolygonlist",arrmPolygonlist)
-        
-        self.createMultiPolygon()
-        
-        //self.drawpolygon1()
-        //self.drawpolygon2()
-        
-        btnChooseMyAddressList.layer.borderWidth = 1.0
-        btnChooseMyAddressList.layer.borderColor = UIColor(named: "greencolor")!.cgColor
-        btnChooseMyAddressList.layer.cornerRadius = 16.0
-        btnChooseMyAddressList.layer.masksToBounds = true
-        
     }
     
     //MARK: - press Choose My Address List
@@ -299,6 +321,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         {
             let dictemp = arrmPolygonlist.object(at: x)as? NSMutableDictionary
             let strname = String(format: "%@", dictemp?.value(forKey: "name")as? String ?? "")
+            print("strname",strname)
             let arrm = dictemp?.value(forKey: "coordinates")as? NSMutableArray
             
             var polygon = MKPolygon()
@@ -323,7 +346,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     
     
     //MARK: - Create Draw Polygon View on Map for specific AREA
-    func drawpolygon1()
+    /*func drawpolygon1()
     {
         //JLT - Dubai - United Arab Emirates
         
@@ -410,7 +433,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
-    }
+    }*/
     
     
     // MARK: - Textfield Delegate Method
@@ -607,7 +630,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 print("Success with JSON: \(String(describing: JSON))")
                 
                 let array = JSON as? NSArray
-                print("array",array)
+                print("array",array as Any)
                 
                 //let dic = JSON as? NSDictionary
                 //print("dic",dic as Any)
@@ -735,6 +758,10 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 self.lblalertstatus.backgroundColor = .blue
                 self.lblalertstatus.text = "You are inside our delivery area!"
                 self.boolcheck = false
+                
+                self.btnConfirmLocation.backgroundColor = UIColor(named: "greencolor")!
+                self.btnConfirmLocation.titleLabel?.textColor = UIColor.white
+                self.btnConfirmLocation.isUserInteractionEnabled = true
             }
         }
         else
@@ -752,6 +779,10 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 self.lblalertstatus.backgroundColor = .red
                 self.lblalertstatus.text = "We do not deliver to this area!"
                 self.boolcheck = false
+                
+                self.btnConfirmLocation.backgroundColor = UIColor.lightGray
+                self.btnConfirmLocation.titleLabel?.textColor = UIColor.black
+                self.btnConfirmLocation.isUserInteractionEnabled = false
             }
         }
     }
@@ -1246,11 +1277,11 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         {
             let dic = self.arrMMyaddresslist.object(at: indexPath.row)as! NSDictionary
             
-            let strfirstname = String(format: "%@", dic.value(forKey: "address_firstname")as? String ?? "")
-            let strlastname = String(format: "%@", dic.value(forKey: "address_lastname")as? String ?? "")
-            let strmobileno = String(format: "%@", dic.value(forKey: "telephone")as? String ?? "")
+            //let strfirstname = String(format: "%@", dic.value(forKey: "address_firstname")as? String ?? "")
+            //let strlastname = String(format: "%@", dic.value(forKey: "address_lastname")as? String ?? "")
+            //let strmobileno = String(format: "%@", dic.value(forKey: "telephone")as? String ?? "")
             let strcity = String(format: "%@", dic.value(forKey: "city")as? String ?? "")
-            let strdefault_shipping = String(format: "%@", dic.value(forKey: "default_shipping")as? String ?? "")
+            //let strdefault_shipping = String(format: "%@", dic.value(forKey: "default_shipping")as? String ?? "")
             let strcountry_id = String(format: "%@", dic.value(forKey: "country_id")as? String ?? "")
             let arrstreet = (dic.value(forKey: "street")as! NSArray)
             var strfullstreet = ""
@@ -1460,6 +1491,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 print("strlngselected",strlngselected)
                 
                 DispatchQueue.main.async {
+                    
                     self.strsearchlat = Double(strlatselected)!
                     self.strsearchlng = Double(strlngselected)!
                     print("strsearchlat",self.strsearchlat)
@@ -1522,7 +1554,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     }
     
     //MARK: - Check Search Coordinate WITHIN POLYGON OR NOT
-    func checkpolygon1Point(lat:Double,long:Double)
+    /*func checkpolygon1Point(lat:Double,long:Double)
     {
         let polygonRenderer = MKPolygonRenderer(polygon: polyg1)
         let mapPoint: MKMapPoint = MKMapPoint(CLLocationCoordinate2D(latitude: lat, longitude: long))
@@ -1549,7 +1581,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         }else{
             print("Your location was outside your polygon1.")
         }
-    }
+    }*/
     
     //MARK: - GET Address by Lat Long - Google API
     func getAddressFromLatLong(latitude: Double, longitude : Double)
@@ -1643,6 +1675,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         }
         
     }
+    
     //MARK: - GET Lat Long by Address - Google API
     func performGoogleSearch(for string: String)
     {
@@ -1677,9 +1710,11 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             // first check that locality exists
             let resultTypes = result["types"] as? [String]
             let addressComponents = result["address_components"] as? [[String:AnyObject]]
-            print("addressComponents",addressComponents)
+            print("addressComponents",addressComponents as Any)
+            print("resultTypes",resultTypes as Any)
             
             let formattedAddress = result["formatted_address"] as? String
+            print("formattedAddress",formattedAddress as Any)
             let geometry = result["geometry"] as? [String:AnyObject]
             let location = geometry!["location"] as? [String:Double]
             strsearchlat = location!["lat"]!
@@ -1709,6 +1744,9 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         }
         else{
             
+            print("strsearchlat",self.strsearchlat)
+            print("strsearchlng",self.strsearchlng)
+            
             if strFrompageMap == "addnewaddress"
             {
                 print("From Page --> ADD NEW ADDRESS")
@@ -1720,6 +1758,8 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                        tabVC.strstreetaddressfrommap = String(format: "%@", txtsearch.text!)
                        tabVC.strstreetaddressfrommapLocation = strlocationname
                        tabVC.strstreetaddressfrommapCity = strcityname
+                       tabVC.strSelectedLATITUDE = String(self.strsearchlat)
+                       tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
                       self.navigationController?.popToViewController(tabVC, animated: true)
                    }
                 }
@@ -1865,13 +1905,13 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                      let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     //print("strstatus",strstatus)
-                     //print("strsuccess",strsuccess)
-                     //print("strmessage",strmessage)
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMMyaddresslist.count > 0{
                                 self.arrMMyaddresslist.removeAllObjects()
@@ -1884,7 +1924,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                             
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")

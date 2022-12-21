@@ -7,7 +7,7 @@
 
 import UIKit
 
-class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
+class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UITableViewDelegate,UITableViewDataSource
 {
     @IBOutlet var viewoverall: UIView!
     @IBOutlet var scrolloverall: UIScrollView!
@@ -39,8 +39,19 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
     var strstreetaddressfrommapLocation = ""
     var strstreetaddressfrommapCity = ""
     
+    var strSelectedLATITUDE = ""
+    var strSelectedLONGITUDE = ""
+    
     var strisdefaultaddress = "0"
     var strisformaid = "0"
+    
+    
+    var isBoolDropdown = Bool()
+    let cellReuseIdentifier = "cell"
+    var tblViewDropdownList: UITableView? = UITableView()
+    var arrMGlobalDropdownFeed = NSMutableArray()
+    
+    var arrMEMIRATESLIST = NSMutableArray()
 
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -58,10 +69,12 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
+        print("strSelectedLATITUDE",strSelectedLATITUDE)
+        print("strSelectedLONGITUDE",strSelectedLONGITUDE)
+        
         if strstreetaddressfrommap != ""{
             //Fetch from MAP ADDRESS
             self.txtstreetaddress.text = strstreetaddressfrommap
-            self.txtlocation.text = strstreetaddressfrommapLocation
             self.txtcity.text = strstreetaddressfrommapCity
             
         }
@@ -97,6 +110,8 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
         switchmakedefault.isOn = false
         strisformaid = "0"
         switchformaid.isOn = false
+        
+        self.getAvailbleEMIRATESLISTAPIMethod()
         
         createbordersetup()
     }
@@ -146,6 +161,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
         toolbarDone.items = [barBtnDone]
         txtmobileno.inputAccessoryView = toolbarDone
         
+        txtstreetaddress.isUserInteractionEnabled = false
         txtstreetaddress.text = "Street Address"
         txtstreetaddress.textColor = UIColor.lightGray
         txtstreetaddress.centerVertically()
@@ -201,7 +217,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
         }
         else if txtlocation.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your location", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: "Please select region , state or province", preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                 print("Click of default button")
@@ -256,12 +272,25 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
     // MARK: - Textfield Delegate Method
     func textFieldDidBeginEditing(_ textField: UITextField)
     {
+        if textField.isEqual(txtlocation){
+            txtlocation.resignFirstResponder()
+        }
     }
     func textFieldDidEndEditing(_ textField: UITextField)
     {
     }
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
+        if textField.isEqual(txtlocation)
+        {
+            self.view.endEditing(true)
+            if isBoolDropdown == true {
+                handleTap1()
+            }else{
+                self.popupDropdown(arrFeed: arrMEMIRATESLIST, txtfld: txtlocation, tagTable: 100)
+            }
+            return false
+        }
         return true;
     }
     func textFieldShouldClear(_ textField: UITextField) -> Bool
@@ -287,7 +316,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
         textField.resignFirstResponder();
         return true;
     }
-    @objc func textFieldDidChange(_ textField: UITextField)
+    @objc private func textFieldDidChange(_ textField: UITextField)
     {
     }
     
@@ -314,6 +343,132 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
         return true
     }
     
+    
+    // MARK: - Emirates List dropdown Method
+    func popupDropdown(arrFeed:NSMutableArray,txtfld:UITextField, tagTable:Int)
+    {
+        let point = (txtfld.superview?.convert(txtfld.frame.origin, to: self.view))! as CGPoint
+        print(point.y)
+        
+        isBoolDropdown = true
+        tblViewDropdownList = UITableView(frame: CGRect(x: self.viewlocation.frame.origin.x, y: point.y + self.viewlocation.frame.size.height, width: self.viewlocation.frame.size.width, height: 0))
+        tblViewDropdownList?.delegate = self
+        tblViewDropdownList?.dataSource = self
+        tblViewDropdownList?.tag = tagTable
+        tblViewDropdownList?.backgroundView = nil
+        tblViewDropdownList?.backgroundColor = UIColor(named: "plate7")!
+        tblViewDropdownList?.separatorColor = UIColor.clear
+        tblViewDropdownList?.layer.borderWidth = 1.0
+        tblViewDropdownList?.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        tblViewDropdownList?.layer.cornerRadius = 0.0
+        tblViewDropdownList?.layer.masksToBounds = true
+        
+        self.view.addSubview(tblViewDropdownList!)
+        
+        arrMGlobalDropdownFeed = arrFeed
+        
+        UIView .animate(withDuration: 0.35, delay: 0.0, options: .curveEaseIn, animations: {
+            var frame = CGRect()
+            frame = (self.tblViewDropdownList?.frame)!
+            frame.size.height =  140//UIScreen.main.bounds.size.height/2.0-64
+            self.tblViewDropdownList?.frame = frame
+            //print(self.tblViewDropdownList?.frame as Any)
+        }, completion: nil)
+    }
+    func handleTap1()
+    {
+        isBoolDropdown = false
+        UIView .animate(withDuration: 0.35, delay: 0.0, options: .curveEaseIn, animations: {
+            var frame = CGRect()
+            frame = (self.tblViewDropdownList?.frame)!
+            frame.size.height = 0
+            self.tblViewDropdownList?.frame = frame
+        }, completion: { (nil) in
+            self.tblViewDropdownList?.removeFromSuperview()
+            self.tblViewDropdownList = nil
+        })
+    }
+    
+    
+    // MARK: - tableView delegate & datasource Method
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return arrMEMIRATESLIST.count
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        let headerView = UIView()
+        headerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
+    {
+        let footerView = UIView()
+        footerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+        footerView.backgroundColor = UIColor.clear
+        return footerView
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier:cellReuseIdentifier)
+        
+        cell.selectionStyle=UITableViewCell.SelectionStyle.none
+        cell.accessoryType = UITableViewCell.AccessoryType.none
+        cell.backgroundColor=UIColor.white
+        cell.clearsContextBeforeDrawing = true
+        cell.contentView.clearsContextBeforeDrawing = true
+        
+        let title1 = UILabel(frame: CGRect(x: 15, y: 0, width:  (tblViewDropdownList?.frame.size.width)! - 15, height: 40))
+        title1.textAlignment = .left
+        title1.textColor = UIColor.black
+        title1.backgroundColor = UIColor.clear
+        title1.font = UIFont.systemFont(ofSize: 14)
+        cell.contentView.addSubview(title1)
+      
+        let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
+        //let strcountry_id = String(format: "%@", dictemp.value(forKey: "country_id")as? String ?? "")
+        //let strregion_id = String(format: "%@", dictemp.value(forKey: "region_id")as? String ?? "")
+        let strregion_name = String(format: "%@", dictemp.value(forKey: "region_name")as? String ?? "")
+       
+        title1.text = strregion_name
+        
+        let lblSeparator = UILabel(frame: CGRect(x: 0, y: 39, width: tableView.frame.size.width, height: 1))
+        lblSeparator.backgroundColor = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1.0)
+        cell.contentView.addSubview(lblSeparator)
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
+        //let strcountry_id = String(format: "%@", dictemp.value(forKey: "country_id")as? String ?? "")
+        //let strregion_id = String(format: "%@", dictemp.value(forKey: "region_id")as? String ?? "")
+        let strregion_name = String(format: "%@", dictemp.value(forKey: "region_name")as? String ?? "")
+        
+        self.txtlocation.text = strregion_name
+        
+        handleTap1()
+    }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath)
+    {
+       
+    }
+    
+    
     //MARK: - press Current Location Method
     @IBAction func pressCurrentlocationmethod(_ sender: Any)
     {
@@ -322,9 +477,99 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
         self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
+    //MARK: - get Availble EMIRATES LIST API method
+    func getAvailbleEMIRATESLISTAPIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod89)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            if self.arrMEMIRATESLIST.count > 0{
+                                self.arrMEMIRATESLIST.removeAllObjects()
+                            }
+                            let arrm = json.value(forKey: "detail") as? NSArray ?? []
+                            self.arrMEMIRATESLIST = NSMutableArray(array: arrm)
+                            print("arrMEMIRATESLIST --->",self.arrMEMIRATESLIST)
+                            
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
     //MARK: - post add new address API Method
     func postAddNewAddressAPIMethod()
     {
+        print("strSelectedLATITUDE",self.strSelectedLATITUDE)
+        print("strSelectedLONGITUDE",self.strSelectedLONGITUDE)
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -338,11 +583,11 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
                           "lastname": self.txtlastname.text!,
                           "telephone": self.txtmobileno.text!,
                           "street": self.txtstreetaddress.text!,
-                          "region": self.txtcity.text!,
+                          "region": self.txtlocation.text!,
                           "city": self.txtcity.text!,
                           "countryid": "AE",
-                          "latitude": "",
-                          "longitude": "",
+                          "latitude": self.strSelectedLATITUDE,
+                          "longitude": self.strSelectedLONGITUDE,
                           "isdefaultaddress": strisdefaultaddress
                           ] as [String : Any]
         
@@ -363,7 +608,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -387,13 +632,13 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let uiAlert = UIAlertController(title: "", message: "Your address has been added succesfully." , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
@@ -404,7 +649,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
 
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -417,7 +662,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")

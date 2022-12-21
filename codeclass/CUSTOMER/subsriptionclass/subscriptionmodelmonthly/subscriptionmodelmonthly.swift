@@ -55,6 +55,8 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
+        self.fetchDataMONTHLYSubscriptionmodelTableAUTORENEW()
+        
         self.fetchDataMonthlymodelTable()
         
     }
@@ -75,7 +77,7 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         
         colmonthlycalendar.backgroundColor = .clear
         let layout = colmonthlycalendar.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/3.0 - 15, height: 120)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/3.0 - 15, height: 90)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colmonthlycalendar.register(UINib(nibName: "colcellsubmodelmonthly", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)
@@ -99,7 +101,17 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
     }
     
     //MARK: - press auto renew method
-    @IBAction func pressautorenew(_ sender: Any) {
+    @IBAction func pressautorenew(_ sender: Any)
+    {
+        if self.btnautorenew.isSelected == true
+        {
+            self.updateDataMONTHLYSubscriptionmodelTableAUTORENEW(strselectedautorenew: "0")
+            self.btnautorenew.isSelected = false
+        }
+        else{
+            self.updateDataMONTHLYSubscriptionmodelTableAUTORENEW(strselectedautorenew: "1")
+            self.btnautorenew.isSelected = true
+        }
     }
     
     //MARK: - checkinh Alert Days Minimum Selection
@@ -124,6 +136,8 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
     //MARK: - press Continue to Add Products Method
     @IBAction func pressContinuetoAddProducts(_ sender: Any)
     {
+        fetchselecteddatecountfromMonthlyModelTable()
+        
         if monthlydatecounter < 8
         {
             self.checkingAlertMinimumSelectionDate()
@@ -371,6 +385,7 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         if flttotalprice == 0.00
         {
             //no products
+            cell.lblname.backgroundColor = .clear
             cell.lblname.textColor = .black
             cell.lbltotalprice.textColor = UIColor(named: "orangecolor")!
             
@@ -390,18 +405,17 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         else if flttotalprice >= 15.00
         {
             //GREEN
+            cell.lblname.backgroundColor = .clear
+            cell.lblname.textColor = .black
+            cell.lbltotalprice.textColor = UIColor(named: "orangecolor")!
             
-            cell.lblname.backgroundColor = UIColor(named: "darkgreencolor")!
-            cell.lblname.textColor = .white
-            cell.lbltotalprice.textColor = .white
-            
-            cell.btnedit.isHidden = false
+            cell.btnedit.isHidden = true
 
             
-            cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
+            cell.viewcell.backgroundColor = UIColor.white
             cell.viewcell.layer.masksToBounds = false
             cell.viewcell.layer.cornerRadius = 6.0
-            cell.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+            cell.viewcell.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
             cell.viewcell.layer.borderWidth = 2.0
             cell.viewcell.layer.shadowColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0).cgColor
             cell.viewcell.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
@@ -411,16 +425,16 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         else if flttotalprice < 15.00
         {
             //RED
-            cell.lblname.backgroundColor = UIColor(named: "darkmostredcolor")!
+            cell.lblname.backgroundColor = .clear
             cell.lblname.textColor = .black
             cell.lbltotalprice.textColor = .black
             
-            cell.btnedit.isHidden = false
+            cell.btnedit.isHidden = true
             
-            cell.viewcell.backgroundColor = UIColor(named: "darkredcolor")!
+            cell.viewcell.backgroundColor = UIColor(named: "plate4")!
             cell.viewcell.layer.masksToBounds = false
             cell.viewcell.layer.cornerRadius = 6.0
-            cell.viewcell.layer.borderColor = UIColor(named: "darkredcolor")!.cgColor
+            cell.viewcell.layer.borderColor = UIColor(named: "darkmostredcolor")!.cgColor
             cell.viewcell.layer.borderWidth = 2.0
             cell.viewcell.layer.shadowColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0).cgColor
             cell.viewcell.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
@@ -449,7 +463,6 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         
         if strselected == "0"
         {
-            monthlydatecounter = monthlydatecounter + 1
             //Update date specific selection
             let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
@@ -486,7 +499,6 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         }
         else
         {
-            monthlydatecounter = monthlydatecounter - 1
             //Update date specific selection
             let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
@@ -564,26 +576,8 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         
         let appDel = UIApplication.shared.delegate as! AppDelegate
         
-        let dict = appDel.arrMDATEWISEPRODUCTPLANMONTHLY.object(at: selecteddateindex)as? NSMutableDictionary
-        let strdate = String(format: "%@", dict?.value(forKey: "date")as? String ?? "")
-        let strday = String(format: "%@", dict?.value(forKey: "day")as? String ?? "")
-        
-        let arrm = dict?.value(forKey: "items")as! NSMutableArray
-        
-        var intvalueTotal = 0
-        for x in 0 ..< arrm.count
-        {
-            let dict = arrm.object(at: x)as? NSMutableDictionary
-            let strunitprice = String(format: "%@", dict?.value(forKey: "price")as? String ?? "")
-            let intvalue = Int(strunitprice)
-            intvalueTotal = intvalueTotal + intvalue!
-            
-        }
-        let strtotalprice = String(format: "%d", intvalueTotal)
-        print("Sub-Total Price",strtotalprice)
-         
-        self.lbleditpopupDateDay.text = String(format: "%@ (%@)", strdate,strday)
-        self.lblsubtotaleditpopup.text = String(format: "AED %@", strtotalprice)
+        //self.lbleditpopupDateDay.text = String(format: "%@ (%@)", strdate,strday)
+        //self.lblsubtotaleditpopup.text = String(format: "AED %@", strtotalprice)
         
         self.viewpopupedititems.layer.cornerRadius = 6.0
         self.viewpopupedititems.layer.masksToBounds = true
@@ -627,10 +621,7 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        let appDel = UIApplication.shared.delegate as! AppDelegate
-        let dict = appDel.arrMDATEWISEPRODUCTPLANMONTHLY.object(at: tabveditpopupitems.tag)as? NSMutableDictionary
-        let arrm = dict?.value(forKey: "items")as! NSMutableArray
-        return arrm.count
+        return 1
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 94
@@ -667,19 +658,11 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         
         let appDel = UIApplication.shared.delegate as! AppDelegate
         
-        let dict = appDel.arrMDATEWISEPRODUCTPLANMONTHLY.object(at: tabveditpopupitems.tag)as? NSMutableDictionary
-        let arrm = dict?.value(forKey: "items")as! NSMutableArray
-        let dictm = arrm.object(at: indexPath.row)as! NSMutableDictionary
-        let strid = String(format: "%@", dictm.value(forKey: "id")as? String ?? "")
-        let strname = String(format: "%@", dictm.value(forKey: "name")as? String ?? "")
-        let strqty = String(format: "%@", dictm.value(forKey: "qty")as? String ?? "")
-        let strprice = String(format: "%@", dictm.value(forKey: "price")as? String ?? "")
+        //cell.lblname.text = strname
+        //cell.lblspec.text = "1.5 ltr"
+        //cell.lblunitprice.text = String(format: "AED %@", strprice)
         
-        cell.lblname.text = strname
-        cell.lblspec.text = "1.5 ltr"
-        cell.lblunitprice.text = String(format: "AED %@", strprice)
-        
-        cell.txtplusminus.text = strqty
+        //cell.txtplusminus.text = strqty
         
         cell.viewplusminus.layer.cornerRadius = 14.0
         cell.viewplusminus.layer.borderWidth = 1.0
@@ -719,6 +702,10 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
     //MARK: - Fetch Monthlymodel data Monthly exist or not
     func fetchDataMonthlymodelTable()
     {
+        if self.arrMDateBlock.count > 0 {
+            self.arrMDateBlock.removeAllObjects()
+        }
+        
         let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
@@ -792,5 +779,87 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         }
         print("self.arrMDateBlock",self.arrMDateBlock)
         self.colmonthlycalendar.reloadData()
+    }
+    
+    
+    //MARK: - Fetch SubscriptionmodelTable data Monthly AUTONENEW exist or not
+    func fetchDataMONTHLYSubscriptionmodelTableAUTORENEW()
+    {
+        let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let manageContent = appDelegate.persistentContainer.viewContext
+        let fetchData = NSFetchRequest<NSFetchRequestResult>(entityName: "Subscriptionmodel")
+        fetchData.predicate = NSPredicate(format: "userid == %@ && subscriptiontype == %@", strcustomerid,"Monthly")
+        do {
+            let result = try manageContent.fetch(fetchData)
+            print("result",result)
+            if result.count > 0
+            {
+                // result available
+                
+                for data in result as! [NSManagedObject]{
+                    
+                    let strautonewcode = data.value(forKeyPath: "isrenew") ?? ""
+                    print("strautonewcode", strautonewcode)
+
+                    if strautonewcode as! String == "0"
+                    {
+                        self.btnautorenew.isSelected = false
+                    }
+                    else{
+                        self.btnautorenew.isSelected = true
+                    }
+                }
+            }
+            else{
+                //result not available
+            }
+        }catch {
+            print("err")
+        }
+    }
+    //MARK: - Update SubscriptionmodelTable data Monthly AUTONENEW exist or not
+    func updateDataMONTHLYSubscriptionmodelTableAUTORENEW(strselectedautorenew:String)
+    {
+        let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let manageContent = appDelegate.persistentContainer.viewContext
+        let fetchData = NSFetchRequest<NSFetchRequestResult>(entityName: "Subscriptionmodel")
+        fetchData.predicate = NSPredicate(format: "userid == %@ && subscriptiontype == %@", strcustomerid,"Monthly")
+        do {
+            let result = try manageContent.fetch(fetchData)
+            print("result",result)
+            if result.count > 0
+            {
+                // result available
+                
+                for data in result as! [NSManagedObject]{
+                    
+                    data.setValue(strselectedautorenew, forKey: "isrenew")
+                }
+            }
+            else{
+                //result not available
+            }
+        }catch {
+            print("err")
+        }
+    }
+    
+    //MARK: - fetch monthly date counter method
+    func fetchselecteddatecountfromMonthlyModelTable()
+    {
+        monthlydatecounter = 0
+        for x in 0 ..< self.arrMDateBlock.count
+        {
+            let dict = self.arrMDateBlock.object(at: x)as? NSMutableDictionary
+            let strselected = String(format: "%@", dict?.value(forKey: "selected")as? String ?? "")
+            if strselected == "1"{
+                monthlydatecounter = monthlydatecounter + 1
+            }
+        }
+        print("monthlydatecounter",monthlydatecounter)
     }
 }

@@ -10,7 +10,17 @@ import ImageSlideshow
 import SDWebImage
 import Alamofire
 
-class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDataSource,ImageSlideshowDelegate
+import MapKit
+import CoreLocation
+
+import GoogleMaps
+import GooglePlaces
+import GoogleMapsCore
+import GoogleMapsUtils
+
+import Nominatim
+
+class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDataSource,ImageSlideshowDelegate,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,MKMapViewDelegate
 {
     
     @IBOutlet weak var viewoverall: UIView!
@@ -36,10 +46,48 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     @IBOutlet weak var viewpromobox3: UIView!
     
     
+    
+    //MARK: - POPUP SUBSCRIPTION BUY ONCE
+    @IBOutlet var viewpopupSubscribe: UIView!
+    @IBOutlet weak var imgvlogosubscribe: UIImageView!
+    @IBOutlet weak var viewlocationselect: UIView!
+    @IBOutlet weak var txtlocationselect: UITextField!
+    @IBOutlet weak var btnlocationselect: UIButton!
+    @IBOutlet weak var imgvlocationselect: UIImageView!
+    @IBOutlet weak var lblchoosesubscriptionplan: UILabel!
+    @IBOutlet weak var lblalertmessagelocationchecking: UILabel!
+    @IBOutlet weak var btnBuyoncepopup: UIButton!
+    @IBOutlet var viewpopupSubscribeDaily: UIView!
+    @IBOutlet weak var btnpopupSubscribeDaily: UIButton!
+    @IBOutlet var viewpopupSubscribeWeekly: UIView!
+    @IBOutlet weak var btnBpopupSubscribeWeekly: UIButton!
+    @IBOutlet var viewpopupSubscribeMothly: UIView!
+    @IBOutlet weak var btnpopupSubscribeMothly: UIButton!
+    @IBOutlet weak var lblgetyourdelivery: UILabel!
+    @IBOutlet weak var btncrossSubscribeBuyoncePopup: UIButton!
+    var viewPopupAddNewExistingBG123 = UIView()
+    
+    var isBoolDropdown = Bool()
+    let cellReuseIdentifier = "cell"
+    var tblViewDropdownList: UITableView? = UITableView()
+    var arrMGlobalDropdownFeed = NSMutableArray()
+    
+    
     var arrMbanner = NSMutableArray()
     var arrMcategory = NSMutableArray()
     var arrMtopdeals = NSMutableArray()
     
+    var arrMALLLOCATIONS = NSMutableArray()
+    
+    
+    var locationManager = CLLocationManager()
+    var strcurrentlat = ""
+    var strcurrentlong = ""
+    
+    
+    var arrmPolygonlist = NSMutableArray()
+    var arrmpolygonobject = NSMutableArray()
+    var boolcheck = false
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -51,6 +99,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         if subscribebyoncepopupshown == 0{
             //POPUP SHOW FIRST TIME
             print("subscribebyoncepopupshown",subscribebyoncepopupshown)
+            
+            
             self.createSubscribePopup()
         }
         else{
@@ -69,13 +119,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        let appDel = UIApplication.shared.delegate as! AppDelegate
-        print("appDel.arrMDATEWISEPRODUCTPLAN",appDel.arrMDATEWISEPRODUCTPLAN)
-        if appDel.strSelectedPLAN.count > 0 && appDel.arrMDATEWISEPRODUCTPLAN.count > 0
-        {
-            self.createOrderonPopup()
-            
-        }
+        setupRTLLTR()
         
         self.gethomepagebannermethod()
     }
@@ -92,20 +136,6 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     {
         super.viewDidLayoutSubviews()
 
-        DispatchQueue.main.async {
-            
-            let appDel = UIApplication.shared.delegate as! AppDelegate
-            print("appDel.arrMDATEWISEPRODUCTPLAN",appDel.arrMDATEWISEPRODUCTPLAN)
-            if appDel.strSelectedPLAN.count > 0 && appDel.arrMDATEWISEPRODUCTPLAN.count > 0
-            {
-                var contentRect = CGRect.zero
-                for view in self.scrolloverall.subviews {
-                   contentRect = contentRect.union(view.frame)
-                }
-                print("contentRect.size",contentRect.size)
-                self.scrolloverall.contentSize = CGSize(width: contentRect.size.width, height: contentRect.size.height + 155)
-            }
-        }
     }
     
     // MARK: - viewDidLoad method
@@ -119,7 +149,16 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let searchicon = UIImage(named: "search")
         let search = UIBarButtonItem(image: searchicon, style: .plain, target: self, action: #selector(pressSearch))
         search.tintColor = UIColor.black
-        self.navigationItem.leftBarButtonItem = search
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.navigationItem.leftBarButtonItem = search
+        }
+        else{
+            self.navigationItem.rightBarButtonItem = search
+        }
+        
         
         print("self.viewoverall.bounds.size.height",self.viewoverall.bounds.size.height)
         self.scrolloverall.contentSize = CGSize(width: self.viewoverall.bounds.size.width, height: self.viewoverall.bounds.size.height)
@@ -133,6 +172,47 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.createExploreTopDeals()
         
 
+        //--- Updating --- Location - Latitude - Longitude ----//
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        //self.locationManager.allowsBackgroundLocationUpdates = true
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        self.locationManager.distanceFilter = kCLDistanceFilterNone
+        self.locationManager.activityType = .otherNavigation
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.pausesLocationUpdatesAutomatically = false
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.startUpdatingLocation()
+        
+        self.addPolygonZoneArea()
+        self.createMultiPolygon()
+        
+    }
+    
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        lbltopdeals.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language34"))
+        btnviewalltopdeals.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language35")), for: .normal)
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            lbltopdeals.textAlignment = .left
+            
+            self.btnviewalltopdeals.frame = CGRect(x:self.viewthree.frame.size.width - self.btnviewalltopdeals.frame.size.width - 8, y: self.btnviewalltopdeals.frame.origin.y, width: self.btnviewalltopdeals.frame.size.width, height: self.btnviewalltopdeals.frame.size.height)
+        }
+        else{
+            lbltopdeals.textAlignment = .right
+            
+            self.btnviewalltopdeals.frame = CGRect(x:10, y: self.btnviewalltopdeals.frame.origin.y, width: self.btnviewalltopdeals.frame.size.width, height: self.btnviewalltopdeals.frame.size.height)
+            
+        }
+        
     }
     
     //MARK: - press Search method
@@ -201,7 +281,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let stackViewAppearance = UIStackView.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
         stackViewAppearance.spacing = 1
         
-        navigationItem.rightBarButtonItems = [rightBarButtomItem]
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            navigationItem.rightBarButtonItems = [rightBarButtomItem]
+        }
+        else{
+            navigationItem.leftBarButtonItems = [rightBarButtomItem]
+        }
+        
     }
     
     //MARK: - press Cartbag method
@@ -222,17 +310,243 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     }
     
     
-    //MARK: - POPUP SUBSCRIPTION BUY ONCE
-    @IBOutlet var viewpopupSubscribe: UIView!
-    @IBOutlet weak var imgvlogosubscribe: UIImageView!
-    @IBOutlet weak var lblchoosesubscriptionplan: UILabel!
-    @IBOutlet weak var btnBuyoncepopup: UIButton!
-    @IBOutlet var viewpopupSubscribeDaily: UIView!
-    @IBOutlet var viewpopupSubscribeWeekly: UIView!
-    @IBOutlet var viewpopupSubscribeMothly: UIView!
-    @IBOutlet weak var lblgetyourdelivery: UILabel!
-    var viewPopupAddNewExistingBG123 = UIView()
+    //MARK: - Polygon Zone Area Method
+    func addPolygonZoneArea()
+    {
+        let dict1 = NSMutableDictionary()
+        dict1.setValue("JLT Dubai", forKey: "name")
+        let arrm1 = NSMutableArray()
+        arrm1.add(String(format: "%@", "25.060434, 55.137123"))
+        arrm1.add(String(format: "%@", "25.069423, 55.146558"))
+        arrm1.add(String(format: "%@", "25.070085, 55.146663"))
+        arrm1.add(String(format: "%@", "25.072293, 55.144330"))
+        arrm1.add(String(format: "%@", "25.076550, 55.148299"))
+        arrm1.add(String(format: "%@", "25.075951, 55.149378"))
+        arrm1.add(String(format: "%@", "25.078505, 55.156899"))
+        arrm1.add(String(format: "%@", "25.081168, 55.154189"))
+        arrm1.add(String(format: "%@", "25.081480, 55.149907"))
+        arrm1.add(String(format: "%@", "25.076452, 55.143786"))
+        arrm1.add(String(format: "%@", "25.072730, 55.140333"))
+        arrm1.add(String(format: "%@", "25.068414, 55.136748"))
+        arrm1.add(String(format: "%@", "25.064652, 55.136311"))
+        arrm1.add(String(format: "%@", "25.060533, 55.137054"))
+        dict1.setValue(arrm1, forKey: "coordinates")
+        
+        let dict2 = NSMutableDictionary()
+        dict2.setValue("Dubai Internet City", forKey: "name")
+        let arrm2 = NSMutableArray()
+        arrm2.add(String(format: "%@", "25.089044, 55.152976"))
+        arrm2.add(String(format: "%@", "25.090310, 55.154730"))
+        arrm2.add(String(format: "%@", "25.088804, 55.156203"))
+        arrm2.add(String(format: "%@", "25.090896, 55.158728"))
+        arrm2.add(String(format: "%@", "25.092057, 55.159706"))
+        arrm2.add(String(format: "%@", "25.092333, 55.160226"))
+        arrm2.add(String(format: "%@", "25.097117, 55.165989"))
+        arrm2.add(String(format: "%@", "25.102277, 55.172210"))
+        arrm2.add(String(format: "%@", "25.103539, 55.171471"))
+        arrm2.add(String(format: "%@", "25.103927, 55.171719"))
+        arrm2.add(String(format: "%@", "25.102512, 55.170457"))
+        arrm2.add(String(format: "%@", "25.102154, 55.170484"))
+        arrm2.add(String(format: "%@", "25.099925, 55.167756"))
+        arrm2.add(String(format: "%@", "25.100210, 55.167142"))
+        arrm2.add(String(format: "%@", "25.100752, 55.167032"))
+        arrm2.add(String(format: "%@", "25.101764, 55.167378"))
+        arrm2.add(String(format: "%@", "25.102691, 55.167174"))
+        arrm2.add(String(format: "%@", "25.104602, 55.167332"))
+        arrm2.add(String(format: "%@", "25.104209, 55.168576"))
+        arrm2.add(String(format: "%@", "25.106007, 55.170437"))
+        arrm2.add(String(format: "%@", "25.106809, 55.169573"))
+        arrm2.add(String(format: "%@", "25.104688, 55.167153"))
+        arrm2.add(String(format: "%@", "25.104874, 55.165944"))
+        arrm2.add(String(format: "%@", "25.102765, 55.165609"))
+        arrm2.add(String(format: "%@", "25.102505, 55.164689"))
+        arrm2.add(String(format: "%@", "25.103144, 55.164247"))
+        arrm2.add(String(format: "%@", "25.102267, 55.162742"))
+        arrm2.add(String(format: "%@", "25.101575, 55.163578"))
+        arrm2.add(String(format: "%@", "25.100586, 55.162966"))
+        arrm2.add(String(format: "%@", "25.097416, 55.162147"))
+        arrm2.add(String(format: "%@", "25.096885, 55.161819"))
+        arrm2.add(String(format: "%@", "25.096255, 55.160881"))
+        arrm2.add(String(format: "%@", "25.096000, 55.159060"))
+        arrm2.add(String(format: "%@", "25.094896, 55.157238"))
+        arrm2.add(String(format: "%@", "25.094284, 55.156551"))
+        arrm2.add(String(format: "%@", "25.092515, 55.158430"))
+        arrm2.add(String(format: "%@", "25.091927, 55.157633"))
+        arrm2.add(String(format: "%@", "25.093538, 55.155932"))
+        arrm2.add(String(format: "%@", "25.093316, 55.155518"))
+        arrm2.add(String(format: "%@", "25.090705, 55.152697"))
+        arrm2.add(String(format: "%@", "25.089887, 55.151953"))
+        arrm2.add(String(format: "%@", "25.089429, 55.152449"))
+        arrm2.add(String(format: "%@", "25.089024, 55.152970"))
+        dict2.setValue(arrm2, forKey: "coordinates")
+        
+        
+        let dict3 = NSMutableDictionary()
+        dict3.setValue("Al Khawaneej", forKey: "name")
+        let arrm3 = NSMutableArray()
+        arrm3.add(String(format: "%@", "25.267297, 55.471900"))
+        arrm3.add(String(format: "%@", "25.253270, 55.511848"))
+        arrm3.add(String(format: "%@", "25.234973, 55.563339"))
+        arrm3.add(String(format: "%@", "25.212336, 55.552654"))
+        arrm3.add(String(format: "%@", "25.191936, 55.532475"))
+        arrm3.add(String(format: "%@", "25.193568, 55.526613"))
+        arrm3.add(String(format: "%@", "25.198362, 55.521766"))
+        arrm3.add(String(format: "%@", "25.212336, 55.508689"))
+        arrm3.add(String(format: "%@", "25.222844, 55.503526"))
+        arrm3.add(String(format: "%@", "25.226087, 55.482496"))
+        arrm3.add(String(format: "%@", "25.228755, 55.464619"))
+        arrm3.add(String(format: "%@", "25.249593, 55.468673"))
+        arrm3.add(String(format: "%@", "25.255094, 55.468673"))
+        arrm3.add(String(format: "%@", "25.267283, 55.471931"))
+        dict3.setValue(arrm3, forKey: "coordinates")
+        
+        arrmPolygonlist.add(dict1)
+        arrmPolygonlist.add(dict2)
+        arrmPolygonlist.add(dict3)
+        
+        print("arrmPolygonlist",arrmPolygonlist)
+    }
+    func createMultiPolygon()
+    {
+        for x in 0 ..< arrmPolygonlist.count
+        {
+            let dictemp = arrmPolygonlist.object(at: x)as? NSMutableDictionary
+            let strname = String(format: "%@", dictemp?.value(forKey: "name")as? String ?? "")
+            print("strname",strname)
+            let arrm = dictemp?.value(forKey: "coordinates")as? NSMutableArray
+            
+            var polygon = MKPolygon()
+            var coordinateArray: [CLLocationCoordinate2D] = []
+            
+            for xx in 0 ..< arrm!.count
+            {
+                let strcoordinate = String(format: "%@", arrm?.object(at: xx)as? String ?? "")
+                
+                let items = strcoordinate.components(separatedBy: ", ")
+                let str1 = items[0]
+                let str2 = items[1]
+                
+                let point = CLLocationCoordinate2DMake(Double(str1)!,Double(str2)!)
+                coordinateArray.append(point)
+            }
+            polygon = MKPolygon(coordinates:&coordinateArray, count:arrm!.count)
+            self.arrmpolygonobject.add(polygon)
+        }
+    }
+    func checkpolygonPointMultiple(lat:Double,long:Double)
+    {
+        for xx in 0 ..< arrmpolygonobject.count
+        {
+            let polyobj = arrmpolygonobject.object(at: xx)as? MKPolygon
+            let polygonRenderer = MKPolygonRenderer(polygon: polyobj!)
+            let mapPoint: MKMapPoint = MKMapPoint(CLLocationCoordinate2D(latitude: lat, longitude: long))
+            let polygonViewPoint: CGPoint = polygonRenderer.point(for: mapPoint)
+            
+            if polygonRenderer.path.contains(polygonViewPoint)
+            {
+                print("Your location was inside your polygon1.")
+                boolcheck = true
+            }else{
+                print("Your location was outside your polygon1.")
+            }
+        }
+    }
+    func alertViewFunction()
+    {
+        //ALERT VIEW CHECKING
+        if boolcheck == true{
+            
+            DispatchQueue.main.async {
+                
+                /*let alert = UIAlertController(title: "Alert", message: "You are inside our delivery area!", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                    self.boolcheck = false
+                }
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)*/
+                
+                self.lblalertmessagelocationchecking.backgroundColor = .blue
+                self.lblalertmessagelocationchecking.text = "You are inside our delivery area!"
+                self.lblalertmessagelocationchecking.textColor = .white
+                self.lblalertmessagelocationchecking.layer.cornerRadius = 10.0
+                self.lblalertmessagelocationchecking.layer.masksToBounds = true
+                self.boolcheck = false
+                
+                self.viewpopupSubscribeDaily.layer.borderWidth = 1.0
+                self.viewpopupSubscribeDaily.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+                self.viewpopupSubscribeDaily.layer.cornerRadius = 8.0
+                self.viewpopupSubscribeDaily.layer.masksToBounds = true
+                
+                self.viewpopupSubscribeWeekly.layer.borderWidth = 1.0
+                self.viewpopupSubscribeWeekly.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+                self.viewpopupSubscribeWeekly.layer.cornerRadius = 8.0
+                self.viewpopupSubscribeWeekly.layer.masksToBounds = true
+                
+                self.viewpopupSubscribeMothly.layer.borderWidth = 1.0
+                self.viewpopupSubscribeMothly.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+                self.viewpopupSubscribeMothly.layer.cornerRadius = 8.0
+                self.viewpopupSubscribeMothly.layer.masksToBounds = true
+                
+                self.btnBuyoncepopup.layer.borderWidth = 1.0
+                self.btnBuyoncepopup.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+                self.btnBuyoncepopup.layer.cornerRadius = 20.0
+                self.btnBuyoncepopup.layer.masksToBounds = true
+                
+                self.btnpopupSubscribeDaily.isUserInteractionEnabled = true
+                self.btnBpopupSubscribeWeekly.isUserInteractionEnabled = true
+                self.btnpopupSubscribeMothly.isUserInteractionEnabled = true
+                self.btnBuyoncepopup.isUserInteractionEnabled = true
+                
+            }
+        }
+        else
+        {
+            DispatchQueue.main.async {
+                
+                /*let alert = UIAlertController(title: "Alert", message: "We do not deliver to this area!", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                    self.boolcheck = false
+                }
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)*/
+                
+                self.lblalertmessagelocationchecking.backgroundColor = .red
+                self.lblalertmessagelocationchecking.text = "We do not deliver to this area!"
+                self.lblalertmessagelocationchecking.textColor = .white
+                self.lblalertmessagelocationchecking.layer.cornerRadius = 10.0
+                self.lblalertmessagelocationchecking.layer.masksToBounds = true
+                self.boolcheck = false
+                
+                self.viewpopupSubscribeDaily.layer.borderWidth = 1.0
+                self.viewpopupSubscribeDaily.layer.borderColor = UIColor(named: "darkmostredcolor")!.cgColor
+                self.viewpopupSubscribeDaily.layer.cornerRadius = 8.0
+                self.viewpopupSubscribeDaily.layer.masksToBounds = true
+                
+                self.viewpopupSubscribeWeekly.layer.borderWidth = 1.0
+                self.viewpopupSubscribeWeekly.layer.borderColor = UIColor(named: "darkmostredcolor")!.cgColor
+                self.viewpopupSubscribeWeekly.layer.cornerRadius = 8.0
+                self.viewpopupSubscribeWeekly.layer.masksToBounds = true
+                
+                self.viewpopupSubscribeMothly.layer.borderWidth = 1.0
+                self.viewpopupSubscribeMothly.layer.borderColor = UIColor(named: "darkmostredcolor")!.cgColor
+                self.viewpopupSubscribeMothly.layer.cornerRadius = 8.0
+                self.viewpopupSubscribeMothly.layer.masksToBounds = true
+                
+                self.btnBuyoncepopup.layer.borderWidth = 1.0
+                self.btnBuyoncepopup.layer.borderColor = UIColor(named: "darkmostredcolor")!.cgColor
+                self.btnBuyoncepopup.layer.cornerRadius = 20.0
+                self.btnBuyoncepopup.layer.masksToBounds = true
+                
+                self.btnpopupSubscribeDaily.isUserInteractionEnabled = false
+                self.btnBpopupSubscribeWeekly.isUserInteractionEnabled = false
+                self.btnpopupSubscribeMothly.isUserInteractionEnabled = false
+                self.btnBuyoncepopup.isUserInteractionEnabled = false
+            }
+        }
+    }
     
+    
+    //MARK: - Create Subscription Buy Once POPUP FIRST TIME
     func createSubscribePopup()
     {
         let height1 = Float(UIApplication.shared.statusBarFrame.height) as Float
@@ -242,6 +556,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         self.viewpopupSubscribe.layer.cornerRadius = 6.0
         self.viewpopupSubscribe.layer.masksToBounds = true
+        
+        viewlocationselect.layer.cornerRadius = 4.0
+        viewlocationselect.layer.borderWidth = 1.0
+        viewlocationselect.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        viewlocationselect.layer.masksToBounds = true
         
         viewpopupSubscribeDaily.layer.borderWidth = 1.0
         viewpopupSubscribeDaily.layer.borderColor = UIColor(named: "greencolor")!.cgColor
@@ -258,11 +577,14 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         viewpopupSubscribeMothly.layer.cornerRadius = 8.0
         viewpopupSubscribeMothly.layer.masksToBounds = true
         
-        
         btnBuyoncepopup.layer.borderWidth = 1.0
         btnBuyoncepopup.layer.borderColor = UIColor(named: "themecolor")!.cgColor
         btnBuyoncepopup.layer.cornerRadius = 20.0
         btnBuyoncepopup.layer.masksToBounds = true
+        
+        btncrossSubscribeBuyoncePopup.isHidden = true
+        
+        self.txtlocationselect.isUserInteractionEnabled = false
         
         viewPopupAddNewExistingBG123 = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height))
         viewPopupAddNewExistingBG123.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
@@ -270,9 +592,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         viewPopupAddNewExistingBG123.addSubview(self.viewpopupSubscribe)
         self.viewpopupSubscribe.center = frameSize
         self.view.addSubview(viewPopupAddNewExistingBG123)
+        
+        //self.getAvailbleLOCATIONSLISTAPIMethod()
     }
-  
-    //MARK: - press Cross Subscribe Popup method
     @IBAction func presscrosssubscribe(_ sender: Any)
     {
         UserDefaults.standard.set(1, forKey: "subscribebyoncepopupshown")
@@ -280,17 +602,35 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.viewpopupSubscribe.removeFromSuperview()
         viewPopupAddNewExistingBG123.removeFromSuperview()
         
-        self.tabBarController?.selectedIndex = 0
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.tabBarController?.selectedIndex = 0
+        }
+        else
+        {
+            self.tabBarController?.selectedIndex = 3
+        }
+        
     }
-    //MARK: - press Buyonce Subscribe Popup method
     @IBAction func pressBuyoncepopup(_ sender: Any)
     {
         UserDefaults.standard.set(1, forKey: "subscribebyoncepopupshown")
         UserDefaults.standard.synchronize()
         self.viewpopupSubscribe.removeFromSuperview()
         viewPopupAddNewExistingBG123.removeFromSuperview()
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.tabBarController?.selectedIndex = 2
+        }
+        else
+        {
+            self.tabBarController?.selectedIndex = 1
+        }
+        
     }
-    //MARK: - press Subscription Subscribe Popup DAILY / WEEKLY / MONTHLY method
     @IBAction func pressSubscriptionpopupDaily(_ sender: Any)
     {
         UserDefaults.standard.set(1, forKey: "subscribebyoncepopupshown")
@@ -341,53 +681,251 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         appDel.strSelectedPLAN = "Monthly"
        
     }
-    
-    
-    //MARK: - POPUP ORDER ON METHOD
-    @IBOutlet var viewpopupOrderon: UIView!
-    @IBOutlet var viewpopuplblOrderon: UILabel!
-    @IBOutlet var viewpopupcolorderon: UICollectionView!
-    var reuseIdentifier3 = "cellcolordernow"
-    var viewPopupAddNewExistingBG1234 = UIView()
-    
-    func createOrderonPopup()
+    @IBAction func presslocationselect(_ sender: Any)
     {
-        if self.viewpopupOrderon != nil{
-            self.viewpopupOrderon.removeFromSuperview()
-            viewPopupAddNewExistingBG1234.removeFromSuperview()
+        //CLICK TO FETCH CURRENT LOCATION
+        self.locationManager.startUpdatingLocation()
+    }
+    
+    
+    //MARK: - CLLocationManager did Update location changes delegate method
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    {
+         print("Current Location Updating...")
+        
+         var latdouble = Double()
+         var longdouble = Double()
+         latdouble = (manager.location?.coordinate.latitude)!
+         longdouble = (manager.location?.coordinate.longitude)!
+        
+        self.strcurrentlat = String(format: "%0.10f", latdouble)
+        self.strcurrentlong = String(format: "%0.10f", longdouble)
+        print("self.strcurrentlat",self.strcurrentlat)
+        print("self.strcurrentlong",self.strcurrentlong)
+        
+        //GET ADDRESS STRING FROM CURRENT LATITUDE & LONGITUDE
+        self.getAddressFromLatLong(latitude: latdouble, longitude: longdouble)
+        
+        //CHCEKING WITHIN MULTIPLE POLYGON ZONE AREA
+        self.checkpolygonPointMultiple(lat: Double(self.strcurrentlat)!, long: Double(self.strcurrentlong)!)
+        self.alertViewFunction()
+
+    }
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse:
+            manager.startUpdatingLocation()
+            break
+        case .authorizedAlways:
+            manager.startUpdatingLocation()
+            break
+        case .denied:
+            //handle denied
+            break
+        case .notDetermined:
+             manager.requestWhenInUseAuthorization()
+           break
+        default:
+            break
         }
-        
-        let heightTabbar = self.tabBarController?.tabBar.frame.height ?? 49.0
-        print("heightTabbar",heightTabbar)
-        
-        self.viewpopupOrderon.layer.cornerRadius = 0.0
-        self.viewpopupOrderon.layer.masksToBounds = true
-        
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: viewpopupcolorderon.frame.size.width / 3 - 10, height: 100)
-        layout.minimumInteritemSpacing = 10
-        layout.minimumLineSpacing = 10
-        viewpopupcolorderon.collectionViewLayout = layout
-        viewpopupcolorderon.register(UINib(nibName: "cellcolordernow", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier3)
-        viewpopupcolorderon.showsHorizontalScrollIndicator = false
-        viewpopupcolorderon.showsVerticalScrollIndicator=false
-        viewpopupcolorderon.backgroundColor = .clear
-        
-        viewPopupAddNewExistingBG1234 = UIView(frame: CGRect(x: 0, y: self.viewoverall.frame.maxY - 135, width: self.view.frame.size.width, height:self.viewpopupOrderon.frame.size.height))
-        viewPopupAddNewExistingBG1234.backgroundColor = .yellow
-        self.viewpopupOrderon.frame = CGRect(x: 0, y: 0, width: viewPopupAddNewExistingBG1234.frame.size.width, height: viewPopupAddNewExistingBG1234.frame.size.height)
-        
-        viewPopupAddNewExistingBG1234.addSubview(self.viewpopupOrderon)
-        self.view.addSubview(viewPopupAddNewExistingBG1234)
     }
-    //MARK: - press Cross OrderOn Popup method
-    @IBAction func presscrossorderon(_ sender: Any)
+    
+    //MARK: - CLLocationManager Authorization Delegate method
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {
-        self.viewpopupOrderon.removeFromSuperview()
-        viewPopupAddNewExistingBG1234.removeFromSuperview()
+        if (status == CLAuthorizationStatus.authorizedAlways)
+        {
+            print("authorizedAlways")
+            manager.startUpdatingLocation()
+        }
+        else if (status == CLAuthorizationStatus.authorizedWhenInUse)
+        {
+            print("authorizedWhenInUse")
+            manager.startUpdatingLocation()
+        }
+        else
+        {
+            manager.requestWhenInUseAuthorization()
+            print("denied")
+        }
     }
+    func locationManager(_ manager: CLLocationManager,didDetermineState state: CLRegionState,for region: CLRegion)
+    {
+        if state == CLRegionState.inside {
+            print("inside")
+        }
+        else if state == CLRegionState.outside {
+            print("outside")
+        }
+        else if state == CLRegionState.unknown {
+            print("unknown")
+        }
+    }
+    
+    // MARK: - Textfield Delegate Method
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        if textField.isEqual(txtlocationselect)
+        {
+            txtlocationselect.resignFirstResponder()
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField){
+    }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
+    {
+        if textField.isEqual(txtlocationselect)
+        {
+            self.view.endEditing(true)
+            if isBoolDropdown == true {
+                handleTap1()
+            }else{
+                //self.popupDropdown(arrFeed: arrMALLLOCATIONS, txtfld: txtlocationselect, tagTable: 100)
+            }
+            return false
+        }
+        return true
+    }
+    func textFieldShouldClear(_ textField: UITextField) -> Bool{
+        return true;
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool{
+        return true;
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
+        return true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        textField.resignFirstResponder();
+        return true;
+    }
+    
+    // MARK: - Location List dropdown Method
+    func popupDropdown(arrFeed:NSMutableArray,txtfld:UITextField, tagTable:Int)
+    {
+        let point = (txtfld.superview?.convert(txtfld.frame.origin, to: self.view))! as CGPoint
+        print(point.y)
+        
+        isBoolDropdown = true
+        tblViewDropdownList = UITableView(frame: CGRect(x: self.viewlocationselect.frame.origin.x, y: point.y + self.viewlocationselect.frame.size.height, width: self.viewlocationselect.frame.size.width, height: 0))
+        tblViewDropdownList?.delegate = self
+        tblViewDropdownList?.dataSource = self
+        tblViewDropdownList?.tag = tagTable
+        tblViewDropdownList?.backgroundView = nil
+        tblViewDropdownList?.backgroundColor = UIColor(named: "plate7")!
+        tblViewDropdownList?.separatorColor = UIColor.clear
+        tblViewDropdownList?.layer.borderWidth = 1.0
+        tblViewDropdownList?.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        tblViewDropdownList?.layer.cornerRadius = 0.0
+        tblViewDropdownList?.layer.masksToBounds = true
+        
+        self.view.addSubview(tblViewDropdownList!)
+        
+        arrMGlobalDropdownFeed = arrFeed
+        
+        UIView .animate(withDuration: 0.35, delay: 0.0, options: .curveEaseIn, animations: {
+            var frame = CGRect()
+            frame = (self.tblViewDropdownList?.frame)!
+            frame.size.height =  140//UIScreen.main.bounds.size.height/2.0-64
+            self.tblViewDropdownList?.frame = frame
+            //print(self.tblViewDropdownList?.frame as Any)
+        }, completion: nil)
+    }
+    func handleTap1()
+    {
+        isBoolDropdown = false
+        UIView .animate(withDuration: 0.35, delay: 0.0, options: .curveEaseIn, animations: {
+            var frame = CGRect()
+            frame = (self.tblViewDropdownList?.frame)!
+            frame.size.height = 0
+            self.tblViewDropdownList?.frame = frame
+        }, completion: { (nil) in
+            self.tblViewDropdownList?.removeFromSuperview()
+            self.tblViewDropdownList = nil
+        })
+    }
+    
+    
+    // MARK: - tableView delegate & datasource Method
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return arrMGlobalDropdownFeed.count
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 40.0
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
+    {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        let headerView = UIView()
+        headerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
+    {
+        let footerView = UIView()
+        footerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+        footerView.backgroundColor = UIColor.clear
+        return footerView
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier:cellReuseIdentifier)
+        
+        cell.selectionStyle=UITableViewCell.SelectionStyle.none
+        cell.accessoryType = UITableViewCell.AccessoryType.none
+        cell.backgroundColor=UIColor.white
+        cell.clearsContextBeforeDrawing = true
+        cell.contentView.clearsContextBeforeDrawing = true
+        
+        let title1 = UILabel(frame: CGRect(x: 15, y: 0, width:  (tblViewDropdownList?.frame.size.width)! - 15, height: 40))
+        title1.textAlignment = .left
+        title1.textColor = UIColor.black
+        title1.backgroundColor = UIColor.clear
+        title1.font = UIFont.systemFont(ofSize: 14)
+        cell.contentView.addSubview(title1)
+      
+        let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
+        //let strvalue = String(format: "%@", dictemp.value(forKey: "value")as! CVarArg)
+        let strlabel = String(format: "%@", dictemp.value(forKey: "label")as? String ?? "")
+       
+        title1.text = strlabel
+        
+        let lblSeparator = UILabel(frame: CGRect(x: 0, y: 39, width: tableView.frame.size.width, height: 1))
+        lblSeparator.backgroundColor = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1.0)
+        cell.contentView.addSubview(lblSeparator)
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
+        let strvalue = String(format: "%@", dictemp.value(forKey: "value")as! CVarArg)
+        let strlabel = String(format: "%@", dictemp.value(forKey: "label")as? String ?? "")
+        
+        self.txtlocationselect.tag = Int(strvalue)!
+        self.txtlocationselect.text = strlabel
+        
+        UserDefaults.standard.set(strlabel, forKey: "loggedinusersavedlocationname")
+        UserDefaults.standard.set(strvalue, forKey: "loggedinusersavedlocationid")
+        UserDefaults.standard.synchronize()
+        handleTap1()
+    }
+    
+    
     
     // MARK: - create Banner Gallery method
     @objc func createBannerGallery(arrimages:NSMutableArray)
@@ -453,7 +991,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: colcategory.frame.size.width / 3, height: 150)
+        layout.itemSize = CGSize(width: colcategory.frame.size.width / 3, height: 145)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         colcategory.collectionViewLayout = layout
@@ -474,7 +1012,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: coltopdeals.frame.size.width / 2.3, height: 316)
+        layout.itemSize = CGSize(width: coltopdeals.frame.size.width / 2.3, height: 275)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         coltopdeals.collectionViewLayout = layout
@@ -490,11 +1028,6 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         if collectionView ==  colcategory
         {
             return arrMcategory.count
-        }
-        else if collectionView == viewpopupcolorderon
-        {
-            let appDel = UIApplication.shared.delegate as! AppDelegate
-            return appDel.arrMDATEWISEPRODUCTPLAN.count
         }
         print("arrMtopdeals.count",arrMtopdeals.count)
         return arrMtopdeals.count
@@ -524,25 +1057,25 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             cellA.viewcell.layer.masksToBounds = true
             
             
-            if strtext.contains("Dairy"){
+            if strtext.containsIgnoreCase("Dairy"){
                 cellA.viewtop.backgroundColor = UIColor(named: "plate1")!
                 cellA.imgvbg.isHidden = true
                 //cellA.imgv.image = UIImage(named: "cathome1.png")
                 cellA.imgv.imageFromURL(urlString: strFinalurl)
             }
-            else if strtext.contains("Juice"){
+            else if strtext.containsIgnoreCase("Juice"){
                 cellA.viewtop.backgroundColor = UIColor(named: "plate2")!
                 cellA.imgvbg.isHidden = true
                 //cellA.imgv.image = UIImage(named: "cathome2.png")
                 cellA.imgv.imageFromURL(urlString: strFinalurl)
             }
-            else if strtext.contains("Bakery"){
+            else if strtext.containsIgnoreCase("Bakery"){
                 cellA.viewtop.backgroundColor = UIColor(named: "plate3")!
                 cellA.imgvbg.isHidden = true
                 //cellA.imgv.image = UIImage(named: "cathome3.png")
                 cellA.imgv.imageFromURL(urlString: strFinalurl)
             }
-            else if strtext.contains("Meat & Poultry"){
+            else if strtext.containsIgnoreCase("Meat"){
                 cellA.viewtop.backgroundColor = UIColor(named: "plate4")!
                 cellA.imgvbg.isHidden = true
                 //cellA.imgv.image = UIImage(named: "cathome4.png")
@@ -550,13 +1083,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             }
             else
             {
-                cellA.viewtop.backgroundColor = .white
-                cellA.viewtop.layer.cornerRadius = 8
-                cellA.viewtop.layer.borderWidth = 1.0
-                cellA.viewtop.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
-                cellA.viewtop.layer.masksToBounds = true
-                
-                cellA.imgvbg.isHidden = false
+                cellA.viewtop.backgroundColor = UIColor(named: "plate7")!
+                cellA.imgvbg.isHidden = true
+
                 cellA.imgv.imageFromURL(urlString: strFinalurl)
             }
             
@@ -567,118 +1096,6 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             cellA.viewtop.layer.cornerRadius = 6.0
             cellA.viewtop.layer.masksToBounds = true
             
-            
-            // Set up cell
-            return cellA
-        }
-        else if collectionView == viewpopupcolorderon
-        {
-            let appDel = UIApplication.shared.delegate as! AppDelegate
-            
-            let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier3, for: indexPath as IndexPath) as! cellcolordernow
-            cellA.contentView.backgroundColor = .clear
-            cellA.contentView.layer.borderWidth = 1.0
-            cellA.contentView.layer.cornerRadius = 0.0
-            cellA.contentView.layer.borderColor = UIColor.clear.cgColor
-            cellA.contentView.layer.masksToBounds = true
-            
-            cellA.viewcell.layer.cornerRadius = 4.0
-            cellA.viewcell.layer.borderWidth = 1.0
-            cellA.viewcell.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
-            cellA.viewcell.layer.masksToBounds = true
-            
-            let dict = appDel.arrMDATEWISEPRODUCTPLAN.object(at: indexPath.row)as? NSMutableDictionary
-            let strdate = String(format: "%@", dict?.value(forKey: "date")as? String ?? "")
-            let strday = String(format: "%@", dict?.value(forKey: "day")as? String ?? "")
-            
-            let arrm = dict?.value(forKey: "items")as! NSMutableArray
-            var intvalueTotal = 0
-            for x in 0 ..< arrm.count
-            {
-                let dict = arrm.object(at: x)as? NSMutableDictionary
-                let strunitprice = String(format: "%@", dict?.value(forKey: "price")as? String ?? "")
-                let strunitqty = String(format: "%@", dict?.value(forKey: "qty")as! CVarArg)
-
-                var intvalue = Float()
-                intvalue = Float(strunitqty)! * Float(strunitprice)!
-                intvalueTotal = intvalueTotal + Int(intvalue)
-                
-            }
-            let strtotalprice = String(format: "%d", intvalueTotal)
-            
-            cellA.lbldate.text = strdate
-            cellA.lblday.text = strday
-            
-            if strtotalprice == "0"{
-                cellA.lbltotalprice.textColor = UIColor(named: "orangecolor")!
-                cellA.lbltotalprice.text = "+ Add More"
-            }
-            else{
-                cellA.lbltotalprice.textColor = UIColor.darkGray
-                cellA.lbltotalprice.text = String(format: "AED %@", strtotalprice)
-            }
-            
-            //STATUS CHECKING WITH TOTAL PRICE FOR THAT DATE
-            if intvalueTotal == 0{
-                //GRAY
-                
-                cellA.lblseparator.backgroundColor = UIColor(named: "darkredcolor")!
-                
-                cellA.lbldate.backgroundColor = .clear
-                cellA.lblday.backgroundColor = .clear
-                cellA.lbltotalprice.backgroundColor = .clear
-                
-                cellA.lbldate.textColor = .black
-                cellA.lblday.textColor = .black
-                cellA.lbltotalprice.textColor = .black
-                
-                cellA.viewcell.backgroundColor = .white
-                cellA.viewcell.layer.cornerRadius = 4.0
-                cellA.viewcell.layer.borderWidth = 1.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "darkredcolor")!.cgColor
-                cellA.viewcell.layer.masksToBounds = true
-            }
-            else if intvalueTotal >= 15{
-                
-                //GREEN
-                cellA.lblseparator.backgroundColor = .white
-                
-                cellA.lbldate.backgroundColor = .clear
-                cellA.lblday.backgroundColor = .clear
-                cellA.lbltotalprice.backgroundColor = .clear
-                
-                cellA.lbldate.textColor = .white
-                cellA.lblday.textColor = .white
-                cellA.lbltotalprice.textColor = .white
-                
-                cellA.viewcell.backgroundColor = UIColor(named: "greencolor")!
-                cellA.viewcell.layer.cornerRadius = 4.0
-                cellA.viewcell.layer.borderWidth = 1.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
-                cellA.viewcell.layer.masksToBounds = true
-                
-            }
-            else if intvalueTotal < 15{
-                
-                //RED
-                
-                cellA.lblseparator.backgroundColor = .white
-                
-                cellA.lbldate.backgroundColor = .clear
-                cellA.lblday.backgroundColor = .clear
-                cellA.lbltotalprice.backgroundColor = .clear
-                
-                cellA.lbldate.textColor = .white
-                cellA.lblday.textColor = .white
-                cellA.lbltotalprice.textColor = .white
-                
-                cellA.viewcell.backgroundColor = UIColor(named: "darkredcolor")!
-                cellA.viewcell.layer.cornerRadius = 4.0
-                cellA.viewcell.layer.borderWidth = 1.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "darkredcolor")!.cgColor
-                cellA.viewcell.layer.masksToBounds = true
-                
-            }
             
             // Set up cell
             return cellA
@@ -699,13 +1116,13 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
        
         let dict = arrMtopdeals.object(at: indexPath.row) as! NSDictionary
         
-        let strproductid = String(format: "%@", dict.value(forKey: "productid") as! CVarArg)
+        //let strproductid = String(format: "%@", dict.value(forKey: "productid") as! CVarArg)
         let strname = String(format: "%@", dict.value(forKey: "name") as? String ?? "")
-        let strsku = String(format: "%@", dict.value(forKey: "sku") as? String ?? "")
+        //let strsku = String(format: "%@", dict.value(forKey: "sku") as? String ?? "")
         let strprice = String(format: "%@", dict.value(forKey: "price") as? String ?? "")
         let strsize = String(format: "%@", dict.value(forKey: "size") as? String ?? "")
         let strbrand = String(format: "%@", dict.value(forKey: "brand") as? String ?? "")
-        let strstatus = String(format: "%@", dict.value(forKey: "status") as? String ?? "")
+        //let strstatus = String(format: "%@", dict.value(forKey: "status") as? String ?? "")
         
         
         let arrmedia = dict.value(forKey: "media")as? NSArray ?? []
@@ -723,18 +1140,14 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let fltprice = Float(strprice)
         cellA.lblprice.text = String(format: "%.2f", fltprice!)
         
-        cellA.btnaddonce.backgroundColor = .white
-        cellA.btnaddonce.setTitle("ADD TO CART", for: .normal)
-        cellA.btnaddonce.setTitleColor(UIColor(named: "themecolor")!, for: .normal)
-        cellA.btnaddonce.titleLabel?.font = UIFont (name: "NunitoSans-Bold", size: 16)
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        cellA.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language47")), for: .normal)
         
-        cellA.btnaddonce.isHidden = false
-        cellA.btnaddtoall.isHidden = true
-        cellA.viewplusminus.isHidden = true
-        cellA.viewplusminusATA.isHidden = true
+        cellA.btnaddonce.layer.borderWidth = 1.0
+        cellA.btnaddonce.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+        cellA.btnaddonce.layer.cornerRadius = 16.0
+        cellA.btnaddonce.layer.masksToBounds = true
         
-        cellA.btnaddonce.frame = CGRect(x: cellA.btnaddonce.frame.origin.x, y: cellA.btnaddonce.frame.origin.y + 10, width: cellA.btnaddonce.frame.size.width, height: cellA.btnaddonce.frame.size.height)
-
         cellA.btnaddonce.tag = indexPath.row
         cellA.btnaddonce.addTarget(self, action: #selector(pressaddtocarttopdeals), for: .touchUpInside)
         
@@ -749,20 +1162,12 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     {
         if collectionView ==  colcategory
         {
-            return CGSize(width: colcategory.frame.size.width / 3, height: 150)
-        }
-        else if collectionView == viewpopupcolorderon
-        {
-            return CGSize(width: colcategory.frame.size.width / 3 - 10, height: 100)
+            return CGSize(width: colcategory.frame.size.width / 3, height: 145)
         }
         return CGSize(width: coltopdeals.frame.size.width / 2.3 , height: 316)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
     {
-        if collectionView == viewpopupcolorderon
-        {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        }
         return UIEdgeInsets(top: 0, left: 5, bottom: 10, right: 5)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
@@ -787,10 +1192,6 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 ctrl.strFromCategoryNAME = strtext
                 self.navigationController?.pushViewController(ctrl, animated: true)
             }
-        }
-        else if collectionView == viewpopupcolorderon
-        {
-            
         }
         else if collectionView == self.coltopdeals
         {
@@ -864,13 +1265,13 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                      let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     //print("strstatus",strstatus)
-                     //print("strsuccess",strsuccess)
-                     //print("strmessage",strmessage)
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let arrMGallery = json.value(forKey: "bannerImage") as? NSArray ?? []
                             self.arrMbanner = NSMutableArray(array: arrMGallery)
@@ -880,7 +1281,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -937,7 +1338,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     self.btnviewalltopdeals.isHidden = true
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -963,13 +1364,13 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMcategory.count > 0 {
                                 self.arrMcategory.removeAllObjects()
@@ -983,7 +1384,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         else{
                             
                             self.btnviewalltopdeals.isHidden = true
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -999,7 +1400,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1049,7 +1450,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1074,13 +1475,13 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let arrMtopdelas = dictemp.value(forKey: "productdetails") as? NSArray ?? []
                             self.arrMtopdeals = NSMutableArray(array: arrMtopdelas)
@@ -1091,7 +1492,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             }
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -1106,7 +1507,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1157,7 +1558,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1181,15 +1582,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_addtocart") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -1198,7 +1599,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             }))
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -1211,7 +1612,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1255,7 +1656,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1279,15 +1680,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
-                            if let total_quantity = json["total_quantity"]
+                            if json["total_quantity"] != nil
                             {
                                 print("found!")
                                 
@@ -1309,7 +1710,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             }
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -1322,7 +1723,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1334,6 +1735,173 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             }
         }
         task.resume()
+    }
+    
+    
+    //MARK: - get Availble LOCATIONS LIST API method
+    func getAvailbleLOCATIONSLISTAPIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod65)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            if self.arrMALLLOCATIONS.count > 0{
+                                self.arrMALLLOCATIONS.removeAllObjects()
+                            }
+                            let arrm = json.value(forKey: "location") as? NSArray ?? []
+                            self.arrMALLLOCATIONS = NSMutableArray(array: arrm)
+                            print("arrMALLLOCATIONS --->",self.arrMALLLOCATIONS)
+                            
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+
+    //MARK: - GET Address by Lat Long - Google API
+    func getAddressFromLatLong(latitude: Double, longitude : Double)
+    {
+        var strconnurl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&key=AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk"
+        strconnurl = strconnurl.replacingOccurrences(of: " ", with: "%20")
+        print("strconnurl",strconnurl)
+        AF.request(strconnurl,method: .get,encoding: JSONEncoding.default).responseJSON {
+            response in
+            print(response.result)
+            
+            switch response.result{
+            case .success(let JSON):
+                
+                //print("Success with JSON: \(String(describing: JSON))")
+                
+                //let array = JSON as? NSArray
+                //print("array",array)
+                
+                let dic = JSON as? NSDictionary
+                print("dic",dic as Any)
+                
+                let strstatus = String(format: "%@", dic?.value(forKey: "status")as? String ?? "")
+                if strstatus == "OK"
+                {
+                    print("success")
+                    
+                    DispatchQueue.main.async {
+                        
+                        let arrmresults = dic?.value(forKey: "results")as? NSArray ?? []
+                        print("arrmresults",arrmresults)
+                        
+                        let dic = arrmresults.object(at: 0)as? NSDictionary
+                        
+                        //FIXME_____ FETCH CITY AND LOCATION NAME ______//
+                        /*let arraddress_components = dic?.value(forKey: "address_components")as! NSArray
+                        for xx in 0 ..< arraddress_components.count
+                        {
+                            let dicaddress = arraddress_components.object(at: xx)as! NSDictionary
+                            let strlong_name = String(format: "%@", dicaddress.value(forKey: "long_name")as? String ?? "")
+                            
+                            let arrmtypes = dicaddress.value(forKey: "types")as! NSArray
+                            for yy in 0 ..< arrmtypes.count
+                            {
+                                let strtype = String(format: "%@", arrmtypes.object(at: yy)as? String ?? "")
+                                if strtype == "sublocality" || strtype == "neighborhood" || strtype == "sublocality_level_1"
+                                {
+                                    //THEN FETCH LOCATION NAME
+                                    self.strlocationname = strlong_name
+                                }
+                                
+                                if strtype == "locality"
+                                {
+                                    //THEN FETCH CITY NAME
+                                    self.strcityname = strlong_name
+                                }
+                            }
+                        }*/
+                        
+                       
+                        let strformattedaddress = String(format: "%@", dic?.value(forKey: "formatted_address")as? String ?? "")
+                        print("strformattedaddress",strformattedaddress)
+                        if self.txtlocationselect.text!.count > 0{
+                            self.txtlocationselect.text = ""
+                        }
+                        self.txtlocationselect.text = strformattedaddress
+                    }
+                }
+                else{
+                    print("failure")
+                }
+                
+                break
+            case .failure:
+                print("failure")
+            }
+        }
+        
     }
     
 }
@@ -1349,8 +1917,8 @@ extension UIView{
         let circle = UIView ()
         circle.backgroundColor = activityColor
         circle.alpha = 1.0
-        let size = 60
-        let size1 = 60
+        let size = 48
+        let size1 = 48
         var frame = circle.frame
         frame.size.width = CGFloat(size)
         frame.size.height = CGFloat(size1)
@@ -1358,9 +1926,9 @@ extension UIView{
         frame.origin.y = backgroundView.frame.size.height / 2 - frame.size.height / 2;
         circle.frame = frame
         circle.center = backgroundView.center
-        circle.layer.cornerRadius = 30.0
+        circle.layer.cornerRadius = 24.0
         circle.layer.borderWidth = 1.0
-        circle.layer.borderColor=UIColor.white.cgColor
+        circle.layer.borderColor=UIColor.clear.cgColor
         circle.layer.masksToBounds = true
         
         let  animatedImageView =  UIImageView(frame: circle.bounds)
@@ -1395,6 +1963,7 @@ extension UIView{
                                                     UIImage(named: "loader29.png")!,
                                                     UIImage(named: "loader30.png")!) as? [UIImage]
         
+        animatedImageView.contentMode = .scaleToFill
         animatedImageView.animationDuration = 13
         animatedImageView.animationRepeatCount = 0
         animatedImageView.startAnimating()
@@ -1413,7 +1982,8 @@ extension UIView{
     }
     
 }
-extension UIImageView {
+extension UIImageView
+{
     public func imageFromURL(urlString: String) {
         let activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.color =  UIColor(red: 78.0/255, green: 129.0/255, blue: 237.0/255, alpha: 1.0)

@@ -178,6 +178,7 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
         
         let strcouponcode = String(format: "%@", dic.value(forKey: "code")as? String ?? "")
         let strexpdate = String(format: "%@", dic.value(forKey: "expiration_date")as? String ?? "DD/MM/YYYY")
+        print("strexpdate",strexpdate)
         
         self.txtcouponcode.text = strcouponcode
         
@@ -261,9 +262,9 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                      let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     //print("strstatus",strstatus)
-                     //print("strsuccess",strsuccess)
-                     //print("strmessage",strmessage)
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -286,7 +287,7 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
                             
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -337,7 +338,7 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -362,9 +363,9 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -387,7 +388,7 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
                             }))
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -400,7 +401,7 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")

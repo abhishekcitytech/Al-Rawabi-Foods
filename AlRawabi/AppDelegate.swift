@@ -13,6 +13,8 @@ import FirebaseCore
 import FirebaseMessaging
 import UserNotifications
 
+import NISdk
+
 struct Constants {
     struct conn {
         
@@ -54,11 +56,71 @@ struct Constants {
         static let apimethod29 = "countcartitem/countcartitem-api"
         static let apimethod30 = "deleteaddress/deleteaddress-api"
         static let apimethod31 = "removewishlist/removewishlist-api"
+        static let apimethod32 = "timeSlotDetails/timeSlotDetails-api"
+        static let apimethod33 = "chooseAddress/chooseAddress-api"
+        static let apimethod34 = "shippingMethodList/shippingMethodList-api"
+        static let apimethod35 = "setDefaultAddress/setDefaultAddress-api"
+        static let apimethod36 = "subscriptionshippment/subscriptionshippment-api"
+        static let apimethod37 = "recenttransaction/recenttransaction-api"
+        static let apimethod38 = "totalwalletvalue/totalwalletvalue-api"
+        static let apimethod39 = "walletdetail/walletdetail-api"
+        static let apimethod40 = "allpaymentmethod/allpaymentmethod-api"
+        static let apimethod41 = "quoteinfo/quoteinfo-api"
+        static let apimethod42 = "orderOncePlace/orderOncePlace-api"
+        static let apimethod43 = "chooseShippingMethod/chooseShippingMethod-api"
+        static let apimethod44 = "subscriptionlist/subscriptionlist-api"
+        static let apimethod45 = "creditCardPayment/creditCardPayment-api"
+        static let apimethod46 = "customerprofile/customerprofile-api"
+        static let apimethod47 = "subscriptionpause/subscriptionpause-api"
+        static let apimethod48 = "subscriptioncancel/subscriptioncancel-api"
+        static let apimethod49 = "subscriptionview/subscriptionview-api"
+        static let apimethod50 = "createSubscription/createSubscription-api"
+        static let apimethod51 = "subscriptionCouponApply/subscriptionCouponApply-api"
+        static let apimethod52 = "subscriptionPlaceOrder/subscriptionPlaceOrder-api"
+        static let apimethod53 = "reorderonce/reorderonce-api"
+        static let apimethod54 = "savedeliverydateandtime/savedeliverydateandtime-api"
+        static let apimethod55 = "subscribedProductEditAddProduct/subscribedProductEditAddProduct-api"
+        static let apimethod56 = "subscribedProductEditTimeslotEdit/subscribedProductEditTimeslotEdit-api"
+        static let apimethod57 = "subscribedProductEditQuantity/subscribedProductEditQuantity-api"
+        static let apimethod58 = "subscribedProductEditRemoveProduct/subscribedProductEditRemoveProduct-api"
+        static let apimethod59 = "subscriptionEditView/subscriptionEditView-api"
+        static let apimethod60 = "subscriptionEditProductQtyOnce/subscriptionEditProductQtyOnce-api"
+        static let apimethod61 = "subscriptionEditProductQtyAll/subscriptionEditProductQtyAll-api"
+        static let apimethod62 = "subscriptionEditProductAdd/subscriptionEditProductAdd-api"
+        static let apimethod63 = "subscriptionEditProductRemove/subscriptionEditProductRemove-api"
+        static let apimethod64 = "subscriptionEditTimeslotEdit/subscriptionEditTimeslotEdit-api"
+        static let apimethod65 = "allLocation/allLocation-api"
+        static let apimethod66 = "subaccountlist/subaccountlist-api"
+        static let apimethod67 = "editsubaccount/editsubaccount-api"
+        static let apimethod68 = "subscriptionEditDateEdit/subscriptionEditDateEdit-api"
+        static let apimethod69 = "subscriptionRenewView/subscriptionRenewView-api"
+        static let apimethod70 = "maidaccountdelete/maidaccountdelete-api"
+        static let apimethod71 = "transferwalletamount/transferwalletamount-api"
+        static let apimethod72 = "timeslot/timeslot-api"
+        static let apimethod73 = "subscriptionRenewCreate/subscriptionRenewCreate-api"
+        static let apimethod74 = "rechargewallet/rechargewallet-api"
+        static let apimethod75 = "walletpayment/walletpayment-api"
+        static let apimethod76 = "customerForgotPassword/customerForgotPassword-api"
+        static let apimethod77 = "maidLogin/maidLogin-api"
+        static let apimethod78 = "maidaddresslist/maidaddresslist-api"
+        static let apimethod79 = "maidCartUpdate/maidCartUpdate-api"
+        static let apimethod80 = "maidsubscriptionlist/maidsubscriptionlist-api"
+        static let apimethod81 = "maidsubscriptionlistpaused/maidsubscriptionlistpaused-api"
+        static let apimethod82 = "maidsubscriptionview/maidsubscriptionview-api"
+        static let apimethod83 = "maidsubscriptionpause/maidsubscriptionpause-api"
+        static let apimethod84 = "maidAllorders/maidAllorders-api"
+        static let apimethod85 = "maidaddresslist/maidaddresslist-api"
+        static let apimethod86 = "maidOrderOncePlace/maidOrderOncePlace-api"
+        static let apimethod87 = "resetPasswordOtpRequest/resetPasswordOtpRequest-api"
+        static let apimethod88 = "wallettransactionview/wallettransactionview-api"
+        static let apimethod89 = "countryinfo/countryinfo-api"
+        static let apimethod90 = "rewardpoints/rewardpoints-api"
+        static let apimethod91 = "rewardtransactions/rewardtransactions-api"
     }
 }
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate, MessagingDelegate
+class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate, MessagingDelegate,UITabBarControllerDelegate
 {
     var window: UIWindow?
     var navController: UINavigationController?
@@ -67,40 +129,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     let gcmMessageIDKey = "gcm.message_id"
     
     //FIXME: GLOBAL VARIABLES FOR LOCAL DATABSE CHECKING FOR SUBSCRIPTION PLAN
-    //DAILY Set of Variables
     var strSelectedPLAN = ""
-    var arrMproductlist = NSMutableArray()
-    var arrMDATEWISEPRODUCTPLAN = NSMutableArray()
     
-    //WEEKLY Set of Variables
-    var arrMDATEWISEPRODUCTPLANWEEKLY = NSMutableArray()
-    var arrMproductlistWeekly = NSMutableArray()
-    
-    //MONTHLY Set of Variables
-    var arrMDATEWISEPRODUCTPLANMONTHLY = NSMutableArray()
-    var arrMproductlistMonthly = NSMutableArray()
-    
-    func localarraycreate()
-    {
-        for x in 0 ..< 5
-        {
-            let intvalue = x + 1
-            let dic1 = NSMutableDictionary()
-            dic1.setValue(String(format: "%d", intvalue), forKey: "id")
-            dic1.setValue(String(format: "Fruit Cocktail %d", intvalue), forKey: "name")
-            dic1.setValue("0", forKey: "qty")
-            dic1.setValue("0", forKey: "qtyATA")
-            let intprc = intvalue * 5
-            dic1.setValue(String(format: "%d", intprc), forKey: "price")
-            arrMproductlist.add(dic1)
-        }
-        print("arrMproductlist",arrMproductlist)
-    }
     
     //MARK: -  Appdidfinish launch option method
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         // Override point for customization after application launch.
+        
+        NISdk.sharedInstance.setSDKLanguage(language: "en")
         
         //FIXME: - PUSH FIREBASE SETUP
         FirebaseApp.configure()
@@ -123,7 +160,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         application.registerForRemoteNotifications()
         
         //FIXME: - LANGUAGE SETUP
-        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "ar")
+        let pre1 = NSLocale.current.languageCode
+        print("Device Language |||",pre1.debugDescription)
+        let pre = Locale.preferredLanguages[0]
+        print("APP Language |||",pre.debugDescription)
+        
+        var langStr = String()
+        if pre.containsIgnoreCase("ar")
+        {
+            langStr = "ar"
+        }
+        else{
+            langStr = "en"
+        }
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? langStr)
         print("strLangCode",strLangCode)
         if (strLangCode == "ar")
         {
@@ -145,7 +196,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 
         let themecolor = UIColor(named: "themecolor")!
         
-        localarraycreate()
         
         /*UIFont.familyNames.forEach({ familyName in
          let fontNames = UIFont.fontNames(forFamilyName: familyName)
@@ -218,7 +268,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             UserDefaults.standard.synchronize()
         }
         
-        tabSetting(type: "login")
+        //tabSetting(type: "login")
+        tabSetting(type: "customlaunch")
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window!.rootViewController = tabBarController
@@ -256,32 +307,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     //MARK: - Tabbar Setting for CUSTOMER
     func tabSetting(type:String)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        print("strLangCode ---> ",strLangCode)
+        
         let home:UIViewController
         if type == "login" {
             home = loginclass(nibName: "loginclass", bundle: nil)
-        }else{
+        }
+        else if type == "customlaunch" {
+            home = customlaunch(nibName: "customlaunch", bundle: nil)
+        }
+        else{
             home = homeclass(nibName: "homeclass", bundle: nil)
             
         }
-        home.tabBarItem.title = "Home"
+        
+        home.tabBarItem.title = myAppDelegate.changeLanguage(key: "msg_language136")
         home.tabBarItem.image = UIImage(named: "tab11")
         home.tabBarItem.selectedImage = UIImage(named: "tab1")
         let homeNav  = UINavigationController(rootViewController: home)
         
         let subsription = subsriptionclass(nibName: "subsriptionclass", bundle: nil)
-        subsription.tabBarItem.title = "Subscription"
+        subsription.tabBarItem.title = myAppDelegate.changeLanguage(key: "msg_language74")
         subsription.tabBarItem.image = UIImage(named: "tab22")
         subsription.tabBarItem.selectedImage = UIImage(named: "tab2")
         let subsriptionNav  = UINavigationController(rootViewController: subsription)
         
         let orderonce = orderonceclass(nibName: "orderonceclass", bundle: nil)
-        orderonce.tabBarItem.title = "Order Once"
+        orderonce.tabBarItem.title = myAppDelegate.changeLanguage(key: "msg_language104")
         orderonce.tabBarItem.image = UIImage(named: "tab33")
         orderonce.tabBarItem.selectedImage = UIImage(named: "tab3")
         let orderonceNav  = UINavigationController(rootViewController: orderonce)
         
         let menu = menuclass(nibName: "menuclass", bundle: nil)
-        menu.tabBarItem.title = ""
+        if (strLangCode == "en"){
+            menu.tabBarItem.title = ""
+        }else{
+            menu.tabBarItem.title = ""
+        }
         menu.tabBarItem.image = UIImage(named: "tab44")
         menu.tabBarItem.selectedImage = UIImage(named: "tab4")
         let menuNav  = UINavigationController(rootViewController: menu)
@@ -289,7 +353,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         //UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
         //UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: "lightblue")!], for: .selected)
 
-      
+        self.tabBarController.delegate = self
         self.tabBarController.tabBar.clipsToBounds = true
         self.tabBarController.tabBar.backgroundImage = UIImage()
 
@@ -311,11 +375,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: "lightblue")!, NSAttributedString.Key.font : UIFont(name: "NunitoSans-Regular", size: 14) as Any], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font : UIFont(name: "NunitoSans-Bold", size: 14) as Any], for: .selected)
-           
+         
+        if strLangCode == "ar"{
+            tabBarController.viewControllers = [menuNav,orderonceNav,subsriptionNav,homeNav]
+            tabBarController.selectedIndex = 3
+        }else{
+            tabBarController.viewControllers = [homeNav,subsriptionNav,orderonceNav,menuNav]
+            tabBarController.selectedIndex = 0
+        }
         
-        tabBarController.viewControllers = [homeNav,subsriptionNav,orderonceNav,menuNav]
-        tabBarController.selectedIndex = 0
-        
+    }
+    func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return MyTransition(viewControllers: tabBarController.viewControllers)
     }
     
     // MARK:- set Gradient Background method
@@ -328,6 +399,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         gradientlayer.endPoint = CGPoint(x: 0.0, y: 0.0)
         tabBarController.tabBar.layer.insertSublayer(gradientlayer, at: 0)
     }
+    
+    
     
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
@@ -532,3 +605,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     }
 }
 
+
+class MyTransition: NSObject, UIViewControllerAnimatedTransitioning {
+
+    let viewControllers: [UIViewController]?
+    let transitionDuration: Double = 1
+
+    init(viewControllers: [UIViewController]?) {
+        self.viewControllers = viewControllers
+    }
+
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return TimeInterval(transitionDuration)
+    }
+
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+
+        guard
+            let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from),
+            let fromView = fromVC.view,
+            let fromIndex = getIndex(forViewController: fromVC),
+            let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to),
+            let toView = toVC.view,
+            let toIndex = getIndex(forViewController: toVC)
+            else {
+                transitionContext.completeTransition(false)
+                return
+        }
+
+        let frame = transitionContext.initialFrame(for: fromVC)
+        var fromFrameEnd = frame
+        var toFrameStart = frame
+        fromFrameEnd.origin.x = toIndex > fromIndex ? frame.origin.x - frame.width : frame.origin.x + frame.width
+        toFrameStart.origin.x = toIndex > fromIndex ? frame.origin.x + frame.width : frame.origin.x - frame.width
+        toView.frame = toFrameStart
+
+        DispatchQueue.main.async {
+            transitionContext.containerView.addSubview(toView)
+            UIView.animate(withDuration: self.transitionDuration, animations: {
+                fromView.frame = fromFrameEnd
+                toView.frame = frame
+            }, completion: {success in
+                fromView.removeFromSuperview()
+                transitionContext.completeTransition(success)
+            })
+        }
+    }
+
+    func getIndex(forViewController vc: UIViewController) -> Int? {
+        guard let vcs = self.viewControllers else { return nil }
+        for (index, thisVC) in vcs.enumerated() {
+            if thisVC == vc { return index }
+        }
+        return nil
+    }
+}

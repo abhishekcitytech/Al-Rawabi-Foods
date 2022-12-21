@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="searchproductlist" customModule="AlRawabi" customModuleProvider="target">
             <connections>
                 <outlet property="btncrosssearch" destination="kUd-91-8hU" id="jj8-cC-roA"/>
+                <outlet property="colproductlist" destination="IQN-aC-7wJ" id="szr-SM-UV0"/>
                 <outlet property="txtsearchbar" destination="iy9-vk-Yoy" id="8ff-kg-Ohf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewoverall" destination="Xc7-Md-vyj" id="V5C-S3-Vhh"/>
@@ -30,12 +31,12 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iy9-vk-Yoy">
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please eneter your search keyword" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iy9-vk-Yoy">
                                     <rect key="frame" x="8" y="8" width="317" height="34"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                     <connections>
                                         <outlet property="delegate" destination="-1" id="ElA-qY-WDt"/>
                                     </connections>
@@ -52,6 +53,21 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGray6Color"/>
                         </view>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="IQN-aC-7wJ">
+                            <rect key="frame" x="8" y="63" width="359" height="560"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="evs-Z4-Nh2">
+                                <size key="itemSize" width="128" height="128"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="kCy-vS-gE7"/>
+                                <outlet property="delegate" destination="-1" id="h3e-rv-EYF"/>
+                            </connections>
+                        </collectionView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>

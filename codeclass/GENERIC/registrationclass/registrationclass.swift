@@ -7,7 +7,7 @@
 
 import UIKit
 
-class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate
+class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,DataBackDelegate1
 {
     
     @IBOutlet weak var viewoverall: UIView!
@@ -19,23 +19,44 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     @IBOutlet weak var lblquicklycreateaccount: UILabel!
     
     @IBOutlet weak var viewfirstname: UIView!
+    @IBOutlet weak var viewfirstname1: UIView!
     @IBOutlet weak var txtfirstname: UITextField!
+    
     @IBOutlet weak var viewlastname: UIView!
+    @IBOutlet weak var viewlastname1: UIView!
     @IBOutlet weak var txtlastname: UITextField!
+    
     @IBOutlet weak var viewemil: UIView!
+    @IBOutlet weak var viewemil1: UIView!
     @IBOutlet weak var txtemail: UITextField!
     @IBOutlet weak var btnemailverified: UIButton!
+    
     @IBOutlet weak var viewmobile: UIView!
+    @IBOutlet weak var viewmobile1: UIView!
     @IBOutlet weak var lblmobilecountrycode: UILabel!
     @IBOutlet weak var txtmobile: UITextField!
     @IBOutlet weak var btnverifynow: UIButton!
+    
     @IBOutlet weak var viewpassword: UIView!
+    @IBOutlet weak var viewpassword1: UIView!
     @IBOutlet weak var txtpassword: UITextField!
+    
     @IBOutlet weak var viewconfirmpassword: UIView!
+    @IBOutlet weak var viewconfirmpassword1: UIView!
     @IBOutlet weak var txtconfirmpassword: UITextField!
     
     @IBOutlet weak var btnregister: UIButton!
     @IBOutlet weak var btnlogin: UIButton!
+    
+    var boolverifiedmobileno = false
+    
+    // MARK: - Verify OTP record Back Delegate Method
+    func savePreferences1(preferisget: Bool)
+    {
+        print("preferisget",preferisget)
+        self.boolverifiedmobileno = preferisget
+        
+    }
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -50,6 +71,8 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     {
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = true
+        
+        self.setupRTLLTR()
     }
     
     // MARK: - viewDidLoad method
@@ -58,15 +81,26 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         
-        //Create Back Button
-        /*let yourBackImage = UIImage(named: "back")
-        let Back = UIBarButtonItem(image: yourBackImage, style: .plain, target: self, action: #selector(pressBack))
-        Back.tintColor = UIColor.black
-        self.navigationItem.leftBarButtonItem = Back*/
-        
+        //FIXME
+        self.txtpassword.text = "123456"
+        self.txtconfirmpassword.text = "123456"
+   
         self.scrolloverall.backgroundColor = .white
         self.scrolloverall.showsVerticalScrollIndicator = false
         self.scrolloverall.contentSize=CGSize(width: self.scrolloverall.frame.size.width, height: self.viewscroll.frame.size.height - 235)
+        
+        viewfirstname.layer.cornerRadius = 3.0
+        viewfirstname.layer.masksToBounds = true
+        viewlastname.layer.cornerRadius = 3.0
+        viewlastname.layer.masksToBounds = true
+        viewemil.layer.cornerRadius = 3.0
+        viewemil.layer.masksToBounds = true
+        viewmobile.layer.cornerRadius = 3.0
+        viewmobile.layer.masksToBounds = true
+        viewpassword.layer.cornerRadius = 3.0
+        viewpassword.layer.masksToBounds = true
+        viewconfirmpassword.layer.cornerRadius = 3.0
+        viewconfirmpassword.layer.masksToBounds = true
         
         self.btnemailverified.isHidden = true
         
@@ -77,7 +111,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         txtpassword.setLeftPaddingPoints(10)
         txtconfirmpassword.setLeftPaddingPoints(10)
         
-        btnregister.layer.cornerRadius = 16.0
+        btnregister.layer.cornerRadius = 22.0
         btnregister.layer.masksToBounds = true
         
         btnverifynow.layer.borderWidth = 1.0
@@ -86,8 +120,8 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         btnverifynow.layer.masksToBounds = true
         
         btnlogin.layer.borderWidth = 1.0
-        btnlogin.layer.borderColor = UIColor(named: "greencolor")!.cgColor
-        btnlogin.layer.cornerRadius = 16.0
+        btnlogin.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+        btnlogin.layer.cornerRadius = 22.0
         btnlogin.layer.masksToBounds = true
         
         let toolbarDone = UIToolbar.init()
@@ -103,6 +137,115 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         self.navigationController?.popViewController(animated: true)
     }*/
     
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        lblregister.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language15"))
+        lblquicklycreateaccount.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language16"))
+       
+        btnlogin.setTitle(myAppDelegate.changeLanguage(key: "msg_language278"), for: .normal)
+        btnregister.setTitle(myAppDelegate.changeLanguage(key: "msg_language24"), for: .normal)
+        
+        self.txtfirstname.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language28"))
+        self.txtlastname.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language29"))
+        self.txtemail.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language30"))
+        self.txtmobile.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language31"))
+        self.txtpassword.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language32"))
+        self.txtconfirmpassword.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language33"))
+        
+        self.btnverifynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language17")), for: .normal)
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            lblregister.textAlignment = .left
+            lblquicklycreateaccount.textAlignment = .left
+            
+            self.viewfirstname1.frame = CGRect(x: 1, y: self.viewfirstname1.frame.origin.y, width: self.viewfirstname1.frame.size.width, height: self.viewfirstname1.frame.size.height)
+            self.txtfirstname.frame = CGRect(x: 54, y: self.txtfirstname.frame.origin.y, width: self.txtfirstname.frame.size.width, height: self.txtfirstname.frame.size.height)
+            self.txtfirstname.textAlignment = .left
+            
+            self.viewlastname1.frame = CGRect(x: 1, y: self.viewlastname1.frame.origin.y, width: self.viewlastname1.frame.size.width, height: self.viewlastname1.frame.size.height)
+            self.txtlastname.frame = CGRect(x: 54, y: self.txtlastname.frame.origin.y, width: self.txtlastname.frame.size.width, height: self.txtlastname.frame.size.height)
+            self.txtlastname.textAlignment = .left
+            
+            self.viewemil1.frame = CGRect(x: 1, y: self.viewemil1.frame.origin.y, width: self.viewemil1.frame.size.width, height: self.viewemil1.frame.size.height)
+            self.txtemail.frame = CGRect(x: 54, y: self.txtemail.frame.origin.y, width: self.txtemail.frame.size.width, height: self.txtemail.frame.size.height)
+            self.txtemail.textAlignment = .left
+            self.btnemailverified.frame = CGRect(x: self.txtemail.frame.size.width - 10, y: self.btnemailverified.frame.origin.y, width: self.btnemailverified.frame.size.width, height: self.btnemailverified.frame.size.height)
+            
+            self.viewmobile1.frame = CGRect(x: 1, y: self.viewmobile1.frame.origin.y, width: self.viewmobile1.frame.size.width, height: self.viewmobile1.frame.size.height)
+            self.lblmobilecountrycode.frame = CGRect(x: 54, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
+            self.txtmobile.frame = CGRect(x: self.lblmobilecountrycode.frame.maxX, y: self.txtmobile.frame.origin.y, width: self.txtmobile.frame.size.width, height: self.txtmobile.frame.size.height)
+            self.txtmobile.textAlignment = .left
+            self.btnverifynow.frame = CGRect(x: self.viewmobile.frame.size.width - self.btnverifynow.frame.size.width - 10, y: self.btnverifynow.frame.origin.y, width: self.btnverifynow.frame.size.width, height: self.btnverifynow.frame.size.height)
+            
+            self.viewpassword1.frame = CGRect(x: 1, y: self.viewpassword1.frame.origin.y, width: self.viewpassword1.frame.size.width, height: self.viewpassword1.frame.size.height)
+            self.txtpassword.frame = CGRect(x: 54, y: self.txtpassword.frame.origin.y, width: self.txtpassword.frame.size.width, height: self.txtpassword.frame.size.height)
+            self.txtpassword.textAlignment = .left
+            
+            self.viewconfirmpassword1.frame = CGRect(x: 1, y: self.viewconfirmpassword1.frame.origin.y, width: self.viewconfirmpassword1.frame.size.width, height: self.viewconfirmpassword1.frame.size.height)
+            self.txtconfirmpassword.frame = CGRect(x: 54, y: self.txtconfirmpassword.frame.origin.y, width: self.txtconfirmpassword.frame.size.width, height: self.txtconfirmpassword.frame.size.height)
+            self.txtconfirmpassword.textAlignment = .left
+            
+            
+        }
+        else
+        {
+            lblregister.textAlignment = .right
+            lblquicklycreateaccount.textAlignment = .right
+            
+            self.viewfirstname1.frame = CGRect(x: self.viewfirstname.frame.size.width - 53, y: self.viewfirstname1.frame.origin.y, width: self.viewfirstname1.frame.size.width, height: self.viewfirstname1.frame.size.height)
+            self.txtfirstname.frame = CGRect(x: 1, y: self.txtfirstname.frame.origin.y, width: self.txtfirstname.frame.size.width, height: self.txtfirstname.frame.size.height)
+            self.txtfirstname.textAlignment = .right
+            
+            self.viewlastname1.frame = CGRect(x: self.viewlastname.frame.size.width - 53, y: self.viewlastname1.frame.origin.y, width: self.viewlastname1.frame.size.width, height: self.viewlastname1.frame.size.height)
+            self.txtlastname.frame = CGRect(x: 1, y: self.txtlastname.frame.origin.y, width: self.txtlastname.frame.size.width, height: self.txtlastname.frame.size.height)
+            self.txtlastname.textAlignment = .right
+            
+            self.viewemil1.frame = CGRect(x: self.viewemil.frame.size.width - 53, y: self.viewemil1.frame.origin.y, width: self.viewemil1.frame.size.width, height: self.viewemil1.frame.size.height)
+            self.txtemail.frame = CGRect(x: 1, y: self.txtemail.frame.origin.y, width: self.txtemail.frame.size.width, height: self.txtemail.frame.size.height)
+            self.txtemail.textAlignment = .right
+            self.btnemailverified.frame = CGRect(x: 10, y: self.btnemailverified.frame.origin.y, width: self.btnemailverified.frame.size.width, height: self.btnemailverified.frame.size.height)
+            
+            self.viewmobile1.frame = CGRect(x: self.viewmobile.frame.size.width - 53, y: self.viewmobile1.frame.origin.y, width: self.viewmobile1.frame.size.width, height: self.viewmobile1.frame.size.height)
+            self.txtmobile.frame = CGRect(x: 1, y: self.txtmobile.frame.origin.y, width: self.txtmobile.frame.size.width, height: self.txtmobile.frame.size.height)
+            self.txtmobile.textAlignment = .right
+            self.lblmobilecountrycode.frame = CGRect(x: self.txtmobile.frame.maxX, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
+            self.btnverifynow.frame = CGRect(x: 10, y: self.btnverifynow.frame.origin.y, width: self.btnverifynow.frame.size.width, height: self.btnverifynow.frame.size.height)
+            
+            self.viewpassword1.frame = CGRect(x: self.viewpassword.frame.size.width - 53, y: self.viewpassword1.frame.origin.y, width: self.viewpassword1.frame.size.width, height: self.viewpassword1.frame.size.height)
+            self.txtpassword.frame = CGRect(x: 1, y: self.txtpassword.frame.origin.y, width: self.txtpassword.frame.size.width, height: self.txtpassword.frame.size.height)
+            self.txtpassword.textAlignment = .right
+            
+            self.viewconfirmpassword1.frame = CGRect(x: self.viewconfirmpassword.frame.size.width - 53, y: self.viewconfirmpassword1.frame.origin.y, width: self.viewconfirmpassword1.frame.size.width, height: self.viewconfirmpassword1.frame.size.height)
+            self.txtconfirmpassword.frame = CGRect(x: 1, y: self.txtconfirmpassword.frame.origin.y, width: self.txtconfirmpassword.frame.size.width, height: self.txtconfirmpassword.frame.size.height)
+            self.txtconfirmpassword.textAlignment = .right
+        }
+        
+        if self.boolverifiedmobileno == true
+        {
+            self.lblmobilecountrycode.isUserInteractionEnabled = false
+            self.txtmobile.isUserInteractionEnabled = false
+            self.btnverifynow.isUserInteractionEnabled = false
+            self.btnverifynow.setTitle("Verified", for: .normal)
+            
+            self.lblmobilecountrycode.backgroundColor = .clear
+            self.txtmobile.backgroundColor = .clear
+        }
+        else{
+            self.lblmobilecountrycode.isUserInteractionEnabled = true
+            self.txtmobile.isUserInteractionEnabled = true
+            self.btnverifynow.isUserInteractionEnabled = true
+            self.btnverifynow.setTitle("Verify", for: .normal)
+            
+            self.lblmobilecountrycode.backgroundColor = .white
+            self.txtmobile.backgroundColor = .white
+        }
+    }
+    
     // MARK: - Done Mobile Number method
     @objc func pressDonetxtMobilenumber(sender: UIButton)
     {
@@ -112,8 +255,28 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     //MARK: - pressverifynow method
     @IBAction func pressverifynow(_ sender: Any) {
         print("pressverifynow")
-        let obj = otpverifyclass(nibName: "otpverifyclass", bundle: nil)
-        self.navigationController?.pushViewController(obj, animated: true)
+        
+        if txtmobile.text?.count == 10{
+            
+            print("countrycode",lblmobilecountrycode.text!)
+            print("mobile",txtmobile.text!)
+            
+            let obj = otpverifyclass(nibName: "otpverifyclass", bundle: nil)
+            obj.strcountrycode = "91" //FIXME
+            obj.strmobileno = txtmobile.text!
+            obj.delegate = self
+            self.navigationController?.pushViewController(obj, animated: true)
+        }
+        else
+        {
+            let uiAlert = UIAlertController(title: "", message: "please enter 10 digit valid mobile number", preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        
+        
     }
     
     // MARK: - presslogin Method
@@ -288,7 +451,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -314,11 +477,11 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
                     let strcustomerStatus = dictemp.value(forKey: "customerStatus")as? String ?? ""
-                    
+                    print("strstatus",strstatus)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if strcustomerStatus == "1"
                             {
@@ -339,7 +502,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                         }
                         else{
                             self.btnemailverified.isHidden = true
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -352,7 +515,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -377,7 +540,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         let parameters = ["firstName": txtfirstname.text!,
         "lastName": txtlastname.text!,
         "email": txtemail.text!,
-        "countryCode": lblmobilecountrycode.text!,
+        "countryCode": "971",
         "mobileNo": txtmobile.text!,
         "password": txtpassword.text!]
         as [String : Any]
@@ -399,7 +562,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -424,10 +587,12 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
@@ -450,7 +615,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -502,7 +667,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -526,13 +691,13 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let dicdeviceinfo = dictemp.value(forKey: "deviceInfo")
                             //print("dicdeviceinfo",dicdeviceinfo as Any)
@@ -546,7 +711,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
 
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -559,7 +724,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -637,7 +802,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                             appDel.tabSetting(type: "home")
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")

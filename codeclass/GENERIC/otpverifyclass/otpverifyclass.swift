@@ -7,8 +7,12 @@
 
 import UIKit
 
+public protocol DataBackDelegate1: AnyObject {
+    func savePreferences1 (preferisget : Bool)
+}
 class otpverifyclass: UIViewController,UITextFieldDelegate
 {
+    weak var delegate: DataBackDelegate1?
     
     @IBOutlet weak var viewoverall: UIView!
 
@@ -23,6 +27,12 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
     @IBOutlet weak var txt3: UITextField!
     @IBOutlet weak var txt4: UITextField!
     @IBOutlet weak var txt5: UITextField!
+    @IBOutlet weak var txt6: UITextField!
+    
+    
+    
+    var strcountrycode = ""
+    var strmobileno = ""
 
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -36,6 +46,10 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
     {
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = false
+        
+        self.postOTPRequestAPIMethod()
+        
+        setupRTLLTR()
     }
     
     // MARK: - viewDidLoad method
@@ -43,13 +57,17 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        self.title = "Verify Number"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language1"))
         
         //Create Back Button
         let yourBackImage = UIImage(named: "back")
         let Back = UIBarButtonItem(image: yourBackImage, style: .plain, target: self, action: #selector(pressBack))
         Back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = Back
+        
+        lblsmshasbeensent.isHidden = true
         
         txt1.layer.borderWidth = 1.0
         txt1.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
@@ -76,6 +94,11 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
         txt5.layer.cornerRadius = 4.0
         txt5.layer.masksToBounds = true
         
+        txt6.layer.borderWidth = 1.0
+        txt6.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        txt6.layer.cornerRadius = 4.0
+        txt6.layer.masksToBounds = true
+        
         if #available(iOS 12.0, *) {
             self.txt1.textContentType = .oneTimeCode
         }
@@ -91,7 +114,39 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
     }
 
     //MARK: -  pressresendcode method
-    @IBAction func pressresendcode(_ sender: Any) {
+    @IBAction func pressresendcode(_ sender: Any)
+    {
+        let refreshAlert = UIAlertController(title: "", message: "Do you want to resend OTP to your mobile number?", preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+            print("Handle Continue Logic here")
+            self.postOTPRequestAPIMethod()
+        }))
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
+    }
+    
+    
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        lblenterotp.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language2"))
+        lblsmshasbeensent.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language3"))
+        lbldidnotreceivecode.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language4"))
+        btnresendcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language5")), for: .normal)
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+    
+        }
+        else
+        {
+
+        }
     }
     
     
@@ -120,6 +175,7 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
                     txt3.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 2)])
                     txt4.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 3)])
                     txt5.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 4)])
+                    txt6.text = String(otpCode[otpCode.index(otpCode.startIndex, offsetBy: 5)])
                 }
             }
         }
@@ -141,8 +197,12 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
                 txt5?.becomeFirstResponder()
             }
             if textField == txt5 {
+                txt6?.becomeFirstResponder()
+            }
+            if textField == txt6 {
                 textField.text? = string
                 print("API Call Verify OTP")
+                self.postOTPVerifyAPIMethod()
             }
             textField.text? = string
             return false
@@ -163,10 +223,193 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
             }
             if textField == txt5 {
                 txt4?.becomeFirstResponder()
+            }
+            if textField == txt6 {
+                txt5?.becomeFirstResponder()
                 print("API NOT Call Verify OTP")
             }
             textField.text? = string
             return false
         }
+    }
+    
+    
+    
+    //MARK: - post OTP Request API method
+    func postOTPRequestAPIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let parameters = ["countrycode": strcountrycode,"mobileno": strmobileno]as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod5)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        //request.setValue("Bearer \(strapikey ?? "")", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    let dictemp = json as NSDictionary
+
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            /*let uiAlert = UIAlertController(title: "", message: "OTP has been sent to your mobile number." , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))*/
+                            self.lblsmshasbeensent.isHidden = false
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - post OTP Verify API method
+    func postOTPVerifyAPIMethod()
+    {
+        let strverifycode = String(format: "%@%@%@%@%@%@", txt1.text!,txt2.text!,txt3.text!,txt4.text!,txt5.text!,txt6.text!)
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let parameters = ["mobileno": strmobileno,"verificationcode": strverifycode]as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod6)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        //request.setValue("Bearer \(strapikey ?? "")", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    let dictemp = json as NSDictionary
+
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            //Back to Pop Registration Page with Verified Tag
+                            
+                            self.delegate?.savePreferences1(preferisget: true)
+                            self.navigationController?.popViewController(animated: false)
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
     }
 }

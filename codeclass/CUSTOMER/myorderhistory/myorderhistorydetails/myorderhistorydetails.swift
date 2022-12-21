@@ -70,6 +70,8 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
         tabvitemlist.separatorColor=UIColor.clear
         tabvitemlist.showsVerticalScrollIndicator = false
         
+        self.viewtop.isHidden = true
+        
     }
     
     //MARK: - press back method
@@ -179,7 +181,7 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -209,8 +211,10 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
+                            self.viewtop.isHidden = false
+                            
                             let dic = dictemp.value(forKey: "details")as! NSDictionary
                             self.dicMOrderDetails = dic.mutableCopy() as! NSMutableDictionary
                             print("dicMOrderDetails --->",self.dicMOrderDetails)
@@ -272,8 +276,9 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                             }
                             self.tabvitemlist.reloadData()
                         }
-                        else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                        else
+                        {
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -286,7 +291,7 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")

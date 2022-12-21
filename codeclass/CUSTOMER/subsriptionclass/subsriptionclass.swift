@@ -41,6 +41,14 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     var strSelectedplanCurrently = ""
     
     
+    var isBoolDropdown = Bool()
+    let cellReuseIdentifier = "cell"
+    var tblViewDropdownList: UITableView? = UITableView()
+    var arrMGlobalDropdownFeed = NSMutableArray()
+    
+    var arrMALLLOCATIONS = NSMutableArray()
+    
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -57,10 +65,13 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(true)
+        self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        self.getAvailbleLOCATIONSLISTAPIMethod()
         
         fetchDataDAILYSubscriptionmodelTable()
         fetchDataWEEKLYSubscriptionmodelTable()
@@ -189,10 +200,18 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     {
         if textField.isEqual(txtdeliveryaddress)
         {
-            self.view.endEditing(true)
+            /*self.view.endEditing(true)
             let ctrl = mapaddress(nibName: "mapaddress", bundle: nil)
             ctrl.strFrompageMap = "subsriptionclass"
             self.navigationController?.pushViewController(ctrl, animated: true)
+            return false*/
+            
+            self.view.endEditing(true)
+            if isBoolDropdown == true {
+                handleTap1()
+            }else{
+                self.popupDropdown(arrFeed: arrMALLLOCATIONS, txtfld: txtdeliveryaddress, tagTable: 100)
+            }
             return false
         }
         return true
@@ -218,28 +237,93 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     {
     }
     
+    // MARK: - Location List dropdown Method
+    func popupDropdown(arrFeed:NSMutableArray,txtfld:UITextField, tagTable:Int)
+    {
+        let point = (txtfld.superview?.convert(txtfld.frame.origin, to: self.view))! as CGPoint
+        print(point.y)
+        
+        isBoolDropdown = true
+        tblViewDropdownList = UITableView(frame: CGRect(x: self.viewdeliveryaddress.frame.origin.x, y: point.y + self.viewdeliveryaddress.frame.size.height, width: self.viewdeliveryaddress.frame.size.width, height: 0))
+        tblViewDropdownList?.delegate = self
+        tblViewDropdownList?.dataSource = self
+        tblViewDropdownList?.tag = tagTable
+        tblViewDropdownList?.backgroundView = nil
+        tblViewDropdownList?.backgroundColor = UIColor(named: "plate7")!
+        tblViewDropdownList?.separatorColor = UIColor.clear
+        tblViewDropdownList?.layer.borderWidth = 1.0
+        tblViewDropdownList?.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        tblViewDropdownList?.layer.cornerRadius = 0.0
+        tblViewDropdownList?.layer.masksToBounds = true
+        
+        self.view.addSubview(tblViewDropdownList!)
+        
+        arrMGlobalDropdownFeed = arrFeed
+        
+        UIView .animate(withDuration: 0.35, delay: 0.0, options: .curveEaseIn, animations: {
+            var frame = CGRect()
+            frame = (self.tblViewDropdownList?.frame)!
+            frame.size.height =  140//UIScreen.main.bounds.size.height/2.0-64
+            self.tblViewDropdownList?.frame = frame
+            //print(self.tblViewDropdownList?.frame as Any)
+        }, completion: nil)
+    }
+    func handleTap1()
+    {
+        isBoolDropdown = false
+        UIView .animate(withDuration: 0.35, delay: 0.0, options: .curveEaseIn, animations: {
+            var frame = CGRect()
+            frame = (self.tblViewDropdownList?.frame)!
+            frame.size.height = 0
+            self.tblViewDropdownList?.frame = frame
+        }, completion: { (nil) in
+            self.tblViewDropdownList?.removeFromSuperview()
+            self.tblViewDropdownList = nil
+        })
+    }
+    
     
     // MARK: - tableView delegate & datasource Method
     func numberOfSections(in tableView: UITableView) -> Int
     {
+        if tableView == tblViewDropdownList{
+            return 1
+        }
         return arrMplan.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
+        if tableView == tblViewDropdownList{
+            return arrMALLLOCATIONS.count
+        }
         return 1
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+        if tableView == tblViewDropdownList{
+            return 40
+        }
         return 122
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if tableView == tblViewDropdownList{
+            return 1
+        }
         return 10
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if tableView == tblViewDropdownList{
+            return 1
+        }
         return 10
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
+        if tableView == tblViewDropdownList{
+            let headerView = UIView()
+            headerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+            headerView.backgroundColor = UIColor.clear
+            return headerView
+        }
         let headerView = UIView()
         headerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 10)
         headerView.backgroundColor = UIColor.clear
@@ -247,6 +331,12 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
+        if tableView == tblViewDropdownList{
+            let footerView = UIView()
+            footerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+            footerView.backgroundColor = UIColor.clear
+            return footerView
+        }
         let footerView = UIView()
         footerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 10)
         footerView.backgroundColor = UIColor.clear
@@ -254,6 +344,36 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        if tableView == tblViewDropdownList
+        {
+            let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier:cellReuseIdentifier)
+            
+            cell.selectionStyle=UITableViewCell.SelectionStyle.none
+            cell.accessoryType = UITableViewCell.AccessoryType.none
+            cell.backgroundColor=UIColor.white
+            cell.clearsContextBeforeDrawing = true
+            cell.contentView.clearsContextBeforeDrawing = true
+            
+            let title1 = UILabel(frame: CGRect(x: 15, y: 0, width:  (tblViewDropdownList?.frame.size.width)! - 15, height: 40))
+            title1.textAlignment = .left
+            title1.textColor = UIColor.black
+            title1.backgroundColor = UIColor.clear
+            title1.font = UIFont.systemFont(ofSize: 14)
+            cell.contentView.addSubview(title1)
+          
+            let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
+            let strvalue = String(format: "%@", dictemp.value(forKey: "value")as! CVarArg)
+            let strlabel = String(format: "%@", dictemp.value(forKey: "label")as? String ?? "")
+           
+            title1.text = strlabel
+            
+            let lblSeparator = UILabel(frame: CGRect(x: 0, y: 39, width: tableView.frame.size.width, height: 1))
+            lblSeparator.backgroundColor = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1.0)
+            cell.contentView.addSubview(lblSeparator)
+            
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! tabvcellplan
         
         cell.selectionStyle=UITableViewCell.SelectionStyle.none
@@ -278,12 +398,12 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         
         cell.lbl1.textColor = .black
         cell.lbl2.textColor = .black
-        cell.btnselect.setTitleColor(UIColor(named: "themecolor")!, for: .normal)
+        cell.lblselect.textColor = UIColor(named: "themecolor")!
         
-        cell.btnselect.layer.cornerRadius = 14.0
-        cell.btnselect.layer.borderWidth = 1.0
-        cell.btnselect.layer.borderColor = UIColor(named: "themecolor")!.cgColor
-        cell.btnselect.layer.masksToBounds = true
+        cell.lblselect.layer.cornerRadius = 14.0
+        cell.lblselect.layer.borderWidth = 1.0
+        cell.lblselect.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+        cell.lblselect.layer.masksToBounds = true
         
         print("self.strSelectedplanCurrently",self.strSelectedplanCurrently)
         
@@ -291,19 +411,19 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             //Daily Selected
             if strplanname == "Daily"
             {
-                cell.btnselect.setTitle("Selected", for: .normal)
+                cell.lblselect.text = "Selected"
                 cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
                 cell.lbl1.textColor = .white
                 cell.lbl2.textColor = .white
-                cell.btnselect.setTitleColor(.white, for: .normal)
-                cell.btnselect.layer.cornerRadius = 14.0
-                cell.btnselect.layer.borderWidth = 1.0
-                cell.btnselect.layer.borderColor = UIColor.white.cgColor
-                cell.btnselect.layer.masksToBounds = true
+                cell.lblselect.textColor = .white
+                cell.lblselect.layer.cornerRadius = 14.0
+                cell.lblselect.layer.borderWidth = 1.0
+                cell.lblselect.layer.borderColor = UIColor.white.cgColor
+                cell.lblselect.layer.masksToBounds = true
             }
             else
             {
-                cell.btnselect.setTitle("Select", for: .normal)
+                cell.lblselect.text = "Select"
                 cell.viewcell.backgroundColor = UIColor.white
                 cell.viewcell.layer.masksToBounds = false
                 cell.viewcell.layer.cornerRadius = 0.0
@@ -319,19 +439,19 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             //Weekly Selected
             if strplanname == "Weekly"
             {
-                cell.btnselect.setTitle("Selected", for: .normal)
+                cell.lblselect.text = "Selected"
                 cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
                 cell.lbl1.textColor = .white
                 cell.lbl2.textColor = .white
-                cell.btnselect.setTitleColor(.white, for: .normal)
-                cell.btnselect.layer.cornerRadius = 14.0
-                cell.btnselect.layer.borderWidth = 1.0
-                cell.btnselect.layer.borderColor = UIColor.white.cgColor
-                cell.btnselect.layer.masksToBounds = true
+                cell.lblselect.textColor = .white
+                cell.lblselect.layer.cornerRadius = 14.0
+                cell.lblselect.layer.borderWidth = 1.0
+                cell.lblselect.layer.borderColor = UIColor.white.cgColor
+                cell.lblselect.layer.masksToBounds = true
             }
             else
             {
-                cell.btnselect.setTitle("Select", for: .normal)
+                cell.lblselect.text = "Select"
                 cell.viewcell.backgroundColor = UIColor.white
                 cell.viewcell.layer.masksToBounds = false
                 cell.viewcell.layer.cornerRadius = 0.0
@@ -347,19 +467,19 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             //Monthly Selected
             if strplanname == "Monthly"
             {
-                cell.btnselect.setTitle("Selected", for: .normal)
+                cell.lblselect.text = "Selected"
                 cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
                 cell.lbl1.textColor = .white
                 cell.lbl2.textColor = .white
-                cell.btnselect.setTitleColor(.white, for: .normal)
-                cell.btnselect.layer.cornerRadius = 14.0
-                cell.btnselect.layer.borderWidth = 1.0
-                cell.btnselect.layer.borderColor = UIColor.white.cgColor
-                cell.btnselect.layer.masksToBounds = true
+                cell.lblselect.textColor = .white
+                cell.lblselect.layer.cornerRadius = 14.0
+                cell.lblselect.layer.borderWidth = 1.0
+                cell.lblselect.layer.borderColor = UIColor.white.cgColor
+                cell.lblselect.layer.masksToBounds = true
             }
             else
             {
-                cell.btnselect.setTitle("Select", for: .normal)
+                cell.lblselect.text = "Select"
                 cell.viewcell.backgroundColor = UIColor.white
                 cell.viewcell.layer.masksToBounds = false
                 cell.viewcell.layer.cornerRadius = 0.0
@@ -373,7 +493,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         }
         else
         {
-            cell.btnselect.setTitle("Select", for: .normal)
+            cell.lblselect.text = "Select"
             cell.viewcell.backgroundColor = UIColor.white
             cell.viewcell.layer.masksToBounds = false
             cell.viewcell.layer.cornerRadius = 0.0
@@ -390,51 +510,68 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        let strplanname = arrMplan.object(at: indexPath.section) as? String ?? ""
-        
-        let cell = tabvplan.cellForRow(at: indexPath)as! tabvcellplan
-        
-        cell.btnselect.setTitle("Selected", for: .normal)
-        cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
-        cell.lbl1.textColor = .white
-        cell.lbl2.textColor = .white
-        cell.btnselect.setTitleColor(.white, for: .normal)
-        cell.btnselect.layer.cornerRadius = 14.0
-        cell.btnselect.layer.borderWidth = 1.0
-        cell.btnselect.layer.borderColor = UIColor.white.cgColor
-        cell.btnselect.layer.masksToBounds = true
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            // your code here
+        if tableView == tblViewDropdownList
+        {
+            let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
+            let strvalue = String(format: "%@", dictemp.value(forKey: "value")as! CVarArg)
+            let strlabel = String(format: "%@", dictemp.value(forKey: "label")as? String ?? "")
             
-            if strplanname == "Daily"
-            {
-                self.strSelectedplanCurrently = "1"
-                self.insertSubscriptionmodelTable(strplanname: "Daily", strplanid: "1")
-               
-                let ctrl = subscriptionmodel(nibName: "subscriptionmodel", bundle: nil)
-                ctrl.strplanname = strplanname
-                self.navigationController?.pushViewController(ctrl, animated: true)
-            }
-            else if strplanname == "Weekly"
-            {
-                self.strSelectedplanCurrently = "2"
-                self.insertSubscriptionmodelTable(strplanname: "Weekly", strplanid: "2")
-                
-                let ctrl = subscriptionmodelweekly(nibName: "subscriptionmodelweekly", bundle: nil)
-                ctrl.strplanname = strplanname
-                self.navigationController?.pushViewController(ctrl, animated: true)
-            }
-            else if strplanname == "Monthly"
-            {
-                self.strSelectedplanCurrently = "3"
-                self.insertSubscriptionmodelTable(strplanname: "Monthly", strplanid: "3")
-                
-                let ctrl = subscriptionmodelmonthly(nibName: "subscriptionmodelmonthly", bundle: nil)
-                ctrl.strplanname = strplanname
-                self.navigationController?.pushViewController(ctrl, animated: true)
-            }
+            self.txtdeliveryaddress.tag = Int(strvalue)!
+            self.txtdeliveryaddress.text = strlabel
             
+            UserDefaults.standard.set(strlabel, forKey: "loggedinusersavedlocationname")
+            UserDefaults.standard.set(strvalue, forKey: "loggedinusersavedlocationid")
+            UserDefaults.standard.synchronize()
+            handleTap1()
+        }
+        else
+        {
+            let strplanname = arrMplan.object(at: indexPath.section) as? String ?? ""
+            
+            let cell = tabvplan.cellForRow(at: indexPath)as! tabvcellplan
+            
+            cell.lblselect.text = "Selected"
+            cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
+            cell.lbl1.textColor = .white
+            cell.lbl2.textColor = .white
+            cell.lblselect.textColor = .white
+            cell.lblselect.layer.cornerRadius = 14.0
+            cell.lblselect.layer.borderWidth = 1.0
+            cell.lblselect.layer.borderColor = UIColor.white.cgColor
+            cell.lblselect.layer.masksToBounds = true
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                // your code here
+                
+                if strplanname == "Daily"
+                {
+                    self.strSelectedplanCurrently = "1"
+                    self.insertSubscriptionmodelTable(strplanname: "Daily", strplanid: "1")
+                   
+                    let ctrl = subscriptionmodel(nibName: "subscriptionmodel", bundle: nil)
+                    ctrl.strplanname = strplanname
+                    self.navigationController?.pushViewController(ctrl, animated: true)
+                }
+                else if strplanname == "Weekly"
+                {
+                    self.strSelectedplanCurrently = "2"
+                    self.insertSubscriptionmodelTable(strplanname: "Weekly", strplanid: "2")
+                    
+                    let ctrl = subscriptionmodelweekly(nibName: "subscriptionmodelweekly", bundle: nil)
+                    ctrl.strplanname = strplanname
+                    self.navigationController?.pushViewController(ctrl, animated: true)
+                }
+                else if strplanname == "Monthly"
+                {
+                    self.strSelectedplanCurrently = "3"
+                    self.insertSubscriptionmodelTable(strplanname: "Monthly", strplanid: "3")
+                    
+                    let ctrl = subscriptionmodelmonthly(nibName: "subscriptionmodelmonthly", bundle: nil)
+                    ctrl.strplanname = strplanname
+                    self.navigationController?.pushViewController(ctrl, animated: true)
+                }
+                
+            }
         }
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath)
@@ -468,14 +605,63 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 self.strSelectedplanCurrently = "1"
                 self.tabvplan.reloadData()
                 
-                let refreshAlert = UIAlertController(title: "", message: "You have already made a Daily Subscription under pre-order, kindly complete that order first.", preferredStyle: UIAlertController.Style.alert)
+                let refreshAlert = UIAlertController(title: "", message: "Your existing Daily subscription will be deleted & new subscription created.", preferredStyle: UIAlertController.Style.alert)
                 refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
-                    self.strSelectedplanCurrently = "1"
+                    /*self.strSelectedplanCurrently = "1"
                     let ctrl = subscriptionmodel(nibName: "subscriptionmodel", bundle: nil)
                     ctrl.strplanname = "Daily"
-                    self.navigationController?.pushViewController(ctrl, animated: true)
+                    self.navigationController?.pushViewController(ctrl, animated: true)*/
+                    
+                    //Remove Subscriptionmodel table data
+                    let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+                    guard let appDelegate1 = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent1 = appDelegate1.persistentContainer.viewContext
+                    let fetchData1 = NSFetchRequest<NSFetchRequestResult>(entityName: "Subscriptionmodel")
+                    fetchData1.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"1")
+                    let objects1 = try! manageContent1.fetch(fetchData1)
+                    for obj in objects1 {
+                        manageContent1.delete(obj as! NSManagedObject)
+                    }
+                    do {
+                        try manageContent1.save() // <- remember to put this :)
+                    } catch {
+                        // Do something... fatalerror
+                    }
+                    
+                    //Remove Dailymodel table data
+                    guard let appDelegate2 = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent2 = appDelegate2.persistentContainer.viewContext
+                    let fetchData2 = NSFetchRequest<NSFetchRequestResult>(entityName: "Dailymodel")
+                    fetchData2.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"1")
+                    let objects2 = try! manageContent2.fetch(fetchData2)
+                    for obj in objects2 {
+                        manageContent2.delete(obj as! NSManagedObject)
+                    }
+                    do {
+                        try manageContent2.save() // <- remember to put this :)
+                    } catch {
+                        // Do something... fatalerror
+                    }
+                    
+                    //Remove Dailyproduct table data
+                    guard let appDelegate3 = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent3 = appDelegate3.persistentContainer.viewContext
+                    let fetchData3 = NSFetchRequest<NSFetchRequestResult>(entityName: "Dailyproduct")
+                    let objects3 = try! manageContent3.fetch(fetchData3)
+                    for obj in objects3 {
+                        manageContent3.delete(obj as! NSManagedObject)
+                    }
+                    do {
+                        try manageContent3.save() // <- remember to put this :)
+                    } catch {
+                        // Do something... fatalerror
+                    }
+                    
+                    self.strSelectedplanCurrently = ""
+                    self.tabvplan.reloadData()
+                    self.tabvplan.isUserInteractionEnabled = true
                     
                 }))
                 refreshAlert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (action: UIAlertAction!) in
@@ -534,10 +720,15 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 self.present(refreshAlert, animated: true, completion: nil)
             }
             else{
-                
+                self.strSelectedplanCurrently = ""
+                self.tabvplan.reloadData()
+                self.tabvplan.isUserInteractionEnabled = true
             }
         }catch {
             print("err")
+            self.strSelectedplanCurrently = ""
+            self.tabvplan.reloadData()
+            self.tabvplan.isUserInteractionEnabled = true
         }
     }
     
@@ -553,19 +744,69 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         do {
             let result = try manageContent.fetch(fetchData)
             print("result",result)
-            if result.count > 0{
+            if result.count > 0
+            {
                 self.tabvplan.isUserInteractionEnabled = false
                 self.strSelectedplanCurrently = "2"
                 self.tabvplan.reloadData()
                 
-                let refreshAlert = UIAlertController(title: "", message: "You have already made a Weekly Subscription under pre-order, kindly complete that order first.", preferredStyle: UIAlertController.Style.alert)
+                let refreshAlert = UIAlertController(title: "", message: "Your existing Weekly subscription will be deleted & new subscription created.", preferredStyle: UIAlertController.Style.alert)
                 refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
-                    self.strSelectedplanCurrently = "2"
+                    /*self.strSelectedplanCurrently = "2"
                     let ctrl = subscriptionmodelweekly(nibName: "subscriptionmodelweekly", bundle: nil)
                     ctrl.strplanname = "Weekly"
-                    self.navigationController?.pushViewController(ctrl, animated: true)
+                    self.navigationController?.pushViewController(ctrl, animated: true)*/
+                    
+                    //Remove Subscriptionmodel table data
+                    let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+                    guard let appDelegate1 = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent1 = appDelegate1.persistentContainer.viewContext
+                    let fetchData1 = NSFetchRequest<NSFetchRequestResult>(entityName: "Subscriptionmodel")
+                    fetchData1.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"2")
+                    let objects1 = try! manageContent1.fetch(fetchData1)
+                    for obj in objects1 {
+                        manageContent1.delete(obj as! NSManagedObject)
+                    }
+                    do {
+                        try manageContent1.save() // <- remember to put this :)
+                    } catch {
+                        // Do something... fatalerror
+                    }
+                    
+                    //Remove Weeklymodel table data
+                    guard let appDelegate2 = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent2 = appDelegate2.persistentContainer.viewContext
+                    let fetchData2 = NSFetchRequest<NSFetchRequestResult>(entityName: "Weeklymodel")
+                    fetchData2.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"2")
+                    let objects2 = try! manageContent2.fetch(fetchData2)
+                    for obj in objects2 {
+                        manageContent2.delete(obj as! NSManagedObject)
+                    }
+                    do {
+                        try manageContent2.save() // <- remember to put this :)
+                    } catch {
+                        // Do something... fatalerror
+                    }
+                    
+                    //Remove Weeklyproduct table data
+                    guard let appDelegate3 = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent3 = appDelegate3.persistentContainer.viewContext
+                    let fetchData3 = NSFetchRequest<NSFetchRequestResult>(entityName: "Weeklyproduct")
+                    let objects3 = try! manageContent3.fetch(fetchData3)
+                    for obj in objects3 {
+                        manageContent3.delete(obj as! NSManagedObject)
+                    }
+                    do {
+                        try manageContent3.save() // <- remember to put this :)
+                    } catch {
+                        // Do something... fatalerror
+                    }
+                    
+                    self.strSelectedplanCurrently = ""
+                    self.tabvplan.reloadData()
+                    self.tabvplan.isUserInteractionEnabled = true
                     
                 }))
                 refreshAlert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (action: UIAlertAction!) in
@@ -624,10 +865,15 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                
             }
             else{
-                
+                self.strSelectedplanCurrently = ""
+                self.tabvplan.reloadData()
+                self.tabvplan.isUserInteractionEnabled = true
             }
         }catch {
             print("err")
+            self.strSelectedplanCurrently = ""
+            self.tabvplan.reloadData()
+            self.tabvplan.isUserInteractionEnabled = true
         }
     }
     
@@ -643,19 +889,69 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         do {
             let result = try manageContent.fetch(fetchData)
             print("result",result)
-            if result.count > 0{
+            if result.count > 0
+            {
                 self.tabvplan.isUserInteractionEnabled = false
                 self.strSelectedplanCurrently = "3"
                 self.tabvplan.reloadData()
                 
-                let refreshAlert = UIAlertController(title: "", message: "You have already made a Monthly Subscription under pre-order, kindly complete that order first.", preferredStyle: UIAlertController.Style.alert)
+                let refreshAlert = UIAlertController(title: "", message: "Your existing Monthly subscription will be deleted & new subscription created.", preferredStyle: UIAlertController.Style.alert)
                 refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
-                    self.strSelectedplanCurrently = "3"
+                    /*self.strSelectedplanCurrently = "3"
                     let ctrl = subscriptionmodelmonthly(nibName: "subscriptionmodelmonthly", bundle: nil)
                     ctrl.strplanname = "Monthly"
-                    self.navigationController?.pushViewController(ctrl, animated: true)
+                    self.navigationController?.pushViewController(ctrl, animated: true)*/
+                    
+                    //Remove Subscriptionmodel table data
+                    let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+                    guard let appDelegate1 = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent1 = appDelegate1.persistentContainer.viewContext
+                    let fetchData1 = NSFetchRequest<NSFetchRequestResult>(entityName: "Subscriptionmodel")
+                    fetchData1.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"3")
+                    let objects1 = try! manageContent1.fetch(fetchData1)
+                    for obj in objects1 {
+                        manageContent1.delete(obj as! NSManagedObject)
+                    }
+                    do {
+                        try manageContent1.save() // <- remember to put this :)
+                    } catch {
+                        // Do something... fatalerror
+                    }
+                    
+                    //Remove Monthlymodel table data
+                    guard let appDelegate2 = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent2 = appDelegate2.persistentContainer.viewContext
+                    let fetchData2 = NSFetchRequest<NSFetchRequestResult>(entityName: "Monthlymodel")
+                    fetchData2.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"3")
+                    let objects2 = try! manageContent2.fetch(fetchData2)
+                    for obj in objects2 {
+                        manageContent2.delete(obj as! NSManagedObject)
+                    }
+                    do {
+                        try manageContent2.save() // <- remember to put this :)
+                    } catch {
+                        // Do something... fatalerror
+                    }
+                    
+                    //Remove Monthlyproduct table data
+                    guard let appDelegate3 = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent3 = appDelegate3.persistentContainer.viewContext
+                    let fetchData3 = NSFetchRequest<NSFetchRequestResult>(entityName: "Monthlyproduct")
+                    let objects3 = try! manageContent3.fetch(fetchData3)
+                    for obj in objects3 {
+                        manageContent3.delete(obj as! NSManagedObject)
+                    }
+                    do {
+                        try manageContent3.save() // <- remember to put this :)
+                    } catch {
+                        // Do something... fatalerror
+                    }
+                    
+                    self.strSelectedplanCurrently = ""
+                    self.tabvplan.reloadData()
+                    self.tabvplan.isUserInteractionEnabled = true
                     
                 }))
                 refreshAlert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (action: UIAlertAction!) in
@@ -714,10 +1010,15 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                
             }
             else{
-                
+                self.strSelectedplanCurrently = ""
+                self.tabvplan.reloadData()
+                self.tabvplan.isUserInteractionEnabled = true
             }
         }catch {
             print("err")
+            self.strSelectedplanCurrently = ""
+            self.tabvplan.reloadData()
+            self.tabvplan.isUserInteractionEnabled = true
         }
     }
     
@@ -738,10 +1039,99 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         users.setValue(strbearertoken, forKeyPath: "usertoken")
         users.setValue(strplanid, forKeyPath: "subscriptionid")
         users.setValue(strplanname, forKeyPath: "subscriptiontype")
+        users.setValue("0", forKeyPath: "isrenew")
         do{
             try manageContent.save()
         }catch let error as NSError {
            print("could not save . \(error), \(error.userInfo)")
         }
+    }
+    
+    
+    //MARK: - get Availble LOCATIONS LIST API method
+    func getAvailbleLOCATIONSLISTAPIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod65)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    //print("strstatus",strstatus)
+                    //print("strsuccess",strsuccess)
+                    //print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            if self.arrMALLLOCATIONS.count > 0{
+                                self.arrMALLLOCATIONS.removeAllObjects()
+                            }
+                            let arrm = json.value(forKey: "location") as? NSArray ?? []
+                            self.arrMALLLOCATIONS = NSMutableArray(array: arrm)
+                            print("arrMALLLOCATIONS --->",self.arrMALLLOCATIONS)
+                            
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
     }
 }

@@ -26,11 +26,10 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     var reuseIdentifier1 = "colcellselectsize"
     
     @IBOutlet weak var viewevent: UIView!
-    @IBOutlet weak var btnminus: UIButton!
+    @IBOutlet weak var btnMINUS: UIButton!
+    @IBOutlet weak var btnPLUS: UIButton!
     @IBOutlet weak var txtqty: UITextField!
-    @IBOutlet weak var btnplus: UIButton!
     @IBOutlet weak var btnaddonce: UIButton!
-    @IBOutlet weak var btnaddtoall: UIButton!
     
     @IBOutlet weak var lblor: UILabel!
     @IBOutlet weak var lblsep1: UILabel!
@@ -81,14 +80,6 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     var reuseIdentifier3 = "tabvcellreview"
     @IBOutlet weak var btnviewallreveiw: UIButton!
     var msgreview = ""
-    
-    @IBOutlet weak var vieworderon: UIView!
-    @IBOutlet weak var lblorderon: UILabel!
-    @IBOutlet weak var colorderon: UICollectionView!
-    var reuseIdentifier4 = "cellcolordernow"
-    
-    
-    
     
     @IBOutlet weak var viewrelatedproducts: UIView!
     @IBOutlet weak var lblrelatedproducts: UILabel!
@@ -147,40 +138,9 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
         self.createBannerGallery(arrimages: [])
         self.createselectsize()
         
-        
         btnaddonce.layer.cornerRadius = 18.0
         btnaddonce.layer.masksToBounds = true
-        
-        btnaddtoall.layer.cornerRadius = 18.0
-        btnaddtoall.layer.borderWidth = 1.0
-        btnaddtoall.layer.borderColor = UIColor(named: "greencolor")!.cgColor
-        btnaddtoall.layer.masksToBounds = true
-        
-        if strFrompageIdentifier == "1001"
-        {
-            //FROM ORDER ONCE  FLOW
-            btnaddonce.setTitle("ADD TO CART", for: .normal)
-            btnaddtoall.isHidden = true
-            lblsep1.isHidden = true
-            lblor.isHidden = true
-            lblsep2.isHidden = true
-            
-            viewwishlist.isHidden = false
-            viewwishlist.frame = CGRect(x: self.viewwishlist.frame.origin.x, y: self.viewwishlist.frame.origin.y, width: self.viewwishlist.frame.size.width, height: self.viewwishlist.frame.size.height)
-        }
-        else{
-            //FROM SUBSCRIPTION FLOW
-            btnaddonce.setTitle("ADD ONCE", for: .normal)
-            btnaddtoall.isHidden = false
-            lblsep1.isHidden = false
-            lblor.isHidden = false
-            lblsep2.isHidden = false
-            
-            viewwishlist.isHidden = false
-            viewwishlist.frame = CGRect(x: self.viewwishlist.frame.origin.x, y: self.btnaddtoall.frame.maxY + 4, width: self.viewwishlist.frame.size.width, height: self.viewwishlist.frame.size.height)
-        }
-        
-        
+      
         btnSeemoreshortdescription.layer.cornerRadius = 14.0
         btnSeemoreshortdescription.layer.borderWidth = 1.0
         btnSeemoreshortdescription.layer.borderColor = UIColor(named: "themecolor")!.cgColor
@@ -198,7 +158,6 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
 
         self.createreviewrating()
         self.createrelatedProducts()
-        self.createOrderonViewTOP()
         
     }
     
@@ -206,21 +165,6 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
-
-        DispatchQueue.main.async {
-            
-            let appDel = UIApplication.shared.delegate as! AppDelegate
-            print("appDel.arrMDATEWISEPRODUCTPLAN",appDel.arrMDATEWISEPRODUCTPLAN)
-            if appDel.strSelectedPLAN.count > 0
-            {
-                var contentRect = CGRect.zero
-                for view in self.scrolloverall.subviews {
-                   contentRect = contentRect.union(view.frame)
-                }
-                print("contentRect.size",contentRect.size)
-                self.scrolloverall.contentSize = CGSize(width: contentRect.size.width, height: contentRect.size.height - 146)
-            }
-        }
     }
     
     //MARK: - press back method
@@ -307,9 +251,6 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
         }
     }
     
-    //MARK: -  press Addtoall  method
-    @IBAction func pressaddtoall(_ sender: Any) {
-    }
     
     
     //MARK: - press Write your review method
@@ -324,51 +265,6 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
         self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
-    
-    //MARK: - create Order on View on TOP method
-    @objc func createOrderonViewTOP()
-    {
-        let appDel = UIApplication.shared.delegate as! AppDelegate
-        appDel.strSelectedPLAN = ""
-        print("appDel.strSelectedPLAN",appDel.strSelectedPLAN)
-        
-        if appDel.strSelectedPLAN.count > 0
-        {
-            //TOP ORDER ON VIEW WILL SHOW
-            self.vieworderon.isHidden = false
-            
-            let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .horizontal
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            layout.itemSize = CGSize(width: colorderon.frame.size.width / 3 - 10, height: 100)
-            layout.minimumInteritemSpacing = 10
-            layout.minimumLineSpacing = 10
-            colorderon.collectionViewLayout = layout
-            colorderon.register(UINib(nibName: "cellcolordernow", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier4)
-            colorderon.showsHorizontalScrollIndicator = false
-            colorderon.showsVerticalScrollIndicator=false
-            colorderon.backgroundColor = .clear
-        }
-        else
-        {
-            //TOP ORDER ON VIEW WILL HIDDEN and ONLY PRODUCT GRID WILL SHOW
-            self.vieworderon.isHidden = true
-            
-            viewbanner.frame = CGRect(x: viewbanner.frame.origin.x, y: 0, width: viewbanner.frame.size.width, height: viewbanner.frame.size.height)
-            viewsize.frame = CGRect(x: viewsize.frame.origin.x, y: viewbanner.frame.maxY, width: viewsize.frame.size.width, height: viewsize.frame.size.height)
-            viewevent.frame = CGRect(x: viewevent.frame.origin.x, y: viewsize.frame.maxY, width: viewevent.frame.size.width, height: viewevent.frame.size.height)
-            viewshortdescription.frame = CGRect(x: viewshortdescription.frame.origin.x, y: viewevent.frame.maxY, width: viewshortdescription.frame.size.width, height: viewshortdescription.frame.size.height)
-            viewbenifits.frame = CGRect(x: viewbenifits.frame.origin.x, y: viewshortdescription.frame.maxY, width: viewbenifits.frame.size.width, height: viewbenifits.frame.size.height)
-            viewnutritionfacts.frame = CGRect(x: viewnutritionfacts.frame.origin.x, y: viewbenifits.frame.maxY, width: viewnutritionfacts.frame.size.width, height: viewnutritionfacts.frame.size.height)
-            viewreviewratings.frame = CGRect(x: viewreviewratings.frame.origin.x, y: viewnutritionfacts.frame.maxY, width: viewreviewratings.frame.size.width, height: viewreviewratings.frame.size.height)
-            viewrelatedproducts.frame = CGRect(x: viewrelatedproducts.frame.origin.x, y: viewreviewratings.frame.maxY, width: viewrelatedproducts.frame.size.width, height: viewrelatedproducts.frame.size.height)
-            
-            self.viewoverall.frame = CGRect(x: self.viewoverall.frame.origin.x, y: self.viewoverall.frame.origin.y, width: self.viewoverall.frame.size.width, height: self.viewoverall.frame.size.height - self.vieworderon.frame.size.height)
-            
-            self.scrolloverall.contentSize = CGSize(width: self.viewoverall.bounds.size.width, height: self.viewoverall.bounds.size.height)
-            self.scrolloverall.showsVerticalScrollIndicator = false
-        }
-    }
     
     // MARK: - create Banner Gallery method
     @objc func createBannerGallery(arrimages:NSMutableArray)
@@ -493,12 +389,8 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     // MARK: - UICollectionView Delegate & DataSource Method
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        let appDel = UIApplication.shared.delegate as! AppDelegate
-        if collectionView == colorderon
-        {
-            return appDel.arrMDATEWISEPRODUCTPLAN.count
-        }
-        else if collectionView == colrelatedProducts{
+        _ = UIApplication.shared.delegate as! AppDelegate
+        if collectionView == colrelatedProducts{
             
             if arrMRelatedProducts.count == 0 {
                 self.colrelatedProducts.setEmptyMessage(msg)
@@ -511,120 +403,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        if collectionView == colorderon
-        {
-            let appDel = UIApplication.shared.delegate as! AppDelegate
-            
-            let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier4, for: indexPath as IndexPath) as! cellcolordernow
-            cellA.contentView.backgroundColor = .white
-            cellA.contentView.layer.borderWidth = 1.0
-            cellA.contentView.layer.cornerRadius = 0.0
-            cellA.contentView.layer.borderColor = UIColor.clear.cgColor
-            cellA.contentView.layer.masksToBounds = true
-            
-            cellA.viewcell.layer.cornerRadius = 4.0
-            cellA.viewcell.layer.borderWidth = 1.0
-            cellA.viewcell.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
-            cellA.viewcell.layer.masksToBounds = true
-            
-            let dict = appDel.arrMDATEWISEPRODUCTPLAN.object(at: indexPath.row)as? NSMutableDictionary
-            let strdate = String(format: "%@", dict?.value(forKey: "date")as? String ?? "")
-            let strday = String(format: "%@", dict?.value(forKey: "day")as? String ?? "")
-            
-            let arrm = dict?.value(forKey: "items")as! NSMutableArray
-            var intvalueTotal = 0
-            for x in 0 ..< arrm.count
-            {
-                let dict = arrm.object(at: x)as? NSMutableDictionary
-                let strunitprice = String(format: "%@", dict?.value(forKey: "price")as? String ?? "")
-                let strunitqty = String(format: "%@", dict?.value(forKey: "qty")as! CVarArg)
-
-                var intvalue = Float()
-                intvalue = Float(strunitqty)! * Float(strunitprice)!
-                intvalueTotal = intvalueTotal + Int(intvalue)
-                
-            }
-            let strtotalprice = String(format: "%d", intvalueTotal)
-            
-            cellA.lbldate.text = strdate
-            cellA.lblday.text = strday
-            
-            if strtotalprice == "0"{
-                cellA.lbltotalprice.textColor = UIColor(named: "orangecolor")!
-                cellA.lbltotalprice.text = "+ Add More"
-            }
-            else{
-                cellA.lbltotalprice.textColor = UIColor.darkGray
-                cellA.lbltotalprice.text = String(format: "AED %@", strtotalprice)
-            }
-            
-            //STATUS CHECKING WITH TOTAL PRICE FOR THAT DATE
-            if intvalueTotal == 0{
-                //GRAY
-                
-                cellA.lblseparator.backgroundColor = UIColor(named: "darkredcolor")!
-                
-                cellA.lbldate.backgroundColor = .clear
-                cellA.lblday.backgroundColor = .clear
-                cellA.lbltotalprice.backgroundColor = .clear
-                
-                cellA.lbldate.textColor = .black
-                cellA.lblday.textColor = .black
-                cellA.lbltotalprice.textColor = .black
-                
-                cellA.viewcell.backgroundColor = .white
-                cellA.viewcell.layer.cornerRadius = 4.0
-                cellA.viewcell.layer.borderWidth = 1.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "darkredcolor")!.cgColor
-                cellA.viewcell.layer.masksToBounds = true
-            }
-            else if intvalueTotal >= 15{
-                
-                //GREEN
-                cellA.lblseparator.backgroundColor = .white
-                
-                cellA.lbldate.backgroundColor = .clear
-                cellA.lblday.backgroundColor = .clear
-                cellA.lbltotalprice.backgroundColor = .clear
-                
-                cellA.lbldate.textColor = .white
-                cellA.lblday.textColor = .white
-                cellA.lbltotalprice.textColor = .white
-                
-                cellA.viewcell.backgroundColor = UIColor(named: "greencolor")!
-                cellA.viewcell.layer.cornerRadius = 4.0
-                cellA.viewcell.layer.borderWidth = 1.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
-                cellA.viewcell.layer.masksToBounds = true
-                
-            }
-            else if intvalueTotal < 15{
-                
-                //RED
-                
-                cellA.lblseparator.backgroundColor = .white
-                
-                cellA.lbldate.backgroundColor = .clear
-                cellA.lblday.backgroundColor = .clear
-                cellA.lbltotalprice.backgroundColor = .clear
-                
-                cellA.lbldate.textColor = .white
-                cellA.lblday.textColor = .white
-                cellA.lbltotalprice.textColor = .white
-                
-                cellA.viewcell.backgroundColor = UIColor(named: "darkredcolor")!
-                cellA.viewcell.layer.cornerRadius = 4.0
-                cellA.viewcell.layer.borderWidth = 1.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "darkredcolor")!.cgColor
-                cellA.viewcell.layer.masksToBounds = true
-                
-            }
-            
-            // Set up cell
-            return cellA
-            
-        }
-        else if collectionView == colrelatedProducts
+        if collectionView == colrelatedProducts
         {
             let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier5, for: indexPath as IndexPath) as! colcellrelatedproduct
             cellA.contentView.backgroundColor = .white
@@ -640,9 +419,9 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
             
             let dict = arrMRelatedProducts.object(at: indexPath.row) as! NSDictionary
             
-            let strproductid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
+            //let strproductid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
             let strname = String(format: "%@", dict.value(forKey: "name") as? String ?? "")
-            let strsku = String(format: "%@", dict.value(forKey: "sku") as? String ?? "")
+            //let strsku = String(format: "%@", dict.value(forKey: "sku") as? String ?? "")
             let strprice = String(format: "%@", dict.value(forKey: "price") as? String ?? "")
             let strsize = String(format: "%@", dict.value(forKey: "size") as? String ?? "")
             let strbrand = String(format: "%@", dict.value(forKey: "brand") as? String ?? "")
@@ -697,10 +476,10 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
         cellA.contentView.layer.masksToBounds = true
         
         let dictemp = arrMsize.object(at: indexPath.row)as? NSDictionary
-        let strid  = String(format: "%@", dictemp?.value(forKey: "id")as? String ?? "")
+        //let strid  = String(format: "%@", dictemp?.value(forKey: "id")as? String ?? "")
         let strsize  = String(format: "%@", dictemp?.value(forKey: "size")as? String ?? "")
         let strprice  = String(format: "%@", dictemp?.value(forKey: "price")as? String ?? "")
-        let strselected  = String(format: "%@", dictemp?.value(forKey: "selected")as? String ?? "")
+        //let strselected  = String(format: "%@", dictemp?.value(forKey: "selected")as? String ?? "")
         
         cellA.lblsize.text = strsize
         
@@ -719,11 +498,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        if collectionView == colorderon
-        {
-            return CGSize(width: colorderon.frame.size.width / 3 - 10 , height: 100)
-        }
-        else if collectionView == colrelatedProducts
+        if collectionView == colrelatedProducts
         {
             return CGSize(width: colrelatedProducts.frame.size.width / 2.3 , height: 316)
         }
@@ -732,11 +507,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
     {
-        if collectionView == colorderon
-        {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        }
-        else if collectionView == colrelatedProducts
+        if collectionView == colrelatedProducts
         {
             return UIEdgeInsets(top: 0, left: 5, bottom: 10, right: 5)
         }
@@ -744,10 +515,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        if collectionView == colorderon
-        {
-        }
-        else if collectionView == colrelatedProducts
+        if collectionView == colrelatedProducts
         {
         }
         
@@ -902,13 +670,13 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                      let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     //print("strstatus",strstatus)
-                     //print("strsuccess",strsuccess)
-                     //print("strmessage",strmessage)
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let dicproductdata = json.value(forKey: "productData") as? NSDictionary
                             self.dicMProductDetails = dicproductdata!.mutableCopy() as! NSMutableDictionary
@@ -1017,6 +785,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                             
                             var fltgivenreviewcount = 0.0
                             let fltfullcount = Float(String(format: "%@", strTotalVotesCount))
+                            print("fltfullcount",fltfullcount as Any)
                             
                             let flt0star = Float(String(format: "%@", strZEROCOUNT))
                             let flt1star = Float(String(format: "%@", strONECOUNT))
@@ -1113,11 +882,11 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                             
                             //SET FULL DESCRIPTION DESCRIPTION
                             let strdescription = String(format: "%@", self.dicMProductDetails.value(forKey: "description")as? String ?? "")
-                            
+                            print("strdescription",strdescription)
                             
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -1169,7 +938,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1193,15 +962,15 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_wishlistadd") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -1209,7 +978,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
 
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -1222,7 +991,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1272,7 +1041,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1296,22 +1065,22 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_addtocart") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -1324,7 +1093,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1368,7 +1137,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_networkerror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
@@ -1392,19 +1161,19 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             self.getProductDetailsAPIMethod()
 
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -1417,7 +1186,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                 //check for internal server data error
                 DispatchQueue.main.async {
                     
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_servererror") , preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                         print("Click of default button")
