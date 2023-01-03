@@ -346,7 +346,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: colrelatedProducts.frame.size.width / 2, height: 316)
+        layout.itemSize = CGSize(width: colrelatedProducts.frame.size.width / 2, height: 316 - 44)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         colrelatedProducts.collectionViewLayout = layout
@@ -482,7 +482,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
     {
         if collectionView == colrelatedProducts
         {
-            return CGSize(width: colrelatedProducts.frame.size.width / 2.3 , height: 316)
+            return CGSize(width: colrelatedProducts.frame.size.width / 2.3 , height: 316 - 44)
         }
         
         return CGSize(width: colselectsize.frame.size.width / 3.5 , height: 80)
