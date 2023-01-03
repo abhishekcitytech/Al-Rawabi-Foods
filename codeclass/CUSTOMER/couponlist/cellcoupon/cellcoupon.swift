@@ -11,7 +11,7 @@ class cellcoupon: UITableViewCell {
     @IBOutlet weak var viewcell: UIView!
     @IBOutlet weak var lblcouponcode: UILabel!
     @IBOutlet weak var lblexpdate: UILabel!
-    @IBOutlet weak var btnselectcopy: UIButton!
+    @IBOutlet weak var lblselectcopy: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

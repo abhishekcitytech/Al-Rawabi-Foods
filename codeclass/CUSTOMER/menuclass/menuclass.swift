@@ -41,7 +41,8 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
         btnaccount.setTitleColor(.black, for: .normal)
         
         self.tabvlist.isHidden = true
-        self.postAllCategoryHomepageAPImethod()
+         
+        self.createMenuArraylist()
         
         self.createAccountArraylist()
         
@@ -60,8 +61,6 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
         tabvlist.backgroundColor=UIColor.clear
         tabvlist.separatorColor=UIColor.clear
         tabvlist.showsVerticalScrollIndicator = false
-        
-        
         
     }
     
@@ -144,6 +143,202 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
         tabvlist.reloadData()
     }
     
+    //MARK: - create Menu Tab Array List Method
+    @objc func createMenuArraylist()
+    {
+        if self.arrMenu.count > 0{
+            self.arrMenu.removeAllObjects()
+        }
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        if strbearertoken != ""
+        {
+            //Loggedin
+            self.tabvlist.isHidden = false
+            
+            self.btnaccount.isHidden = false
+            self.imgvaccount.isHidden = false
+            
+            //Home
+            let dic1 = NSMutableDictionary()
+            dic1.setValue("sl1.png", forKey: "image")
+            dic1.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language136")), forKey: "value")
+            dic1.setValue("", forKey: "id")
+            self.arrMenu.add(dic1)
+            
+            //Order by Subscription
+            let dic2 = NSMutableDictionary()
+            dic2.setValue("sl2.png", forKey: "image")
+            dic2.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language137")), forKey: "value")
+            dic2.setValue("", forKey: "id")
+            self.arrMenu.add(dic2)
+            
+            //Order Once
+            let dic3 = NSMutableDictionary()
+            dic3.setValue("sl3.png", forKey: "image")
+            dic3.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language104")), forKey: "value")
+            dic3.setValue("", forKey: "id")
+            self.arrMenu.add(dic3)
+            
+            //Cart
+            let dic4 = NSMutableDictionary()
+            dic4.setValue("sl10.png", forKey: "image")
+            dic4.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language143")), forKey: "value")
+            dic4.setValue("", forKey: "id")
+            self.arrMenu.add(dic4)
+            
+            //About Us
+            let dic5 = NSMutableDictionary()
+            dic5.setValue("aboutus.png", forKey: "image")
+            dic5.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language280")), forKey: "value")
+            dic5.setValue("", forKey: "id")
+            self.arrMenu.add(dic5)
+            
+            //Contact Us
+            let dic6 = NSMutableDictionary()
+            dic6.setValue("sl11.png", forKey: "image")
+            dic6.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language144")), forKey: "value")
+            dic6.setValue("", forKey: "id")
+            self.arrMenu.add(dic6)
+            
+            //Privacy Policy
+            let dic7 = NSMutableDictionary()
+            dic7.setValue("privacypolicy.png", forKey: "image")
+            dic7.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language281")), forKey: "value")
+            dic7.setValue("", forKey: "id")
+            self.arrMenu.add(dic7)
+            
+            //Delivery Policy
+            let dic8 = NSMutableDictionary()
+            dic8.setValue("delverypolicy.png", forKey: "image")
+            dic8.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language282")), forKey: "value")
+            dic8.setValue("", forKey: "id")
+            self.arrMenu.add(dic8)
+            
+            //Refund/ Return & Cancellation
+            let dic9 = NSMutableDictionary()
+            dic9.setValue("refundreturncancel.png", forKey: "image")
+            dic9.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language283")), forKey: "value")
+            dic9.setValue("", forKey: "id")
+            self.arrMenu.add(dic9)
+            
+            //Terms & Conditions
+            let dic10 = NSMutableDictionary()
+            dic10.setValue("termsandconditions.png", forKey: "image")
+            dic10.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language284")), forKey: "value")
+            dic10.setValue("", forKey: "id")
+            self.arrMenu.add(dic10)
+            
+            //Disclaimer
+            let dic11 = NSMutableDictionary()
+            dic11.setValue("disclaimer.png", forKey: "image")
+            dic11.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language285")), forKey: "value")
+            dic11.setValue("", forKey: "id")
+            self.arrMenu.add(dic11)
+            
+            //Whatsapp
+            let dic12 = NSMutableDictionary()
+            dic12.setValue("whatsapp.png", forKey: "image")
+            dic12.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language279")), forKey: "value")
+            dic12.setValue("", forKey: "id")
+            self.arrMenu.add(dic12)
+        }
+        else
+        {
+            //not loggedin
+            self.tabvlist.isHidden = false
+            
+            self.btnaccount.isHidden = true
+            self.imgvaccount.isHidden = true
+            
+            //Home
+            let dic1 = NSMutableDictionary()
+            dic1.setValue("sl1.png", forKey: "image")
+            dic1.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language136")), forKey: "value")
+            dic1.setValue("", forKey: "id")
+            self.arrMenu.add(dic1)
+            
+            //Order by Subscription
+            let dic2 = NSMutableDictionary()
+            dic2.setValue("sl2.png", forKey: "image")
+            dic2.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language137")), forKey: "value")
+            dic2.setValue("", forKey: "id")
+            self.arrMenu.add(dic2)
+            
+            //Order Once
+            let dic3 = NSMutableDictionary()
+            dic3.setValue("sl3.png", forKey: "image")
+            dic3.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language104")), forKey: "value")
+            dic3.setValue("", forKey: "id")
+            self.arrMenu.add(dic3)
+            
+            //About Us
+            let dic4 = NSMutableDictionary()
+            dic4.setValue("aboutus.png", forKey: "image")
+            dic4.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language280")), forKey: "value")
+            dic4.setValue("", forKey: "id")
+            self.arrMenu.add(dic4)
+            
+            //Contact Us
+            let dic5 = NSMutableDictionary()
+            dic5.setValue("sl11.png", forKey: "image")
+            dic5.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language144")), forKey: "value")
+            dic5.setValue("", forKey: "id")
+            self.arrMenu.add(dic5)
+            
+            //Privacy Policy
+            let dic6 = NSMutableDictionary()
+            dic6.setValue("privacypolicy.png", forKey: "image")
+            dic6.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language281")), forKey: "value")
+            dic6.setValue("", forKey: "id")
+            self.arrMenu.add(dic6)
+            
+            //Delivery Policy
+            let dic7 = NSMutableDictionary()
+            dic7.setValue("delverypolicy.png", forKey: "image")
+            dic7.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language282")), forKey: "value")
+            dic7.setValue("", forKey: "id")
+            self.arrMenu.add(dic7)
+            
+            //Refund/ Return & Cancellation
+            let dic8 = NSMutableDictionary()
+            dic8.setValue("refundreturncancel.png", forKey: "image")
+            dic8.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language283")), forKey: "value")
+            dic8.setValue("", forKey: "id")
+            self.arrMenu.add(dic8)
+            
+            //Terms & Conditions
+            let dic9 = NSMutableDictionary()
+            dic9.setValue("termsandconditions.png", forKey: "image")
+            dic9.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language284")), forKey: "value")
+            dic9.setValue("", forKey: "id")
+            self.arrMenu.add(dic9)
+            
+            //Disclaimer
+            let dic10 = NSMutableDictionary()
+            dic10.setValue("disclaimer.png", forKey: "image")
+            dic10.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language285")), forKey: "value")
+            dic10.setValue("", forKey: "id")
+            self.arrMenu.add(dic10)
+            
+            //Whatsapp
+            let dic11 = NSMutableDictionary()
+            dic11.setValue("whatsapp.png", forKey: "image")
+            dic11.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language279")), forKey: "value")
+            dic11.setValue("", forKey: "id")
+            self.arrMenu.add(dic11)
+            
+        }
+        
+        self.tabvlist.tag = 100
+        self.tabvlist.reloadData()
+        
+        print("self.arrMenu",self.arrMenu)
+    }
     
     //MARK: - create Account Tab Array List Method
     @objc func createAccountArraylist()
@@ -316,6 +511,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
             
             if strplanname == myAppDelegate.changeLanguage(key: "msg_language136")
             {
+                //Home
                 let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
                 if (strLangCode == "en")
                 {
@@ -327,6 +523,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
             }
             else if strplanname == myAppDelegate.changeLanguage(key: "msg_language137")
             {
+                //Order By Subscription
                 let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
                 if (strLangCode == "en")
                 {
@@ -338,6 +535,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
             }
             else if strplanname == myAppDelegate.changeLanguage(key: "msg_language104")
             {
+                //Order Once
                 let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
                 if (strLangCode == "en")
                 {
@@ -347,35 +545,97 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                 }
                 
             }
-            else if strplanname == "Dairy"
-            {
-                
-            }
-            else if strplanname == "Juice"
-            {
-                
-            }
-            else if strplanname == "Bakery"
-            {
-                
-            }
-            else if strplanname == "Meat"
-            {
-                
-            }
-            else if strplanname == "Offers"
-            {
-                
-            }
             else if strplanname == myAppDelegate.changeLanguage(key: "msg_language143")
             {
+                //Cart
                 let ctrl = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
                 self.navigationController?.pushViewController(ctrl, animated: true)
             }
             else if strplanname == myAppDelegate.changeLanguage(key: "msg_language144")
             {
+                //Contact Us
                 let ctrl = contactus(nibName: "contactus", bundle: nil)
+                ctrl.strPagename = strplanname
                 self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language280")
+            {
+                //About Us
+                let ctrl = cmspage(nibName: "cmspage", bundle: nil)
+                ctrl.strPagename = strplanname
+                ctrl.strcmsidentifier = "1001"
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language281")
+            {
+                //Privacy Policy
+                let ctrl = cmspage(nibName: "cmspage", bundle: nil)
+                ctrl.strPagename = strplanname
+                ctrl.strcmsidentifier = "1002"
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language282")
+            {
+                //Delivery Policy
+                let ctrl = cmspage(nibName: "cmspage", bundle: nil)
+                ctrl.strPagename = strplanname
+                ctrl.strcmsidentifier = "1003"
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language283")
+            {
+                //Refund/ Return & Cancellation
+                let ctrl = cmspage(nibName: "cmspage", bundle: nil)
+                ctrl.strPagename = strplanname
+                ctrl.strcmsidentifier = "1004"
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language284")
+            {
+                //Terms & Conditions
+                let ctrl = cmspage(nibName: "cmspage", bundle: nil)
+                ctrl.strPagename = strplanname
+                ctrl.strcmsidentifier = "1005"
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language285")
+            {
+                //Disclaimer
+                let ctrl = cmspage(nibName: "cmspage", bundle: nil)
+                ctrl.strPagename = strplanname
+                ctrl.strcmsidentifier = "1006"
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language279")
+            {
+                var str = String(format: "%@ %@","Best shopping experience at Al Rawabi.","https://alrawabidairy.com/")
+                str=str.addingPercentEncoding(withAllowedCharacters: (NSCharacterSet.urlQueryAllowed))!
+                //let whatsappURL = URL(string: "whatsapp://send?text=\(str)")
+                //let whatsappURL = URL(string: "https://wa.me/+97333581335")
+                let whatsappURL = URL(string: String(format: "%@%@", "https://wa.me/",strplanname))
+                
+                if UIApplication.shared.canOpenURL(whatsappURL!) {
+                   UIApplication.shared.open(whatsappURL!, options: [:], completionHandler: nil)
+                } else {
+                    
+                    let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage")! as! CVarArg)
+                    if (strLangCode == "ar"){
+                        let uiAlert = UIAlertController(title: "", message: "لم يتم تثبيت Whatsapp على هذا الجهاز. يرجى تثبيت Whatsapp وإعادة المحاولة." , preferredStyle: UIAlertController.Style.alert)
+                        self.present(uiAlert, animated: true, completion: nil)
+                        uiAlert.addAction(UIAlertAction(title: "حسنا", style: .default, handler: { action in
+                            print("Click of default button")
+                        }))
+                    }
+                    else if (strLangCode == "en"){
+                        let uiAlert = UIAlertController(title: "", message: "Whatsapp is not installed on this device. Please install Whatsapp and try again." , preferredStyle: UIAlertController.Style.alert)
+                        self.present(uiAlert, animated: true, completion: nil)
+                        uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            print("Click of default button")
+                        }))
+                    }
+                    
+                    
+                }
             }
         }
         else
@@ -447,7 +707,14 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Delete Logic here")
                     
+                    UserDefaults.standard.removeObject(forKey: "bearertoken")
+                    UserDefaults.standard.synchronize()
+                    
+                    let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                    print("strbearertoken",strbearertoken)
+                    
                     self.dismiss(animated: true, completion: nil)
+                    
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
                     appDelegate.tabSetting(type: "login")
                    // self.navigationController?.popToRootViewController(animated: true)
@@ -458,300 +725,6 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
             }
-        }
-    }
-
-    
-    //MARK: - post All Category Home Page method
-    func postAllCategoryHomepageAPImethod()
-    {
-        if self.arrMenu.count > 0{
-            self.arrMenu.removeAllObjects()
-        }
-        
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        DispatchQueue.main.async {
-            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
-        }
-        
-        //let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
-        //print("strbearertoken",strbearertoken)
-        
-        let parameters = ["categoryCount": "none",
-                          "categoryImage": "all",
-                          "categoryName": "none",
-                          "categoryId": "none"] as [String : Any]
-        
-        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
-        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
-        request.httpMethod = "POST"
-        //request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
-        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
-        print("json string = \(jsonString)")
-        request.httpBody = jsonData as Data
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
-            guard error == nil && data != nil else
-            {
-                //check for fundamental networking error
-                DispatchQueue.main.async {
-                    
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
-                    self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                        print("Click of default button")
-                    }))
-                    
-                    self.view.activityStopAnimating()
-                    
-                }
-                print("Error=\(String(describing: error))")
-                return
-            }
-            do{
-                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
-                {
-                    DispatchQueue.main.async {
-                        self.view.activityStopAnimating()
-                    }
-                
-                    let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
-                    
-                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    print("strstatus",strstatus)
-                    print("strsuccess",strsuccess)
-                    print("strmessage",strmessage)
-                    
-                    DispatchQueue.main.async {
-                        
-                        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-                        
-                        if strsuccess == true
-                        {
-                            let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
-                            print("strbearertoken",strbearertoken)
-                            
-                            if strbearertoken != ""
-                            {
-                                //Loggedin
-                                self.tabvlist.isHidden = false
-                                
-                                self.btnaccount.isHidden = false
-                                self.imgvaccount.isHidden = false
-                                
-                                let dic1 = NSMutableDictionary()
-                                dic1.setValue("sl1.png", forKey: "image")
-                                dic1.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language136")), forKey: "value")
-                                dic1.setValue("", forKey: "id")
-                                self.arrMenu.add(dic1)
-                                
-                                let dic2 = NSMutableDictionary()
-                                dic2.setValue("sl2.png", forKey: "image")
-                                dic2.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language137")), forKey: "value")
-                                dic2.setValue("", forKey: "id")
-                                self.arrMenu.add(dic2)
-                                
-                                let dic3 = NSMutableDictionary()
-                                dic3.setValue("sl3.png", forKey: "image")
-                                dic3.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language104")), forKey: "value")
-                                dic3.setValue("", forKey: "id")
-                                self.arrMenu.add(dic3)
-                                
-                                let arrmcategorytree = dictemp.value(forKey: "categoryTree") as? NSArray ?? []
-                                let arrm1 = NSMutableArray(array: arrmcategorytree)
-                                
-                                for x in 0 ..< arrm1.count
-                                {
-                                    let dic = NSMutableDictionary()
-                                    
-                                    let dictemp = arrm1.object(at: x)as? NSDictionary
-                                    let strname = String(format: "%@", dictemp?.value(forKey: "text") as? String ?? "")
-                                    let strid = String(format: "%@", dictemp?.value(forKey: "id") as! CVarArg)
-                                    let strimage = String(format: "%@", dictemp?.value(forKey: "categoryImage") as? String ?? "")
-                                    
-                                    let arrm11 = dictemp?.value(forKey: "children")as? NSArray ?? []
-                                    
-                                    dic.setValue(strimage, forKey: "image")
-                                    dic.setValue(strname, forKey: "value")
-                                    dic.setValue(strid, forKey: "id")
-                                    //dic.setValue(arrm11, forKey: "children")
-                                    self.arrMenu.add(dic)
-                                }
-                                
-                                let dic4 = NSMutableDictionary()
-                                dic4.setValue("sl10.png", forKey: "image")
-                                dic4.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language143")), forKey: "value")
-                                dic4.setValue("", forKey: "id")
-                                self.arrMenu.add(dic4)
-                                
-                                let dic5 = NSMutableDictionary()
-                                dic5.setValue("sl11.png", forKey: "image")
-                                dic5.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language144")), forKey: "value")
-                                dic5.setValue("", forKey: "id")
-                                self.arrMenu.add(dic5)
-                            }
-                            else
-                            {
-                                //not loggedin
-                                self.tabvlist.isHidden = false
-                                
-                                self.btnaccount.isHidden = true
-                                self.imgvaccount.isHidden = true
-                                
-                                let dic1 = NSMutableDictionary()
-                                dic1.setValue("sl1.png", forKey: "image")
-                                dic1.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language136")), forKey: "value")
-                                dic1.setValue("", forKey: "id")
-                                self.arrMenu.add(dic1)
-                                
-                                let dic2 = NSMutableDictionary()
-                                dic2.setValue("sl2.png", forKey: "image")
-                                dic2.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language137")), forKey: "value")
-                                dic2.setValue("", forKey: "id")
-                                self.arrMenu.add(dic2)
-                                
-                                let dic3 = NSMutableDictionary()
-                                dic3.setValue("sl3.png", forKey: "image")
-                                dic3.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language104")), forKey: "value")
-                                dic3.setValue("", forKey: "id")
-                                self.arrMenu.add(dic3)
-                                
-                                let arrmcategorytree = dictemp.value(forKey: "categoryTree") as? NSArray ?? []
-                                let arrm1 = NSMutableArray(array: arrmcategorytree)
-                                
-                                for x in 0 ..< arrm1.count
-                                {
-                                    let dic = NSMutableDictionary()
-                                    
-                                    let dictemp = arrm1.object(at: x)as? NSDictionary
-                                    let strname = String(format: "%@", dictemp?.value(forKey: "text") as? String ?? "")
-                                    let strid = String(format: "%@", dictemp?.value(forKey: "id") as! CVarArg)
-                                    let strimage = String(format: "%@", dictemp?.value(forKey: "categoryImage") as? String ?? "")
-                                    let arrm11 = dictemp?.value(forKey: "children")as? NSArray ?? []
-                                    
-                                    dic.setValue(strimage, forKey: "image")
-                                    dic.setValue(strname, forKey: "value")
-                                    dic.setValue(strid, forKey: "id")
-                                    dic.setValue(arrm11, forKey: "children")
-                                    self.arrMenu.add(dic)
-                                }
-                                
-                                let dic5 = NSMutableDictionary()
-                                dic5.setValue("sl11.png", forKey: "image")
-                                dic5.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language144")), forKey: "value")
-                                dic5.setValue("", forKey: "id")
-                                self.arrMenu.add(dic5)
-                                
-                            }
-                            
-                            self.tabvlist.tag = 100
-                            self.tabvlist.reloadData()
-                            
-                            print("self.arrMenu",self.arrMenu)
-     
-                        }
-                        else{
-                            
-                            self.errorchecklistarray()
-                            
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                                print("Click of default button")
-                            }))
-                        }
-                        
-                    }
-                }
-            }
-            catch {
-                //check for internal server data error
-                DispatchQueue.main.async {
-                    
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
-                    self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                        print("Click of default button")
-                    }))
-                    self.errorchecklistarray()
-                    self.view.activityStopAnimating()
-                }
-                print("Error -> \(error)")
-            }
-        }
-        task.resume()
-    }
-    
-    func errorchecklistarray()
-    {
-        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
-        print("strbearertoken",strbearertoken)
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        if strbearertoken != ""
-        {
-            //Loggedin
-            let dic1 = NSMutableDictionary()
-            dic1.setValue("sl1.png", forKey: "image")
-            dic1.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language136")), forKey: "value")
-            dic1.setValue("", forKey: "id")
-            self.arrMenu.add(dic1)
-            
-            let dic2 = NSMutableDictionary()
-            dic2.setValue("sl2.png", forKey: "image")
-            dic2.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language137")), forKey: "value")
-            dic2.setValue("", forKey: "id")
-            self.arrMenu.add(dic2)
-            
-            let dic3 = NSMutableDictionary()
-            dic3.setValue("sl3.png", forKey: "image")
-            dic3.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language104")), forKey: "value")
-            dic3.setValue("", forKey: "id")
-            self.arrMenu.add(dic3)
-            
-            let dic4 = NSMutableDictionary()
-            dic4.setValue("sl10.png", forKey: "image")
-            dic4.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language143")), forKey: "value")
-            dic4.setValue("", forKey: "id")
-            self.arrMenu.add(dic4)
-            
-            let dic5 = NSMutableDictionary()
-            dic5.setValue("sl11.png", forKey: "image")
-            dic5.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language144")), forKey: "value")
-            dic5.setValue("", forKey: "id")
-            self.arrMenu.add(dic5)
-        }
-        else{
-            //not loggedin
-            
-            let dic1 = NSMutableDictionary()
-            dic1.setValue("sl1.png", forKey: "image")
-            dic1.setValue(myAppDelegate.changeLanguage(key: "msg_language136"), forKey: "value")
-            dic1.setValue("", forKey: "id")
-            self.arrMenu.add(dic1)
-            
-            let dic2 = NSMutableDictionary()
-            dic2.setValue("sl2.png", forKey: "image")
-            dic2.setValue(myAppDelegate.changeLanguage(key: "msg_language137"), forKey: "value")
-            dic2.setValue("", forKey: "id")
-            self.arrMenu.add(dic2)
-            
-            let dic3 = NSMutableDictionary()
-            dic3.setValue("sl3.png", forKey: "image")
-            dic3.setValue(myAppDelegate.changeLanguage(key: "msg_language104"), forKey: "value")
-            dic3.setValue("", forKey: "id")
-            self.arrMenu.add(dic3)
-            
-            let dic5 = NSMutableDictionary()
-            dic5.setValue("sl11.png", forKey: "image")
-            dic5.setValue(myAppDelegate.changeLanguage(key: "msg_language144"), forKey: "value")
-            dic5.setValue("", forKey: "id")
-            self.arrMenu.add(dic5)
         }
     }
 }

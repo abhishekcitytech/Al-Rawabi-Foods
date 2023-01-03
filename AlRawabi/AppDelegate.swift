@@ -18,8 +18,12 @@ import NISdk
 struct Constants {
     struct conn {
         
+        //MARK: - Web Service API URL - DEV
+        //static let ConnUrl = "https://alrawabi.task2bill.com/index.php/rest/default/V1/"
+        
         //MARK: - Web Service API URL - UAT
-        static let ConnUrl = "https://alrawabi.task2bill.com/index.php/rest/default/V1/"
+        static let ConnUrl = "https://staging1.alrawabifoods.com/index.php/rest/default/V1/"
+        
     }
     
     struct methodname {
@@ -116,6 +120,23 @@ struct Constants {
         static let apimethod89 = "countryinfo/countryinfo-api"
         static let apimethod90 = "rewardpoints/rewardpoints-api"
         static let apimethod91 = "rewardtransactions/rewardtransactions-api"
+        
+        static let apimethod92 = "aboutuspage/aboutuspage-api"
+        static let apimethod93 = "privacypolicypage/privacypolicypage-api"
+        static let apimethod94 = "deliverypolicypage/deliverypolicypage-api"
+        static let apimethod95 = "refundandcancellationpage/refundandcancellationpage-api"
+        static let apimethod96 = "termsandconditionpage/termsandconditionpage-api"
+        static let apimethod97 = "disclaimerpage/disclaimerpage-api"
+        
+        static let apimethod98 = "homepageHealtySuhoorBanner/homepageHealtySuhoorBanner-api"
+        static let apimethod99 = "homepageJuiceBanner/homepageJuiceBanner-api"
+        static let apimethod100 = "homepageNewinstoreBanner/homepageNewinstoreBanner-api"
+        
+        static let apimethod101 = "rewardpointapply/rewardpointapply-api"
+        
+        static let apimethod102 = "contactus/contactus-api"
+        
+        static let apimethod103 = "creditmemolist/creditmemolist-api"
     }
 }
 

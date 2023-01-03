@@ -81,7 +81,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         
-        //FIXME
+        //FIXMESANDIPAN
         self.txtpassword.text = "123456"
         self.txtconfirmpassword.text = "123456"
    
@@ -93,8 +93,12 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         viewfirstname.layer.masksToBounds = true
         viewlastname.layer.cornerRadius = 3.0
         viewlastname.layer.masksToBounds = true
+        
+        viewemil.layer.borderWidth = 1.0
+        viewemil.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
         viewemil.layer.cornerRadius = 3.0
         viewemil.layer.masksToBounds = true
+        
         viewmobile.layer.cornerRadius = 3.0
         viewmobile.layer.masksToBounds = true
         viewpassword.layer.cornerRadius = 3.0
@@ -174,7 +178,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
             self.viewemil1.frame = CGRect(x: 1, y: self.viewemil1.frame.origin.y, width: self.viewemil1.frame.size.width, height: self.viewemil1.frame.size.height)
             self.txtemail.frame = CGRect(x: 54, y: self.txtemail.frame.origin.y, width: self.txtemail.frame.size.width, height: self.txtemail.frame.size.height)
             self.txtemail.textAlignment = .left
-            self.btnemailverified.frame = CGRect(x: self.txtemail.frame.size.width - 10, y: self.btnemailverified.frame.origin.y, width: self.btnemailverified.frame.size.width, height: self.btnemailverified.frame.size.height)
+            self.btnemailverified.frame = CGRect(x: self.viewemil.frame.size.width - self.btnemailverified.frame.size.width - 4, y: self.btnemailverified.frame.origin.y, width: self.btnemailverified.frame.size.width, height: self.btnemailverified.frame.size.height)
             
             self.viewmobile1.frame = CGRect(x: 1, y: self.viewmobile1.frame.origin.y, width: self.viewmobile1.frame.size.width, height: self.viewmobile1.frame.size.height)
             self.lblmobilecountrycode.frame = CGRect(x: 54, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
@@ -208,7 +212,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
             self.viewemil1.frame = CGRect(x: self.viewemil.frame.size.width - 53, y: self.viewemil1.frame.origin.y, width: self.viewemil1.frame.size.width, height: self.viewemil1.frame.size.height)
             self.txtemail.frame = CGRect(x: 1, y: self.txtemail.frame.origin.y, width: self.txtemail.frame.size.width, height: self.txtemail.frame.size.height)
             self.txtemail.textAlignment = .right
-            self.btnemailverified.frame = CGRect(x: 10, y: self.btnemailverified.frame.origin.y, width: self.btnemailverified.frame.size.width, height: self.btnemailverified.frame.size.height)
+            self.btnemailverified.frame = CGRect(x: 8, y: self.btnemailverified.frame.origin.y, width: self.btnemailverified.frame.size.width, height: self.btnemailverified.frame.size.height)
             
             self.viewmobile1.frame = CGRect(x: self.viewmobile.frame.size.width - 53, y: self.viewmobile1.frame.origin.y, width: self.viewmobile1.frame.size.width, height: self.viewmobile1.frame.size.height)
             self.txtmobile.frame = CGRect(x: 1, y: self.txtmobile.frame.origin.y, width: self.txtmobile.frame.size.width, height: self.txtmobile.frame.size.height)
@@ -262,7 +266,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
             print("mobile",txtmobile.text!)
             
             let obj = otpverifyclass(nibName: "otpverifyclass", bundle: nil)
-            obj.strcountrycode = "91" //FIXME
+            obj.strcountrycode = "91" //FIXMESANDIPAN
             obj.strmobileno = txtmobile.text!
             obj.delegate = self
             self.navigationController?.pushViewController(obj, animated: true)
@@ -476,8 +480,9 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    let strcustomerStatus = dictemp.value(forKey: "customerStatus")as? String ?? ""
+                    let strcustomerStatus = String(format: "%@", dictemp.value(forKey: "customerStatus")as! CVarArg)
                     print("strstatus",strstatus)
+                    print("strcustomerStatus",strcustomerStatus)
                     
                     DispatchQueue.main.async {
                         
@@ -488,6 +493,9 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                                 //Customer Already Exist
                                 //NonVerified
                                 self.btnemailverified.isHidden = true
+                                
+                                self.btnregister.isUserInteractionEnabled = false
+                                
                                 let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                                 self.present(uiAlert, animated: true, completion: nil)
                                 uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
@@ -497,6 +505,9 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                             else{
                                 //Customer does not Exist. Its NEW Customer
                                 //Verified
+                                
+                                self.btnregister.isUserInteractionEnabled = true
+                                
                                 self.btnemailverified.isHidden = false
                             }
                         }

@@ -23,6 +23,8 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
     
     var strselectedrow = ""
     
+    var strselectedcartid = ""
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -152,8 +154,8 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
         let strcouponcode = String(format: "%@", dic.value(forKey: "code")as? String ?? "")
         let strexpdate = String(format: "%@", dic.value(forKey: "expiration_date")as? String ?? "DD/MM/YYYY")
         
-        cell.btnselectcopy.layer.cornerRadius = 6.0
-        cell.btnselectcopy.layer.masksToBounds = true
+        cell.lblselectcopy.layer.cornerRadius = 6.0
+        cell.lblselectcopy.layer.masksToBounds = true
         
         cell.lblcouponcode.text = String(format: "Coupon Code: %@", strcouponcode)
         cell.lblexpdate.text = String(format: "Expiration Date: %@",strexpdate)
@@ -226,14 +228,14 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
         }
         
-        let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
-        print("strbearertoken",strbearertoken)
+        let strbearertoken1 = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
+        print("strbearertoken1",strbearertoken1)
         
         var strconnurl = String()
         strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod22)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
-        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(strbearertoken1)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         print("strconnurl",strconnurl)
         
@@ -317,7 +319,8 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
-        let parameters = ["couponCode": self.txtcouponcode.text!
+        let parameters = ["couponCode": self.txtcouponcode.text!,
+                          "cartid": self.strselectedcartid
                           ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod23)

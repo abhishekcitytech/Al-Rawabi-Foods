@@ -326,10 +326,10 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
        
         if strselected == "0"
         {
-            cell.btncheckuncheck.isSelected = false
+            cell.imgvcheckuncheck.image = UIImage(named: "uncheckbox")
         }
         else{
-            cell.btncheckuncheck.isSelected = true
+            cell.imgvcheckuncheck.image = UIImage(named: "checkbox")
         }
         
         

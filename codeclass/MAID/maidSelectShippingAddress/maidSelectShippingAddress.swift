@@ -223,9 +223,9 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
             }
             else{
                 
-                cell.lblSetAsDefault.isHidden = false
-                cell.switchSetdefault.isOn = false
-                cell.switchSetdefault.isUserInteractionEnabled = true
+                cell.lblSetAsDefault.isHidden = true
+                cell.switchSetdefault.isOn = true
+                cell.switchSetdefault.isUserInteractionEnabled = false
                 
                 cell.lbldefault.isHidden = true
                 
@@ -256,6 +256,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
             
             cell.switchSetdefault.isHidden = true
             cell.lbldefault.isHidden = true
+            cell.lblSetAsDefault.isHidden = true
             //cell.switchSetdefault.tag = indexPath.section
             //cell.switchSetdefault.addTarget(self, action: #selector(pressswitchSetdefault), for: .touchUpInside)
             

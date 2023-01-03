@@ -680,8 +680,6 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         cell.lblstatus.text = String(format: "%@",strorder_status)
         
         
-        
-        
         if strshipping_amount != ""
         {
             let fltshipping = Float(strshipping_amount)
@@ -704,9 +702,9 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         
         
         cell.lblstatus.textColor = UIColor(named: "themecolor")!
-        cell.lblstatus.backgroundColor =  UIColor(named: "plate1")!
+        /*cell.lblstatus.backgroundColor =  UIColor(named: "plate1")!
         cell.lblstatus.layer.cornerRadius = 12.0
-        cell.lblstatus.layer.masksToBounds = true
+        cell.lblstatus.layer.masksToBounds = true*/
         
         
         if strisedit == true
@@ -1414,7 +1412,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         print("strbearertoken",strbearertoken)
         
         let strsubscription_id = String(format: "%@", diclistvalue.value(forKey: "subscription_id")as? String ?? "")
-        let parameters = ["subscription_id": strsubscription_id] as [String : Any]
+        let parameters = ["subscriptionid": strsubscription_id] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod48)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

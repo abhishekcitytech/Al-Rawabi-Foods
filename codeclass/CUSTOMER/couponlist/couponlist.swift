@@ -23,6 +23,8 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
     
     var strselectedrow = ""
     
+    var strselectedcartid = ""
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -152,8 +154,8 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
         let strcouponcode = String(format: "%@", dic.value(forKey: "code")as? String ?? "")
         let strexpdate = String(format: "%@", dic.value(forKey: "expiration_date")as? String ?? "DD/MM/YYYY")
         
-        cell.btnselectcopy.layer.cornerRadius = 6.0
-        cell.btnselectcopy.layer.masksToBounds = true
+        cell.lblselectcopy.layer.cornerRadius = 6.0
+        cell.lblselectcopy.layer.masksToBounds = true
         
         cell.lblcouponcode.text = String(format: "Coupon Code: %@", strcouponcode)
         cell.lblexpdate.text = String(format: "Expiration Date: %@",strexpdate)
@@ -256,8 +258,10 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
                         self.view.activityStopAnimating()
                     }
                     
+                    print("json --->",json)
+                    
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    
                    
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -318,7 +322,8 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
-        let parameters = ["couponCode": self.txtcouponcode.text!
+        let parameters = ["couponCode": self.txtcouponcode.text!,
+                          "cartid": self.strselectedcartid
                           ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod23)
@@ -326,6 +331,7 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -369,7 +375,7 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let uiAlert = UIAlertController(title: "", message: "You have applied coupon code succesfully." , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
@@ -387,8 +393,9 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
                                 }
                             }))
                         }
-                        else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                        else
+                        {
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")

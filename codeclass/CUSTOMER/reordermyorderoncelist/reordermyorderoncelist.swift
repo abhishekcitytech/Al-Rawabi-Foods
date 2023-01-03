@@ -35,7 +35,7 @@ class reordermyorderoncelist: UIViewController,UITableViewDelegate,UITableViewDa
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        self.getAllOrdersAPIMethod(stratstus: "all")
+        self.getAllOrdersAPIMethod(stratstus: "")
     }
     
     // MARK: - viewDidLoad Method
@@ -121,7 +121,7 @@ class reordermyorderoncelist: UIViewController,UITableViewDelegate,UITableViewDa
         let strorder_id = String(format: "%@", dic.value(forKey: "order_id")as! CVarArg)
         let strorder_increment_id = String(format: "%@", dic.value(forKey: "order_increment_id")as! CVarArg)
         
-        let strstatus = String(format: "%@", dic.value(forKey: "status")as? String ?? "")
+        let strstatus = String(format: "%@", dic.value(forKey: "orderStatus")as? String ?? "")
         let strtotal_amount = String(format: "%@", dic.value(forKey: "total_amount")as? String ?? "")
         let strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
         let strcreated_at = String(format: "%@", dic.value(forKey: "created_at")as? String ?? "")
@@ -221,15 +221,17 @@ class reordermyorderoncelist: UIViewController,UITableViewDelegate,UITableViewDa
                         self.view.activityStopAnimating()
                     }
                     
+                    print("json --->",json)
+                    
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                    
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                      let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     //print("strstatus",strstatus)
-                     //print("strsuccess",strsuccess)
-                     //print("strmessage",strmessage)
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -242,7 +244,7 @@ class reordermyorderoncelist: UIViewController,UITableViewDelegate,UITableViewDa
                             let arrmorder = json.value(forKey: "orderdetail") as? NSArray ?? []
                             
                             //SORT ASCENDING FALSE ARRAY LIST BY SUBSCRIPTION ID //
-                            let descriptor: NSSortDescriptor = NSSortDescriptor(key: "order_increment_id", ascending: false)
+                            let descriptor: NSSortDescriptor = NSSortDescriptor(key: "order_id", ascending: false)
                             let sortedResults = arrmorder.sortedArray(using: [descriptor]) as NSArray
                             let aarrm1 = NSMutableArray(array: sortedResults)
                             
@@ -290,6 +292,7 @@ class reordermyorderoncelist: UIViewController,UITableViewDelegate,UITableViewDa
         print("strbearertoken",strbearertoken)
         
         //let parameters = ["orderincrementid": strorderincreamentalID] as [String : Any]
+        
         let parameters = ["orderId": strorderincreamentalID] as [String : Any]
         
         
@@ -298,6 +301,7 @@ class reordermyorderoncelist: UIViewController,UITableViewDelegate,UITableViewDa
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String

@@ -158,6 +158,12 @@ class maidmenuclass: BaseViewController,UITableViewDelegate,UITableViewDataSourc
         }
         else if strname == "Logout"
         {
+            UserDefaults.standard.removeObject(forKey: "bearertokenmaid")
+            UserDefaults.standard.synchronize()
+            
+            let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
+            print("strbearertoken",strbearertoken)
+            
             self.navigationController?.popToRootViewController(animated: false)
         }
         else if strname == "Order Once"

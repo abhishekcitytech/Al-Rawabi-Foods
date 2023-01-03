@@ -1142,7 +1142,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         print(point.y)
         
         isBoolDropdown = true
-        tblViewDropdownList = UITableView(frame: CGRect(x: 0, y: point.y + self.txtsearch.frame.size.height + 4, width: self.mapview.frame.size.width, height: 0))
+        tblViewDropdownList = UITableView(frame: CGRect(x: 0, y: point.y + self.txtsearch.frame.size.height + 4, width: self.viewoverall.frame.size.width, height: 0))
         tblViewDropdownList?.delegate = self
         tblViewDropdownList?.dataSource = self
         tblViewDropdownList?.tag = tagTable
@@ -1467,12 +1467,21 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                         if strtype == "sublocality" || strtype == "neighborhood" || strtype == "sublocality_level_1"
                         {
                             //THEN FETCH LOCATION NAME
+                            print("strlong_name1",strlong_name)
+                            //self.strlocationname = strlong_name
+                        }
+                        
+                        if strtype == "administrative_area_level_1"
+                        {
+                            //THEN FETCH REGION NAME
+                            print("strlong_name2",strlong_name)
                             self.strlocationname = strlong_name
                         }
                         
                         if strtype == "locality"
                         {
                             //THEN FETCH CITY NAME
+                            print("strlong_name3",strlong_name)
                             self.strcityname = strlong_name
                         }
                     }
@@ -1480,6 +1489,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 
                 let strformatted_address =  String(format: "%@", dic1?.value(forKey: "formatted_address")as? String ?? "")
                 print("strformatted_address Fetch",strformatted_address)
+                
                 print("location name",self.strlocationname)
                 print("city name",self.strcityname)
                 
@@ -1632,12 +1642,21 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                                 if strtype == "sublocality" || strtype == "neighborhood" || strtype == "sublocality_level_1"
                                 {
                                     //THEN FETCH LOCATION NAME
+                                    print("strlong_name1",strlong_name)
+                                    //self.strlocationname = strlong_name
+                                }
+                                
+                                if strtype == "administrative_area_level_1"
+                                {
+                                    //THEN FETCH REGION NAME
+                                    print("strlong_name2",strlong_name)
                                     self.strlocationname = strlong_name
                                 }
                                 
                                 if strtype == "locality"
                                 {
                                     //THEN FETCH CITY NAME
+                                    print("strlong_name3",strlong_name)
                                     self.strcityname = strlong_name
                                 }
                             }
@@ -1746,6 +1765,8 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             
             print("strsearchlat",self.strsearchlat)
             print("strsearchlng",self.strsearchlng)
+            print("strlocationname",self.strlocationname)
+            print("strcityname",self.strcityname)
             
             if strFrompageMap == "addnewaddress"
             {
@@ -1775,6 +1796,8 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                        tabVC.strstreetaddressfrommap = String(format: "%@", txtsearch.text!)
                        tabVC.strstreetaddressfrommapLocation = strlocationname
                        tabVC.strstreetaddressfrommapCity = strcityname
+                       tabVC.strSelectedLATITUDE = String(self.strsearchlat)
+                       tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
                       self.navigationController?.popToViewController(tabVC, animated: true)
                    }
                 }
@@ -1790,6 +1813,8 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                        tabVC.strFulladdress = String(format: "%@", txtsearch.text!)
                        tabVC.strFulladdressLocationname = strlocationname
                        tabVC.strFulladdressCityname = strcityname
+                       tabVC.strSelectedLATITUDE = String(self.strsearchlat)
+                       tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
                       self.navigationController?.popToViewController(tabVC, animated: true)
                    }
                 }
@@ -1805,6 +1830,8 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                        tabVC.strstreetaddressfrommapORDERONCE = String(format: "%@", txtsearch.text!)
                        tabVC.strstreetaddressfrommapLocationORDERONCE = strlocationname
                        tabVC.strstreetaddressfrommapCityORDERONCE = strcityname
+                       //tabVC.strSelectedLATITUDE = String(self.strsearchlat)
+                       //tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
                       self.navigationController?.popToViewController(tabVC, animated: true)
                    }
                 }
@@ -1820,6 +1847,8 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                        tabVC.strstreetaddressfrommapSUBSCRIPTION = String(format: "%@", txtsearch.text!)
                        tabVC.strstreetaddressfrommapLocationSUBSCRIPTION = strlocationname
                        tabVC.strstreetaddressfrommapCitySUBSCRIPTION = strcityname
+                       //tabVC.strSelectedLATITUDE = String(self.strsearchlat)
+                       //tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
                       self.navigationController?.popToViewController(tabVC, animated: true)
                    }
                 }

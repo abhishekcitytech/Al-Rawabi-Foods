@@ -483,6 +483,7 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                           "status": "1",
                           "maxorderamount": txtpurchaseamountlimit.text!,
                           "mobilenumber":txtmobileno.text!,
+                          "countryCode":"971",
                           "allowedaddress":straddresslist] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod67)
@@ -490,6 +491,8 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         request.httpMethod = "PUT"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String

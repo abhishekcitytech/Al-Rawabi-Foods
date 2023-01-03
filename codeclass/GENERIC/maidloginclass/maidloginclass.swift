@@ -69,9 +69,11 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         self.btnhideshowpassword.isSelected = false
         self.txtpassword.isSecureTextEntry = true
         
-        //FIXME
-        txtusername.text = "9674777246"
-        txtpassword.text = "Sandi@123"
+        //FIXMESANDIPAN
+        //9674777246 Sandi@123
+        
+        txtusername.text = "9051015017"
+        txtpassword.text = "maid@123"
         
     }
     
@@ -269,8 +271,9 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                             self.getLoginuserdetailsmenthod()
 
                         }
-                        else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                        else
+                        {
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")

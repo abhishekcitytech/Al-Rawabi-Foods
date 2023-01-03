@@ -96,7 +96,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
     // MARK: - tableView delegate & datasource Method
     func numberOfSections(in tableView: UITableView) -> Int
     {
-        return 10 //arrMalltransactions.count
+        return arrMalltransactions.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -255,6 +255,8 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         print("strconnurl",strconnurl)
         
+        print("strconnurl",strconnurl)
+        
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             guard error == nil && data != nil else
             {
@@ -274,7 +276,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -285,7 +287,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMalltransactions.count > 0{
                                 self.arrMalltransactions.removeAllObjects()
@@ -293,7 +295,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                             
                             let arrm = dictemp.value(forKey: "wallet_detail") as? NSArray ?? []
                             self.arrMalltransactions = NSMutableArray(array: arrm)
-                            print("arrMalltransactions --->",self.arrMalltransactions)
+                            //print("arrMalltransactions --->",self.arrMalltransactions)
                             
                             if self.arrMalltransactions.count == 0{
                                 self.msg = "No transactions found!"
@@ -364,7 +366,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -466,6 +468,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                             let strtransaction_status = dicdetails!.value(forKey: "transaction_status")as? String ?? ""
                             
                             self.createTransactionDetailsPopup(strlblTDamountvalue: stramount, strlblTDactionvalue: straction, strlblTDtypevalue: strtype, strlblTDrefrencevalue: strreference, strlblTDtransactionatvalue: strtransactio_at, strlblTDtransactionnotevalue: strtransaction_note, strlblTDtransactionstatusvalue: strtransaction_status)
+                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)

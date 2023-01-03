@@ -37,6 +37,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     @IBOutlet weak var lbldiscountvalue: UILabel!
     @IBOutlet weak var lbltaxvalue: UILabel!
     @IBOutlet weak var lblordertotalvalue: UILabel!
+    @IBOutlet weak var lblearnpointsvalue: UILabel!
     
     @IBOutlet weak var btnapplydiscount: UIButton!
     
@@ -53,6 +54,8 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     var strSelectedTimeSlotID = ""
     var strSelectedTimeSlotNAME = ""
     
+    
+    var strcart_id = ""
 
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -183,7 +186,8 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     {
         if btnapplydiscount.titleLabel?.text == "View  Coupons"
         {
-            let ctrl = couponlist(nibName: "couponlist", bundle: nil)
+            let ctrl = maidcouponlist(nibName: "maidcouponlist", bundle: nil)
+            ctrl.strselectedcartid = self.strcart_id
             self.navigationController?.pushViewController(ctrl, animated: true)
         }
         else{
@@ -256,21 +260,49 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     //MARK: - show Delivery Date picker method
     func datePickerTapped()
     {
-        let currentDate = Date()
-        var dateComponents = DateComponents()
-        dateComponents.month = +1
-        let monthago = Calendar.current.date(byAdding: dateComponents, to: currentDate)
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "HH:mm:ss"
+        let timestring = df.string(from: date)
+        print("timestring",timestring)
         
-        let next7days = Calendar.current.date(byAdding: .day, value: +7, to: currentDate)!
+        var  nextdate = Date()
+        let s1 = timestring
+        let s2 = "15:00:00"
+        if df.date(from: s1)! > df.date(from: s2)!
+        {
+            print("Over 15:00:00 - Its over 3 PM")
+            
+            let today = Date()
+            nextdate = Calendar.current.date(byAdding: .day, value: +2, to: today)!
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "dd/MM/yyyy"
+            print("strdate date %@",nextdate)
+        }
+        else
+        {
+            print("Within 15:00:00 - Its within 3 PM")
+            
+            let today = Date()
+            nextdate = Calendar.current.date(byAdding: .day, value: +1, to: today)!
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "dd/MM/yyyy"
+            print("strdate date %@",nextdate)
+        }
+        
+        
+        
+        let next10days = Calendar.current.date(byAdding: .day, value: +10, to: nextdate)!
         let formatter1 = DateFormatter()
         formatter1.dateFormat = "yyyy-MM-dd"
-        let maxdate = formatter1.string(from: next7days)
+        let maxdate = formatter1.string(from: next10days)
+        print("maxdate",maxdate)
         
         datePicker.show("Choose Delivery Date",
                         doneButtonTitle: "Done",
                         cancelButtonTitle: "Cancel",
-                        minimumDate: currentDate,
-                        maximumDate: next7days,
+                        minimumDate: nextdate,
+                        maximumDate: next10days,
                         datePickerMode: .date) { (date) in
             if let dt = date {
                 let formatter = DateFormatter()
@@ -375,7 +407,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         
         let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
         let strname = String(format: "%@", dict.value(forKey: "name") as? String ?? "")
-        let strprice = String(format: "%@", dict.value(forKey: "price") as? String ?? "")
+        let strprice = String(format: "%@", dict.value(forKey: "price_incl_tax") as? String ?? "")
         let strqty = String(format: "%@", dict.value(forKey: "qty") as! CVarArg)
         let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as? String ?? "")
         let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as? String ?? "")
@@ -432,7 +464,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         let dict = arrMcartItems.object(at: sender.tag)as! NSDictionary
         let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
         let strname = String(format: "%@", dict.value(forKey: "name") as? String ?? "")
-        let strprice = String(format: "%@", dict.value(forKey: "price") as? String ?? "")
+        let strprice = String(format: "%@", dict.value(forKey: "price_incl_tax") as? String ?? "")
         let strqty = String(format: "%@", dict.value(forKey: "qty") as! CVarArg)
         let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as? String ?? "")
         let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as? String ?? "")
@@ -454,7 +486,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         let dict = arrMcartItems.object(at: sender.tag)as! NSDictionary
         let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
         let strname = String(format: "%@", dict.value(forKey: "name") as? String ?? "")
-        let strprice = String(format: "%@", dict.value(forKey: "price") as? String ?? "")
+        let strprice = String(format: "%@", dict.value(forKey: "price_incl_tax") as? String ?? "")
         let strqty = String(format: "%@", dict.value(forKey: "qty") as! CVarArg)
         let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as? String ?? "")
         let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as? String ?? "")
@@ -510,6 +542,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         // handling code
         
         let ctrl = maidcouponlist(nibName: "maidcouponlist", bundle: nil)
+        ctrl.strselectedcartid = self.strcart_id
         self.navigationController?.pushViewController(ctrl, animated: true)
     }
 
@@ -525,8 +558,8 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         print("strcustomerid",strcustomerid)
         
         
-        let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
-        print("strbearertoken",strbearertoken)
+        let strbearertoken1 = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
+        print("strbearertoken",strbearertoken1)
         
         /*let parameters = ["customerId": strcustomerid,
                           "productId": strproductid,
@@ -535,8 +568,9 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod17)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"
-        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(strbearertoken1)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         /*let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -594,6 +628,9 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                             self.arrMcartItems = NSMutableArray(array: arrmproducts)
                             print("arrMcartItems --->",self.arrMcartItems)
                             
+                            self.strcart_id = String (format: "%@", json.value(forKey: "cart_id")as! CVarArg)
+                            print("self.strcart_id",self.strcart_id)
+                            
                             if self.arrMcartItems.count == 0{
                                 
                                 self.lblsubtotalvalue.text = ""
@@ -610,7 +647,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                 self.viewbottom.isHidden = false
                                 self.btnpaycheckout.isHidden = false
                                 
-                                let str1 = String (format: "%@", dictemp.value(forKey: "subtotal")as? String ?? "0.00")
+                                let str1 = String (format: "%@", dictemp.value(forKey: "subtotal_incl_tax")as! CVarArg)
                                 let str2 = String (format: "%@", dictemp.value(forKey: "shippingAmount")as? String ?? "0.00")
                                 let str3 = String (format: "%@", dictemp.value(forKey: "grandtotal")as! CVarArg)
                                 
@@ -633,14 +670,17 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                 self.lblordertotalvalue.text = String(format: "%@ %.2f",str4,intstr3!)
                                 self.lbltaxvalue.text = ""
                                 
+                                let strearn_point = String (format: "%@", dictemp.value(forKey: "earn_point")as? String ?? "")
+                                self.lblearnpointsvalue.text = String(format: "Earn %@ for this order", strearn_point)
+                                
                                 //FIXME
                                 if str5 != "0" || str6 != ""
                                 {
                                     self.lbldiscountvalue.isHidden = false
-                                    self.lbldiscountvalue.text = String(format: "%@ %.2f",str4,intstr4!)
+                                    self.lbldiscountvalue.text = String(format: "- %@ %.2f",str4,intstr4!)
                                     self.btnapplydiscount.isHidden = true
                                     
-                                    self.lbldiscount.text = String(format: "Discount: (Code - %@)", str6)
+                                    self.lbldiscount.text = String(format: "Discount:%@", str6)
                                     
                                     let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
                                     self.lbldiscount.isUserInteractionEnabled = true

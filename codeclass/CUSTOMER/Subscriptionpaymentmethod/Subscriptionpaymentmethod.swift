@@ -151,6 +151,9 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         
         btnapplyrewardpoints.layer.cornerRadius = 18.0
         btnapplyrewardpoints.layer.masksToBounds = true
+        
+        //FIXMESANDIPAN
+        viewrewardpoints.isHidden = true
        
         let toolbarDone = UIToolbar.init()
         toolbarDone.sizeToFit()

@@ -33,6 +33,9 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
     var strchoosenshippingmethodvalue1 = ""
     var strchoosenshippingmethodvalue2 = ""
     
+    var boolsetshippingaddress = false
+    var boolsetshippingmethod = false
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -94,11 +97,30 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
     //MARK: - press Pay&Checkout method
     @IBAction func presspaycheckout(_ sender: Any)
     {
-        UserDefaults.standard.set("1", forKey: "payfromOrderonce")
-        UserDefaults.standard.synchronize()
-        
-        let ctrl = paymentmethod(nibName: "paymentmethod", bundle: nil)
-        self.navigationController?.pushViewController(ctrl, animated: true)
+        if self.boolsetshippingaddress == false
+        {
+            let uiAlert = UIAlertController(title: "", message: "Please create an shipping address for delivery." , preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else if self.boolsetshippingmethod == false
+        {
+            let uiAlert = UIAlertController(title: "", message: "Please select an shipping method for delivery." , preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else
+        {
+            UserDefaults.standard.set("1", forKey: "payfromOrderonce")
+            UserDefaults.standard.synchronize()
+            
+            let ctrl = paymentmethod(nibName: "paymentmethod", bundle: nil)
+            self.navigationController?.pushViewController(ctrl, animated: true)
+        }
     }
     
   
@@ -363,6 +385,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                 //check for fundamental networking error
                 DispatchQueue.main.async {
                     self.view.activityStopAnimating()
+                    self.btnpaycheckout.isUserInteractionEnabled = false
                     self.getshippingmethodlist()
                 }
                 print("Error=\(String(describing: error))")
@@ -376,7 +399,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                    
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -397,6 +420,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                             let arrmaddress = dicadetails.value(forKey: "address") as? NSArray ?? []
                             let aarrm1 = NSMutableArray(array: arrmaddress)
                             print("aarrm1",aarrm1.count)
+                            
                             
                             var selectedindex = -1
                             let arrm2 = NSMutableArray()
@@ -433,18 +457,30 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                             //BY DEFAULT SET FIRST INDEX SHIPPING ADDRESS SAVE
                             if self.arrMmyaddresslist.count > 0
                             {
+                                self.btnpaycheckout.isUserInteractionEnabled = true
+                                
                                 self.strSelectedaddress = String(format: "%d", 0)
                                 let dic = self.arrMmyaddresslist.object(at: 0)as? NSDictionary
                                 let straddress_id = String(format: "%@", dic!.value(forKey: "address_id")as! CVarArg)
                                 self.postSelectShippingAddressAPIMethod(strselectedaddressid: straddress_id)
                             }
-                            
+                            else
+                            {
+                                
+                                self.btnpaycheckout.isUserInteractionEnabled = false
+                                
+                                /*let uiAlert = UIAlertController(title: "", message: "Please create an shipping address for delivery." , preferredStyle: UIAlertController.Style.alert)
+                                self.present(uiAlert, animated: true, completion: nil)
+                                uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                    print("Click of default button")
+                                }))*/
+                            }
                             self.tabvmyaddress.reloadData()
-                            
-                            
                         }
-                        else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                        else
+                        {
+                            self.btnpaycheckout.isUserInteractionEnabled = false
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
@@ -459,6 +495,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                 //check for internal server data error
                 DispatchQueue.main.async {
                     self.view.activityStopAnimating()
+                    self.btnpaycheckout.isUserInteractionEnabled = false
                     self.getshippingmethodlist()
                 }
                 print("Error -> \(error)")
@@ -730,6 +767,8 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                         
                         if strsuccess == true
                         {
+                            self.boolsetshippingaddress = true
+                            self.btnpaycheckout.isUserInteractionEnabled = true
                             self.tabvmyaddress.reloadData()
                         }
                         else{
@@ -826,10 +865,11 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                         
                         if strsuccess == true
                         {
+                            self.boolsetshippingmethod = true
                             self.tabvmyaddress.reloadData()
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")

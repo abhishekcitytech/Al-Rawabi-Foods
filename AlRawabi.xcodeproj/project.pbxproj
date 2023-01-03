@@ -211,7 +211,6 @@
 		CBA2B4E4286F716D0062609C /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA2B4E0286F716C0062609C /* apple.png */; };
 		CBA2B4E5286F716D0062609C /* wallet.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA2B4E1286F716C0062609C /* wallet.png */; };
 		CBA2B4E6286F716D0062609C /* cash.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA2B4E2286F716D0062609C /* cash.png */; };
-		CBA2B4E8286F724C0062609C /* creditcard.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA2B4E7286F724C0062609C /* creditcard.png */; };
 		CBA2B4EC286F77BD0062609C /* ordersuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA2B4EA286F77BD0062609C /* ordersuccess.swift */; };
 		CBA2B4ED286F77BD0062609C /* ordersuccess.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBA2B4EB286F77BD0062609C /* ordersuccess.xib */; };
 		CBA2B4F02872A1780062609C /* ordersuccess2.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA2B4EE2872A1770062609C /* ordersuccess2.png */; };
@@ -248,10 +247,21 @@
 		CBB143802860A82200D30A38 /* orderonceclass.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB1437E2860A82200D30A38 /* orderonceclass.xib */; };
 		CBB143832860A83000D30A38 /* menuclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB143812860A83000D30A38 /* menuclass.swift */; };
 		CBB143842860A83000D30A38 /* menuclass.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB143822860A83000D30A38 /* menuclass.xib */; };
+		CBB258C82962C704001058FC /* cellproductitemrefunded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB258C62962C704001058FC /* cellproductitemrefunded.swift */; };
+		CBB258C92962C704001058FC /* cellproductitemrefunded.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB258C72962C704001058FC /* cellproductitemrefunded.xib */; };
 		CBBCD1402949DDF800AF6C4A /* promobox4.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBCD13F2949DDF800AF6C4A /* promobox4.png */; };
 		CBBCD1442949E73200AF6C4A /* promobox5.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBCD1412949E73000AF6C4A /* promobox5.png */; };
 		CBBCD1452949E73200AF6C4A /* promobox6.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBCD1422949E73100AF6C4A /* promobox6.png */; };
 		CBBCD1462949E73200AF6C4A /* promobox7.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBCD1432949E73200AF6C4A /* promobox7.png */; };
+		CBBE801629559B7800A161CF /* whatsapp.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBE801529559B7800A161CF /* whatsapp.png */; };
+		CBBE801A2955DBD000A161CF /* cmspage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE80182955DBD000A161CF /* cmspage.swift */; };
+		CBBE801B2955DBD000A161CF /* cmspage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBBE80192955DBD000A161CF /* cmspage.xib */; };
+		CBBE80232955EF5800A161CF /* aboutus.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBE801D2955EF5400A161CF /* aboutus.png */; };
+		CBBE80242955EF5800A161CF /* termsandconditions.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBE801E2955EF5400A161CF /* termsandconditions.png */; };
+		CBBE80252955EF5800A161CF /* delverypolicy.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBE801F2955EF5500A161CF /* delverypolicy.png */; };
+		CBBE80262955EF5800A161CF /* disclaimer.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBE80202955EF5600A161CF /* disclaimer.png */; };
+		CBBE80272955EF5800A161CF /* refundreturncancel.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBE80212955EF5700A161CF /* refundreturncancel.png */; };
+		CBBE80282955EF5800A161CF /* privacypolicy.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBE80222955EF5800A161CF /* privacypolicy.png */; };
 		CBBE9E542923A9D500970344 /* mysubscriptionlineviewdetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE9E522923A9D500970344 /* mysubscriptionlineviewdetails.swift */; };
 		CBBE9E552923A9D500970344 /* mysubscriptionlineviewdetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBBE9E532923A9D500970344 /* mysubscriptionlineviewdetails.xib */; };
 		CBBE9E592923D21300970344 /* celltabvlinedate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE9E572923D21300970344 /* celltabvlinedate.swift */; };
@@ -693,7 +703,6 @@
 		CBA2B4E0286F716C0062609C /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
 		CBA2B4E1286F716C0062609C /* wallet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wallet.png; sourceTree = "<group>"; };
 		CBA2B4E2286F716D0062609C /* cash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cash.png; sourceTree = "<group>"; };
-		CBA2B4E7286F724C0062609C /* creditcard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = creditcard.png; sourceTree = "<group>"; };
 		CBA2B4EA286F77BD0062609C /* ordersuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ordersuccess.swift; sourceTree = "<group>"; };
 		CBA2B4EB286F77BD0062609C /* ordersuccess.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ordersuccess.xib; sourceTree = "<group>"; };
 		CBA2B4EE2872A1770062609C /* ordersuccess2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ordersuccess2.png; sourceTree = "<group>"; };
@@ -730,10 +739,21 @@
 		CBB1437E2860A82200D30A38 /* orderonceclass.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = orderonceclass.xib; sourceTree = "<group>"; };
 		CBB143812860A83000D30A38 /* menuclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuclass.swift; sourceTree = "<group>"; };
 		CBB143822860A83000D30A38 /* menuclass.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = menuclass.xib; sourceTree = "<group>"; };
+		CBB258C62962C704001058FC /* cellproductitemrefunded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cellproductitemrefunded.swift; sourceTree = "<group>"; };
+		CBB258C72962C704001058FC /* cellproductitemrefunded.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellproductitemrefunded.xib; sourceTree = "<group>"; };
 		CBBCD13F2949DDF800AF6C4A /* promobox4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = promobox4.png; sourceTree = "<group>"; };
 		CBBCD1412949E73000AF6C4A /* promobox5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = promobox5.png; sourceTree = "<group>"; };
 		CBBCD1422949E73100AF6C4A /* promobox6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = promobox6.png; sourceTree = "<group>"; };
 		CBBCD1432949E73200AF6C4A /* promobox7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = promobox7.png; sourceTree = "<group>"; };
+		CBBE801529559B7800A161CF /* whatsapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whatsapp.png; sourceTree = "<group>"; };
+		CBBE80182955DBD000A161CF /* cmspage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cmspage.swift; sourceTree = "<group>"; };
+		CBBE80192955DBD000A161CF /* cmspage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cmspage.xib; sourceTree = "<group>"; };
+		CBBE801D2955EF5400A161CF /* aboutus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutus.png; sourceTree = "<group>"; };
+		CBBE801E2955EF5400A161CF /* termsandconditions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = termsandconditions.png; sourceTree = "<group>"; };
+		CBBE801F2955EF5500A161CF /* delverypolicy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delverypolicy.png; sourceTree = "<group>"; };
+		CBBE80202955EF5600A161CF /* disclaimer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclaimer.png; sourceTree = "<group>"; };
+		CBBE80212955EF5700A161CF /* refundreturncancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refundreturncancel.png; sourceTree = "<group>"; };
+		CBBE80222955EF5800A161CF /* privacypolicy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = privacypolicy.png; sourceTree = "<group>"; };
 		CBBE9E522923A9D500970344 /* mysubscriptionlineviewdetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mysubscriptionlineviewdetails.swift; sourceTree = "<group>"; };
 		CBBE9E532923A9D500970344 /* mysubscriptionlineviewdetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = mysubscriptionlineviewdetails.xib; sourceTree = "<group>"; };
 		CBBE9E572923D21300970344 /* celltabvlinedate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = celltabvlinedate.swift; sourceTree = "<group>"; };
@@ -1092,6 +1112,7 @@
 		CB1C1F30283F5B530046CEBD /* extras */ = {
 			isa = PBXGroup;
 			children = (
+				CBBE801C2955EF4400A161CF /* cmspage */,
 				CB25B2B42939FF0400B8D15F /* splashgroup */,
 				CB1D7EE0292F87BF001CFA09 /* ribbonlinedaily.png */,
 				CB1D7EEB2930A081001CFA09 /* ribbonlinemonthly.png */,
@@ -1105,7 +1126,6 @@
 				CB558E042872AE990071939A /* myaddressloc.png */,
 				CBA2B4EF2872A1780062609C /* ordersuccess1.png */,
 				CBA2B4EE2872A1770062609C /* ordersuccess2.png */,
-				CBA2B4E7286F724C0062609C /* creditcard.png */,
 				CBA2B4E0286F716C0062609C /* apple.png */,
 				CBA2B4E2286F716D0062609C /* cash.png */,
 				CBA2B4DF286F716B0062609C /* loyalty.png */,
@@ -1647,6 +1667,7 @@
 		CB7B4F3829372CBC00BF72AA /* returnrefundslisting */ = {
 			isa = PBXGroup;
 			children = (
+				CBB258C12962C6A8001058FC /* cellproductitemrefunded */,
 				CB7B4F3D29372D8500BF72AA /* cellreturnrefund */,
 				CB7B4F3929372CE100BF72AA /* returnrefundslisting.swift */,
 				CB7B4F3A29372CE100BF72AA /* returnrefundslisting.xib */,
@@ -1921,6 +1942,37 @@
 				CBB143822860A83000D30A38 /* menuclass.xib */,
 			);
 			path = menuclass;
+			sourceTree = "<group>";
+		};
+		CBB258C12962C6A8001058FC /* cellproductitemrefunded */ = {
+			isa = PBXGroup;
+			children = (
+				CBB258C62962C704001058FC /* cellproductitemrefunded.swift */,
+				CBB258C72962C704001058FC /* cellproductitemrefunded.xib */,
+			);
+			path = cellproductitemrefunded;
+			sourceTree = "<group>";
+		};
+		CBBE80172955DBB100A161CF /* cmspage */ = {
+			isa = PBXGroup;
+			children = (
+				CBBE80182955DBD000A161CF /* cmspage.swift */,
+				CBBE80192955DBD000A161CF /* cmspage.xib */,
+			);
+			path = cmspage;
+			sourceTree = "<group>";
+		};
+		CBBE801C2955EF4400A161CF /* cmspage */ = {
+			isa = PBXGroup;
+			children = (
+				CBBE801D2955EF5400A161CF /* aboutus.png */,
+				CBBE801F2955EF5500A161CF /* delverypolicy.png */,
+				CBBE80202955EF5600A161CF /* disclaimer.png */,
+				CBBE80222955EF5800A161CF /* privacypolicy.png */,
+				CBBE80212955EF5700A161CF /* refundreturncancel.png */,
+				CBBE801E2955EF5400A161CF /* termsandconditions.png */,
+			);
+			path = cmspage;
 			sourceTree = "<group>";
 		};
 		CBBE9E512923A9B700970344 /* mysubscriptionlineviewdetails */ = {
@@ -2221,6 +2273,7 @@
 				CBCF068628647E1800069382 /* sl9.png */,
 				CBCF068528647E1800069382 /* sl10.png */,
 				CBCF068928647E1900069382 /* sl11.png */,
+				CBBE801529559B7800A161CF /* whatsapp.png */,
 			);
 			path = menu;
 			sourceTree = "<group>";
@@ -2509,13 +2562,13 @@
 				CB05343029152AAF00D3BCFC /* reordermyorderoncelist */,
 				CB0534272915223500D3BCFC /* changepassword */,
 				CB0534262915222300D3BCFC /* myprofile */,
+				CBBE80172955DBB100A161CF /* cmspage */,
 				CB05342129151FB800D3BCFC /* contactus */,
 				CBCA39C828C70E1300DE1702 /* mapaddress */,
 				CB558DFA2872AB4A0071939A /* myaddresslist */,
 				CBA1E69B28CF545A0043DB4D /* updatemyaddress */,
 				CB558E0A2872BB530071939A /* addnewaddress */,
 				CBC9F6CD28C7C76C000AC442 /* newarrivalproduct */,
-				CBF12CB728C5FCB200F0325D /* couponlist */,
 				CBF9132B28C06ED1009F8957 /* mywishlist */,
 				CBC8B26428730722008A68A8 /* trackorder */,
 				CBC8B25F2873000E008A68A8 /* rechargewallet */,
@@ -2529,6 +2582,7 @@
 				CBCB9CFA2865A09E002F5340 /* productcatalogue */,
 				CBA2B4CC286F36890062609C /* paymentmethod */,
 				CB78D1F828F68DAF00ED32C6 /* OrderOnceCheckoutProcess */,
+				CBF12CB728C5FCB200F0325D /* couponlist */,
 				CBE75F3028C0CB580043DCDD /* cartlistorderonce */,
 				CBB143772860A7E000D30A38 /* orderonceclass */,
 				CBD0CC4C2910010800DCCA29 /* Subscriptionpaymentmethod */,
@@ -2920,6 +2974,7 @@
 				CBAD49A6286043480091EA2F /* NunitoSans-Bold.ttf in Resources */,
 				CB39D4622913F23300265A03 /* celltabvmaidsubscriptionlist.xib in Resources */,
 				CBF12CB128C5E41000F0325D /* myorderhistorydetails.xib in Resources */,
+				CBBE80262955EF5800A161CF /* disclaimer.png in Resources */,
 				CBAD49AF286043480091EA2F /* NunitoSans-ExtraLight.ttf in Resources */,
 				CBA2B4E5286F716D0062609C /* wallet.png in Resources */,
 				CBE42FC228323A5500B761F3 /* icon-20.png in Resources */,
@@ -2939,6 +2994,7 @@
 				CB25B2B12939F4F600B8D15F /* Splash4.png in Resources */,
 				CBCC3D9C2864358600C0F7C3 /* cat3.png in Resources */,
 				CBBCD1452949E73200AF6C4A /* promobox6.png in Resources */,
+				CBBE80272955EF5800A161CF /* refundreturncancel.png in Resources */,
 				CBA2B462286D69FD0062609C /* cathome5.png in Resources */,
 				CBE42FFA2832495200B761F3 /* Dubai-Bold.ttf in Resources */,
 				CBB143842860A83000D30A38 /* menuclass.xib in Resources */,
@@ -2968,7 +3024,9 @@
 				CBAD499528603E2B0091EA2F /* Splash3@3x.png in Resources */,
 				CB3929192865F810003162E9 /* tabvcellreview.xib in Resources */,
 				CB6E77D52924CE98004F38E4 /* colcellproductonly.xib in Resources */,
+				CBB258C92962C704001058FC /* cellproductitemrefunded.xib in Resources */,
 				CBE42FC028323A5500B761F3 /* icon-40.png in Resources */,
+				CBBE80232955EF5800A161CF /* aboutus.png in Resources */,
 				CB558E0E2872BB6A0071939A /* addnewaddress.xib in Resources */,
 				CBA2B49B286DEA080062609C /* addresscountry.png in Resources */,
 				CBCF069828647E1C00069382 /* sl8.png in Resources */,
@@ -3005,11 +3063,13 @@
 				CB78D20228F68F0F00ED32C6 /* cellSelectShippingAddress.xib in Resources */,
 				CB558E1D2872EF9D0071939A /* mywallet.xib in Resources */,
 				CBCCC37428BDD7E7009767D5 /* Localizable.strings in Resources */,
+				CBBE80252955EF5800A161CF /* delverypolicy.png in Resources */,
 				CB27BAF42914E5810024F07F /* pausesubscriptiondetails.xib in Resources */,
 				CBC2365028D877CB000DBC93 /* cellcolweeklyproduct.xib in Resources */,
 				CBF12CA528C5B0A200F0325D /* TestLocation2.gpx in Resources */,
 				CBAD498F28603B600091EA2F /* Splash2.png in Resources */,
 				CB1C20342943448900966CAE /* maidaddresslist.xib in Resources */,
+				CBBE80242955EF5800A161CF /* termsandconditions.png in Resources */,
 				CBFBFBBD29224AB5008332FF /* loader17.png in Resources */,
 				CB27BAFE2914F7740024F07F /* maidaccounts.xib in Resources */,
 				CBCC3D9A2864358600C0F7C3 /* cat5.png in Resources */,
@@ -3050,11 +3110,11 @@
 				CB1C2039294471EC00966CAE /* maidallorderslist.xib in Resources */,
 				CB7B4F4129372DA800BF72AA /* cellreturnrefund.xib in Resources */,
 				CBCF069128647E1C00069382 /* sl9.png in Resources */,
-				CBA2B4E8286F724C0062609C /* creditcard.png in Resources */,
 				CBFBFBBE29224AB5008332FF /* loader21.png in Resources */,
 				CBFBFBB429224AB5008332FF /* loader10.png in Resources */,
 				CB27BAEF2914D7EE0024F07F /* celltabvmaiditems.xib in Resources */,
 				CB1C202A2943058600966CAE /* maidcartlist.xib in Resources */,
+				CBBE80282955EF5800A161CF /* privacypolicy.png in Resources */,
 				CB39D4582913F18B00265A03 /* maidviewsubscriptions.xib in Resources */,
 				CBD0CC5C29126BF800DCCA29 /* subscriptionproductdetails.xib in Resources */,
 				CB1891972865D35800312E46 /* colcellselectsize.xib in Resources */,
@@ -3087,6 +3147,7 @@
 				CBE42FC828323A5D00B761F3 /* Splash1@3x.png in Resources */,
 				CB14B85B290BA7D700AF904C /* SubscriptionShippingAddress.xib in Resources */,
 				CB9DE8822915008800475B39 /* maidaccountsdetails.xib in Resources */,
+				CBBE801629559B7800A161CF /* whatsapp.png in Resources */,
 				CBA2B4E6286F716D0062609C /* cash.png in Resources */,
 				CBC8B26D28731230008A68A8 /* celltrackorder.xib in Resources */,
 				CB392920286601C6003162E9 /* addreviewpage.xib in Resources */,
@@ -3121,6 +3182,7 @@
 				CBA2B49D286DEA080062609C /* addresscity.png in Resources */,
 				CBCC3D9B2864358600C0F7C3 /* cat1.png in Resources */,
 				CBCF06A828647F6B00069382 /* acc10.png in Resources */,
+				CBBE801B2955DBD000A161CF /* cmspage.xib in Resources */,
 				CBA2B4A3286E1B930062609C /* radio2.png in Resources */,
 				CB1D7EDF292F51B6001CFA09 /* createmaidaccount.xib in Resources */,
 				CBCF06AE28647F6B00069382 /* acc3.png in Resources */,
@@ -3239,6 +3301,7 @@
 				CB05342E2915225400D3BCFC /* changepassword.swift in Sources */,
 				CBC9F6D028C7C789000AC442 /* newarrivalproduct.swift in Sources */,
 				CBC2364128D85091000DBC93 /* dailyproductcatalogue.swift in Sources */,
+				CBB258C82962C704001058FC /* cellproductitemrefunded.swift in Sources */,
 				CBC2364F28D877CB000DBC93 /* cellcolweeklyproduct.swift in Sources */,
 				CBC408D828D4587700F3FF3A /* searchproductlist.swift in Sources */,
 				CBCC3D8928642D2100C0F7C3 /* colcelltopdeals.swift in Sources */,
@@ -3315,6 +3378,7 @@
 				CBE42F762832390E00B761F3 /* AlRawabi.xcdatamodeld in Sources */,
 				CB25B2C2293A356700B8D15F /* passwordupdatemobile.swift in Sources */,
 				CB1C20472946EAA900966CAE /* maidpaymentmethod.swift in Sources */,
+				CBBE801A2955DBD000A161CF /* cmspage.swift in Sources */,
 				CB558E1C2872EF9D0071939A /* mywallet.swift in Sources */,
 				CB7B4F2D2936153B00BF72AA /* CreateOrderViewControllerRW.swift in Sources */,
 				CB05342A2915224800D3BCFC /* myprofile.swift in Sources */,

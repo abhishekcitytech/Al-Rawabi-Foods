@@ -77,6 +77,9 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
     
     var strSelectedpaymentoption = ""
     
+    var strSelectedLATITUDE = ""
+    var strSelectedLONGITUDE = ""
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {

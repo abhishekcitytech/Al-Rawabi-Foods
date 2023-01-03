@@ -14,25 +14,11 @@ class cellreturnrefund: UITableViewCell
     
     @IBOutlet weak var lblorderno: UILabel!
     @IBOutlet weak var lblordernovalue: UILabel!
+    @IBOutlet weak var lbldatevalue: UILabel!
+    @IBOutlet weak var lblamount: UILabel!
     
-    @IBOutlet weak var lblreturndate: UILabel!
-    @IBOutlet weak var lblreturndtevalue: UILabel!
+    @IBOutlet weak var imgvarrow: UIImageView!
     
-    @IBOutlet weak var lblqty: UILabel!
-    @IBOutlet weak var lblqtyvalue: UILabel!
-    
-    @IBOutlet weak var lblorderamount: UILabel!
-    @IBOutlet weak var lblorderamountvalue: UILabel!
-    
-    @IBOutlet weak var lblrefundamount: UILabel!
-    @IBOutlet weak var lblrefundamountvalue: UILabel!
-    
-    @IBOutlet weak var lblstatus: UILabel!
-    @IBOutlet weak var btndetails: UIButton!
-    
-    
-    
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

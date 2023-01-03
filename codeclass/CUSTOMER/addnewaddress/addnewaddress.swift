@@ -76,7 +76,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
             //Fetch from MAP ADDRESS
             self.txtstreetaddress.text = strstreetaddressfrommap
             self.txtcity.text = strstreetaddressfrommapCity
-            
+            self.txtlocation.text = strstreetaddressfrommapLocation 
         }
     }
     
@@ -287,7 +287,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
             if isBoolDropdown == true {
                 handleTap1()
             }else{
-                self.popupDropdown(arrFeed: arrMEMIRATESLIST, txtfld: txtlocation, tagTable: 100)
+                //self.popupDropdown(arrFeed: arrMEMIRATESLIST, txtfld: txtlocation, tagTable: 100)
             }
             return false
         }
@@ -362,6 +362,8 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
         tblViewDropdownList?.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
         tblViewDropdownList?.layer.cornerRadius = 0.0
         tblViewDropdownList?.layer.masksToBounds = true
+        tblViewDropdownList?.sectionHeaderHeight = 0
+        tblViewDropdownList?.sectionFooterHeight = 0
         
         self.view.addSubview(tblViewDropdownList!)
         
@@ -403,22 +405,22 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
         return 40
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 1
+        return 0
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 1
+        return 0
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let headerView = UIView()
-        headerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+        headerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 0)
         headerView.backgroundColor = UIColor.clear
         return headerView
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
         let footerView = UIView()
-        footerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+        footerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 0)
         footerView.backgroundColor = UIColor.clear
         return footerView
     }
@@ -588,7 +590,8 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
                           "countryid": "AE",
                           "latitude": self.strSelectedLATITUDE,
                           "longitude": self.strSelectedLONGITUDE,
-                          "isdefaultaddress": strisdefaultaddress
+                          "isdefaultaddress": strisdefaultaddress,
+                          "setasmaid": ""
                           ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod25)

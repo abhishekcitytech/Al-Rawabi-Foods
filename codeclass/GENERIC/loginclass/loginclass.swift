@@ -128,11 +128,15 @@ class loginclass: UIViewController,UITextFieldDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        UserDefaults.standard.set("0", forKey: "is_rememberme")
-        UserDefaults.standard.synchronize()
+        //UserDefaults.standard.set("0", forKey: "is_rememberme")
+        //UserDefaults.standard.synchronize()
         
-        //FIXME
-        //arpanray.citytech@gmail.com / $#Admin1   phpteam4@citytechcorp.com / admin@1234  arpan.ray@citytechcorp.com / $#Admin2
+        //FIXMESANDIPAN
+        //arpanray.citytech@gmail.com / $#Admin1
+        //phpteam4@citytechcorp.com / admin@1234
+        //arpan.ray@citytechcorp.com / $#Admin2
+        //abhishek.biswas@citytechcorp.com / 123456
+        
         txtusername.text = "arpan.ray@citytechcorp.com"
         txtpassword.text = "$#Admin2"
         
@@ -504,8 +508,9 @@ class loginclass: UIViewController,UITextFieldDelegate
                             self.getLoginuserdetailsmenthod()
 
                         }
-                        else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                        else
+                        {
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")

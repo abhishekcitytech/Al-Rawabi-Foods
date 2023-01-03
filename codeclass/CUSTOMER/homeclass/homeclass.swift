@@ -44,6 +44,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     @IBOutlet weak var viewpromobox1: UIView!
     @IBOutlet weak var viewpromobox2: UIView!
     @IBOutlet weak var viewpromobox3: UIView!
+    @IBOutlet weak var imgvpromobox1: UIImageView!
+    @IBOutlet weak var imgvpromobox2: UIImageView!
+    @IBOutlet weak var imgvpromobox3: UIImageView!
     
     
     
@@ -88,6 +91,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     var arrmPolygonlist = NSMutableArray()
     var arrmpolygonobject = NSMutableArray()
     var boolcheck = false
+    
+    
+    
+    var strBottomBANNER1name = ""
+    var strBottomBANNER1image = ""
+    var strBottomBANNER2name = ""
+    var strBottomBANNER2image = ""
+    var strBottomBANNER3name = ""
+    var strBottomBANNER3image = ""
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -300,11 +312,34 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     }
     
     //MARK: - press Bottom Promotion Box Method
-    @IBAction func presspromobox1(_ sender: Any) {
+    @IBAction func presspromobox1(_ sender: Any)
+    {
+        print("strBottomBANNER1name",strBottomBANNER1name)
     }
-    @IBAction func presspromobox2(_ sender: Any) {
+    @IBAction func presspromobox2(_ sender: Any)
+    {
+        print("strBottomBANNER1name",strBottomBANNER2name)
+        
+        for x in 0 ..< self.arrMcategory.count
+        {
+            let dict = self.arrMcategory.object(at: x)as? NSDictionary
+            let strtext = String(format: "%@", dict!.value(forKey: "text") as? String ?? "")
+            let strid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+            
+            if strtext.containsIgnoreCase("Juice")
+            {
+                let ctrl = productcatalogue(nibName: "productcatalogue", bundle: nil)
+                ctrl.strpageidentifier = "1001"
+                ctrl.strFromCategoryID = strid
+                ctrl.strFromCategoryNAME = strtext
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+        }
     }
-    @IBAction func presspromobox3(_ sender: Any) {
+    @IBAction func presspromobox3(_ sender: Any)
+    {
+        print("strBottomBANNER1name",strBottomBANNER3name)
+        
         let ctrl = newarrivalproduct(nibName: "newarrivalproduct", bundle: nil)
         self.navigationController?.pushViewController(ctrl, animated: true)
     }
@@ -991,7 +1026,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: colcategory.frame.size.width / 3, height: 145)
+        layout.itemSize = CGSize(width: colcategory.frame.size.width / 3, height: 144)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         colcategory.collectionViewLayout = layout
@@ -999,6 +1034,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         colcategory.showsHorizontalScrollIndicator = false
         colcategory.showsVerticalScrollIndicator=false
         colcategory.backgroundColor = .white
+        self.colcategory.isScrollEnabled = false
     }
     
     //MARK: - create Explore TopDeals method
@@ -1123,6 +1159,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let strsize = String(format: "%@", dict.value(forKey: "size") as? String ?? "")
         let strbrand = String(format: "%@", dict.value(forKey: "brand") as? String ?? "")
         //let strstatus = String(format: "%@", dict.value(forKey: "status") as? String ?? "")
+       
+        let stris_addedwishlist = String(format: "%@", dict.value(forKey: "is_addedwishlist") as? String ?? "")
+        print("stris_addedwishlist",stris_addedwishlist)
         
         
         let arrmedia = dict.value(forKey: "media")as? NSArray ?? []
@@ -1152,7 +1191,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         cellA.btnaddonce.addTarget(self, action: #selector(pressaddtocarttopdeals), for: .touchUpInside)
         
         cellA.btnright.isHidden = true
-        cellA.btnfav.isHidden = true
+        
+        if stris_addedwishlist == "True"
+        {
+            cellA.btnfav.isHidden = false
+            cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)
+        }
+        else{
+            cellA.btnfav.isHidden = true
+        }
         
         // Set up cell
         return cellA
@@ -1162,7 +1209,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     {
         if collectionView ==  colcategory
         {
-            return CGSize(width: colcategory.frame.size.width / 3, height: 145)
+            return CGSize(width: colcategory.frame.size.width / 3, height: 144)
         }
         return CGSize(width: coltopdeals.frame.size.width / 2.3 , height: 316)
     }
@@ -1663,6 +1710,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }))
                     
                     self.view.activityStopAnimating()
+                    self.getBOTTOMBANNER1APIMethod()
                 }
                 print("Error=\(String(describing: error))")
                 return
@@ -1715,6 +1763,281 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
                             }))
+                        }
+                        
+                        self.getBOTTOMBANNER1APIMethod()
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                    self.getBOTTOMBANNER1APIMethod()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - get Bottom Banner 1 API method
+    func getBOTTOMBANNER1APIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl,Constants.methodname.apimethod98)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                    self.getBOTTOMBANNER2APIMethod()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            //Banner 1 -- Non Clickable Now
+                            let strimageurl = String(format: "%@", dictemp.value(forKey: "bannerImage") as? String ?? "")
+                            let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
+                            print("strFinalurl",strFinalurl)
+                            
+                            self.strBottomBANNER1name = strmessage
+                            self.strBottomBANNER1image = strFinalurl
+                            self.imgvpromobox1.imageFromURL(urlString: self.strBottomBANNER1image)
+                        }
+                        else
+                        {
+                            /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))*/
+                        }
+                        
+                        self.getBOTTOMBANNER2APIMethod()
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                    self.getBOTTOMBANNER2APIMethod()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - get Bottom Banner 2 API method
+    func getBOTTOMBANNER2APIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl,Constants.methodname.apimethod99)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                    self.getBOTTOMBANNER3APIMethod()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            //Banner 2 - Juice Redirection
+                            let strimageurl = String(format: "%@", dictemp.value(forKey: "bannerImage") as? String ?? "")
+                            let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
+                            print("strFinalurl",strFinalurl)
+                            
+                            self.strBottomBANNER2name = strmessage
+                            self.strBottomBANNER2image = strFinalurl
+                            self.imgvpromobox2.imageFromURL(urlString: self.strBottomBANNER2image)
+                        }
+                        else{
+                            /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))*/
+                        }
+                        self.getBOTTOMBANNER3APIMethod()
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                    self.getBOTTOMBANNER3APIMethod()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - get Bottom Banner 3 API method
+    func getBOTTOMBANNER3APIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl,Constants.methodname.apimethod100)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            //Banner 3 - New Arrival Redirection
+                            let strimageurl = String(format: "%@", dictemp.value(forKey: "bannerImage") as? String ?? "")
+                            let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
+                            print("strFinalurl",strFinalurl)
+                            
+                            self.strBottomBANNER3name = strmessage
+                            self.strBottomBANNER3image = strFinalurl
+                            self.imgvpromobox3.imageFromURL(urlString: self.strBottomBANNER3image)
+                        }
+                        else{
+                           /* let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))*/
                         }
                     }
                 }

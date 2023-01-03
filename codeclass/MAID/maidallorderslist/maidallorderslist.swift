@@ -33,7 +33,7 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        self.getAllOrdersAPIMethod(stratstus: "all")
+        self.getAllOrdersAPIMethod(stratstus: "")
     }
     
     // MARK: - viewDidLoad Method
@@ -119,11 +119,14 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
         let strorder_id = String(format: "%@", dic.value(forKey: "order_id")as! CVarArg)
         let strorder_increment_id = String(format: "%@", dic.value(forKey: "order_increment_id")as! CVarArg)
         
-        let strstatus = String(format: "%@", dic.value(forKey: "status")as? String ?? "")
+        let strstatus = String(format: "%@", dic.value(forKey: "orderStatus")as? String ?? "")
         let strtotal_amount = String(format: "%@", dic.value(forKey: "total_amount")as? String ?? "")
         let strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
         let strcreated_at = String(format: "%@", dic.value(forKey: "created_at")as? String ?? "")
         let strordered_qty = String(format: "%@", dic.value(forKey: "ordered_qty")as? String ?? "")
+        
+        
+        cell.lblordernovalue.font =  UIFont(name: "NunitoSans-Bold", size: 14)
         
         cell.lblordernovalue.text = String(format: "# %@", strorder_increment_id)
         cell.lbldeliverydatevalue.text = strcreated_at
@@ -211,6 +214,7 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
                         self.view.activityStopAnimating()
                     }
                     
+                    print("json --->",json)
                     let dictemp = json as NSDictionary
                     //print("dictemp --->",dictemp)
                    
@@ -223,21 +227,21 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMmyorders.count > 0{
                                 self.arrMmyorders.removeAllObjects()
                             }
                             
                             let arrmorder = json.value(forKey: "orderdetail") as? NSArray ?? []
+                            //print("arrmorder",arrmorder)
                             
                             //SORT ASCENDING FALSE ARRAY LIST BY SUBSCRIPTION ID //
                             let descriptor: NSSortDescriptor = NSSortDescriptor(key: "order_increment_id", ascending: false)
                             let sortedResults = arrmorder.sortedArray(using: [descriptor]) as NSArray
                             let aarrm1 = NSMutableArray(array: sortedResults)
-                            
                             self.arrMmyorders = NSMutableArray(array: aarrm1)
-                            print("arrMmyorders --->",self.arrMmyorders)
+                            //print("arrMmyorders --->",self.arrMmyorders)
                             
                             if self.arrMmyorders.count == 0{
                                 self.msg = "No orders found!"

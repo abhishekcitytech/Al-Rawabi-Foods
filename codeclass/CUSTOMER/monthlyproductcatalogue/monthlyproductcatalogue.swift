@@ -1316,6 +1316,10 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
             strsearchkeyword = ""
         }
         
+        print("strselectedcategoryid",strselectedcategoryid)
+        strsearchkeyword = strsearchkeyword.replacingOccurrences(of: " ", with: "%20")
+        print("strsearchkeyword",strsearchkeyword)
+        
         var strconnurl = String()
         strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,strsearchkeyword)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

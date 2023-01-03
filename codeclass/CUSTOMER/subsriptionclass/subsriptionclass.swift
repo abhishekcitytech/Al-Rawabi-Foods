@@ -148,7 +148,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         button.addTarget(self, action: #selector(presscartbag), for: .touchUpInside)
         button.frame = CGRect(x: 0, y: 0, width: 53, height: 51)
         let barButton = UIBarButtonItem(customView: button)
-        self.navigationItem.rightBarButtonItem = barButton
+        //self.navigationItem.rightBarButtonItem = barButton
         
         viewdeliveryaddress.layer.cornerRadius = 4.0
         viewdeliveryaddress.layer.borderWidth = 1.0
@@ -160,7 +160,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         btnbuynow.layer.borderColor = UIColor(named: "themecolor")!.cgColor
         btnbuynow.layer.masksToBounds = true
         
-        //FIXMESANDI
+        //FIXMESANDIPAN
         arrMplan = ["Daily","Weekly","Monthly"]
         
         tabvplan.register(UINib(nibName: "tabvcellplan", bundle: nil), forCellReuseIdentifier: reuseIdentifier1)

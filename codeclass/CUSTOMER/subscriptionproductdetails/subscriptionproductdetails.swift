@@ -426,6 +426,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
             let fltprice = Float(strprice)
             cellA.lblprice.text = String(format: "%.2f", fltprice!)
             
+            cellA.btnaddonce.isHidden = true
             cellA.btnaddonce.tag = indexPath.row
             cellA.btnaddonce.addTarget(self, action: #selector(pressAddonceRelatedProduct), for: .touchUpInside)
             
@@ -498,6 +499,13 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
     {
         if collectionView == colrelatedProducts
         {
+            let dict = arrMRelatedProducts.object(at: indexPath.row) as! NSDictionary
+            let strproductid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
+            self.strSelectedProductID = strproductid
+            
+            self.getProductDetailsAPIMethod()
+            
+            self.fetchqtyonceqtyallvalue()
         }
         
     }

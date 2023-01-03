@@ -255,6 +255,7 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
         print("json string = \(jsonString)")
         request.httpBody = jsonData as Data
+        print("strconnurl",strconnurl)
         
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             guard error == nil && data != nil else
@@ -279,6 +280,8 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
+                    
+                    print("json",json)
                     let dictemp = json as NSDictionary
 
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0

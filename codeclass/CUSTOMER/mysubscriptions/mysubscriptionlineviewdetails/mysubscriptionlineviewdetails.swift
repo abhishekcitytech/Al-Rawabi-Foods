@@ -68,7 +68,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         
         self.lblstatus.text = strsubscription_status
         self.lblstatus.textColor = .white
-        self.lblstatus.layer.cornerRadius = 12.0
+        self.lblstatus.layer.cornerRadius = 14.0
         self.lblstatus.layer.masksToBounds = true
         
         print("strsubscription_status_code",strsubscription_status_code)
@@ -459,7 +459,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         print("strbearertoken",strbearertoken)
         
         let strsubscription_id = String(format: "%@", diclistvalue.value(forKey: "subscription_id")as? String ?? "")
-        let parameters = ["subscription_id": strsubscription_id] as [String : Any]
+        let parameters = ["subscriptionid": strsubscription_id] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod48)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

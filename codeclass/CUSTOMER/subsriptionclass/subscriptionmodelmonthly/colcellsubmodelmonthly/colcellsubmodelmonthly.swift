@@ -12,7 +12,7 @@ class colcellsubmodelmonthly: UICollectionViewCell {
     @IBOutlet weak var viewcell: UIView!
     @IBOutlet weak var lblname: UILabel!
     @IBOutlet weak var lbltotalprice: UILabel!
-    @IBOutlet weak var btncheckuncheck: UIButton!
+    @IBOutlet weak var imgvcheckuncheck: UIImageView!
     @IBOutlet weak var btnedit: UIButton!
     
     override func awakeFromNib() {

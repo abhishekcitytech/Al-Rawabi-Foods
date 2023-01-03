@@ -82,6 +82,11 @@ class myaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSource
     // MARK: - tableView delegate & datasource Method
     func numberOfSections(in tableView: UITableView) -> Int
     {
+        if arrMmyaddresslist.count == 0 {
+            self.tabvmyaddress.setEmptyMessage(msg)
+        } else {
+            self.tabvmyaddress.restore()
+        }
         return arrMmyaddresslist.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int

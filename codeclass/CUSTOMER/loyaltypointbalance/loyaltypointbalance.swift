@@ -69,6 +69,11 @@ class loyaltypointbalance: UIViewController,UITableViewDelegate,UITableViewDataS
         tabvtransactionlist.separatorColor=UIColor.clear
         tabvtransactionlist.showsVerticalScrollIndicator = false
         
+        viewtop.isHidden = true
+        viewmiddle.isHidden = true
+        lbltransactionlist.isHidden = true
+        tabvtransactionlist.isHidden = true
+        
     }
     
     //MARK: - press back method
@@ -80,6 +85,11 @@ class loyaltypointbalance: UIViewController,UITableViewDelegate,UITableViewDataS
     // MARK: - tableView delegate & datasource Method
     func numberOfSections(in tableView: UITableView) -> Int
     {
+        if arrMalltransactions.count == 0 {
+            self.tabvtransactionlist.setEmptyMessage(msg)
+        } else {
+            self.tabvtransactionlist.restore()
+        }
         return arrMalltransactions.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -129,9 +139,19 @@ class loyaltypointbalance: UIViewController,UITableViewDelegate,UITableViewDataS
         let strstatus = String(format: "%@", dict?.value(forKey: "status")as? String ?? "")
         let strstatus_description = String(format: "%@", dict?.value(forKey: "status_description")as? String ?? "")
         
+        if strpoints.containsIgnoreCase("-")
+        {
+            //Red Color
+            cell.lblpoint.text = String(format: "%@", strpoints)
+            cell.lblpoint.textColor = UIColor(named: "darkmostredcolor")!
+        }
+        else{
+            //Gren Color
+            cell.lblpoint.text = String(format: "+ %@", strpoints)
+            cell.lblpoint.textColor = UIColor(named: "darkgreencolor")!
+        }
 
         cell.lblcomments.text = strcomment
-        cell.lblpoint.text = String(format: "+ %@", strpoints)
         cell.lblpointdesc.text = strstatus_description
        
         cell.viewcell.layer.masksToBounds = false
@@ -190,7 +210,7 @@ class loyaltypointbalance: UIViewController,UITableViewDelegate,UITableViewDataS
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                    
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -203,6 +223,10 @@ class loyaltypointbalance: UIViewController,UITableViewDelegate,UITableViewDataS
                         
                         if strsuccess == true
                         {
+                            self.viewtop.isHidden = false
+                            self.viewmiddle.isHidden = false
+                            
+                            
                             let strpoints = dictemp.value(forKey: "points")as? String ?? ""
                             print("strpoints",strpoints)
                             self.lblcurrentbalancevalue.text = strpoints
@@ -291,6 +315,9 @@ class loyaltypointbalance: UIViewController,UITableViewDelegate,UITableViewDataS
                         
                         if strsuccess == true
                         {
+                            self.lbltransactionlist.isHidden = false
+                            self.tabvtransactionlist.isHidden = false
+                            
                             if self.arrMalltransactions.count > 0{
                                 self.arrMalltransactions.removeAllObjects()
                             }
@@ -300,7 +327,7 @@ class loyaltypointbalance: UIViewController,UITableViewDelegate,UITableViewDataS
                             print("arrMalltransactions --->",self.arrMalltransactions)
                             
                             if self.arrMalltransactions.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = "No records found!"
                             }
                             self.tabvtransactionlist.reloadData()
                         }

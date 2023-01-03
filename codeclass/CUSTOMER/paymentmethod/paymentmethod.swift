@@ -184,7 +184,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         }
         else
         {
-            
+            self.postApplyRewardPointsOrderOnceAPI()
         }
     }
     
@@ -423,7 +423,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                    
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                      let strmessage = dictemp.value(forKey: "message")as? String ?? ""
@@ -449,7 +449,23 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                             print("self.strgrandtotal",self.strgrandtotal)
                             print("self.strcurrency",self.strcurrency)
                             
-
+                            
+                            let stravailable_points = String(format: "%@", dictemp.value(forKey: "available_points")as! CVarArg)
+                            let strspend_max_points = String(format: "%@", dictemp.value(forKey: "spend_max_points")as! CVarArg)
+                            let strspend_min_points = String(format: "%@", dictemp.value(forKey: "spend_min_points")as! CVarArg)
+                            
+                            if stravailable_points == "0" || stravailable_points == "0.0"
+                            {
+                                //YOU CAN NOT APPLY REWARD POINT
+                                self.lblmaximumrewardpointsused.text = "You can not use reward points now."
+                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkmostredcolor")!
+                            }
+                            else
+                            {
+                                //YOU CAN APPLY
+                                self.lblmaximumrewardpointsused.text = String(format: "You can use minimum %@ & maximum %@ points", strspend_min_points,strspend_max_points)
+                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkgreencolor")!
+                            }
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
@@ -503,6 +519,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
             {
                 //check for fundamental networking error
                 DispatchQueue.main.async {
+                    self.getLoyaltyPointAPIMethod()
                     self.view.activityStopAnimating()
                     
                 }
@@ -591,13 +608,15 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                                 print("Click of default button")
                             }))
                         }
+                        
+                        self.getLoyaltyPointAPIMethod()
                     }
                 }
             }
             catch {
                 //check for internal server data error
                 DispatchQueue.main.async {
-                    
+                    self.getLoyaltyPointAPIMethod()
                     self.view.activityStopAnimating()
                 }
                 print("Error -> \(error)")
@@ -606,6 +625,95 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         task.resume()
     }
 
+    //MARK: - get Loyalty Point API method
+    func getLoyaltyPointAPIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        var strconnurl = String()
+        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod90)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                    
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                   
+                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            let strpoints = dictemp.value(forKey: "points")as? String ?? ""
+                            print("strpoints",strpoints)
+                            self.lblrewardpoints.text = String(format: "You have %@ reward points available.", strpoints)
+                            
+                            if strpoints == "0" || strpoints == "0.0"
+                            {
+                                //YOU CANT APPLY REWARD POINT
+                                self.txtrewardpoints.isUserInteractionEnabled = false
+                                self.btnapplyrewardpoints.isUserInteractionEnabled = false
+                                
+                            }
+                            else
+                            {
+                                //YOU CAN APPLY
+                                self.txtrewardpoints.isUserInteractionEnabled = true
+                                self.btnapplyrewardpoints.isUserInteractionEnabled = true
+                            }
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
     
     
     
@@ -725,6 +833,103 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
             catch {
                 //check for internal server data error
                 DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - post Apply Reward Points Order Once API method
+    func postApplyRewardPointsOrderOnceAPI()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        let parameters = ["pointsAmount": self.txtrewardpoints.text!] as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod101)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    self.txtrewardpoints.isUserInteractionEnabled = true
+                    self.btnapplyrewardpoints.isUserInteractionEnabled = true
+                    self.view.activityStopAnimating()
+                    
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                   
+                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    let strapply = dictemp.value(forKey: "apply")as? Bool ?? false
+                    
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
+                    print("strapply",strapply)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            self.txtrewardpoints.backgroundColor = UIColor(named: "greenlighter")!
+                            self.txtrewardpoints.isUserInteractionEnabled = false
+                            
+                            self.btnapplyrewardpoints.isUserInteractionEnabled = false
+                            self.btnapplyrewardpoints.setTitle("Applied Successfully", for: .normal)
+                            
+                            self.getOrderReview()
+                        }
+                        else
+                        {
+                            self.txtrewardpoints.isUserInteractionEnabled = true
+                            self.btnapplyrewardpoints.isUserInteractionEnabled = true
+                            
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    self.txtrewardpoints.isUserInteractionEnabled = true
+                    self.btnapplyrewardpoints.isUserInteractionEnabled = true
                     self.view.activityStopAnimating()
                 }
                 print("Error -> \(error)")

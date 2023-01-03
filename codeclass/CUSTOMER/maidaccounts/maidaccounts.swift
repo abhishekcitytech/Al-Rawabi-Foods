@@ -398,7 +398,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
                             
                             let arrm = dictemp.value(forKey: "list") as? NSArray ?? []
                             self.arrMmaidlist = NSMutableArray(array: arrm)
-                            print("arrMmaidlist --->",self.arrMmaidlist)
+                            //print("arrMmaidlist --->",self.arrMmaidlist)
                             
                             if self.arrMmaidlist.count == 0{
                                 self.msg = "No maid record found!"
@@ -459,6 +459,8 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        print("strconnurl",strconnurl)
+        
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
         print("json string = \(jsonString)")
@@ -505,7 +507,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
                             self.fecthmaidaccountlistingAPIMethod()
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")

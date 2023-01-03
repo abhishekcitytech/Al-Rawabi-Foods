@@ -25,6 +25,10 @@ class passwordupdatesubmit: UIViewController,UITextFieldDelegate
     
     @IBOutlet weak var btnsubmit: UIButton!
     
+    @IBOutlet weak var btnshowhidepassword1: UIButton!
+    @IBOutlet weak var btnshowhidepassword2: UIButton!
+    
+    
     var strpageidentifier = ""
     
     var strcountrycode = ""
@@ -79,6 +83,34 @@ class passwordupdatesubmit: UIViewController,UITextFieldDelegate
     @objc func pressBack()
     {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - press Show Hide Password Method
+    @IBAction func pressShowHidePassword(_ sender: Any)
+    {
+        if btnshowhidepassword1.isSelected == true
+        {
+            btnshowhidepassword1.isSelected = false
+            self.txtnewpassword.isSecureTextEntry = true
+        }
+        else{
+            btnshowhidepassword1.isSelected = true
+            self.txtnewpassword.isSecureTextEntry = false
+        }
+    }
+    
+    //MARK: - press Show Hide Confirm Password Method
+    @IBAction func pressShowHideConfirmPassword(_ sender: Any)
+    {
+        if btnshowhidepassword2.isSelected == true
+        {
+            btnshowhidepassword2.isSelected = false
+            self.txtconfirmpassword.isSecureTextEntry = true
+        }
+        else{
+            btnshowhidepassword2.isSelected = true
+            self.txtconfirmpassword.isSecureTextEntry = false
+        }
     }
 
     

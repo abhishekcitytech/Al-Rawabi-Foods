@@ -92,7 +92,7 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
         }
         else{
             
-            self.lblcountrycode.text = "91" //FIXME
+            self.lblcountrycode.text = "91" //FIXMESANDIPAN
             self.postOTPRequestAPIMethod(strcountrycode: lblcountrycode.text!, strmobileno: txtmobileno.text!)
         }
         

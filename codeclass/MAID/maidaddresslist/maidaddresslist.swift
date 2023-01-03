@@ -168,10 +168,10 @@ class maidaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSourc
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        let dic = self.arrMmyaddresslist.object(at: indexPath.section)as! NSDictionary
+        /*let dic = self.arrMmyaddresslist.object(at: indexPath.section)as! NSDictionary
         let ctrl = updatemyaddress(nibName: "updatemyaddress", bundle: nil)
         ctrl.dicAddressDetails = dic
-        self.navigationController?.pushViewController(ctrl, animated: true)
+        self.navigationController?.pushViewController(ctrl, animated: true)*/
     }
     
     

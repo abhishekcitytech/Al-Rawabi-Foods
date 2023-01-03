@@ -12,8 +12,8 @@ class colcellsubmodelweekly: UICollectionViewCell {
     @IBOutlet weak var viewcell: UIView!
     @IBOutlet weak var lblname: UILabel!
     @IBOutlet weak var lbltotalprice: UILabel!
-    @IBOutlet weak var btncheckuncheck: UIButton!
     @IBOutlet weak var btnedit: UIButton!
+    @IBOutlet weak var imgvcheckuncheck: UIImageView!
     
     
     

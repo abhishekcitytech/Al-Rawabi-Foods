@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -34,13 +34,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="130" height="144"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zW5-MR-Xfh">
-                                <rect key="frame" x="100" y="1" width="28" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" backgroundImage="uncheckbox"/>
-                                <state key="selected" backgroundImage="checkbox"/>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rR7-zP-lo2">
                                 <rect key="frame" x="0.0" y="25" width="130" height="53"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -67,6 +60,10 @@
                                 <rect key="frame" x="19" y="117" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PTR-SX-Ldj">
+                                <rect key="frame" x="100" y="1" width="28" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -75,8 +72,8 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="129" height="146"/>
             <connections>
-                <outlet property="btncheckuncheck" destination="zW5-MR-Xfh" id="FMk-rd-Zpc"/>
                 <outlet property="btnedit" destination="DDS-y7-a1m" id="cnZ-1p-JNq"/>
+                <outlet property="imgvcheckuncheck" destination="PTR-SX-Ldj" id="Ca3-sY-wbY"/>
                 <outlet property="lblname" destination="rR7-zP-lo2" id="Bnd-7G-y1t"/>
                 <outlet property="lbltotalprice" destination="X29-kJ-oqf" id="BJC-jN-wM8"/>
                 <outlet property="viewcell" destination="yGF-7s-LOA" id="ag4-kt-ukw"/>
@@ -85,9 +82,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="checkbox" width="32" height="32"/>
         <image name="pencliwhite" width="28" height="28"/>
-        <image name="uncheckbox" width="32" height="32"/>
         <namedColor name="themecolor">
             <color red="0.0" green="0.18799999356269836" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

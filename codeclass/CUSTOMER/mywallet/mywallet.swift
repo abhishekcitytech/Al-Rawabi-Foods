@@ -109,6 +109,11 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
     // MARK: - tableView delegate & datasource Method
     func numberOfSections(in tableView: UITableView) -> Int
     {
+        if arrMalltransactions.count == 0 {
+            self.tabvmyrecharges.setEmptyMessage(msg)
+        } else {
+            self.tabvmyrecharges.restore()
+        }
         return arrMalltransactions.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -301,8 +306,9 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
                         self.view.activityStopAnimating()
                     }
                     
+                    print("json --->",json)
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
