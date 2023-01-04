@@ -68,6 +68,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     @IBOutlet weak var btnpopupSubscribeMothly: UIButton!
     @IBOutlet weak var lblgetyourdelivery: UILabel!
     @IBOutlet weak var btncrossSubscribeBuyoncePopup: UIButton!
+    @IBOutlet weak var btninfoSubscriptionBuyoncePopup: UIButton!
+    
     var viewPopupAddNewExistingBG123 = UIView()
     
     var isBoolDropdown = Bool()
@@ -101,6 +103,13 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     var strBottomBANNER3name = ""
     var strBottomBANNER3image = ""
     
+    
+    var strPOPUPstreetaddressfrommap = ""
+    var strPOPUPstreetaddressfrommapLocation = ""
+    var strPOPUPstreetaddressfrommapCity = ""
+    var strPOPUPSelectedLATITUDE = ""
+    var strPOPUPSelectedLONGITUDE = ""
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -108,12 +117,42 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.tabBarController?.tabBar.isHidden = false
         
         let subscribebyoncepopupshown = UserDefaults.standard.integer(forKey: "subscribebyoncepopupshown")
-        if subscribebyoncepopupshown == 0{
+        if subscribebyoncepopupshown == 0
+        {
             //POPUP SHOW FIRST TIME
             print("subscribebyoncepopupshown",subscribebyoncepopupshown)
             
             
             self.createSubscribePopup()
+        }
+        else if subscribebyoncepopupshown == 2
+        {
+            //POPUP ALREADY CREATED BUT LOCATION EDIT
+            print("subscribebyoncepopupshown",subscribebyoncepopupshown)
+            
+            if strPOPUPSelectedLATITUDE != "" && strPOPUPSelectedLONGITUDE != ""
+            {
+                print("strPOPUPstreetaddressfrommap",strPOPUPstreetaddressfrommap)
+                print("strPOPUPstreetaddressfrommapLocation",strPOPUPstreetaddressfrommapLocation)
+                print("strPOPUPstreetaddressfrommapCity",strPOPUPstreetaddressfrommapCity)
+                print("strPOPUPSelectedLATITUDE",strPOPUPSelectedLATITUDE)
+                print("strPOPUPSelectedLONGITUDE",strPOPUPSelectedLONGITUDE)
+                
+                self.txtlocationselect.text = self.strPOPUPstreetaddressfrommap
+                self.strcurrentlat = self.strPOPUPSelectedLATITUDE
+                self.strcurrentlong = self.strPOPUPSelectedLONGITUDE
+                
+                self.boolcheck = true
+                self.alertViewFunction()
+            }
+            else
+            {
+                let uiAlert = UIAlertController(title: "", message: "Please choose alternate location to continue" , preferredStyle: UIAlertController.Style.alert)
+                self.present(uiAlert, animated: true, completion: nil)
+                uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    print("Click of default button")
+                }))
+            }
         }
         else{
             //POPUP NOT SHOW FIRST TIME
@@ -500,10 +539,10 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)*/
                 
-                self.lblalertmessagelocationchecking.backgroundColor = .blue
+                self.lblalertmessagelocationchecking.backgroundColor = UIColor(named: "lightgreencolor")!
                 self.lblalertmessagelocationchecking.text = "You are inside our delivery area!"
-                self.lblalertmessagelocationchecking.textColor = .white
-                self.lblalertmessagelocationchecking.layer.cornerRadius = 10.0
+                self.lblalertmessagelocationchecking.textColor = .black
+                self.lblalertmessagelocationchecking.layer.cornerRadius = 0.0
                 self.lblalertmessagelocationchecking.layer.masksToBounds = true
                 self.boolcheck = false
                 
@@ -545,10 +584,10 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)*/
                 
-                self.lblalertmessagelocationchecking.backgroundColor = .red
-                self.lblalertmessagelocationchecking.text = "We do not deliver to this area!"
-                self.lblalertmessagelocationchecking.textColor = .white
-                self.lblalertmessagelocationchecking.layer.cornerRadius = 10.0
+                self.lblalertmessagelocationchecking.backgroundColor = UIColor(named: "lightred")!
+                self.lblalertmessagelocationchecking.text = "We do not deliver to this area! please choose alternate location."
+                self.lblalertmessagelocationchecking.textColor = .black
+                self.lblalertmessagelocationchecking.layer.cornerRadius = 0.0
                 self.lblalertmessagelocationchecking.layer.masksToBounds = true
                 self.boolcheck = false
                 
@@ -617,9 +656,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         btnBuyoncepopup.layer.cornerRadius = 20.0
         btnBuyoncepopup.layer.masksToBounds = true
         
-        btncrossSubscribeBuyoncePopup.isHidden = true
+        btncrossSubscribeBuyoncePopup.isHidden = false
         
-        self.txtlocationselect.isUserInteractionEnabled = false
+        self.txtlocationselect.isUserInteractionEnabled = true
         
         viewPopupAddNewExistingBG123 = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height))
         viewPopupAddNewExistingBG123.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
@@ -716,10 +755,29 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         appDel.strSelectedPLAN = "Monthly"
        
     }
+    
     @IBAction func presslocationselect(_ sender: Any)
     {
         //CLICK TO FETCH CURRENT LOCATION
         self.locationManager.startUpdatingLocation()
+        
+        UserDefaults.standard.set(2, forKey: "subscribebyoncepopupshown")
+        UserDefaults.standard.synchronize()
+        
+        let ctrl = editchoosemaplocation(nibName: "editchoosemaplocation", bundle: nil)
+        ctrl.strFrompageMap = "popupsubscriptionorderonce"
+        self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    @IBAction func pressinfoSubscriptionBuyoncePopup(_ sender: Any)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        //Please enter allowab lelocation
+        let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language287") , preferredStyle: UIAlertController.Style.alert)
+        self.present(uiAlert, animated: true, completion: nil)
+        uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            print("Click of default button")
+        }))
     }
     
     
@@ -812,11 +870,20 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         if textField.isEqual(txtlocationselect)
         {
             self.view.endEditing(true)
-            if isBoolDropdown == true {
+            
+            UserDefaults.standard.set(2, forKey: "subscribebyoncepopupshown")
+            UserDefaults.standard.synchronize()
+            
+            let ctrl = editchoosemaplocation(nibName: "editchoosemaplocation", bundle: nil)
+            ctrl.strFrompageMap = "popupsubscriptionorderonce"
+            self.navigationController?.pushViewController(ctrl, animated: true)
+            
+            /*if isBoolDropdown == true {
                 handleTap1()
             }else{
                 //self.popupDropdown(arrFeed: arrMALLLOCATIONS, txtfld: txtlocationselect, tagTable: 100)
-            }
+            }*/
+            
             return false
         }
         return true

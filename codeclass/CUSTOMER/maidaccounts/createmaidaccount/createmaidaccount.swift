@@ -483,7 +483,7 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                           "status": "1",
                           "maxorderamount": txtpurchaseamountlimit.text!,
                           "mobilenumber":txtmobileno.text!,
-                          "countryCode":"971",
+                          "countryCode":"971", //FIXMESANDIPAN
                           "allowedaddress":straddresslist] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod67)
@@ -545,7 +545,7 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                             }))
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")

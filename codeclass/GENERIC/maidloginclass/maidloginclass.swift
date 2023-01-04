@@ -72,8 +72,8 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         //FIXMESANDIPAN
         //9674777246 Sandi@123
         
-        txtusername.text = "9051015017"
-        txtpassword.text = "maid@123"
+        //txtusername.text = "9051015017"
+        //txtpassword.text = "maid@123"
         
     }
     

@@ -133,13 +133,13 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.lblquantityvalue.text = strordered_qty
         cell.lbltotalamountvalue.text = String(format: "%@ %@",strcurrency_code, strtotal_amount)
         
-        cell.btndetails.isHidden = true
+       
         cell.btndetails.layer.borderWidth = 1.0
         cell.btndetails.layer.borderColor = UIColor(named: "greencolor")!.cgColor
         cell.btndetails.layer.cornerRadius = 16.0
         cell.btndetails.layer.masksToBounds = true
   
-        cell.btnreorder.isHidden = true
+        
         cell.btnreorder.layer.cornerRadius = 16.0
         cell.btnreorder.layer.masksToBounds = true
         
@@ -153,8 +153,10 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.viewcell.layer.shadowOpacity = 1.0
         cell.viewcell.layer.shadowRadius = 6.0
         
-        //cell.btndetails.tag = indexPath.section
-        //cell.btndetails.addTarget(self, action: #selector(pressDetails), for: .touchUpInside)
+        cell.btnreorder.isHidden = true
+        cell.btndetails.isHidden = false
+        cell.btndetails.tag = indexPath.section
+        cell.btndetails.addTarget(self, action: #selector(pressDetails), for: .touchUpInside)
         
         //cell.btnreorder.tag = indexPath.section
         //cell.btnreorder.addTarget(self, action: #selector(pressReorder), for: .touchUpInside)
@@ -168,13 +170,13 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
     //MARK: - press Order Details method
     @objc func pressDetails(sender:UIButton)
     {
-        //let dic = self.arrMmyorders.object(at: sender.tag)as! NSDictionary
-        //let strorder_id = String(format: "%@", dic.value(forKey: "order_id")as! CVarArg)
-        //let strorder_id = String(format: "%@", dic.value(forKey: "order_id")as! CVarArg)
+        let dic = self.arrMmyorders.object(at: sender.tag)as! NSDictionary
+        let strorder_id = String(format: "%@", dic.value(forKey: "order_id")as! CVarArg)
         
-        //let ctrl = myorderhistorydetails(nibName: "myorderhistorydetails", bundle: nil)
-        //ctrl.strorder_id = strorder_id
-        //self.navigationController?.pushViewController(ctrl, animated: true)
+        let ctrl = myorderhistorydetails(nibName: "myorderhistorydetails", bundle: nil)
+        ctrl.strorder_id = strorder_id
+        ctrl.strfromaid = "123"
+        self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
     //MARK: - get All Orders API method

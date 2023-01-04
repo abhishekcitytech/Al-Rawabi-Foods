@@ -82,8 +82,9 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         self.navigationController?.navigationBar.isHidden = true
         
         //FIXMESANDIPAN
-        self.txtpassword.text = "123456"
-        self.txtconfirmpassword.text = "123456"
+        //self.txtpassword.text = "123456"
+        //self.txtconfirmpassword.text = "123456"
+        
    
         self.scrolloverall.backgroundColor = .white
         self.scrolloverall.showsVerticalScrollIndicator = false
@@ -266,7 +267,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
             print("mobile",txtmobile.text!)
             
             let obj = otpverifyclass(nibName: "otpverifyclass", bundle: nil)
-            obj.strcountrycode = "91" //FIXMESANDIPAN
+            obj.strcountrycode = "971" //FIXMESANDIPAN
             obj.strmobileno = txtmobile.text!
             obj.delegate = self
             self.navigationController?.pushViewController(obj, animated: true)

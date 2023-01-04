@@ -164,6 +164,8 @@ class maidaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSourc
             cell.viewcell.layer.shadowRadius = 6.0
         }
         
+        cell.imgvdetailsarrow.isHidden = true
+        
         return cell;
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)

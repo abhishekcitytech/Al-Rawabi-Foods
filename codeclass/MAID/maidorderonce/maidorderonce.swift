@@ -32,19 +32,21 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(true)
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: - viewWillAppear Method
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(true)
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: - viewDidAppear Method
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(true)
-        self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = false
         
         setupRTLLTR()

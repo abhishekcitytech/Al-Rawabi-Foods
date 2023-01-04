@@ -31,6 +31,8 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
     var arrmitemlist = NSMutableArray()
     var msg = ""
     
+    var strfromaid = ""
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -158,8 +160,21 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
         }
-        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
-        print("strbearertoken",strbearertoken)
+        
+        var strbearertoken = ""
+        if strfromaid == "123"
+        {
+            //MAID
+            strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
+            print("strbearertoken",strbearertoken)
+        }
+        else
+        {
+            //CUSTOMER
+            strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+            print("strbearertoken",strbearertoken)
+        }
+        
       
         let parameters = ["orderid": strorder_id
                           ] as [String : Any]

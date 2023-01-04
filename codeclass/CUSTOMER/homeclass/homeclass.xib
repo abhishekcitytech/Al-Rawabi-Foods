@@ -23,6 +23,7 @@
                 <outlet property="btnBpopupSubscribeWeekly" destination="FDp-QK-2jG" id="x6u-eO-upK"/>
                 <outlet property="btnBuyoncepopup" destination="47x-6D-q2Z" id="AUK-js-gQr"/>
                 <outlet property="btncrossSubscribeBuyoncePopup" destination="WCt-zq-ALI" id="7tf-tb-86L"/>
+                <outlet property="btninfoSubscriptionBuyoncePopup" destination="IpG-J6-V4r" id="Ioc-7q-dvN"/>
                 <outlet property="btnlocationselect" destination="Xo3-cc-0uX" id="nCT-nP-KBg"/>
                 <outlet property="btnpopupSubscribeDaily" destination="ijw-pQ-6qx" id="p1g-Q0-ooP"/>
                 <outlet property="btnpopupSubscribeMothly" destination="5y9-3d-kSg" id="ilb-KL-QKW"/>
@@ -282,7 +283,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose Subscription Plan" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XBg-nz-Bb7">
-                    <rect key="frame" x="0.0" y="167" width="344" height="44"/>
+                    <rect key="frame" x="0.0" y="181" width="344" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
                     <color key="textColor" name="greencolor"/>
@@ -383,7 +384,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l0L-YD-OyT">
-                    <rect key="frame" x="16" y="96" width="314" height="48"/>
+                    <rect key="frame" x="16" y="82" width="314" height="48"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Choose your precise location" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KvF-Df-fbz">
@@ -411,13 +412,22 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEX-Wf-Bze">
-                    <rect key="frame" x="16" y="152" width="312" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEX-Wf-Bze">
+                    <rect key="frame" x="16" y="131" width="312" height="49"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="13"/>
                     <color key="textColor" name="themecolor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpG-J6-V4r">
+                    <rect key="frame" x="21" y="50" width="28" height="28"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" backgroundImage="info.circle.fill" catalog="system"/>
+                    <connections>
+                        <action selector="pressinfoSubscriptionBuyoncePopup:" destination="-1" eventType="touchUpInside" id="jrG-xG-Tla"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="f16-Hx-Hsg"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -427,6 +437,7 @@
     </objects>
     <resources>
         <image name="crossblack" width="24" height="24"/>
+        <image name="info.circle.fill" catalog="system" width="128" height="123"/>
         <image name="location" width="32" height="40"/>
         <image name="location.circle.fill" catalog="system" width="128" height="123"/>
         <image name="logonav" width="72" height="40"/>

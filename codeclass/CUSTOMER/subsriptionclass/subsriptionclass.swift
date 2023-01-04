@@ -160,7 +160,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         btnbuynow.layer.borderColor = UIColor(named: "themecolor")!.cgColor
         btnbuynow.layer.masksToBounds = true
         
-        //FIXMESANDIPAN
+        //FIXME
         arrMplan = ["Daily","Weekly","Monthly"]
         
         tabvplan.register(UINib(nibName: "tabvcellplan", bundle: nil), forCellReuseIdentifier: reuseIdentifier1)
