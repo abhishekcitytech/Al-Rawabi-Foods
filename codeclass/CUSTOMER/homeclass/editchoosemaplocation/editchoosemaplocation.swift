@@ -126,8 +126,10 @@ class editchoosemaplocation: UIViewController,CLLocationManagerDelegate,MKMapVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.title = "Delivery Location Search"
+        self.navigationItem.title = myAppDelegate.changeLanguage(key: "msg_language258")
         
         self.lblalertstatus.text = ""
         self.lblalertstatus.isHidden = true
@@ -137,7 +139,8 @@ class editchoosemaplocation: UIViewController,CLLocationManagerDelegate,MKMapVie
         self.btnConfirmLocation.layer.cornerRadius = 12.0
         self.btnConfirmLocation.layer.masksToBounds = true
         
-        self.txtsearch.placeholder = "Please enter your search area name"
+        self.txtsearch.placeholder = myAppDelegate.changeLanguage(key: "msg_language259")
+        btnConfirmLocation.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language256")), for: .normal)
         
        
         //self.btnsearch.isHidden = true
@@ -604,6 +607,7 @@ class editchoosemaplocation: UIViewController,CLLocationManagerDelegate,MKMapVie
     //MARK: - alert View Checking Method
     func alertViewFunction()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         //ALERT VIEW CHECKING
         if boolcheck == true{
             
@@ -618,7 +622,7 @@ class editchoosemaplocation: UIViewController,CLLocationManagerDelegate,MKMapVie
                 
                 self.lblalertstatus.isHidden = false
                 self.lblalertstatus.backgroundColor = .blue
-                self.lblalertstatus.text = "You are inside our delivery area!"
+                self.lblalertstatus.text = myAppDelegate.changeLanguage(key: "msg_language262")
                 self.boolcheck = false
                 
                 self.btnConfirmLocation.backgroundColor = UIColor(named: "greencolor")!
@@ -639,7 +643,7 @@ class editchoosemaplocation: UIViewController,CLLocationManagerDelegate,MKMapVie
                 
                 self.lblalertstatus.isHidden = false
                 self.lblalertstatus.backgroundColor = .red
-                self.lblalertstatus.text = "We do not deliver to this area!"
+                self.lblalertstatus.text = myAppDelegate.changeLanguage(key: "msg_language263")
                 self.boolcheck = false
                 
                 self.btnConfirmLocation.backgroundColor = UIColor.lightGray

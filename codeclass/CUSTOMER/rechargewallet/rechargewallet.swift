@@ -54,7 +54,12 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Recharge Wallet"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language222")
+        
+        txtamount.placeholder = myAppDelegate.changeLanguage(key: "msg_language370")
+        btnpayment.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language371")), for: .normal)
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -112,19 +117,21 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
     //MARK: - press make payment method
     @IBAction func pressmakepayment(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if txtamount.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your recharge amount", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language372"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtamount.text == "0"
         {
-            let uiAlert = UIAlertController(title: "", message: "Please amount should be greater than zero", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language373"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -242,6 +249,8 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
     }
     @objc func paymentDidComplete(with status: PaymentStatus) {
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         print("status",status)
         self.view.backgroundColor = .white
         
@@ -257,17 +266,17 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
         }
         else if(status == .PaymentFailed)
         {
-            let uiAlert = UIAlertController(title: "", message: "Payment failed" , preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language348") , preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 self.navigationController?.popToRootViewController(animated: true)
             }))
         }
         else if(status == .PaymentCancelled)
         {
-            let uiAlert = UIAlertController(title: "", message: "Payment cancelled" , preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language349") , preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 self.navigationController?.popToRootViewController(animated: true)
             }))
         }
@@ -328,9 +337,9 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
                         
                         if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: "You wallet has been recharged successfully", preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language374"), preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 self.txtamount.text = ""
                                 self.navigationController?.popViewController(animated: true)
@@ -339,7 +348,7 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

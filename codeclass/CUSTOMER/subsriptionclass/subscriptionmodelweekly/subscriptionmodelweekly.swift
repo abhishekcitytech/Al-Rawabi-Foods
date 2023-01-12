@@ -25,6 +25,7 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
     var strplanname = String()
     var arrMDateBlock = NSMutableArray()
     
+    @IBOutlet weak var lblautorenew: UILabel!
     
     @IBOutlet weak var btnReviewPlaceOrder: UIButton!
     @IBOutlet weak var btnContinuetoAddProducts: UIButton!
@@ -70,14 +71,23 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        self.title = "Subscription"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.title = myAppDelegate.changeLanguage(key: "msg_language74")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
         
-        lblsubscriptionselected.text = String(format: "Subscription - %@", strplanname)
+        lblsubscriptionselected.text = String(format: "%@ - %@",myAppDelegate.changeLanguage(key: "msg_language74"), strplanname)
+        
+        lblmessage.text = myAppDelegate.changeLanguage(key: "msg_language65")
+        lblautorenew.text = myAppDelegate.changeLanguage(key: "msg_language63")
+        
+        btnReviewPlaceOrder.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language67")), for: .normal)
+        btnContinuetoAddProducts.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language72")), for: .normal)
         
         colweeklycalendar.backgroundColor = .clear
         let layout = colweeklycalendar.collectionViewLayout as! UICollectionViewFlowLayout
@@ -122,8 +132,10 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
     //MARK: - checkinh Alert Days Minimum Selection
     @objc func checkingAlertMinimumSelectionDate()
     {
-        let refreshAlert = UIAlertController(title: "", message: "You have to select 'Minimum 3 orders a week OR full week i.e. 7 days' for Weekly subscription plan.", preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [self] (action: UIAlertAction!) in
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language65"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
@@ -306,6 +318,8 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier1, for: indexPath as IndexPath) as! colcellsubmodelweekly
         cell.contentView.backgroundColor = .clear
         cell.contentView.layer.borderWidth = 8.0
@@ -385,7 +399,7 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
         }
         else{
             cell.lbltotalprice.font = UIFont (name: "NunitoSans-Bold", size: 14)
-            cell.lbltotalprice.text = String(format: "%@", "Choose Products")
+            cell.lbltotalprice.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language72"))
         }
         
         if flttotalprice == 0.00

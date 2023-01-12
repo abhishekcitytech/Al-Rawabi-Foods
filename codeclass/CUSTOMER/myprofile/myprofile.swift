@@ -7,7 +7,7 @@
 
 import UIKit
 
-class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate
+class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,DataBackDelegate2
 {
 
     @IBOutlet weak var viewoverall: UIView!
@@ -23,11 +23,37 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate
     @IBOutlet weak var txtemail: UITextField!
     
     @IBOutlet weak var viewmobile: UIView!
+    @IBOutlet weak var lblmobilecountrycode: UILabel!
+    @IBOutlet weak var btnverifynow: UIButton!
     @IBOutlet weak var txtmobile: UITextField!
     
     @IBOutlet weak var btnupdatesave: UIButton!
     
     var dicprofiledetails = NSMutableDictionary()
+    
+    var boolverifiedmobileno = false
+    
+    // MARK: - Verify OTP record Back Delegate Method
+    func savePreferences2(preferisget: Bool)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        print("preferisget",preferisget)
+        self.boolverifiedmobileno = preferisget
+        
+        if self.boolverifiedmobileno == true
+        {
+            self.txtmobile.isUserInteractionEnabled = false
+            self.btnverifynow.isUserInteractionEnabled = false
+            self.btnverifynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language18")), for: .normal)
+        }
+        else
+        {
+            self.txtmobile.isUserInteractionEnabled = true
+            self.btnverifynow.isUserInteractionEnabled = true
+            self.btnverifynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language17")), for: .normal)
+        }
+        
+    }
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -54,6 +80,9 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         // Do any additional setup after loading the view.
         self.title = "Profile Details"
         
@@ -71,9 +100,17 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate
         txtemail.setLeftPaddingPoints(10)
         txtmobile.setLeftPaddingPoints(10)
         
+        self.btnverifynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language17")), for: .normal)
+        btnverifynow.tag = 101
         
         btnupdatesave.layer.cornerRadius = 16.0
         btnupdatesave.layer.masksToBounds = true
+        
+        let toolbarDone = UIToolbar.init()
+        toolbarDone.sizeToFit()
+        let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.done,target: self, action: #selector(pressDonetxtMobilenumber))
+        toolbarDone.items = [barBtnDone]
+        txtmobile.inputAccessoryView = toolbarDone
         
     }
     
@@ -83,44 +120,119 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate
         self.navigationController?.popViewController(animated: true)
     }
     
+    // MARK: - Done Mobile Number method
+    @objc func pressDonetxtMobilenumber(sender: UIButton)
+    {
+        txtmobile.resignFirstResponder()
+    }
+    
+    //MARK: - pressverifynow method
+    @IBAction func pressverifynow(_ sender: Any)
+    {
+        print("pressverifynow")
+        
+        var strfullmobilenocode = ""
+        var strfullmobileno = ""
+        let arrm = self.dicprofiledetails.value(forKey: "custom_attributes") as? NSArray ?? []
+        for x in 0 ..< arrm.count
+        {
+            let dic = arrm.object(at: x)as? NSDictionary
+            let strattributecode = String(format: "%@", dic?.value(forKey: "attribute_code")as? String ?? "")
+            if strattributecode.containsIgnoreCase("mobile")
+            {
+                strfullmobileno = String(format: "%@", dic?.value(forKey: "value")as? String ?? "")
+            }
+            if strattributecode.containsIgnoreCase("country_code")
+            {
+                strfullmobilenocode = String(format: "%@", dic?.value(forKey: "value")as? String ?? "")
+            }
+        }
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        if strfullmobileno == txtmobile.text!
+        {
+            //Mobile no Same want to verify again
+            
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language378"), preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else
+        {
+            if txtmobile.text?.count == 10{
+                
+                print("countrycode",lblmobilecountrycode.text!)
+                print("mobile",txtmobile.text!)
+                
+                let obj = otpverifyclass(nibName: "otpverifyclass", bundle: nil)
+                obj.strcountrycode = "971" //FIXMESANDIPAN
+                obj.strmobileno = txtmobile.text!
+                obj.delegate2 = self
+                obj.strpagefrom = "100"
+                self.navigationController?.pushViewController(obj, animated: true)
+            }
+            else
+            {
+                let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language14"), preferredStyle: UIAlertController.Style.alert)
+                self.present(uiAlert, animated: true, completion: nil)
+                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                    print("Click of default button")
+                }))
+            }
+        }
+        
+    }
+    
    
     //MARK: - press Update Save Method
     @IBAction func pressUpdateSave(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if txtfirstname.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your first name", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language238"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtlastname.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your last name", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language239"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
-        else if txtemail.text == ""
+        else if txtmobile.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your email", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language240"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
-        else if self.isValidEmail(emailStr: txtemail.text!) == false
+        else if txtmobile.text?.count != 10
         {
-            let uiAlert = UIAlertController(title: "", message: "please enter valid email address", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language14"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
-        else{
+        else
+        {
             print("update successfull")
+            print("firstname",txtfirstname.text!)
+            print("lastname",txtlastname.text!)
+            print("countrycode","971")
+            print("txtmobile",txtmobile.text!)
+            
+            self.postUpdateProfileDetailsAPImethod()
         }
     }
     
@@ -254,7 +366,7 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate
                             self.txtfirstname.text = strfirstname
                             self.txtlastname.text = strlastname
                             self.txtemail.text = stremail
-                            self.txtmobile.text = String(format: "%@ %@", strfullmobilenocode,strfullmobileno)
+                            self.txtmobile.text = String(format: "%@",strfullmobileno)
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
@@ -277,4 +389,104 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate
         task.resume()
     }
 
+    //MARK: - post update profile details API method
+    func postUpdateProfileDetailsAPImethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        let parameters = ["customerFirstName": txtfirstname.text!,
+        "customerLastName": txtlastname.text!,
+        "customerPhoneCountryCode": "971",
+        "customerPhoneNumber": txtmobile.text!
+        ]
+        as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod106)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language369") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                                self.getaccountprofiledetails()
+                            }))
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
 }

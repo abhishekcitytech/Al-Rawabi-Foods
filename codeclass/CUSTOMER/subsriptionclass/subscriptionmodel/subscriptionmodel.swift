@@ -25,6 +25,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
     @IBOutlet weak var btnRevieworder: UIButton!
     @IBOutlet weak var lblmessage: UILabel!
     
+    @IBOutlet weak var lblautorenew: UILabel!
     
     @IBOutlet weak var tabvdates: UITableView!
     var reuseIdentifier1 = "tabvcellsubmodel"
@@ -71,7 +72,10 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        self.title = "Subscription"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.title = myAppDelegate.changeLanguage(key: "msg_language74")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -97,7 +101,15 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         txtstartdate.setLeftPaddingPoints(10)
         txtenddate.setLeftPaddingPoints(10)
         
-        lblsubscriptionselected.text = String(format: "Subscription - %@", strplanname)
+        lblsubscriptionselected.text = String(format: "%@ - %@",myAppDelegate.changeLanguage(key: "msg_language74"), strplanname)
+        
+        lblmessage.text = myAppDelegate.changeLanguage(key: "msg_language64")
+        lblautorenew.text = myAppDelegate.changeLanguage(key: "msg_language63")
+        
+        txtstartdate.placeholder = myAppDelegate.changeLanguage(key: "msg_language61")
+        txtenddate.placeholder = myAppDelegate.changeLanguage(key: "msg_language62")
+        
+        btnRevieworder.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language67")), for: .normal)
         
         tabvdates.register(UINib(nibName: "tabvcellsubmodel", bundle: nil), forCellReuseIdentifier: reuseIdentifier1)
         tabvdates.separatorStyle = .none
@@ -105,7 +117,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         tabvdates.backgroundColor=UIColor.clear
         tabvdates.separatorColor=UIColor.clear
         tabvdates.showsVerticalScrollIndicator = false
-        msg = "no recods found!"
+        msg = myAppDelegate.changeLanguage(key: "msg_language75")
         
         //self.checkingAlertMinimumSelectionDate()
     }
@@ -119,11 +131,13 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
     //MARK: - checkinh Alert Days Minimum Selection
     @objc func checkingAlertMinimumSelectionDate()
     {
-        let refreshAlert = UIAlertController(title: "", message: "You have to select 'Minimum 10 days orders OR more orders' for Daily subscription plan.", preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [self] (action: UIAlertAction!) in
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language64"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
         }))
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
             print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
@@ -372,6 +386,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        
         if tableView == tabveditpopupitems
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier2, for: indexPath) as! celltabvprodustitemsedit
@@ -491,7 +506,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         }
         else{
             cell.lblprice.font = UIFont (name: "NunitoSans-Bold", size: 14)
-            cell.lblprice.text = String(format: "%@", "Choose Products")
+            cell.lblprice.text = String(format: "%@", appDel.changeLanguage(key: "msg_language72"))
         }
         
         if flttotalprice == 0.00
@@ -746,6 +761,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
     let datePicker2 = DatePickerDialog()
     func datePickerTappedStart()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         let date = Date()
         let df = DateFormatter()
@@ -789,9 +805,9 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         dateComponents1.day = 18
         let next18days = Calendar.current.date(byAdding: dateComponents1, to: date111!)
         
-        datePicker1.show("Select Start Date",
-                         doneButtonTitle: "Done",
-                         cancelButtonTitle: "Cancel",
+        datePicker1.show(myAppDelegate.changeLanguage(key: "msg_language61"),
+                         doneButtonTitle: myAppDelegate.changeLanguage(key: "msg_language106"),
+                         cancelButtonTitle: myAppDelegate.changeLanguage(key: "msg_language107"),
                          minimumDate: date111,
                          maximumDate: next18days,
                          datePickerMode: .date) { (date) in
@@ -821,6 +837,8 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
     }
     func datePickerTappedEnd()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let date111 = dateFormatter.date(from: self.txtstartdate.text!)
@@ -835,9 +853,9 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         
         let currentDate = Date()
         
-        datePicker2.show("Select End Date",
-                         doneButtonTitle: "Done",
-                         cancelButtonTitle: "Cancel",
+        datePicker2.show(myAppDelegate.changeLanguage(key: "msg_language62"),
+                         doneButtonTitle: myAppDelegate.changeLanguage(key: "msg_language106"),
+                         cancelButtonTitle: myAppDelegate.changeLanguage(key: "msg_language107"),
                          minimumDate: nexttendays,
                          maximumDate: next28days,
                          datePickerMode: .date) { (date) in

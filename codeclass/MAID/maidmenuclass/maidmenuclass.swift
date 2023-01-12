@@ -64,7 +64,9 @@ class maidmenuclass: BaseViewController,UITableViewDelegate,UITableViewDataSourc
         
         lblname.text = String(format: "%@ %@", strmaidfirstname,strmaidlastname)
         
-        arrMenu = ["View Subscriptions","Paused Subscriptions","Order Once","Wallet Balance","My Profile","Shipping Addresses","My Orders","Logout"]
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        arrMenu = [myAppDelegate.changeLanguage(key: "msg_language294"),myAppDelegate.changeLanguage(key: "msg_language295"),myAppDelegate.changeLanguage(key: "msg_language104"),myAppDelegate.changeLanguage(key: "msg_language296"),myAppDelegate.changeLanguage(key: "msg_language297"),myAppDelegate.changeLanguage(key: "msg_language298"),myAppDelegate.changeLanguage(key: "msg_language204"),myAppDelegate.changeLanguage(key: "msg_language276")]
         arrMenuimages = ["acc4.png","acc10.png","sl3.png","acc6.png","acc01.png","acc12.png","acc7.png","logout"]
         
         tabvmenu.register(UINib(nibName: "tabvcelllist", bundle: nil), forCellReuseIdentifier: reuseIdentifier1)
@@ -146,17 +148,19 @@ class maidmenuclass: BaseViewController,UITableViewDelegate,UITableViewDataSourc
         let strname =  String(format: "%@", arrMenu.object(at: indexPath.row)as? String ?? "")
         //let strimagename =  String(format: "%@", arrMenuimages.object(at: indexPath.row)as? String ?? "")
         
-        if strname == "View Subscriptions"
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        if strname == myAppDelegate.changeLanguage(key: "msg_language294")
         {
             let obj = maidviewsubscriptions(nibName: "maidviewsubscriptions", bundle: nil)
             self.navigationController?.pushViewController(obj, animated: false)
         }
-        else if strname == "Paused Subscriptions"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language295")
         {
             let obj = maidpausedsubscriptions(nibName: "maidpausedsubscriptions", bundle: nil)
             self.navigationController?.pushViewController(obj, animated: false)
         }
-        else if strname == "Logout"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language276")
         {
             UserDefaults.standard.removeObject(forKey: "bearertokenmaid")
             UserDefaults.standard.synchronize()
@@ -166,27 +170,27 @@ class maidmenuclass: BaseViewController,UITableViewDelegate,UITableViewDataSourc
             
             self.navigationController?.popToRootViewController(animated: false)
         }
-        else if strname == "Order Once"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language104")
         {
             let obj = maidorderonce(nibName: "maidorderonce", bundle: nil)
             self.navigationController?.pushViewController(obj, animated: true)
         }
-        else if strname == "Wallet Balance"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language296")
         {
             let obj = maidwalletdetails(nibName: "maidwalletdetails", bundle: nil)
             self.navigationController?.pushViewController(obj, animated: true)
         }
-        else if strname == "My Profile"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language297")
         {
             let obj = maidprofiledetails(nibName: "maidprofiledetails", bundle: nil)
             self.navigationController?.pushViewController(obj, animated: false)
         }
-        else if strname == "Shipping Addresses"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language298")
         {
             let obj = maidaddresslist(nibName: "maidaddresslist", bundle: nil)
             self.navigationController?.pushViewController(obj, animated: false)
         }
-        else if strname == "My Orders"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language204")
         {
             let obj = maidallorderslist(nibName: "maidallorderslist", bundle: nil)
             self.navigationController?.pushViewController(obj, animated: false)

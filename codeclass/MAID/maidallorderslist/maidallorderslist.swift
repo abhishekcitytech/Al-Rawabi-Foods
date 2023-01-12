@@ -42,7 +42,10 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "My Orders"
+        
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language204")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -246,7 +249,7 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
                             //print("arrMmyorders --->",self.arrMmyorders)
                             
                             if self.arrMmyorders.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
                             }
                             
                             self.tabvmyorders.reloadData()
@@ -256,7 +259,7 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

@@ -34,8 +34,12 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
     @IBOutlet weak var btncrosseditpopup: UIButton!
     @IBOutlet weak var tabveditpopupitems: UITableView!
     @IBOutlet weak var lblsubtotaleditpopup: UILabel!
+    @IBOutlet weak var lblitemsubtotal: UILabel!
+    @IBOutlet weak var lblitembottommessage: UILabel!
     var reuseIdentifier2 = "celltabvprodustitemsedit"
     var viewPopupAddNewExistingBG2 = UIView()
+    
+    
     
     var arrMProductItemsEdit = NSMutableArray()
     
@@ -44,13 +48,22 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
     
     //DELIVERY SLOTS DATE
     @IBOutlet var viewdateslotsdeliverypopup: UIView!
+    @IBOutlet weak var lblheaderpopupdeliveryslot: UILabel!
     @IBOutlet weak var scrollviewdeliveryslotpopup: UIScrollView!
+    
+    @IBOutlet weak var lblpopupdeliveryslot11: UILabel!
+    @IBOutlet weak var lblpopupdeliveryslot22: UILabel!
+    @IBOutlet weak var lblpopupdeliveryslot33: UILabel!
+    @IBOutlet weak var lblpopupdeliveryslot44: UILabel!
+    
     @IBOutlet weak var txtsubsriptionplanpopup2: UITextField!
     @IBOutlet weak var txtsubscriptionstartdatepopup2: UITextField!
     @IBOutlet weak var txtsubscriptionenddatepopup2: UITextField!
+    
     @IBOutlet weak var btnmorningslot: UIButton!
     @IBOutlet weak var btnafternoonslot: UIButton!
     @IBOutlet weak var btneveningslot: UIButton!
+    
     @IBOutlet weak var btncrossdateslotspopup: UIButton!
     @IBOutlet weak var btnsavedateslotspopup: UIButton!
     var viewPopupAddNewExistingBG3 = UIView()
@@ -66,6 +79,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
     
     var strSubtotalAmount = ""
     var strShippingchargesAmount = ""
+    var strTotalTaxAmount = ""
     
     var arrMAvailbleTimeSlots = NSMutableArray()
     
@@ -111,7 +125,16 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Review Your Order"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.title = myAppDelegate.changeLanguage(key: "msg_language81")
+        
+        btnclearall.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language334")), for: .normal)
+        btnproceed.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language98")), for: .normal)
+        lblminimumwarningshippingcost.text = myAppDelegate.changeLanguage(key: "msg_language335")
+        lblfullpayment.text = myAppDelegate.changeLanguage(key: "msg_language336")
+        lblfirst3payment.text = myAppDelegate.changeLanguage(key: "msg_language337")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -140,15 +163,15 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         btnclearall.layer.masksToBounds = true
         
         if strpageidentifier == "100"{
-            lblmessageminimumorder.text = "You have to select 'Minimum 10 days orders OR more orders' for Daily subscription plan."
+            lblmessageminimumorder.text = myAppDelegate.changeLanguage(key: "msg_language64")
             self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_daily.png")
         }
         else if strpageidentifier == "200"{
-            lblmessageminimumorder.text = "You have to select 'Minimum 3 orders a week OR full week i.e. 7 days' for Weekly subscription plan."
+            lblmessageminimumorder.text = myAppDelegate.changeLanguage(key: "msg_language65")
             self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_weekly.png")
         }
         else if strpageidentifier == "300"{
-            lblmessageminimumorder.text = "You have to select 'Minimum 8 orders a month OR full month i.e. no. of days in a month' for Monthly subscription plan."
+            lblmessageminimumorder.text = myAppDelegate.changeLanguage(key: "msg_language66")
             self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_monthly.png")
         }
         
@@ -220,6 +243,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         print("strSubtotalAmount",strSubtotalAmount)
         print("strShippingchargesAmount",strShippingchargesAmount)
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if strpageidentifier == "100"
         {
             //DAILY
@@ -227,8 +252,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             
             if productcount < 10
             {
-                let alert = UIAlertController(title: "Warning!", message: "You have to select 'Minimum 10 days orders OR more orders' for Daily subscription plan.", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                let alert = UIAlertController(title: myAppDelegate.changeLanguage(key: "msg_language330"), message: myAppDelegate.changeLanguage(key: "msg_language64"), preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         }
@@ -239,8 +264,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             
             if productcount < 3
             {
-                let alert = UIAlertController(title: "Warning!", message: "You have to select 'Minimum 3 orders a week OR full week i.e. 7 days' for Weekly subscription plan.", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                let alert = UIAlertController(title: myAppDelegate.changeLanguage(key: "msg_language330"), message: myAppDelegate.changeLanguage(key: "msg_language65"), preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         }
@@ -251,8 +276,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             
             if productcount < 8
             {
-                let alert = UIAlertController(title: "Warning!", message: "You have to select 'Minimum 8 orders a month OR full month i.e. no. of days in a month' for Monthly subscription plan.", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                let alert = UIAlertController(title: myAppDelegate.changeLanguage(key: "msg_language330"), message: myAppDelegate.changeLanguage(key: "msg_language65"), preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         }
@@ -261,14 +286,14 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         
         if strSelectedTimeSlotID == "" && strSelectedTimeSlotNAME == ""
         {
-            let alert = UIAlertController(title: nil, message: "Please Choose Your Preferred Delivery Time Slot", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            let alert = UIAlertController(title: nil, message: myAppDelegate.changeLanguage(key: "msg_language266"), preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         else if strSubtotalAmount == "" || strSubtotalAmount == "0.00"
         {
-            let alert = UIAlertController(title: nil, message: "Please add products of your choosen dates.", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            let alert = UIAlertController(title: nil, message: myAppDelegate.changeLanguage(key: "msg_language331"), preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         else
@@ -276,8 +301,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             
             if btnfullpayment.isSelected == true
             {
-                let refreshAlert = UIAlertController(title: "", message: "Do you want to proceed with full payment?", preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language332"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
 
                     let ctrl = SubscriptionShippingAddress(nibName: "SubscriptionShippingAddress", bundle: nil)
@@ -291,15 +316,15 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                     ctrl.arrmShippingchargeslist = self.arrMshippingcalculationOutput
                     self.navigationController?.pushViewController(ctrl, animated: true)
                 }))
-                refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                     print("Handle Cancel Logic here")
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
             }
             else if btnfirst3payment.isSelected == true
             {
-                let refreshAlert = UIAlertController(title: "", message: "Do you want to proceed with first 3 days payment?", preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language333"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
 
                     let ctrl = SubscriptionShippingAddress(nibName: "SubscriptionShippingAddress", bundle: nil)
@@ -313,7 +338,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                     ctrl.arrmShippingchargeslist = self.arrMshippingcalculationOutput
                     self.navigationController?.pushViewController(ctrl, animated: true)
                 }))
-                refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                     print("Handle Cancel Logic here")
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
@@ -324,9 +349,13 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
     }
     
     //MARK: - press clear all method
-    @IBAction func pressClearAll(_ sender: Any) {
-        let refreshAlert = UIAlertController(title: "", message: "Do you want to clear your selected subscription items?", preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+    @IBAction func pressClearAll(_ sender: Any)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language82"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
             
             if strpageidentifier == "100"
@@ -494,7 +523,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             }
             
         }))
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
             print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
@@ -540,10 +569,12 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         if tableView == tabveditpopupitems{
             return 1
         }
-        return 120
+        return 170
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if tableView == tabvordereview
         {
             let headerView = UIView()
@@ -590,7 +621,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             title2.backgroundColor = .clear
             title2.numberOfLines = 10
             title2.font = UIFont (name: "NunitoSans-Bold", size: 13)
-            title2.text = "Choose Your Preferred Delivery Slots Date & Time"
+            title2.text = myAppDelegate.changeLanguage(key: "msg_language83")
             headerView.addSubview(title2)
             
             let imgvarrow = UIImageView(frame: CGRect(x: viewslot.frame.self.width - 44, y: 6, width:32, height: 32))
@@ -612,6 +643,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if tableView == tabvordereview
         {
             let footerView = UIView()
@@ -641,7 +674,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             title1.textColor = UIColor.black
             title1.backgroundColor = .clear
             title1.font = UIFont (name: "NunitoSans-Regular", size: 16)
-            title1.text = "  Cart Subtotal"
+            title1.text = String(format: "  %@", myAppDelegate.changeLanguage(key: "msg_language84"))
             footerView.addSubview(title1)
             
             let title1value = UILabel(frame: CGRect(x: title1.frame.maxX, y: 0, width:footerView.frame.self.width / 2, height: 30))
@@ -658,7 +691,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             title2.backgroundColor = .clear
             title2.numberOfLines = 3
             title2.font = UIFont (name: "NunitoSans-Regular", size: 16)
-            title2.text = "  Shipping Charges"
+            title2.text = String(format: "  %@", myAppDelegate.changeLanguage(key: "msg_language85"))
             footerView.addSubview(title2)
             
             let title2value = UILabel(frame: CGRect(x: title2.frame.maxX, y: title1.frame.maxY, width:footerView.frame.self.width / 2, height: 50))
@@ -668,17 +701,34 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             title2value.font = UIFont (name: "NunitoSans-Regular", size: 16)
             footerView.addSubview(title2value)
             
+            //TOTALTAX
+            let title4 = UILabel(frame: CGRect(x: 0, y: title2.frame.maxY, width:footerView.frame.self.width / 2, height: 50))
+            title4.textAlignment = .left
+            title4.textColor = UIColor.black
+            title4.backgroundColor = .clear
+            title4.numberOfLines = 3
+            title4.font = UIFont (name: "NunitoSans-Regular", size: 16)
+            title4.text = String(format: "  %@", myAppDelegate.changeLanguage(key: "msg_language111"))
+            footerView.addSubview(title4)
+            
+            let title4value = UILabel(frame: CGRect(x: title4.frame.maxX, y: title2.frame.maxY, width:footerView.frame.self.width / 2, height: 50))
+            title4value.textAlignment = .right
+            title4value.textColor = UIColor.black
+            title4value.backgroundColor = .clear
+            title4value.font = UIFont (name: "NunitoSans-Regular", size: 16)
+            footerView.addSubview(title4value)
+            
             //GRANDTOTAL
-            let title3 = UILabel(frame: CGRect(x: 0, y: title2.frame.maxY, width:footerView.frame.self.width / 2, height: 30))
+            let title3 = UILabel(frame: CGRect(x: 0, y: title4.frame.maxY, width:footerView.frame.self.width / 2, height: 30))
             title3.textAlignment = .left
             title3.textColor = UIColor.black
             title3.backgroundColor = .clear
             title3.numberOfLines = 3
             title3.font = UIFont (name: "NunitoSans-Bold", size: 16)
-            title3.text = "  Grand Total"
+            title3.text = String(format: "  %@", myAppDelegate.changeLanguage(key: "msg_language86"))
             footerView.addSubview(title3)
             
-            let title3value = UILabel(frame: CGRect(x: title3.frame.maxX, y: title2.frame.maxY, width:footerView.frame.self.width / 2, height: 30))
+            let title3value = UILabel(frame: CGRect(x: title3.frame.maxX, y: title4.frame.maxY, width:footerView.frame.self.width / 2, height: 30))
             title3value.textAlignment = .right
             title3value.textColor = UIColor.black
             title3value.backgroundColor = .clear
@@ -703,6 +753,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 print("flttotalcharges",flttotalcharges)
                 strShippingchargesAmount = String(format: "%0.2f", flttotalcharges)
                 title2value.text = String(format: "AED %0.2f", flttotalcharges)
+                
+                title4value.text = String(format: "AED %@", self.strTotalTaxAmount)
                 
                 var fltgrandtotal = 0.00
                 fltgrandtotal = flttotalcharges + Double(strSubtotalAmount)!
@@ -735,6 +787,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 
                 strShippingchargesAmount = String(format: "%0.2f", flttotal1)
                 title2value.text = String(format: "AED %0.2f", flttotal1)
+                
+                title4value.text = String(format: "AED %@", self.strTotalTaxAmount)
                 
                 var fltgrandtotal = 0.00
                 fltgrandtotal = Double(flttotal1) + Double(strSubtotalAmount)!
@@ -879,6 +933,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             
         }
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! celltabvsubscriptionOR
         
         cell.selectionStyle=UITableViewCell.SelectionStyle.none
@@ -959,13 +1015,15 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             }catch {
                 print("err")
             }
+            
+            
             print("flttotalproductcount",flttotalproductcount as Any)
             print("flttotalprice",flttotalprice as Any)
             
-            cell.lbltotalproducts.text = String(format: "Total Product Items :%0.0f",flttotalproductcount)
-            cell.lblsubtotal.text = String(format: "Sub Total: AED %0.2f",flttotalprice)
+            cell.lbltotalproducts.text = String(format: "%@ :%0.0f",myAppDelegate.changeLanguage(key: "msg_language87"),flttotalproductcount)
+            cell.lblsubtotal.text = String(format: "%@ AED %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),flttotalprice)
             
-            cell.lbldeliverydate.text = String(format: "Delivery on %@",strday)
+            cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
             cell.lbldeliverydate1.text = String(format: "%@",strdate)
             
             
@@ -1045,10 +1103,10 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             print("flttotalproductcount",flttotalproductcount as Any)
             print("flttotalprice",flttotalprice as Any)
             
-            cell.lbltotalproducts.text = String(format: "Total Product Items :%0.0f",flttotalproductcount)
-            cell.lblsubtotal.text = String(format: "Sub Total: AED %0.2f",flttotalprice)
+            cell.lbltotalproducts.text = String(format: "%@ :%0.0f",myAppDelegate.changeLanguage(key: "msg_language87"),flttotalproductcount)
+            cell.lblsubtotal.text = String(format: "%@ AED %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),flttotalprice)
             
-            cell.lbldeliverydate.text = String(format: "Delivery on %@",strday)
+            cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
             cell.lbldeliverydate1.text = String(format: "%@",strdate)
             
             
@@ -1128,10 +1186,10 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             print("flttotalproductcount",flttotalproductcount as Any)
             print("flttotalprice",flttotalprice as Any)
             
-            cell.lbltotalproducts.text = String(format: "Total Product Items :%0.0f",flttotalproductcount)
-            cell.lblsubtotal.text = String(format: "Sub Total: AED %0.2f",flttotalprice)
+            cell.lbltotalproducts.text = String(format: "%@ :%0.0f",myAppDelegate.changeLanguage(key: "msg_language87"),flttotalproductcount)
+            cell.lblsubtotal.text = String(format: "%@ AED %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),flttotalprice)
             
-            cell.lbldeliverydate.text = String(format: "Delivery on %@",strday)
+            cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
             cell.lbldeliverydate1.text = String(format: "%@",strdate)
             
             
@@ -1168,6 +1226,11 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 cell.viewoverall.backgroundColor = UIColor(named: "plate6")!
             }
         }
+        
+        cell.lblwarning.text = myAppDelegate.changeLanguage(key: "msg_language343")
+        cell.btnAddMore.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language92")), for: .normal)
+        cell.btndetail.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language91")), for: .normal)
+        
         
         let lblSeparator = UILabel(frame: CGRect(x: 0, y: 149.5, width: tableView.frame.size.width, height: 0.5))
         lblSeparator.backgroundColor = UIColor(named: "graybordercolor")!
@@ -2072,6 +2135,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
     //MARK: - create POPUP EDIT ITEMS DATE WISE method
     func createEditpopupDatewiseItems(selecteddateindex:Int)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let height1 = Float(UIApplication.shared.statusBarFrame.height) as Float
         let height2 = Float((self.navigationController?.navigationBar.frame.size.height)!) as Float
         let myFloat1 = height1 + height2
@@ -2109,6 +2174,9 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         }
         
         print("flttotal",flttotal)
+        
+        lblitemsubtotal.text = myAppDelegate.changeLanguage(key: "msg_language68")
+        lblitembottommessage.text = myAppDelegate.changeLanguage(key: "msg_language69")
         
         self.lbleditpopupDateDay.text = String(format: "%@ (%@)", strdate,strday)
         self.lblsubtotaleditpopup.text = String(format: "AED %0.2f", flttotal)
@@ -2148,6 +2216,14 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         let height2 = Float((self.navigationController?.navigationBar.frame.size.height)!) as Float
         let myFloat1 = height1 + height2
         print(myFloat1)
+        
+        
+        lblheaderpopupdeliveryslot.text = appDel.changeLanguage(key: "msg_language338")
+        lblpopupdeliveryslot11.text = appDel.changeLanguage(key: "msg_language339")
+        lblpopupdeliveryslot22.text = appDel.changeLanguage(key: "msg_language340")
+        lblpopupdeliveryslot33.text = appDel.changeLanguage(key: "msg_language341")
+        lblpopupdeliveryslot44.text = appDel.changeLanguage(key: "msg_language342")
+        btnsavedateslotspopup.setTitle(String(format: "%@", appDel.changeLanguage(key: "msg_language191")), for: .normal)
         
         self.viewdateslotsdeliverypopup.layer.cornerRadius = 6.0
         self.viewdateslotsdeliverypopup.layer.masksToBounds = true
@@ -2702,7 +2778,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -2742,7 +2818,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -2755,7 +2831,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -2874,7 +2950,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         print("self.arrMshippingcalculation",self.arrMshippingcalculation)
         self.postshippingaddressCalculation(arrm: self.arrMshippingcalculation)
     }
-    //MARK: - post Shipping Address Calculation List Method
+    //MARK: - post Shipping Calculation List Method
     func postshippingaddressCalculation(arrm:NSMutableArray)
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -2910,7 +2986,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -2937,6 +3013,10 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                     //print("strmessage",strmessage)
                     
                     let dictemp1 = dictemp.value(forKey: "shipping_charges_calculation")as? NSDictionary
+                    
+                    let strtaxtotal =  String(format: "%@", dictemp1!.value(forKey: "taxTotal")as! CVarArg)
+                    print("strtaxtotal",strtaxtotal)
+                    
                     let strmethod_name = dictemp1!.value(forKey: "method_name")as? String ?? ""
                     print("strmethod_name",strmethod_name)
                     
@@ -2951,13 +3031,16 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                             self.arrMshippingcalculationOutput = NSMutableArray(array: arrm)
                             print("arrMshippingcalculationOutput --->",self.arrMshippingcalculationOutput)
                             
+                            self.strTotalTaxAmount = strtaxtotal
+                            print("self.strTotalTaxAmount --->",self.strTotalTaxAmount)
+                            
                             if self.strSelectedpaymentoption == "FULL"
                             {
                                 var flttotalcharges = 0.00
                                 for x in 0 ..< self.arrMshippingcalculationOutput.count
                                 {
                                     let dict = self.arrMshippingcalculationOutput.object(at: x)as? NSDictionary
-                                    print("dict", dict)
+                                    //print("dict", dict)
                                     let strcharges = String(format: "%@", dict?.value(forKey: "delivery_charge")as! CVarArg)
                                     
                                     flttotalcharges = flttotalcharges + Double(strcharges)!
@@ -2965,7 +3048,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                                 print("flttotalcharges",flttotalcharges)
                                 self.strShippingchargesAmount = String(format: "%0.2f", flttotalcharges)
                             }
-                            else{
+                            else
+                            {
                                 var flttotal1 = Float()
                                 var flttotal2 = Float()
                                 for x in 0 ..< 3
@@ -2992,7 +3076,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -3005,7 +3089,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()

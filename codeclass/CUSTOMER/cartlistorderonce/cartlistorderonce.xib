@@ -23,17 +23,23 @@
                 <outlet property="btnafternoon" destination="Cum-Ez-H7y" id="zvS-eB-iWE"/>
                 <outlet property="btnapplydiscount" destination="sOH-eB-fBF" id="dFP-mT-Ajb"/>
                 <outlet property="btnevening" destination="4dy-Lj-0C0" id="Til-kC-afw"/>
+                <outlet property="btnkeepshopping" destination="3Ol-MB-JEZ" id="GbV-Yy-lFL"/>
                 <outlet property="btnmorning" destination="JBc-gm-yrR" id="iUs-fj-MvE"/>
                 <outlet property="btnpaycheckout" destination="F2q-yG-V8a" id="7I4-cI-YGU"/>
+                <outlet property="btnremovecoupon" destination="xbI-XH-ouo" id="hwU-Xa-gos"/>
                 <outlet property="btnupdatelocation" destination="bGM-6f-bnG" id="jtF-S0-ZcY"/>
                 <outlet property="imgccalendarchoosedeliverydate" destination="joY-O5-P6w" id="IVV-a5-5bg"/>
                 <outlet property="lbldeliveryslotdate" destination="3Hd-tr-kpv" id="Sae-so-NnP"/>
                 <outlet property="lbldiscount" destination="jfO-VF-b3c" id="5gT-dt-HFb"/>
                 <outlet property="lbldiscountvalue" destination="PVo-PQ-BRf" id="ch3-Lg-mWU"/>
                 <outlet property="lblearnrewardpointsvalue" destination="qrs-xW-OfK" id="JvI-JX-H1G"/>
+                <outlet property="lblordertotal" destination="Gvn-7Q-k4r" id="9yT-NS-KFk"/>
                 <outlet property="lblordertotalvalue" destination="cga-pn-kFo" id="bIc-ft-r7m"/>
+                <outlet property="lblshippingcharges" destination="GPy-Vt-Uzv" id="NS7-SG-bTk"/>
                 <outlet property="lblshippingchargesvalue" destination="aX6-w0-LEK" id="AwG-tN-FmF"/>
+                <outlet property="lblsubtotal" destination="h9v-An-8Bj" id="bjZ-M0-maL"/>
                 <outlet property="lblsubtotalvalue" destination="Llb-99-cYl" id="XXH-Ab-MyJ"/>
+                <outlet property="lbltax" destination="say-8t-KO1" id="lFy-Wl-JiV"/>
                 <outlet property="lbltaxvalue" destination="7vv-dv-y1S" id="njZ-fc-RjJ"/>
                 <outlet property="tabvcart" destination="gF3-cq-kZp" id="ARf-NH-ZMR"/>
                 <outlet property="txtchoosedeliverydate" destination="gMO-Tv-0y3" id="bVO-SK-tuX"/>
@@ -170,7 +176,7 @@
                             <color key="backgroundColor" name="greenlighter"/>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gF3-cq-kZp">
-                            <rect key="frame" x="8" y="122" width="359" height="220"/>
+                            <rect key="frame" x="8" y="169" width="359" height="173"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <connections>
@@ -238,20 +244,6 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Order Total:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gvn-7Q-k4r">
-                                    <rect key="frame" x="8" y="95" width="162" height="51"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="19"/>
-                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cga-pn-kFo">
-                                    <rect key="frame" x="178" y="95" width="173" height="51"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
-                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="19"/>
-                                    <color key="textColor" name="orangecolor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sOH-eB-fBF">
                                     <rect key="frame" x="213" y="62" width="138" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
@@ -264,9 +256,38 @@
                                         <action selector="pressApplyDiscount:" destination="-1" eventType="touchUpInside" id="DQl-1V-hhp"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbI-XH-ouo">
+                                    <rect key="frame" x="8" y="91" width="133" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Remove Coupon">
+                                        <color key="titleColor" name="darkmostredcolor"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="pressRemoveDiscount:" destination="-1" eventType="touchUpInside" id="Bm6-Ud-sy7"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Order Total:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gvn-7Q-k4r">
+                                    <rect key="frame" x="8" y="115" width="162" height="37"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="19"/>
+                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cga-pn-kFo">
+                                    <rect key="frame" x="178" y="115" width="173" height="37"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="19"/>
+                                    <color key="textColor" name="orangecolor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrs-xW-OfK">
                                     <rect key="frame" x="8" y="154" width="343" height="21"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
                                     <color key="textColor" name="greencolor"/>
                                     <nil key="highlightedColor"/>
@@ -285,6 +306,20 @@
                             </state>
                             <connections>
                                 <action selector="presspaycheckout:" destination="-1" eventType="touchUpInside" id="tqR-Om-Qcd"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ol-MB-JEZ">
+                            <rect key="frame" x="8" y="123" width="195" height="38"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Keep Shopping for more">
+                                <color key="titleColor" name="themecolor"/>
+                            </state>
+                            <connections>
+                                <action selector="pressKeepShopping:" destination="-1" eventType="touchUpInside" id="qeA-to-Oy6"/>
+                                <action selector="presspaycheckout:" destination="-1" eventType="touchUpInside" id="qZr-We-fRm"/>
                             </connections>
                         </button>
                     </subviews>
@@ -308,6 +343,9 @@
         <image name="calendar" width="28" height="28"/>
         <image name="radio1.png" width="20" height="20"/>
         <image name="radio2.png" width="20" height="20"/>
+        <namedColor name="darkmostredcolor">
+            <color red="0.87099999189376831" green="0.071000002324581146" blue="0.30199998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="greencolor">
             <color red="0.1289999932050705" green="0.58799999952316284" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -321,7 +359,7 @@
             <color red="1" green="0.66699999570846558" blue="0.019999999552965164" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themecolor">
-            <color red="0.0" green="0.18799999356269836" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.18823529411764706" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

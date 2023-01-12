@@ -31,19 +31,26 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     var arrMcartItems = NSMutableArray()
     
     @IBOutlet weak var viewbottom: UIView!
+    @IBOutlet weak var lblsubtotal: UILabel!
     @IBOutlet weak var lblsubtotalvalue: UILabel!
+    @IBOutlet weak var lblshippingcharges: UILabel!
     @IBOutlet weak var lblshippingchargesvalue: UILabel!
     @IBOutlet weak var lbldiscount: UILabel!
     @IBOutlet weak var lbldiscountvalue: UILabel!
+    @IBOutlet weak var lbltax: UILabel!
     @IBOutlet weak var lbltaxvalue: UILabel!
+    @IBOutlet weak var lblordertotal: UILabel!
     @IBOutlet weak var lblordertotalvalue: UILabel!
+    
     @IBOutlet weak var lblearnpointsvalue: UILabel!
     
+    @IBOutlet weak var btnremovecoupon: UIButton!
     @IBOutlet weak var btnapplydiscount: UIButton!
     
     let datePicker = DatePickerDialog()
     
     @IBOutlet weak var btnpaycheckout: UIButton!
+    @IBOutlet weak var btnkeepshopping: UIButton!
     
     
     var strfromCouponpage = ""
@@ -80,6 +87,8 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
+        self.setupRTLLTR()
+        
         self.viewoverall.isHidden = true
         self.postCartlistOrderonceAPIMethod()
     }
@@ -89,7 +98,8 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Cart"
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language114")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -117,10 +127,12 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         if lbldiscountvalue.text == ""{
             lbldiscountvalue.isHidden = true
             btnapplydiscount.isHidden = false
+            btnremovecoupon.isHidden = true
         }
         else{
             lbldiscountvalue.isHidden = false
             btnapplydiscount.isHidden = true
+            btnremovecoupon.isHidden = false
         }
 
     }
@@ -139,15 +151,26 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         
         self.txtchoosedeliverydate.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language96"))
         
+        lblsubtotal.text = myAppDelegate.changeLanguage(key: "msg_language311")
+        lblshippingcharges.text = myAppDelegate.changeLanguage(key: "msg_language109")
+        lbltax.text = myAppDelegate.changeLanguage(key: "msg_language111")
+        lblordertotal.text = myAppDelegate.changeLanguage(key: "msg_language112")
+        
+        btnremovecoupon.setTitle(myAppDelegate.changeLanguage(key: "msg_language328"), for: .normal)
+        btnapplydiscount.setTitle(myAppDelegate.changeLanguage(key: "msg_language113"), for: .normal)
+        btnpaycheckout.setTitle(myAppDelegate.changeLanguage(key: "msg_language94"), for: .normal)
+        
+        btnkeepshopping.underline()
+        btnkeepshopping.setTitle(myAppDelegate.changeLanguage(key: "msg_language367"), for: .normal)
+        
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
         {
-            self.txtchoosedeliverydate.textAlignment = .left
+
             self.imgccalendarchoosedeliverydate.frame = CGRect(x:self.txtchoosedeliverydate.frame.size.width - self.imgccalendarchoosedeliverydate.frame.size.width - 5, y: self.imgccalendarchoosedeliverydate.frame.origin.y, width: self.imgccalendarchoosedeliverydate.frame.size.width, height: self.imgccalendarchoosedeliverydate.frame.size.height)
         }
         else
         {
-            self.txtchoosedeliverydate.textAlignment = .right
             self.imgccalendarchoosedeliverydate.frame = CGRect(x:self.txtchoosedeliverydate.frame.minX + 10, y: self.imgccalendarchoosedeliverydate.frame.origin.y, width: self.imgccalendarchoosedeliverydate.frame.size.width, height: self.imgccalendarchoosedeliverydate.frame.size.height)
         }
         
@@ -156,20 +179,20 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     //MARK: - press Pay&Checkout method
     @IBAction func presspaycheckout(_ sender: Any)
     {
-        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         if txtchoosedeliverydate.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please select delivery expected date", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language316"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if strSelectedTimeSlotID.count == 0
         {
-            let uiAlert = UIAlertController(title: "", message: "Please select delivery preferred time slot.", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language317"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -181,18 +204,36 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         
     }
     
+    //MARK: - press Keepshopping method
+    @IBAction func pressKeepShopping(_ sender: Any)
+    {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     //MARK: - press Apply Discount method
     @IBAction func pressApplyDiscount(_ sender: Any)
     {
-        if btnapplydiscount.titleLabel?.text == "View  Coupons"
-        {
-            let ctrl = maidcouponlist(nibName: "maidcouponlist", bundle: nil)
-            ctrl.strselectedcartid = self.strcart_id
-            self.navigationController?.pushViewController(ctrl, animated: true)
-        }
-        else{
-            btnapplydiscount.isHidden = true
-        }
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        print("title",myAppDelegate.changeLanguage(key: "msg_language113"))
+        
+        let ctrl = maidcouponlist(nibName: "maidcouponlist", bundle: nil)
+        ctrl.strselectedcartid = self.strcart_id
+        self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    
+    //MARK: - press Remove Discount method
+    @IBAction func pressRemoveDiscount(_ sender: Any)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language347"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+            print("Handle Continue Logic here")
+            self.getRemoveCouponAPIMethod()
+        }))
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
     }
     
     
@@ -260,6 +301,8 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     //MARK: - show Delivery Date picker method
     func datePickerTapped()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let date = Date()
         let df = DateFormatter()
         df.dateFormat = "HH:mm:ss"
@@ -298,9 +341,9 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         let maxdate = formatter1.string(from: next10days)
         print("maxdate",maxdate)
         
-        datePicker.show("Choose Delivery Date",
-                        doneButtonTitle: "Done",
-                        cancelButtonTitle: "Cancel",
+        datePicker.show(myAppDelegate.changeLanguage(key: "msg_language105"),
+                        doneButtonTitle: myAppDelegate.changeLanguage(key: "msg_language106"),
+                        cancelButtonTitle: myAppDelegate.changeLanguage(key: "msg_language107"),
                         minimumDate: nextdate,
                         maximumDate: next10days,
                         datePickerMode: .date) { (date) in
@@ -483,6 +526,8 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     //MARK: - press Minus Method
     @objc func pressminus(sender:UIButton)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let dict = arrMcartItems.object(at: sender.tag)as! NSDictionary
         let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
         let strname = String(format: "%@", dict.value(forKey: "name") as? String ?? "")
@@ -501,12 +546,12 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         {
             //cart item 0
             
-            let refreshAlert = UIAlertController(title: "", message: "Do you want to remove this item from your cart?", preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
             }))
-            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                   print("Handle Cancel Logic here")
             }))
             self.present(refreshAlert, animated: true, completion: nil)
@@ -519,17 +564,19 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     //MARK: - press Remove Method
     @objc func pressRemove(sender:UIButton)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let dict = arrMcartItems.object(at: sender.tag)as! NSDictionary
         let strproductid = String(format: "%@", dict.value(forKey: "product_id") as! CVarArg)
         let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as? String ?? "")
         let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as? String ?? "")
         
-        let refreshAlert = UIAlertController(title: "", message: "Do you want to remove this item from your cart?", preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
             self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
         }))
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
@@ -585,7 +632,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.viewoverall.isHidden = false
@@ -642,10 +689,12 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                 self.viewtop.isHidden = true
                                 self.viewbottom.isHidden = true
                                 self.btnpaycheckout.isHidden = true
+                                self.btnkeepshopping.isHidden = true
                             }
                             else{
                                 self.viewbottom.isHidden = false
                                 self.btnpaycheckout.isHidden = false
+                                self.btnkeepshopping.isHidden = false
                                 
                                 let str1 = String (format: "%@", dictemp.value(forKey: "subtotal_incl_tax")as! CVarArg)
                                 let str2 = String (format: "%@", dictemp.value(forKey: "shippingAmount")as? String ?? "0.00")
@@ -671,7 +720,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                 self.lbltaxvalue.text = ""
                                 
                                 let strearn_point = String (format: "%@", dictemp.value(forKey: "earn_point")as? String ?? "")
-                                self.lblearnpointsvalue.text = String(format: "Earn %@ for this order", strearn_point)
+                                self.lblearnpointsvalue.text = String(format: "%@ %@ %@",myAppDelegate.changeLanguage(key: "msg_language318"), strearn_point,myAppDelegate.changeLanguage(key: "msg_language319"))
                                 
                                 //FIXME
                                 if str5 != "0" || str6 != ""
@@ -679,8 +728,9 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                     self.lbldiscountvalue.isHidden = false
                                     self.lbldiscountvalue.text = String(format: "- %@ %.2f",str4,intstr4!)
                                     self.btnapplydiscount.isHidden = true
+                                    self.btnremovecoupon.isHidden = false
                                     
-                                    self.lbldiscount.text = String(format: "Discount:%@", str6)
+                                    self.lbldiscount.text = String(format: "%@%@",myAppDelegate.changeLanguage(key: "msg_language110"), str6)
                                     
                                     let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
                                     self.lbldiscount.isUserInteractionEnabled = true
@@ -692,9 +742,10 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                 else{
                                     self.lbldiscountvalue.isHidden = true
                                     self.btnapplydiscount.isHidden = false
+                                    self.btnremovecoupon.isHidden = true
                                     
                                     
-                                    self.lbldiscount.text = "Discount:"
+                                    self.lbldiscount.text = myAppDelegate.changeLanguage(key: "msg_language110")
                                     self.lbldiscountvalue.text = ""
                                     
                                     self.lbldiscount.textColor = .darkGray
@@ -702,7 +753,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                             }
                             
                             if self.arrMcartItems.count == 0{
-                                self.msg = "No cart products found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language117")
                             }
                             
                             self.tabvcart.reloadData()
@@ -710,11 +761,11 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
-                        
+                        self.tabvcart.reloadData()
                         self.getAvailbleTimeSlotsAPIMethod()
                     }
                 }
@@ -725,7 +776,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.viewoverall.isHidden = false
@@ -776,7 +827,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -804,7 +855,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMcartItems.count > 0{
                                 self.arrMcartItems.removeAllObjects()
@@ -815,7 +866,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -828,7 +879,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()
@@ -859,7 +910,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                           "quoteId": strquoteid,
                           "productQty": strproductQty] as [String : Any]
         
-        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod79)
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod19) //apimethod19  apimethod79
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -878,7 +929,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -919,7 +970,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -932,7 +983,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.isUserInteractionEnabled = true
@@ -975,7 +1026,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1015,7 +1066,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1028,7 +1079,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1079,7 +1130,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1120,7 +1171,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1133,7 +1184,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.isUserInteractionEnabled = true
@@ -1145,5 +1196,98 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         task.resume()
     }
     
+    //MARK: - get remove Coupon API method
+    func getRemoveCouponAPIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+       
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod104)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        //let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        //let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        //print("json string = \(jsonString)")
+        //request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    //print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            if self.arrMcartItems.count > 0{
+                                self.arrMcartItems.removeAllObjects()
+                            }
+                            
+                            self.postCartlistOrderonceAPIMethod()
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
     
 }

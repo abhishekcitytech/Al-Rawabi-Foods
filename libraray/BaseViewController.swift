@@ -33,8 +33,10 @@ class BaseViewController: UIViewController {
     
     
     func showAleart(msg:String)  {
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         let alert = UIAlertController(title: nil, message: msg, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     

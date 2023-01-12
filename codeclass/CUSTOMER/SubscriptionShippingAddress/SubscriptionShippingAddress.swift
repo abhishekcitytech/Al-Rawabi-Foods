@@ -60,7 +60,21 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Shipping Process"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language95")
+        
+        btnaddnewaddress.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language93")), for: .normal)
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            btnaddnewaddress.frame = CGRect(x: tabvmyaddress.frame.maxX - btnaddnewaddress.frame.size.width - 10, y: btnaddnewaddress.frame.origin.y, width: btnaddnewaddress.frame.size.width, height: btnaddnewaddress.frame.size.height)
+        }
+        else
+        {
+            btnaddnewaddress.frame = CGRect(x: 10, y: btnaddnewaddress.frame.origin.y, width: btnaddnewaddress.frame.size.width, height: btnaddnewaddress.frame.size.height)
+        }
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -118,7 +132,7 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
         self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
-  
+    
     //MARK: - press Add New Address Method
     @IBAction func pressAddnewaddress(_ sender: Any)
     {
@@ -320,13 +334,13 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
                     
                     let dictemp = json as NSDictionary
                     //print("dictemp --->",dictemp)
-                   
-                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     print("strstatus",strstatus)
-                     print("strsuccess",strsuccess)
-                     print("strmessage",strmessage)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -363,7 +377,7 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
                             print("aarrm1",aarrm1.count)
                             
                             arrm2.addObjects(from: aarrm1 as [AnyObject])
-
+                            
                             print("arrm2",arrm2.count)
                             
                             self.arrMmyaddresslist = NSMutableArray(array: arrm2)
@@ -389,7 +403,7 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -443,7 +457,7 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -458,7 +472,7 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -478,7 +492,7 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -491,7 +505,7 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()

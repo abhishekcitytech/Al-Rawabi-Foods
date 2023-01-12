@@ -70,7 +70,9 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "My Wallet"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language215")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -138,6 +140,8 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.contentView.clearsContextBeforeDrawing = true
         
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let dict = arrMalltransactions.object(at: indexPath.section)as? NSDictionary
         let strorder_id = String(format: "%@", dict?.value(forKey: "order_id")as! CVarArg)
         let strtransaction_at = String(format: "%@", dict?.value(forKey: "transaction_at")as? String ?? "")
@@ -152,8 +156,8 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
         let str = convertDateFormatter(date: strtransaction_at)
         //print("str", str)
         
-        cell.lblorderno.text = String(format: "Order #%@", strorder_id)
-        cell.lblorderplacedon.text = String(format: "Place On %@", str)
+        cell.lblorderno.text = String(format: "%@ #%@", myAppDelegate.changeLanguage(key: "msg_language308"),strorder_id)
+        cell.lblorderplacedon.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language309"),str)
         cell.lblorderamount.text = String(format: "%@ %0.2f", strcurrence_code,fltamount1)
         cell.lblorderstatus.text = String(format: "%@", straction)
         
@@ -289,6 +293,8 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                         
                         if strsuccess == true
                         {
+                            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                            
                             if self.arrMalltransactions.count > 0{
                                 self.arrMalltransactions.removeAllObjects()
                             }
@@ -298,7 +304,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                             //print("arrMalltransactions --->",self.arrMalltransactions)
                             
                             if self.arrMalltransactions.count == 0{
-                                self.msg = "No transactions found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language216")
                             }
                             
                             self.tabvmyrecharges.reloadData()
@@ -306,7 +312,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -389,7 +395,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -473,7 +479,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

@@ -136,7 +136,10 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.title = "Delivery Location Search"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.navigationItem.title = myAppDelegate.changeLanguage(key: "msg_language258")
         
         self.lblalertstatus.text = ""
         self.lblalertstatus.isHidden = true
@@ -146,7 +149,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         self.btnConfirmLocation.layer.cornerRadius = 12.0
         self.btnConfirmLocation.layer.masksToBounds = true
         
-        self.txtsearch.placeholder = "Please enter your search area name"
+        self.txtsearch.placeholder = myAppDelegate.changeLanguage(key: "msg_language259")
         
         if strFrompageMap == "addnewaddress"
         {
@@ -300,11 +303,13 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     //MARK: - press Choose My Address List
     @IBAction func pressChooseMyAddressList(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if self.arrMMyaddresslist.count == 0
         {
-            let uiAlert = UIAlertController(title: "", message: "Please add your address in your address book." , preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language260") , preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -492,6 +497,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     //MARK: - Google autocomplete place API request
     func googlePlacesResult(input: String)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         //let searchWordProtection = input.replacingOccurrences(of: " ", with: "");
         
         let currentLocationLatitude1 = String(format: "%@", self.strcurrentlat)
@@ -532,9 +538,9 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                         }
                         self.handleTap1()
                         
-                        let uiAlert = UIAlertController(title: "", message: "Address not found, please try again later", preferredStyle: UIAlertController.Style.alert)
+                        let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language261"), preferredStyle: UIAlertController.Style.alert)
                         self.present(uiAlert, animated: true, completion: nil)
-                        uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                        uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                             print("Click of default button")
                         }))
                     }
@@ -560,9 +566,9 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                         }
                         else
                         {
-                            let uiAlert = UIAlertController(title: "", message: "Address not found, please try again later", preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language261"), preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -742,6 +748,8 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     //MARK: - alert View Checking Method
     func alertViewFunction()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         //ALERT VIEW CHECKING
         if boolcheck == true{
             
@@ -756,7 +764,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 
                 self.lblalertstatus.isHidden = false
                 self.lblalertstatus.backgroundColor = .blue
-                self.lblalertstatus.text = "You are inside our delivery area!"
+                self.lblalertstatus.text = myAppDelegate.changeLanguage(key: "msg_language262")
                 self.boolcheck = false
                 
                 self.btnConfirmLocation.backgroundColor = UIColor(named: "greencolor")!
@@ -777,7 +785,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 
                 self.lblalertstatus.isHidden = false
                 self.lblalertstatus.backgroundColor = .red
-                self.lblalertstatus.text = "We do not deliver to this area!"
+                self.lblalertstatus.text = myAppDelegate.changeLanguage(key: "msg_language263")
                 self.boolcheck = false
                 
                 self.btnConfirmLocation.backgroundColor = UIColor.lightGray
@@ -1753,11 +1761,13 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     //MARK: - press Confirm Location Method
     @IBAction func pressConfirmLocation(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if txtsearch.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please choose your location address", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language264"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -1955,7 +1965,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

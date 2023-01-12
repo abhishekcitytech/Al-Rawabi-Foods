@@ -26,6 +26,7 @@
                 <outlet property="btnbuynow" destination="4Lb-Yi-wWD" id="Tpm-q1-rDL"/>
                 <outlet property="imgvlocation" destination="lgE-dl-raj" id="yTP-wX-MIk"/>
                 <outlet property="lblhowto" destination="lVA-LF-LzG" id="UPU-s0-A55"/>
+                <outlet property="lblor" destination="ydL-L3-6uk" id="Ed4-lK-nPi"/>
                 <outlet property="tabvplan" destination="NoM-oe-NeX" id="bKh-0Y-LiZ"/>
                 <outlet property="txtdeliveryaddress" destination="8ia-P8-wYV" id="iBU-uG-cJn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

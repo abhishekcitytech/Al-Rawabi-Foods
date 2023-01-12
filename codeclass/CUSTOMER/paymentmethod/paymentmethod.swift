@@ -21,22 +21,18 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
     var msg = ""
     
     @IBOutlet weak var viewbottom: UIView!
-    @IBOutlet weak var viewnamecard: UIView!
-    @IBOutlet weak var txtnamecard: UITextField!
-    @IBOutlet weak var viewcardno: UIView!
-    @IBOutlet weak var txtcardno: UITextField!
-    @IBOutlet weak var viewmonthyear: UIView!
-    @IBOutlet weak var txtmonthyear: UITextField!
-    @IBOutlet weak var viewcv: UIView!
-    @IBOutlet weak var txtcvv: UITextField!
     @IBOutlet weak var lblCardPaymentOrderAmount: UILabel!
     @IBOutlet weak var txtCardPaymentOrderAmount: UITextField!
     @IBOutlet weak var btnpayment: UIButton!
     
     @IBOutlet weak var viewbottom1: UIView!
+    @IBOutlet weak var lblwalletbalance: UILabel!
+    @IBOutlet weak var lblpaymentamount: UILabel!
+    @IBOutlet weak var lblremainingbalance: UILabel!
     @IBOutlet weak var txtwalletbalance: UITextField!
     @IBOutlet weak var txtpaymentamount: UITextField!
     @IBOutlet weak var txtremainingbalance: UITextField!
+    
     @IBOutlet weak var btnpaymentwallet: UIButton!
     @IBOutlet weak var btnrechargewallet: UIButton!
     
@@ -45,6 +41,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
     @IBOutlet weak var txtrewardpoints: UITextField!
     @IBOutlet weak var lblmaximumrewardpointsused: UILabel!
     @IBOutlet weak var btnapplyrewardpoints: UIButton!
+    @IBOutlet weak var btnremoverewardpoints: UIButton!
     
     
     var arrMpaymentmethodlist = NSMutableArray()
@@ -63,6 +60,8 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
     var CardReference = ""
     var CardOutletId = ""
     var refNumber:String?
+    
+    var strAvailableRewardpoints = ""
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -89,7 +88,27 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Payment Method"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language185")
+        
+        lblCardPaymentOrderAmount.text = myAppDelegate.changeLanguage(key: "msg_language312")
+        txtCardPaymentOrderAmount.placeholder = myAppDelegate.changeLanguage(key: "msg_language313")
+        btnpayment.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
+    
+        lblwalletbalance.text = myAppDelegate.changeLanguage(key: "msg_language314")
+        lblpaymentamount.text = myAppDelegate.changeLanguage(key: "msg_language312")
+        lblremainingbalance.text = myAppDelegate.changeLanguage(key: "msg_language315")
+        txtwalletbalance.placeholder = myAppDelegate.changeLanguage(key: "msg_language314")
+        txtpaymentamount.placeholder = myAppDelegate.changeLanguage(key: "msg_language313")
+        txtremainingbalance.placeholder = myAppDelegate.changeLanguage(key: "msg_language315")
+        
+        btnpaymentwallet.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
+        btnrechargewallet.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language218")), for: .normal)
+
+        txtrewardpoints.placeholder = myAppDelegate.changeLanguage(key: "msg_language353")
+        btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
+        btnremoverewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language49")), for: .normal)
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -109,27 +128,6 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         btnrechargewallet.layer.cornerRadius = 14.0
         btnrechargewallet.layer.masksToBounds = true
         
-        
-        viewcardno.layer.borderWidth = 1.0
-        viewcardno.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
-        viewcardno.layer.cornerRadius = 6.0
-        viewcardno.layer.masksToBounds = true
-        
-        viewnamecard.layer.borderWidth = 1.0
-        viewnamecard.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
-        viewnamecard.layer.cornerRadius = 6.0
-        viewnamecard.layer.masksToBounds = true
-        
-        viewmonthyear.layer.borderWidth = 1.0
-        viewmonthyear.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
-        viewmonthyear.layer.cornerRadius = 6.0
-        viewmonthyear.layer.masksToBounds = true
-        
-        viewcv.layer.borderWidth = 1.0
-        viewcv.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
-        viewcv.layer.cornerRadius = 6.0
-        viewcv.layer.masksToBounds = true
-        
         viewbottom.layer.borderWidth = 1.0
         viewbottom.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
         viewbottom.layer.cornerRadius = 6.0
@@ -140,13 +138,15 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         viewbottom1.layer.cornerRadius = 6.0
         viewbottom1.layer.masksToBounds = true
         
-        viewrewardpoints.layer.borderWidth = 0.0
-        viewrewardpoints.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
-        viewrewardpoints.layer.cornerRadius = 0.0
+        viewrewardpoints.layer.borderWidth = 1.0
+        viewrewardpoints.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+        viewrewardpoints.layer.cornerRadius = 6.0
         viewrewardpoints.layer.masksToBounds = true
         
-        btnapplyrewardpoints.layer.cornerRadius = 18.0
+        btnapplyrewardpoints.layer.cornerRadius = 0.0
         btnapplyrewardpoints.layer.masksToBounds = true
+        
+        txtrewardpoints.setLeftPaddingPoints(10)
         
         self.viewbottom.isHidden = true
         self.viewbottom1.isHidden = true
@@ -164,7 +164,17 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
     //MARK: - press back method
     @objc func pressBack()
     {
-        self.navigationController?.popViewController(animated: true)
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language344"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+            print("Handle Continue Logic here")
+            self.navigationController?.popViewController(animated: true)
+        }))
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
     }
     
     //MARK: - press Reward Points Apply Method
@@ -174,18 +184,68 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
     }
     @IBAction func pressapplyrewardpoints(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let flt1  = (self.strAvailableRewardpoints as NSString).floatValue
+        let flt2  = (self.txtrewardpoints.text! as NSString).floatValue
+        
         if self.txtrewardpoints.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your reward points to be spend", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language345"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else if flt2 > flt1
+        {
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language379"), preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else
         {
-            self.postApplyRewardPointsOrderOnceAPI()
+            let a = Float(self.txtrewardpoints.text!)
+            let b = Float(10)
+            let c = Float(a! / b)
+            
+            let numberString = String(c)
+            let numberComponent = numberString.components(separatedBy :".")
+            let integerNumber = Int(numberComponent [0])
+            let fractionalNumber = Int(numberComponent [1])
+            
+            if fractionalNumber! != 0
+            {
+                print("DISALLOW")
+                
+                let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language364"), preferredStyle: UIAlertController.Style.alert)
+                self.present(uiAlert, animated: true, completion: nil)
+                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                    print("Click of default button")
+                }))
+            }
+            else
+            {
+                print("ALLOW")
+                self.postApplyRewardPointsOrderOnceAPI()
+            }
         }
+    }
+    @IBAction func pressremoverewardpoints(_ sender: Any)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language354"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+            print("Handle Continue Logic here")
+            self.postCancelRewardPointsOrderOnceAPI()
+        }))
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
     }
     
     //MARK: - press payment method
@@ -339,41 +399,101 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        var strpreviouslyselectedcode = self.strselectedpaymentmethodID
+        
         let dictemp = arrMpaymentmethodlist.object(at: indexPath.row)as? NSDictionary
         let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
         let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
-        
         self.strselectedpaymentmethodID = strcode
-        self.colpaymentmethods.reloadData()
         
-        if strcode.containsIgnoreCase("ngeniusonline")
+
+        print("strpreviouslyselectedcode",strpreviouslyselectedcode)
+        print("self.strselectedpaymentmethodID",self.strselectedpaymentmethodID)
+        
+        if strpreviouslyselectedcode.count > 0
         {
-            self.viewbottom.isHidden = false
-            self.viewbottom1.isHidden = true
+            //ALREADY PRE SELECTED PAYMENT METHOD
             
-            let fltTotal  = (self.strgrandtotal as NSString).floatValue
-           
-            self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
-            
-            self.btnpayment.tag = 100
+            if strpreviouslyselectedcode != self.strselectedpaymentmethodID
+            {
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language363"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                    print("Handle Continue Logic here")
+                    
+                    self.colpaymentmethods.reloadData()
+                    strpreviouslyselectedcode = ""
+                    
+                    if strcode.containsIgnoreCase("ngeniusonline")
+                    {
+                        self.viewbottom.isHidden = false
+                        self.viewbottom1.isHidden = true
+                        
+                        let fltTotal  = (self.strgrandtotal as NSString).floatValue
+                       
+                        self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                        
+                        self.btnpayment.tag = 100
+                    }
+                    else if strcode.containsIgnoreCase("walletpayment") || strcode.containsIgnoreCase("walletsystem")
+                    {
+                        self.viewbottom.isHidden = true
+                        self.viewbottom1.isHidden = false
+                        
+                        self.getwalletremainingbalancelist()
+                    }
+                    else if strcode.containsIgnoreCase("cashondelivery")
+                    {
+                        self.viewbottom.isHidden = false
+                        self.viewbottom1.isHidden = true
+                        
+                        let fltTotal  = (self.strgrandtotal as NSString).floatValue
+                       
+                        self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                        
+                        self.btnpayment.tag = 200
+                    }
+                }))
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                      print("Handle Cancel Logic here")
+                }))
+                self.present(refreshAlert, animated: true, completion: nil)
+            }
         }
-        else if strcode.containsIgnoreCase("walletpayment") || strcode.containsIgnoreCase("walletsystem")
+        else
         {
-            self.viewbottom.isHidden = true
-            self.viewbottom1.isHidden = false
+            //ALREADY NO PRE SELECTED PAYMENT METHOD
             
-            self.getwalletremainingbalancelist()
-        }
-        else if strcode.containsIgnoreCase("cashondelivery")
-        {
-            self.viewbottom.isHidden = false
-            self.viewbottom1.isHidden = true
-            
-            let fltTotal  = (self.strgrandtotal as NSString).floatValue
-           
-            self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
-            
-            self.btnpayment.tag = 200
+            if strcode.containsIgnoreCase("ngeniusonline")
+            {
+                self.viewbottom.isHidden = false
+                self.viewbottom1.isHidden = true
+                
+                let fltTotal  = (self.strgrandtotal as NSString).floatValue
+               
+                self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                
+                self.btnpayment.tag = 100
+            }
+            else if strcode.containsIgnoreCase("walletpayment") || strcode.containsIgnoreCase("walletsystem")
+            {
+                self.viewbottom.isHidden = true
+                self.viewbottom1.isHidden = false
+                
+                self.getwalletremainingbalancelist()
+            }
+            else if strcode.containsIgnoreCase("cashondelivery")
+            {
+                self.viewbottom.isHidden = false
+                self.viewbottom1.isHidden = true
+                
+                let fltTotal  = (self.strgrandtotal as NSString).floatValue
+               
+                self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                
+                self.btnpayment.tag = 200
+            }
         }
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
@@ -454,23 +574,52 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                             let strspend_max_points = String(format: "%@", dictemp.value(forKey: "spend_max_points")as! CVarArg)
                             let strspend_min_points = String(format: "%@", dictemp.value(forKey: "spend_min_points")as! CVarArg)
                             
+                            let strspend_points = String(format: "%@", dictemp.value(forKey: "spend_points")as! CVarArg)
+                            
                             if stravailable_points == "0" || stravailable_points == "0.0"
                             {
                                 //YOU CAN NOT APPLY REWARD POINT
-                                self.lblmaximumrewardpointsused.text = "You can not use reward points now."
+                                self.lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language355")
                                 self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkmostredcolor")!
                             }
                             else
                             {
                                 //YOU CAN APPLY
-                                self.lblmaximumrewardpointsused.text = String(format: "You can use minimum %@ & maximum %@ points", strspend_min_points,strspend_max_points)
+                                self.lblmaximumrewardpointsused.text = String(format: "%@ %@ %@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language356"),strspend_min_points,myAppDelegate.changeLanguage(key: "msg_language357"),strspend_max_points,myAppDelegate.changeLanguage(key: "msg_language358"))
                                 self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkgreencolor")!
+                            }
+                            
+                            
+                            if strspend_points == "0" || strspend_points == "0.0"
+                            {
+                                //No SPEND POINTS MEAN - APPLY CAN, REMOVE HIDE
+                                self.btnapplyrewardpoints.isUserInteractionEnabled = true
+                                self.btnremoverewardpoints.isHidden = true
+                                
+                                self.txtrewardpoints.isUserInteractionEnabled = true
+                                
+                                self.txtrewardpoints.backgroundColor = .white
+                            }
+                            else
+                            {
+                                //Spend points exist means- apply CANT , Remove Can
+                                self.btnapplyrewardpoints.isUserInteractionEnabled = false
+                                self.btnremoverewardpoints.isHidden = false
+                                
+                                self.txtrewardpoints.isUserInteractionEnabled = false
+                                
+                                self.btnapplyrewardpoints.setTitle(myAppDelegate.changeLanguage(key: "msg_language361"), for: .normal)
+                                self.txtrewardpoints.text = strspend_points
+                                
+                                self.txtrewardpoints.backgroundColor = UIColor(named: "greenlighter")!
+                                
+                                
                             }
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -562,49 +711,87 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                                 self.msg = "No payment methods found!"
                             }
                             
-                            let dictemp = self.arrMpaymentmethodlist.object(at: 0)as? NSDictionary
-                            let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
-                            let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
-                            self.strselectedpaymentmethodID = strcode
-                            
-                            if strcode.containsIgnoreCase("ngeniusonline")
+                            if self.strselectedpaymentmethodID.count > 0
                             {
-                                self.viewbottom.isHidden = false
-                                self.viewbottom1.isHidden = true
+                                //ALREADY SELECTED PAYMENT METHOD
                                 
-                                let fltTotal  = (self.strgrandtotal as NSString).floatValue
-                               
-                                self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
-                                
-                                self.btnpayment.tag = 100
+                                if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
+                                {
+                                    self.viewbottom.isHidden = false
+                                    self.viewbottom1.isHidden = true
+                                    
+                                    let fltTotal  = (self.strgrandtotal as NSString).floatValue
+                                   
+                                    self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                                    
+                                    self.btnpayment.tag = 100
+                                }
+                                else if self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment") || self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem")
+                                {
+                                    self.viewbottom.isHidden = true
+                                    self.viewbottom1.isHidden = false
+                                    
+                                    self.getwalletremainingbalancelist()
+                                }
+                                else
+                                {
+                                    self.viewbottom.isHidden = false
+                                    self.viewbottom1.isHidden = true
+                                    
+                                    let fltTotal  = (self.strgrandtotal as NSString).floatValue
+                                   
+                                    self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                                    
+                                    self.btnpayment.tag = 200
+                                }
                             }
-                            else if strcode.containsIgnoreCase("walletpayment") || strcode.containsIgnoreCase("walletsystem")
+                            else
                             {
-                                self.viewbottom.isHidden = true
-                                self.viewbottom1.isHidden = false
+                                //NOT SELECTED ANY PAYMENT METHOD
                                 
-                                self.getwalletremainingbalancelist()
-                            }
-                            else{
-                                self.viewbottom.isHidden = false
-                                self.viewbottom1.isHidden = true
+                                let dictemp = self.arrMpaymentmethodlist.object(at: 0)as? NSDictionary
+                                let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
+                                let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
+                                self.strselectedpaymentmethodID = strcode
                                 
-                                let fltTotal  = (self.strgrandtotal as NSString).floatValue
-                               
-                                self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
-                                
-                                self.btnpayment.tag = 200
+                                if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
+                                {
+                                    self.viewbottom.isHidden = false
+                                    self.viewbottom1.isHidden = true
+                                    
+                                    let fltTotal  = (self.strgrandtotal as NSString).floatValue
+                                   
+                                    self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                                    
+                                    self.btnpayment.tag = 100
+                                }
+                                else if self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment") || self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem")
+                                {
+                                    self.viewbottom.isHidden = true
+                                    self.viewbottom1.isHidden = false
+                                    
+                                    self.getwalletremainingbalancelist()
+                                }
+                                else
+                                {
+                                    self.viewbottom.isHidden = false
+                                    self.viewbottom1.isHidden = true
+                                    
+                                    let fltTotal  = (self.strgrandtotal as NSString).floatValue
+                                   
+                                    self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                                    
+                                    self.btnpayment.tag = 200
+                                }
                             }
                             
                             self.viewrewardpoints.isHidden = false
-                            
                             self.colpaymentmethods.reloadData()
-                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -678,13 +865,15 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                         {
                             let strpoints = dictemp.value(forKey: "points")as? String ?? ""
                             print("strpoints",strpoints)
-                            self.lblrewardpoints.text = String(format: "You have %@ reward points available.", strpoints)
+                            self.strAvailableRewardpoints = strpoints
+                            self.lblrewardpoints.text = String(format: "%@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language359"),strpoints,myAppDelegate.changeLanguage(key: "msg_language360"))
                             
-                            if strpoints == "0" || strpoints == "0.0"
+                            /*if strpoints == "0" || strpoints == "0.0"
                             {
                                 //YOU CANT APPLY REWARD POINT
                                 self.txtrewardpoints.isUserInteractionEnabled = false
                                 self.btnapplyrewardpoints.isUserInteractionEnabled = false
+                                self.btnremoverewardpoints.isHidden = true
                                 
                             }
                             else
@@ -692,12 +881,13 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                                 //YOU CAN APPLY
                                 self.txtrewardpoints.isUserInteractionEnabled = true
                                 self.btnapplyrewardpoints.isUserInteractionEnabled = true
-                            }
+                                self.btnremoverewardpoints.isHidden = true
+                            }*/
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -823,7 +1013,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -903,22 +1093,34 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                         
                         if strsuccess == true
                         {
+                            let uiAlert = UIAlertController(title: "", message: String(format: "%@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language365"),self.txtrewardpoints.text!,myAppDelegate.changeLanguage(key: "msg_language366")), preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                            
                             self.txtrewardpoints.backgroundColor = UIColor(named: "greenlighter")!
                             self.txtrewardpoints.isUserInteractionEnabled = false
                             
                             self.btnapplyrewardpoints.isUserInteractionEnabled = false
-                            self.btnapplyrewardpoints.setTitle("Applied Successfully", for: .normal)
+                            self.btnapplyrewardpoints.setTitle(myAppDelegate.changeLanguage(key: "msg_language361"), for: .normal)
+                            
+                            self.btnremoverewardpoints.isHidden = false
                             
                             self.getOrderReview()
                         }
                         else
                         {
+                            self.txtrewardpoints.backgroundColor = .white
+                            
                             self.txtrewardpoints.isUserInteractionEnabled = true
                             self.btnapplyrewardpoints.isUserInteractionEnabled = true
                             
+                            self.btnremoverewardpoints.isHidden = true
+                            
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -930,6 +1132,89 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                 DispatchQueue.main.async {
                     self.txtrewardpoints.isUserInteractionEnabled = true
                     self.btnapplyrewardpoints.isUserInteractionEnabled = true
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - post Cancel Reward Points Order Once API method
+    func postCancelRewardPointsOrderOnceAPI()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        var strconnurl = String()
+        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod105)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                    
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                   
+                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            self.btnremoverewardpoints.isHidden = true
+                            
+                            self.txtrewardpoints.text = ""
+                            self.btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
+                        }
+                        else
+                        {
+                            self.btnremoverewardpoints.isHidden = false
+                            
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                        self.getOrderReview()
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
                     self.view.activityStopAnimating()
                 }
                 print("Error -> \(error)")
@@ -1002,7 +1287,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1029,6 +1314,8 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         paymentDidComplete(with: status)
     }
     @objc func paymentDidComplete(with status: PaymentStatus) {
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         print("status",status)
         self.view.backgroundColor = .white
@@ -1058,17 +1345,17 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         }
         else if(status == .PaymentFailed)
         {
-            let uiAlert = UIAlertController(title: "", message: "Payment failed" , preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language348") , preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 self.navigationController?.popToRootViewController(animated: true)
             }))
         }
         else if(status == .PaymentCancelled)
         {
-            let uiAlert = UIAlertController(title: "", message: "Payment cancelled" , preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language349") , preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 self.navigationController?.popToRootViewController(animated: true)
             }))
         }

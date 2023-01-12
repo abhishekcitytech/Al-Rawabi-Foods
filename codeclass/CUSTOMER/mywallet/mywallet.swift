@@ -13,6 +13,7 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var viewoverall: UIView!
     
     @IBOutlet weak var viewtop: UIView!
+    @IBOutlet weak var lblwalletbalance: UILabel!
     @IBOutlet weak var lblwalletbalancevalue: UILabel!
     @IBOutlet weak var btnrecharge: UIButton!
     
@@ -73,7 +74,9 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "My Wallet"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language215")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -98,6 +101,26 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.navigationController?.popViewController(animated: true)
     }
     
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        lblwalletbalance.text = myAppDelegate.changeLanguage(key: "msg_language217")
+        lblrecentpayments.text = myAppDelegate.changeLanguage(key: "msg_language219")
+        btnrecharge.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language218")), for: .normal)
+
+         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+         if (strLangCode == "en")
+         {
+        
+         }
+         else
+         {
+
+         }
+    }
+
     
     //MARK: - press Recharge method
     @IBAction func pressrecharge(_ sender: Any)
@@ -168,6 +191,8 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
          "transaction_at" = "2022-10-07 10:53:32";
          "transaction_note" = "Money added in wallet";}*/
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let dict = arrMalltransactions.object(at: indexPath.section)as? NSDictionary
         let strorder_id = String(format: "%@", dict?.value(forKey: "order_id")as! CVarArg)
         let strtransaction_at = String(format: "%@", dict?.value(forKey: "transaction_at")as? String ?? "")
@@ -182,8 +207,8 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
         let str = convertDateFormatter(date: strtransaction_at)
         //print("str", str)
         
-        cell.lblorderno.text = String(format: "Order #%@", strorder_id)
-        cell.lblorderplacedon.text = String(format: "Place On %@", str)
+        cell.lblorderno.text = String(format: "%@ #%@",myAppDelegate.changeLanguage(key: "msg_language308"), strorder_id)
+        cell.lblorderplacedon.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language309"), str)
         cell.lblorderamount.text = String(format: "%@ %0.2f", strcurrence_code,fltamount1)
         cell.lblorderstatus.text = String(format: "%@", straction)
         
@@ -330,7 +355,7 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
                             print("arrMalltransactions --->",self.arrMalltransactions)
                             
                             if self.arrMalltransactions.count == 0{
-                                self.msg = "No transactions found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language216")
                             }
                             
                             self.tabvmyrecharges.reloadData()
@@ -338,7 +363,7 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -421,7 +446,7 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -504,7 +529,7 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

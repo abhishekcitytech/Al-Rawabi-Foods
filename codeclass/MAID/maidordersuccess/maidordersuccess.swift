@@ -33,13 +33,16 @@ class maidordersuccess: UIViewController
     // MARK: - viewDidAppear Method
     override func viewDidAppear(_ animated: Bool)
     {
+        
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = false
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        lblorderid.text = String(format: "Order #%@", strorderid)
+        lblorderid.text = String(format: "%@ #%@",myAppDelegate.changeLanguage(key: "msg_language308"), strorderid)
     }
     
     // MARK: - viewDidLoad Method
@@ -48,7 +51,14 @@ class maidordersuccess: UIViewController
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Order Success"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language198")
+        
+        lbl1.text = myAppDelegate.changeLanguage(key: "msg_language199")
+        lbl2.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language200"),myAppDelegate.changeLanguage(key: "msg_language201"))
+        
+        btncontinueshopping.setTitle(myAppDelegate.changeLanguage(key: "msg_language203"), for: .normal)
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))

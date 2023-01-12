@@ -308,18 +308,20 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
     //MARK: - press Add To Wishlist Method
     @objc func pressAddToWishlist(sender:UIButton)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if strpageidentifier == "1001"
         {
             //FROM CATEGORY PAGE
             let dict = arrMCategorywiseProductlist.object(at: sender.tag)as? NSDictionary
             let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
             
-            let refreshAlert = UIAlertController(title: "", message: "Do you want to Add to Wishlist?", preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language149"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 self.postAddtoWishlistAPIMethod(strproductid: strproductid)
             }))
-            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                   print("Handle Cancel Logic here")
             }))
             self.present(refreshAlert, animated: true, completion: nil)
@@ -397,8 +399,9 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                         self.view.activityStopAnimating()
                     }
                     
+                    print("json --->",json)
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                    
                     
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
@@ -410,7 +413,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let arrmproducts = json.value(forKey: "product") as? NSArray ?? []
                             self.arrMCategorywiseProductlist = NSMutableArray(array: arrmproducts)
@@ -425,17 +428,18 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
-                        
+                        self.colproductlist.reloadData()
                     }
                 }
             }
             catch {
                 //check for internal server data error
                 DispatchQueue.main.async {
+                    self.colproductlist.reloadData()
                     self.view.activityStopAnimating()
                 }
                 print("Error -> \(error)")
@@ -476,7 +480,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -508,7 +512,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                         {
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
 
@@ -516,7 +520,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -529,7 +533,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -579,7 +583,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -611,14 +615,14 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                         {
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -631,7 +635,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()

@@ -17,8 +17,11 @@ class maidloginclass: UIViewController,UITextFieldDelegate
     @IBOutlet weak var lblsigntoyouraccount: UILabel!
     
     @IBOutlet weak var viewusername: UIView!
+    @IBOutlet weak var viewusername1: UIView!
     @IBOutlet weak var txtusername: UITextField!
+    
     @IBOutlet weak var viewpassword: UIView!
+    @IBOutlet weak var viewpassword1: UIView!
     @IBOutlet weak var txtpassword: UITextField!
     
     @IBOutlet weak var btnlogin: UIButton!
@@ -38,6 +41,8 @@ class maidloginclass: UIViewController,UITextFieldDelegate
     {
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = true
+        
+        self.setupRTLLTR()
       
     }
     
@@ -70,11 +75,67 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         self.txtpassword.isSecureTextEntry = true
         
         //FIXMESANDIPAN
-        //9674777246 Sandi@123
+        //9674777246 Sandi@123 8621812596 9051015017
         
-        //txtusername.text = "9051015017"
-        //txtpassword.text = "maid@123"
+        txtusername.text = "8621812596"
+        txtpassword.text = "maid@123"
         
+    }
+    
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        lblogin.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language288"))
+        lblsigntoyouraccount.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language289"))
+       
+        btnlogin.setTitle(myAppDelegate.changeLanguage(key: "msg_language20"), for: .normal)
+        
+        self.txtusername.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language9"))
+        self.txtpassword.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language23"))
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            lblogin.textAlignment = .left
+            lblsigntoyouraccount.textAlignment = .left
+            
+            txtusername.textAlignment = .left
+            txtpassword.textAlignment = .left
+            
+            self.viewusername1.frame = CGRect(x: 1, y: self.viewusername1.frame.origin.y, width: self.viewusername1.frame.size.width, height: self.viewusername1.frame.size.height)
+            
+            self.txtusername.frame = CGRect(x: 54, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
+            self.txtusername.textAlignment = .left
+            
+            self.viewpassword1.frame = CGRect(x: 1, y: self.viewpassword1.frame.origin.y, width: self.viewpassword1.frame.size.width, height: self.viewpassword1.frame.size.height)
+            
+            self.txtpassword.frame = CGRect(x: 54, y: self.txtpassword.frame.origin.y, width: self.txtpassword.frame.size.width, height: self.txtpassword.frame.size.height)
+            self.txtpassword.textAlignment = .left
+            
+            self.btnhideshowpassword.frame = CGRect(x: self.txtpassword.frame.size.width - 5, y: self.btnhideshowpassword.frame.origin.y, width: self.btnhideshowpassword.frame.size.width, height: self.btnhideshowpassword.frame.size.height)
+        }
+        else
+        {
+            lblogin.textAlignment = .right
+            lblsigntoyouraccount.textAlignment = .right
+            
+            txtusername.textAlignment = .right
+            txtpassword.textAlignment = .right
+            
+            self.viewusername1.frame = CGRect(x: self.viewusername.frame.size.width - 53, y: self.viewusername1.frame.origin.y, width: self.viewusername1.frame.size.width, height: self.viewusername1.frame.size.height)
+            
+            self.txtusername.frame = CGRect(x: 1, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
+            self.txtusername.textAlignment = .right
+            
+            self.viewpassword1.frame = CGRect(x: self.viewpassword.frame.size.width - 53, y: self.viewpassword1.frame.origin.y, width: self.viewpassword1.frame.size.width, height: self.viewpassword1.frame.size.height)
+            
+            self.txtpassword.frame = CGRect(x: 1, y: self.txtpassword.frame.origin.y, width: self.txtpassword.frame.size.width, height: self.txtpassword.frame.size.height)
+            self.txtpassword.textAlignment = .right
+            
+            self.btnhideshowpassword.frame = CGRect(x: 10, y: self.btnhideshowpassword.frame.origin.y, width: self.btnhideshowpassword.frame.size.width, height: self.btnhideshowpassword.frame.size.height)
+        }
     }
     
     //MARK: - press back method
@@ -130,19 +191,21 @@ class maidloginclass: UIViewController,UITextFieldDelegate
     {
         print("presslogin")
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if txtusername.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your mobile number", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language240"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtpassword.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your passsword", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language322"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -230,7 +293,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -275,7 +338,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                         {
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -288,7 +351,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -366,7 +429,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

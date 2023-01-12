@@ -45,7 +45,11 @@ class myaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSource
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "My Addresses"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language253")
+        
+        btnaddnewaddress.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language93")), for: .normal)
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -284,7 +288,7 @@ class myaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSource
                             print("arrMmyaddresslist --->",self.arrMmyaddresslist)
                             
                             if self.arrMmyaddresslist.count == 0{
-                                self.msg = "No addresses found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language254")
                             }
                             
                             self.tabvmyaddress.reloadData()
@@ -294,7 +298,7 @@ class myaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSource
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

@@ -42,7 +42,10 @@ class maidviewsubscriptions: UIViewController,UITableViewDelegate,UITableViewDat
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "View Subscriptions"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.title = myAppDelegate.changeLanguage(key: "msg_language294")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -122,6 +125,8 @@ class maidviewsubscriptions: UIViewController,UITableViewDelegate,UITableViewDat
          '4' = 'Cancel'
          */
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let dic = self.arrMmysubscriptions.object(at: indexPath.section)as! NSDictionary
         let strsubscription_id = String(format: "%@", dic.value(forKey: "subscription_id")as? String ?? "")
         let strsubscription_increment_id = String(format: "%@", dic.value(forKey: "subscription_increment_id")as? String ?? "")
@@ -136,10 +141,10 @@ class maidviewsubscriptions: UIViewController,UITableViewDelegate,UITableViewDat
         cell.lblsubscriptionno.text = String(format: "# %@", strsubscription_increment_id)
         cell.lblsubscriptionname.text = String(format: "%@",strsubscription_plan)
         
-        cell.lblstartdate.text = String(format: "Start Date: %@",strsubscription_start_date)
-        cell.lblenddate.text = String(format: "End Date: %@",strsubscription_end_date)
+        cell.lblstartdate.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language208"),strsubscription_start_date)
+        cell.lblenddate.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language299"),strsubscription_end_date)
         
-        cell.lblautorenew.text = String(format: "Renew Policy: %@",strsubscription_renewal_status)
+        cell.lblautorenew.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language300"),strsubscription_renewal_status)
         
         cell.lblstatus.text = String(format: "%@",strsubscription_status)
         cell.lblstatus.textColor = .white
@@ -243,7 +248,7 @@ class maidviewsubscriptions: UIViewController,UITableViewDelegate,UITableViewDat
                             print("arrMmysubscriptions --->",self.arrMmysubscriptions)
                             
                             if self.arrMmysubscriptions.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
                             }
                             
                             self.tabvmysubscription.reloadData()
@@ -253,7 +258,7 @@ class maidviewsubscriptions: UIViewController,UITableViewDelegate,UITableViewDat
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

@@ -70,7 +70,9 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        self.title = "Product List"
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.title = myAppDelegate.changeLanguage(key: "msg_language78")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -153,6 +155,12 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
     //MARK: - create order on date list gallery method
     func createOrderonGallery()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        lblorderon.text = myAppDelegate.changeLanguage(key: "msg_language45")
+        btnReviewOrder.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language79")), for: .normal)
+        
+        txtsearchbox.placeholder = myAppDelegate.changeLanguage(key: "msg_language80")
+        
         let layout1: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout1.scrollDirection = .horizontal
         layout1.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -396,11 +404,8 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
             else if strtext.containsIgnoreCase("Bakery"){
                 cellA.viewcell.backgroundColor = UIColor(named: "plate3")!
             }
-            else if strtext.containsIgnoreCase("Meat & Poultry"){
+            else if strtext.containsIgnoreCase("Meat"){
                 cellA.viewcell.backgroundColor = UIColor(named: "plate4")!
-            }
-            else if strtext.containsIgnoreCase("Functional"){
-                cellA.viewcell.backgroundColor = UIColor(named: "plate5")!
             }
             else{
                 cellA.viewcell.backgroundColor = UIColor(named: "plate7")!
@@ -426,6 +431,8 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
             // Set up cell
             return cellA
         }
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier1, for: indexPath as IndexPath) as! cellcolmonthlyproduct
         cellA.contentView.backgroundColor = .white
@@ -539,6 +546,11 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
         cellA.btnminusATA.tag = indexPath.row
         cellA.btnplusATA.addTarget(self, action: #selector(pressplusATA), for: .touchUpInside)
         cellA.btnminusATA.addTarget(self, action: #selector(pressminusATA), for: .touchUpInside)
+        
+        cellA.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language71")), for: .normal)
+        cellA.btnaddtoall.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language70")), for: .normal)
+        cellA.lbladdonce.text = myAppDelegate.changeLanguage(key: "msg_language71")
+        cellA.lbladdtoall.text = myAppDelegate.changeLanguage(key: "msg_language70")
         
         //-----Fetch qtyonce && qtyall for each product id from Monthlyproduct Table ----//
         let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
@@ -1229,7 +1241,7 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1276,7 +1288,7 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1289,7 +1301,7 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()
@@ -1379,7 +1391,7 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

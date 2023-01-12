@@ -34,11 +34,13 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
     @IBOutlet weak var btnminus: UIButton!
     @IBOutlet weak var btnplus: UIButton!
     @IBOutlet weak var txtplusminus: UITextField!
+    @IBOutlet weak var lbladdonce: UILabel!
     
     @IBOutlet weak var viewplusminusATA: UIView!
     @IBOutlet weak var btnminusATA: UIButton!
     @IBOutlet weak var btnplusATA: UIButton!
     @IBOutlet weak var txtplusminusATA: UITextField!
+    @IBOutlet weak var lbladdtoall: UILabel!
     
     
     @IBOutlet weak var lblor: UILabel!
@@ -81,6 +83,9 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
     @IBOutlet weak var lbl1star: UILabel!
     @IBOutlet weak var progress1star: UIProgressView!
     
+    @IBOutlet weak var lblhowareratings: UILabel!
+    @IBOutlet weak var lblshareyourthoughts: UILabel!
+    
     @IBOutlet weak var btnhowcalculaterating: UIButton!
     @IBAction func presscalculaterating(_ sender: Any) {
     }
@@ -91,7 +96,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
     @IBOutlet weak var btnviewallreveiw: UIButton!
     var msgreview = ""
     
-  
+    
     @IBOutlet weak var viewrelatedproducts: UIView!
     @IBOutlet weak var lblrelatedproducts: UILabel!
     @IBOutlet weak var colrelatedProducts: UICollectionView!
@@ -136,11 +141,13 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
+        setupRTLLTR()
+        
         print("strpageidentifier",strpageidentifier)
         print("strselecteddateindex",strselecteddateindex)
         print("strselecteddateindexdate",strselecteddateindexdate)
         print("strselecteddateindexday",strselecteddateindexday)
-       
+        
         
         self.getProductDetailsAPIMethod()
         
@@ -153,7 +160,10 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Product Details"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.title = myAppDelegate.changeLanguage(key: "msg_language151")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -185,7 +195,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         btnSeemorenutritionfacts.layer.borderWidth = 1.0
         btnSeemorenutritionfacts.layer.borderColor = UIColor(named: "themecolor")!.cgColor
         btnSeemorenutritionfacts.layer.masksToBounds = true
-
+        
         self.createreviewrating()
         self.createrelatedProducts()
         
@@ -205,31 +215,94 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         self.navigationController?.popViewController(animated: true)
     }
     
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        lblselectsize.text = myAppDelegate.changeLanguage(key: "msg_language157")
+        
+        btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language71")), for: .normal)
+        btnaddtoall.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language70")), for: .normal)
+        lbladdonce.text = myAppDelegate.changeLanguage(key: "msg_language71")
+        lbladdtoall.text = myAppDelegate.changeLanguage(key: "msg_language70")
+        
+        btnaddtowishlist.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language154")), for: .normal)
+        
+        lblshortdescriptionHeader.text = myAppDelegate.changeLanguage(key: "msg_language158")
+        btnSeemoreshortdescription.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language161")), for: .normal)
+        
+        lblbenifitsHeader.text = myAppDelegate.changeLanguage(key: "msg_language159")
+        btnSeemorebenifits.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language161")), for: .normal)
+        
+        lblnutritionfactsHeader.text = myAppDelegate.changeLanguage(key: "msg_language160")
+        btnSeemorenutritionfacts.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language161")), for: .normal)
+        
+        lblhowareratings.text = myAppDelegate.changeLanguage(key: "msg_language162")
+        
+        lblshareyourthoughts.text = myAppDelegate.changeLanguage(key: "msg_language163")
+        
+        btnwriteyourreview.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language165")), for: .normal)
+        btnviewallreveiw.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language164")), for: .normal)
+        
+        lblrelatedproducts.text = myAppDelegate.changeLanguage(key: "msg_language166")
+        
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            lblselectsize.textAlignment = .left
+            lblshortdescriptionHeader.textAlignment = .left
+            lblbenifitsHeader.textAlignment = .left
+            lblnutritionfactsHeader.textAlignment = .left
+            lblrelatedproducts.textAlignment = .left
+            
+            btnSeemoreshortdescription.frame = CGRect(x: viewshortdescription.frame.maxX - btnSeemoreshortdescription.frame.size.width - 10, y: btnSeemoreshortdescription.frame.origin.y, width: btnSeemoreshortdescription.frame.size.width, height: btnSeemoreshortdescription.frame.size.height)
+            btnSeemorebenifits.frame = CGRect(x: viewbenifits.frame.maxX - btnSeemorebenifits.frame.size.width - 10, y: btnSeemorebenifits.frame.origin.y, width: btnSeemorebenifits.frame.size.width, height: btnSeemorebenifits.frame.size.height)
+            btnSeemorenutritionfacts.frame = CGRect(x: viewnutritionfacts.frame.maxX - btnSeemorenutritionfacts.frame.size.width - 10, y: btnSeemorenutritionfacts.frame.origin.y, width: btnSeemorenutritionfacts.frame.size.width, height: btnSeemorenutritionfacts.frame.size.height)
+        }
+        else
+        {
+            lblselectsize.textAlignment = .right
+            lblshortdescriptionHeader.textAlignment = .right
+            lblbenifitsHeader.textAlignment = .right
+            lblnutritionfactsHeader.textAlignment = .right
+            lblrelatedproducts.textAlignment = .right
+            
+            btnSeemoreshortdescription.frame = CGRect(x: 10, y: btnSeemoreshortdescription.frame.origin.y, width: btnSeemoreshortdescription.frame.size.width, height: btnSeemoreshortdescription.frame.size.height)
+            btnSeemorebenifits.frame = CGRect(x: 10, y: btnSeemorebenifits.frame.origin.y, width: btnSeemorebenifits.frame.size.width, height: btnSeemorebenifits.frame.size.height)
+            btnSeemorenutritionfacts.frame = CGRect(x: 10, y: btnSeemorenutritionfacts.frame.origin.y, width: btnSeemorenutritionfacts.frame.size.width, height: btnSeemorenutritionfacts.frame.size.height)
+        }
+    }
+    
+    
     //MARK: -  press Add To Wishlist  method
     @IBAction func pressAddtoWishlist(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if btnaddtowishlist.tag == 200
         {
             //Add To Wishlist
-            let refreshAlert = UIAlertController(title: "", message: "Do you want to Add to Wishlist?", preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language149"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 self.postAddtoWishlistAPIMethod()
             }))
-            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
-                  print("Handle Cancel Logic here")
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                print("Handle Cancel Logic here")
             }))
             self.present(refreshAlert, animated: true, completion: nil)
         }
         else{
             //Remove From Wishlist
-            let refreshAlert = UIAlertController(title: "", message: "Do you want to remove from Wishlist?", preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language152"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strSelectedProductID)
             }))
-            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
-                  print("Handle Cancel Logic here")
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                print("Handle Cancel Logic here")
             }))
             self.present(refreshAlert, animated: true, completion: nil)
         }
@@ -302,7 +375,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         // set the activity indicator for full screen controller (skipping the line will show no activity indicator)
         fullScreenController.slideshow.activityIndicator = DefaultActivityIndicator(style: .white, color: nil)
     }
-
+    
     //MARK: - create select size method
     func createselectsize()
     {
@@ -409,7 +482,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
             
             
             /*let arrmedia = dict.value(forKey: "media")as? NSArray ?? []
-            let strimageurl = String(format: "%@", arrmedia.object(at: 0)as? String ?? "")*/
+             let strimageurl = String(format: "%@", arrmedia.object(at: 0)as? String ?? "")*/
             
             let strimageurl = String(format: "%@", dict.value(forKey: "media") as? String ?? "")
             let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
@@ -467,7 +540,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         
         let fltprice = Float(strprice)
         cellA.lblrpcie.text = String(format: "%.2f", fltprice!)
-
+        
         
         cellA.viewcell.layer.cornerRadius = 6.0
         cellA.viewcell.layer.borderWidth = 2.0
@@ -653,14 +726,14 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                     
                     let dictemp = json as NSDictionary
                     //print("dictemp --->",dictemp)
-                   
                     
-                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     print("strstatus",strstatus)
-                     print("strsuccess",strsuccess)
-                     print("strmessage",strmessage)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -730,24 +803,24 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 {
                                     self.btnaddtowishlist.tag = 100
                                     self.btnaddtowishlisticon.setImage(UIImage(named: "favselected"), for: .normal)
-                                    self.btnaddtowishlist.setTitle("Remove from WishList", for: .normal)
+                                    self.btnaddtowishlist.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language153")), for: .normal)
                                 }
                                 else{
                                     self.btnaddtowishlist.tag = 200
                                     self.btnaddtowishlisticon.setImage(UIImage(named: "fav1"), for: .normal)
-                                    self.btnaddtowishlist.setTitle("Add to Wishlist", for: .normal)
+                                    self.btnaddtowishlist.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language154")), for: .normal)
                                 }
                             }else{
                                 self.btnaddtowishlist.tag = 200
                                 self.btnaddtowishlisticon.setImage(UIImage(named: "fav1"), for: .normal)
-                                self.btnaddtowishlist.setTitle("Add to Wishlist", for: .normal)
+                                self.btnaddtowishlist.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language154")), for: .normal)
                             }
                             
                             //SET Remivew LIST
                             let arrmreviewlist = self.dicMProductDetails.value(forKey: "reviews") as? NSArray ?? []
                             self.arrmreviews = NSMutableArray(array: arrmreviewlist)
                             if self.arrmreviews.count == 0{
-                                self.msgreview = "No reviews available!"
+                                self.msgreview = myAppDelegate.changeLanguage(key: "msg_language155")
                                 self.btnviewallreveiw.isHidden = true
                             }
                             self.tabvreviewlist.reloadData()
@@ -820,8 +893,8 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 print("doubleratingvalue",doubleratingvalue)
                                 
                                 self.viewratingstar.rating = doubleratingvalue
-                                self.lbltotalratingcount.text = String(format: "%.1f ou of 5", doubleratingvalue)
-                                self.lbltotalcountglobal.text = String(format: "%@ global ratings", strTotalVotesCount)
+                                self.lbltotalratingcount.text = String(format: "%.1f %@ 5", doubleratingvalue,myAppDelegate.changeLanguage(key: "msg_language329"))
+                                self.lbltotalcountglobal.text = String(format: "%@ %@", strTotalVotesCount,myAppDelegate.changeLanguage(key: "msg_language156"))
                                 
                                 self.progress1star.progress = flt1star! / 100
                                 self.progress2star.progress = flt2star! / 100
@@ -831,8 +904,8 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                             }
                             else{
                                 self.viewratingstar.rating = 0.0
-                                self.lbltotalratingcount.text = String(format: "%.1f ou of 5", 0.0)
-                                self.lbltotalcountglobal.text = String(format: "%@ global ratings", strTotalVotesCount)
+                                self.lbltotalratingcount.text = String(format: "%.1f %@ 5", 0.0,myAppDelegate.changeLanguage(key: "msg_language329"))
+                                self.lbltotalcountglobal.text = String(format: "%@ %@", strTotalVotesCount,myAppDelegate.changeLanguage(key: "msg_language156"))
                                 
                                 self.progress1star.progress = 0
                                 self.progress2star.progress = 0
@@ -840,7 +913,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 self.progress4star.progress = 0
                                 self.progress5star.progress = 0
                             }
-                           
+                            
                             
                             
                             //SET RELATED PRODUCTS
@@ -856,7 +929,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                             let strshortdesc = String(format: "%@", self.dicMProductDetails.value(forKey: "shortDescription")as? String ?? "")
                             //self.lblshortdescription.attributedText = strshortdesc.htmlToAttributedString
                             self.txtvshortdescription.attributedText = strshortdesc.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 12), csscolor: "black", lineheight: 2, csstextalign: "left")
-
+                            
                             
                             //SET BENIFITES DESCRIPTION
                             let strbenefits = String(format: "%@", self.dicMProductDetails.value(forKey: "benefits")as? String ?? "")
@@ -876,7 +949,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -905,9 +978,9 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         }
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-      
+        
         let parameters = ["productid": strSelectedProductID
-                          ] as [String : Any]
+        ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod12)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -928,7 +1001,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -943,7 +1016,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -960,15 +1033,15 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                         {
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
-
+                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -981,7 +1054,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1002,9 +1075,9 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         }
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-      
+        
         let parameters = ["productid": strSelectedProductID
-                          ] as [String : Any]
+        ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod31)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -1040,7 +1113,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -1056,12 +1129,12 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                         if strstatus == 200
                         {
                             self.getProductDetailsAPIMethod()
-
+                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1074,7 +1147,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1098,7 +1171,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         btnaddtoall.layer.borderColor = UIColor(named: "orangecolor")!.cgColor
         btnaddtoall.layer.masksToBounds = true
         
-
+        
         //CELL PLUS MINUS
         viewplusminus.layer.cornerRadius = 14.0
         viewplusminus.layer.borderWidth = 1.0
@@ -1110,7 +1183,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         txtplusminus.layer.borderColor = UIColor(named: "greencolor")!.cgColor
         txtplusminus.layer.masksToBounds = true
         
-       
+        
         //CELL PLUS MINUS ALL
         viewplusminusATA.layer.cornerRadius = 14.0
         viewplusminusATA.layer.borderWidth = 1.0
@@ -2143,7 +2216,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 
                                 let fltsubtotalprice = Float(strprdpricefromlist)! * Float(inttotalqty)
                                 print("fltsubtotalprice",fltsubtotalprice as Any)
-
+                                
                                 data1.setValue(String(format: "%0.2f", fltsubtotalprice), forKey: "subtotal")
                             }
                             try manageContent1.save()
@@ -2209,7 +2282,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 
                                 let fltsubtotalprice = Float(strprdpricefromlist)! * Float(inttotalqty)
                                 print("fltsubtotalprice",fltsubtotalprice as Any)
-
+                                
                                 data1.setValue(String(format: "%0.2f", fltsubtotalprice), forKey: "subtotal")
                             }
                             try manageContent1.save()
@@ -2275,7 +2348,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 
                                 let fltsubtotalprice = Float(strprdpricefromlist)! * Float(inttotalqty)
                                 print("fltsubtotalprice",fltsubtotalprice as Any)
-
+                                
                                 data1.setValue(String(format: "%0.2f", fltsubtotalprice), forKey: "subtotal")
                             }
                             try manageContent1.save()

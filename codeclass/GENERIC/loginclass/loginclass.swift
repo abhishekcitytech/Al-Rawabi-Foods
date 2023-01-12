@@ -135,10 +135,12 @@ class loginclass: UIViewController,UITextFieldDelegate
         //arpanray.citytech@gmail.com / $#Admin1
         //phpteam4@citytechcorp.com / admin@1234
         //arpan.ray@citytechcorp.com / $#Admin2
-        //abhishek.biswas@citytechcorp.com / 123456
+        //abhishek.biswas@citytechcorp.com / 12345
+        //sandipan.mukherjee@citytechsoftware.com / 123456
+        //banibrota.citytech@gmail.com  / 000000
         
-        //txtusername.text = "sandipan.mukherjee@citytechsoftware.com"
-        //txtpassword.text = "123456"
+        txtusername.text = "sandipan.mukherjee@citytechsoftware.com"
+        txtpassword.text = "123456"
         
         self.btnhideshowpassword.isSelected = false
         self.txtpassword.isSecureTextEntry = true
@@ -354,19 +356,21 @@ class loginclass: UIViewController,UITextFieldDelegate
     {
         print("presslogin")
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if txtusername.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your username", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language321"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtpassword.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your passsword", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language321"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -467,7 +471,7 @@ class loginclass: UIViewController,UITextFieldDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -512,7 +516,7 @@ class loginclass: UIViewController,UITextFieldDelegate
                         {
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -525,7 +529,7 @@ class loginclass: UIViewController,UITextFieldDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -603,7 +607,7 @@ class loginclass: UIViewController,UITextFieldDelegate
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

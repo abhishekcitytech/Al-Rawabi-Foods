@@ -23,6 +23,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     @IBOutlet weak var tabvplan: UITableView!
     var reuseIdentifier1 = "tabvcellplan"
     
+    @IBOutlet weak var lblor: UILabel!
     @IBOutlet weak var viewbottom: UIView!
     @IBOutlet weak var btnbuynow: UIButton!
     
@@ -169,6 +170,12 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         tabvplan.backgroundColor=UIColor.clear
         tabvplan.separatorColor=UIColor.clear
         tabvplan.showsVerticalScrollIndicator = false
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        lblhowto.text = String(format: "%@\n%@", myAppDelegate.changeLanguage(key: "msg_language54"),myAppDelegate.changeLanguage(key: "msg_language55"))
+        lblor.text = myAppDelegate.changeLanguage(key: "msg_language19")
+        btnbuynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language44")), for: .normal)
         
     }
     
@@ -386,14 +393,16 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         
         cell.lbl1.text = strplanname
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if strplanname == "Daily"{
-            cell.lbl2.text = "Minimum 10 days orders or more to procees"
+            cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language40")
         }
         else if strplanname == "Weekly"{
-            cell.lbl2.text = "Minimum 3 orders in a week or full week \n i.e. 7 days."
+            cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language41")
         }
         else if strplanname == "Monthly"{
-            cell.lbl2.text = "Minimum 8 orders in a month or full month \n i.e. 28 days in a month"
+            cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language42")
         }
         
         cell.lbl1.textColor = .black
@@ -411,7 +420,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             //Daily Selected
             if strplanname == "Daily"
             {
-                cell.lblselect.text = "Selected"
+                cell.lblselect.text = myAppDelegate.changeLanguage(key: "msg_language57")
                 cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
                 cell.lbl1.textColor = .white
                 cell.lbl2.textColor = .white
@@ -423,7 +432,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             }
             else
             {
-                cell.lblselect.text = "Select"
+                cell.lblselect.text = myAppDelegate.changeLanguage(key: "msg_language56")
                 cell.viewcell.backgroundColor = UIColor.white
                 cell.viewcell.layer.masksToBounds = false
                 cell.viewcell.layer.cornerRadius = 0.0
@@ -439,7 +448,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             //Weekly Selected
             if strplanname == "Weekly"
             {
-                cell.lblselect.text = "Selected"
+                cell.lblselect.text = myAppDelegate.changeLanguage(key: "msg_language57")
                 cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
                 cell.lbl1.textColor = .white
                 cell.lbl2.textColor = .white
@@ -451,7 +460,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             }
             else
             {
-                cell.lblselect.text = "Select"
+                cell.lblselect.text = myAppDelegate.changeLanguage(key: "msg_language56")
                 cell.viewcell.backgroundColor = UIColor.white
                 cell.viewcell.layer.masksToBounds = false
                 cell.viewcell.layer.cornerRadius = 0.0
@@ -467,7 +476,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             //Monthly Selected
             if strplanname == "Monthly"
             {
-                cell.lblselect.text = "Selected"
+                cell.lblselect.text = myAppDelegate.changeLanguage(key: "msg_language57")
                 cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
                 cell.lbl1.textColor = .white
                 cell.lbl2.textColor = .white
@@ -479,7 +488,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             }
             else
             {
-                cell.lblselect.text = "Select"
+                cell.lblselect.text = myAppDelegate.changeLanguage(key: "msg_language56")
                 cell.viewcell.backgroundColor = UIColor.white
                 cell.viewcell.layer.masksToBounds = false
                 cell.viewcell.layer.cornerRadius = 0.0
@@ -493,7 +502,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         }
         else
         {
-            cell.lblselect.text = "Select"
+            cell.lblselect.text = myAppDelegate.changeLanguage(key: "msg_language56")
             cell.viewcell.backgroundColor = UIColor.white
             cell.viewcell.layer.masksToBounds = false
             cell.viewcell.layer.cornerRadius = 0.0
@@ -590,6 +599,8 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     //MARK: - Fetch SubscriptionmodelTable data Daily exist or not
     func fetchDataDAILYSubscriptionmodelTable()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
@@ -605,8 +616,8 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 self.strSelectedplanCurrently = "1"
                 self.tabvplan.reloadData()
                 
-                let refreshAlert = UIAlertController(title: "", message: "Your existing Daily subscription will be deleted & new subscription created.", preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language325"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "1"
@@ -664,7 +675,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     self.tabvplan.isUserInteractionEnabled = true
                     
                 }))
-                refreshAlert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (action: UIAlertAction!) in
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language49"), style: .destructive, handler: { (action: UIAlertAction!) in
                       print("Handle Cancel Logic here")
                     
                     //Remove Subscriptionmodel table data
@@ -735,6 +746,8 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     //MARK: - Fetch SubscriptionmodelTable data Weekly exist or not
     func fetchDataWEEKLYSubscriptionmodelTable()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
@@ -750,8 +763,8 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 self.strSelectedplanCurrently = "2"
                 self.tabvplan.reloadData()
                 
-                let refreshAlert = UIAlertController(title: "", message: "Your existing Weekly subscription will be deleted & new subscription created.", preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language326"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "2"
@@ -809,7 +822,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     self.tabvplan.isUserInteractionEnabled = true
                     
                 }))
-                refreshAlert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (action: UIAlertAction!) in
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language49"), style: .destructive, handler: { (action: UIAlertAction!) in
                       print("Handle Cancel Logic here")
                     
                     //Remove Subscriptionmodel table data
@@ -880,6 +893,8 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     //MARK: - Fetch SubscriptionmodelTable data Monthly exist or not
     func fetchDataMONTHLYSubscriptionmodelTable()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
@@ -895,8 +910,8 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 self.strSelectedplanCurrently = "3"
                 self.tabvplan.reloadData()
                 
-                let refreshAlert = UIAlertController(title: "", message: "Your existing Monthly subscription will be deleted & new subscription created.", preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language327"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "3"
@@ -954,7 +969,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     self.tabvplan.isUserInteractionEnabled = true
                     
                 }))
-                refreshAlert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (action: UIAlertAction!) in
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language49"), style: .destructive, handler: { (action: UIAlertAction!) in
                       print("Handle Cancel Logic here")
                     
                     //Remove Subscriptionmodel table data
@@ -1069,7 +1084,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1110,7 +1125,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1123,7 +1138,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     

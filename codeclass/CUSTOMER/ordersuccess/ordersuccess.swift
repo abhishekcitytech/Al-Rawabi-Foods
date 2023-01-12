@@ -20,7 +20,7 @@ class ordersuccess: UIViewController
     @IBOutlet weak var btntrackorder: UIButton!
     @IBOutlet weak var btncontinueshopping: UIButton!
     
-
+    
     var strorderid = ""
     
     // MARK: - viewWillAppear Method
@@ -48,7 +48,13 @@ class ordersuccess: UIViewController
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Order Success"
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language198")
+        
+        lbl1.text = myAppDelegate.changeLanguage(key: "msg_language199")
+        lbl2.text = String(format: "%@\n%@", myAppDelegate.changeLanguage(key: "msg_language200"),myAppDelegate.changeLanguage(key: "msg_language201"))
+        
+        btncontinueshopping.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language203")), for: .normal)
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -89,20 +95,20 @@ class ordersuccess: UIViewController
         //FIXME
         let strpayfromOrderonce = UserDefaults.standard.value(forKey: "payfromOrderonce")as? String ?? ""
         print("strpayfromOrderonce",strpayfromOrderonce)
-
+        
         if strpayfromOrderonce == "1"
         {
             //SUBSCRIPTION CREATE
             guard let vc = self.navigationController?.viewControllers else { return }
             for controller in vc {
-               if controller.isKind(of: homeclass.self) {
-                  let tabVC = controller as! homeclass
-                  self.navigationController?.popToViewController(tabVC, animated: true)
-               }
+                if controller.isKind(of: homeclass.self) {
+                    let tabVC = controller as! homeclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
                 else if controller.isKind(of: orderonceclass.self) {
                     let tabVC = controller as! orderonceclass
                     self.navigationController?.popToViewController(tabVC, animated: true)
-                 }
+                }
             }
         }
         else if strpayfromOrderonce == "3"
@@ -110,10 +116,29 @@ class ordersuccess: UIViewController
             //RENEW
             guard let vc = self.navigationController?.viewControllers else { return }
             for controller in vc {
-               if controller.isKind(of: mysubscriptions.self) {
-                  let tabVC = controller as! mysubscriptions
-                  self.navigationController?.popToViewController(tabVC, animated: true)
-               }
+                if controller.isKind(of: subsriptionclass.self) {
+                    let tabVC = controller as! subsriptionclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: homeclass.self) {
+                    let tabVC = controller as! homeclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+            }
+        }
+        else if strpayfromOrderonce == "2"
+        {
+            //SUBSCRIPTION CREATE
+            guard let vc = self.navigationController?.viewControllers else { return }
+            for controller in vc {
+                if controller.isKind(of: subsriptionclass.self) {
+                    let tabVC = controller as! subsriptionclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: homeclass.self) {
+                    let tabVC = controller as! homeclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
             }
         }
         else
@@ -121,19 +146,23 @@ class ordersuccess: UIViewController
             //ORDER ONCE
             guard let vc = self.navigationController?.viewControllers else { return }
             for controller in vc {
-               if controller.isKind(of: orderonceclass.self) {
-                  let tabVC = controller as! orderonceclass
-                  self.navigationController?.popToViewController(tabVC, animated: true)
-               }
+                if controller.isKind(of: homeclass.self) {
+                    let tabVC = controller as! homeclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: orderonceclass.self) {
+                    let tabVC = controller as! orderonceclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
             }
         }
         
     }
 }
 extension UINavigationController {
-  func popToViewController(ofClass: AnyClass, animated: Bool = true) {
-    if let vc = viewControllers.last(where: { $0.isKind(of: ofClass) }) {
-      popToViewController(vc, animated: animated)
+    func popToViewController(ofClass: AnyClass, animated: Bool = true) {
+        if let vc = viewControllers.last(where: { $0.isKind(of: ofClass) }) {
+            popToViewController(vc, animated: animated)
+        }
     }
-  }
 }

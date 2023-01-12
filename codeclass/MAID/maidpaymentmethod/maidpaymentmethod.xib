@@ -27,6 +27,9 @@
                 <outlet property="btnpaymentwallet" destination="MZ4-Yj-FJX" id="yMr-Vb-Afj"/>
                 <outlet property="colpaymentmethods" destination="VEi-sC-n0O" id="B0l-ct-JKb"/>
                 <outlet property="lblCardPaymentOrderAmount" destination="VaR-Q8-Fis" id="FpD-d8-8kr"/>
+                <outlet property="lblwallet1" destination="J1d-wa-hif" id="sCs-gP-wep"/>
+                <outlet property="lblwallet2" destination="bhV-1M-yQy" id="pV6-9f-cBx"/>
+                <outlet property="lblwallet3" destination="xUJ-Fq-byg" id="x1p-JU-tqN"/>
                 <outlet property="scrolloverall" destination="Ae3-Ed-XjB" id="Ypg-4N-Q8O"/>
                 <outlet property="txtCardPaymentOrderAmount" destination="slj-Uj-1yR" id="Ryn-eK-lR9"/>
                 <outlet property="txtpaymentamount" destination="muc-mM-qe0" id="4OE-Mh-OFn"/>

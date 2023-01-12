@@ -23,9 +23,13 @@
                 <outlet property="txtmobile" destination="Lnp-7q-2HY" id="C9f-Ru-VMF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewemail" destination="WRX-10-xB3" id="WXE-5D-qjL"/>
+                <outlet property="viewemail1" destination="677-f8-fjt" id="0kM-mf-Mf1"/>
                 <outlet property="viewfirstname" destination="a62-by-opF" id="oTT-0k-hEJ"/>
+                <outlet property="viewfirstname1" destination="zcJ-Tv-bsF" id="64k-XO-WSP"/>
                 <outlet property="viewlastname" destination="akv-Ga-Kwv" id="gyS-Dv-kn9"/>
+                <outlet property="viewlastname1" destination="Uae-1h-b2g" id="5W5-vd-hfR"/>
                 <outlet property="viewmobile" destination="lyA-ul-7rj" id="1DH-i5-iGR"/>
+                <outlet property="viewmobile1" destination="kdB-cd-e8q" id="xqk-7w-TNQ"/>
                 <outlet property="viewoverall" destination="OLq-rv-P0G" id="3sU-TI-gnO"/>
             </connections>
         </placeholder>

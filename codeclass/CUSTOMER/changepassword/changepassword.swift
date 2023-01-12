@@ -59,7 +59,16 @@ class changepassword: UIViewController,UIScrollViewDelegate
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Change Password & Language"
+        
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.title = myAppDelegate.changeLanguage(key: "msg_language275")
+        
+        btnupdatesave.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language375")), for: .normal)
+        lblor.text = myAppDelegate.changeLanguage(key: "msg_language19")
+        lblchangelanguage.text = myAppDelegate.changeLanguage(key: "msg_language376")
+        
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))

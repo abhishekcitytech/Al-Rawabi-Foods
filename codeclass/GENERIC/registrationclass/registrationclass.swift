@@ -14,6 +14,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     @IBOutlet weak var viewscroll: UIView!
     @IBOutlet weak var scrolloverall: UIScrollView!
     
+    @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var imgvregbanner: UIImageView!
     @IBOutlet weak var lblregister: UILabel!
     @IBOutlet weak var lblquicklycreateaccount: UILabel!
@@ -45,6 +46,10 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     @IBOutlet weak var viewconfirmpassword1: UIView!
     @IBOutlet weak var txtconfirmpassword: UITextField!
     
+    @IBOutlet weak var btnshowhidepassword1: UIButton!
+    @IBOutlet weak var btnshowhidepassword2: UIButton!
+    
+    @IBOutlet weak var lblor: UILabel!
     @IBOutlet weak var btnregister: UIButton!
     @IBOutlet weak var btnlogin: UIButton!
     
@@ -137,10 +142,38 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     }
     
     //MARK: -  press Back method
-    /*@objc func pressBack()
-    {
+    @IBAction func pressBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
-    }*/
+    }
+    
+    
+    //MARK: - press Show Hide Password Method
+    @IBAction func pressShowHidePassword(_ sender: Any)
+    {
+        if btnshowhidepassword1.isSelected == true
+        {
+            btnshowhidepassword1.isSelected = false
+            self.txtpassword.isSecureTextEntry = true
+        }
+        else{
+            btnshowhidepassword1.isSelected = true
+            self.txtpassword.isSecureTextEntry = false
+        }
+    }
+    
+    //MARK: - press Show Hide Confirm Password Method
+    @IBAction func pressShowHideConfirmPassword(_ sender: Any)
+    {
+        if btnshowhidepassword2.isSelected == true
+        {
+            btnshowhidepassword2.isSelected = false
+            self.txtconfirmpassword.isSecureTextEntry = true
+        }
+        else{
+            btnshowhidepassword2.isSelected = true
+            self.txtconfirmpassword.isSecureTextEntry = false
+        }
+    }
     
     //MARK: - setup RTL LTR method
     func setupRTLLTR()
@@ -159,8 +192,6 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         self.txtmobile.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language31"))
         self.txtpassword.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language32"))
         self.txtconfirmpassword.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language33"))
-        
-        self.btnverifynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language17")), for: .normal)
         
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
@@ -195,6 +226,9 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
             self.txtconfirmpassword.frame = CGRect(x: 54, y: self.txtconfirmpassword.frame.origin.y, width: self.txtconfirmpassword.frame.size.width, height: self.txtconfirmpassword.frame.size.height)
             self.txtconfirmpassword.textAlignment = .left
             
+            self.btnshowhidepassword1.frame = CGRect(x: self.txtpassword.frame.size.width - 5, y: self.btnshowhidepassword1.frame.origin.y, width: self.btnshowhidepassword1.frame.size.width, height: self.btnshowhidepassword1.frame.size.height)
+            
+            self.btnshowhidepassword2.frame = CGRect(x: self.txtconfirmpassword.frame.size.width - 5, y: self.btnshowhidepassword2.frame.origin.y, width: self.btnshowhidepassword2.frame.size.width, height: self.btnshowhidepassword2.frame.size.height)
             
         }
         else
@@ -228,6 +262,10 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
             self.viewconfirmpassword1.frame = CGRect(x: self.viewconfirmpassword.frame.size.width - 53, y: self.viewconfirmpassword1.frame.origin.y, width: self.viewconfirmpassword1.frame.size.width, height: self.viewconfirmpassword1.frame.size.height)
             self.txtconfirmpassword.frame = CGRect(x: 1, y: self.txtconfirmpassword.frame.origin.y, width: self.txtconfirmpassword.frame.size.width, height: self.txtconfirmpassword.frame.size.height)
             self.txtconfirmpassword.textAlignment = .right
+            
+            self.btnshowhidepassword1.frame = CGRect(x: 10, y: self.btnshowhidepassword1.frame.origin.y, width: self.btnshowhidepassword1.frame.size.width, height: self.btnshowhidepassword1.frame.size.height)
+            
+            self.btnshowhidepassword2.frame = CGRect(x: 10, y: self.btnshowhidepassword2.frame.origin.y, width: self.btnshowhidepassword2.frame.size.width, height: self.btnshowhidepassword2.frame.size.height)
         }
         
         if self.boolverifiedmobileno == true
@@ -235,7 +273,8 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
             self.lblmobilecountrycode.isUserInteractionEnabled = false
             self.txtmobile.isUserInteractionEnabled = false
             self.btnverifynow.isUserInteractionEnabled = false
-            self.btnverifynow.setTitle("Verified", for: .normal)
+            
+            self.btnverifynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language18")), for: .normal)
             
             self.lblmobilecountrycode.backgroundColor = .clear
             self.txtmobile.backgroundColor = .clear
@@ -244,11 +283,14 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
             self.lblmobilecountrycode.isUserInteractionEnabled = true
             self.txtmobile.isUserInteractionEnabled = true
             self.btnverifynow.isUserInteractionEnabled = true
-            self.btnverifynow.setTitle("Verify", for: .normal)
+            
+            self.btnverifynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language17")), for: .normal)
             
             self.lblmobilecountrycode.backgroundColor = .white
             self.txtmobile.backgroundColor = .white
         }
+        
+        self.lblor.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language19"))
     }
     
     // MARK: - Done Mobile Number method
@@ -260,6 +302,8 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     //MARK: - pressverifynow method
     @IBAction func pressverifynow(_ sender: Any) {
         print("pressverifynow")
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         if txtmobile.text?.count == 10{
             
@@ -274,9 +318,9 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         }
         else
         {
-            let uiAlert = UIAlertController(title: "", message: "please enter 10 digit valid mobile number", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language14"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -289,80 +333,89 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         print("presslogin")
         self.navigationController?.popViewController(animated: true)
     }
-    // MARK: - pressskip Method
+    // MARK: - press register Method
     @IBAction func pressregister(_ sender: Any)
     {
         print("pressregister")
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         if txtfirstname.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your first name", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language238"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtlastname.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your last name", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language239"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtemail.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your email", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language8"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtmobile.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your mobile number", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language240"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtpassword.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your password", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language10"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtconfirmpassword.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your condirm password", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language11"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtpassword.text != txtconfirmpassword.text
         {
-            let uiAlert = UIAlertController(title: "", message: "Confirm password does not match with your password", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language12"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if self.isValidEmail(emailStr: txtemail.text!) == false
         {
-            let uiAlert = UIAlertController(title: "", message: "please enter valid email address", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language13"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtmobile.text?.count != 10
         {
-            let uiAlert = UIAlertController(title: "", message: "please enter 10 digit valid mobile number", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language14"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else if self.boolverifiedmobileno != true
+        {
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language368"), preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -378,6 +431,8 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     }
     func textFieldDidEndEditing(_ textField: UITextField)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if textField == txtemail
         {
             //verify email
@@ -385,9 +440,9 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
             {
                 if self.isValidEmail(emailStr: txtemail.text!) == false
                 {
-                    let uiAlert = UIAlertController(title: "", message: "please enter valid email address", preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language13"), preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                 }
@@ -458,7 +513,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -499,7 +554,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                                 
                                 let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                                 self.present(uiAlert, animated: true, completion: nil)
-                                uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                     print("Click of default button")
                                 }))
                             }
@@ -516,7 +571,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                             self.btnemailverified.isHidden = true
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -529,7 +584,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.btnemailverified.isHidden = true
@@ -576,7 +631,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -608,7 +663,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                         {
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 self.postLoginAPImethod()
                             }))
@@ -616,7 +671,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                         else{
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -629,7 +684,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.btnemailverified.isHidden = true
@@ -681,7 +736,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -725,7 +780,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -738,7 +793,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -816,7 +871,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

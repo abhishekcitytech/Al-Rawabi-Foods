@@ -37,8 +37,14 @@
                 <outlet property="imgvpromobox3" destination="yOt-sh-a6C" id="RKG-cQ-GUG"/>
                 <outlet property="lblalertmessagelocationchecking" destination="QEX-Wf-Bze" id="3Li-uR-ly2"/>
                 <outlet property="lblchoosesubscriptionplan" destination="XBg-nz-Bb7" id="2C8-wA-DK0"/>
+                <outlet property="lbldaily1" destination="gMu-YO-Wxv" id="CxN-9s-q6K"/>
+                <outlet property="lbldaily2" destination="vuG-wM-KHj" id="bu2-U0-bit"/>
                 <outlet property="lblgetyourdelivery" destination="79p-qu-qP4" id="ajJ-Ey-ZqL"/>
+                <outlet property="lblmonthly1" destination="qVZ-N1-hWb" id="8cC-QA-oxF"/>
+                <outlet property="lblmonthly2" destination="hVm-3d-lZe" id="m9J-FQ-QaK"/>
                 <outlet property="lbltopdeals" destination="pOD-lb-RUR" id="Mz6-Te-1od"/>
+                <outlet property="lblweekly1" destination="eLq-4r-Zlk" id="hhG-NN-HwA"/>
+                <outlet property="lblweekly2" destination="NBo-Ly-E9e" id="ixx-Q2-nXA"/>
                 <outlet property="scrolloverall" destination="6bR-yg-21j" id="AYq-qz-zBa"/>
                 <outlet property="txtlocationselect" destination="KvF-Df-fbz" id="9Fe-dt-umc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

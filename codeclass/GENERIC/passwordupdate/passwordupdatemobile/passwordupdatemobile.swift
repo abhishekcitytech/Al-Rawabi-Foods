@@ -34,7 +34,7 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(true)
-        
+        setupRTLLTR()
     }
     
     // MARK: - viewDidLoad method
@@ -42,7 +42,9 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        self.title = "Reset Password"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language292")
        
         //Create Back Button
         let yourBackImage = UIImage(named: "back")
@@ -65,6 +67,40 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
         txtmobileno.inputAccessoryView = toolbarDone
     }
     
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        lblentermobileno.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language240"))
+        
+        btncontinue.setTitle(myAppDelegate.changeLanguage(key: "msg_language50"), for: .normal)
+
+        self.txtmobileno.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language31"))
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+        
+            self.viewiconbox1.frame = CGRect(x: 1, y: self.viewiconbox1.frame.origin.y, width: self.viewiconbox1.frame.size.width, height: self.viewiconbox1.frame.size.height)
+            
+            self.lblcountrycode.frame = CGRect(x: self.viewiconbox1.frame.maxX, y: self.lblcountrycode.frame.origin.y, width: self.lblcountrycode.frame.size.width, height: self.lblcountrycode.frame.size.height)
+            self.txtmobileno.frame = CGRect(x: self.lblcountrycode.frame.maxX, y: self.txtmobileno.frame.origin.y, width: self.txtmobileno.frame.size.width, height: self.txtmobileno.frame.size.height)
+            self.txtmobileno.textAlignment = .left
+            
+        }
+        else
+        {
+            
+            self.viewiconbox1.frame = CGRect(x: self.viewmobileno.frame.size.width - 53, y: self.viewiconbox1.frame.origin.y, width: self.viewiconbox1.frame.size.width, height: self.viewiconbox1.frame.size.height)
+            
+            self.lblcountrycode.frame = CGRect(x: self.viewiconbox1.frame.minX - 44, y: self.lblcountrycode.frame.origin.y, width: self.lblcountrycode.frame.size.width, height: self.lblcountrycode.frame.size.height)
+            self.txtmobileno.frame = CGRect(x: 1, y: self.txtmobileno.frame.origin.y, width: self.txtmobileno.frame.size.width, height: self.txtmobileno.frame.size.height)
+            self.txtmobileno.textAlignment = .right
+            
+        }
+    }
+    
     //MARK: -  press Back method
     @objc func pressBack()
     {
@@ -74,19 +110,21 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
     //MARK: - press Continue Method
     @IBAction func pressContinue(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if txtmobileno.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your mobile number", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language9"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtmobileno.text?.count != 10
         {
-            let uiAlert = UIAlertController(title: "", message: "please enter 10 digit valid mobile number", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language14"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -173,7 +211,7 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -216,7 +254,7 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
                         else{
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -229,7 +267,7 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()

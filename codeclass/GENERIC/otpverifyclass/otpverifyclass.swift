@@ -10,9 +10,15 @@ import UIKit
 public protocol DataBackDelegate1: AnyObject {
     func savePreferences1 (preferisget : Bool)
 }
+
+public protocol DataBackDelegate2: AnyObject {
+    func savePreferences2 (preferisget : Bool)
+}
+
 class otpverifyclass: UIViewController,UITextFieldDelegate
 {
     weak var delegate: DataBackDelegate1?
+    weak var delegate2: DataBackDelegate2?
     
     @IBOutlet weak var viewoverall: UIView!
 
@@ -29,10 +35,10 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
     @IBOutlet weak var txt5: UITextField!
     @IBOutlet weak var txt6: UITextField!
     
-    
-    
     var strcountrycode = ""
     var strmobileno = ""
+    
+    var strpagefrom = ""
 
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -116,12 +122,14 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
     //MARK: -  pressresendcode method
     @IBAction func pressresendcode(_ sender: Any)
     {
-        let refreshAlert = UIAlertController(title: "", message: "Do you want to resend OTP to your mobile number?", preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language290"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
             self.postOTPRequestAPIMethod()
         }))
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
@@ -238,6 +246,8 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
     //MARK: - post OTP Request API method
     func postOTPRequestAPIMethod()
     {
+        var strconnurl = ""
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -245,7 +255,13 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
         
         let parameters = ["countrycode": strcountrycode,"mobileno": strmobileno]as [String : Any]
         
-        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod5)
+        if self.strpagefrom == "100"{
+            //Back to Pop My Edit Profile Page with Verified Tag
+            strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod108)
+        }else{
+            //Back to Pop Registration Page with Verified Tag
+            strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod5)
+        }
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"
         //request.setValue("Bearer \(strapikey ?? "")", forHTTPHeaderField: "Authorization")
@@ -265,7 +281,7 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -293,17 +309,12 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
                         
                         if strsuccess == true
                         {
-                            /*let uiAlert = UIAlertController(title: "", message: "OTP has been sent to your mobile number." , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                                print("Click of default button")
-                            }))*/
                             self.lblsmshasbeensent.isHidden = false
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -316,7 +327,7 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()
@@ -358,7 +369,7 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -384,15 +395,23 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
                         
                         if strsuccess == true
                         {
-                            //Back to Pop Registration Page with Verified Tag
-                            
-                            self.delegate?.savePreferences1(preferisget: true)
-                            self.navigationController?.popViewController(animated: false)
+                            if self.strpagefrom == "100"
+                            {
+                                //Back to Pop My Edit Profile Page with Verified Tag
+                                self.delegate2?.savePreferences2(preferisget: true)
+                                self.navigationController?.popViewController(animated: false)
+                            }
+                            else
+                            {
+                                //Back to Pop Registration Page with Verified Tag
+                                self.delegate?.savePreferences1(preferisget: true)
+                                self.navigationController?.popViewController(animated: false)
+                            }
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -405,7 +424,7 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()

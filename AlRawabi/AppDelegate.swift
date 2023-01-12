@@ -137,6 +137,20 @@ struct Constants {
         static let apimethod102 = "contactus/contactus-api"
         
         static let apimethod103 = "creditmemolist/creditmemolist-api"
+        
+        static let apimethod104 = "cancelcoupon/cancelcoupon-api"
+        
+        static let apimethod105 = "cancelrewardpoint/cancelrewardpoint-api"
+        
+        static let apimethod106 = "customerProfileUpdate/customerProfileUpdate-api"
+        
+        static let apimethod107 = "subscriptionRewardPointApply/subscriptionRewardPointApply-api"
+        
+        static let apimethod108 = "mobileOtpRequestExist/mobileOtpRequestExist-api"
+        
+        
+        
+        
     }
 }
 

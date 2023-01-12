@@ -50,7 +50,12 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Available Coupons Offered"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language228")
+        
+        txtcouponcode.placeholder = myAppDelegate.changeLanguage(key: "msg_language229")
+        btnapply.setTitle(myAppDelegate.changeLanguage(key: "msg_language234"), for: .normal)
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -84,11 +89,12 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
 
     @IBAction func pressapply(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         if txtcouponcode.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter coupon code", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language229"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -149,6 +155,8 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
         cell.clearsContextBeforeDrawing = true
         cell.contentView.clearsContextBeforeDrawing = true
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let dic = self.arrMCoupons.object(at: indexPath.row)as! NSDictionary
         
         let strcouponcode = String(format: "%@", dic.value(forKey: "code")as? String ?? "")
@@ -157,8 +165,10 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
         cell.lblselectcopy.layer.cornerRadius = 6.0
         cell.lblselectcopy.layer.masksToBounds = true
         
-        cell.lblcouponcode.text = String(format: "Coupon Code: %@", strcouponcode)
-        cell.lblexpdate.text = String(format: "Expiration Date: %@",strexpdate)
+        cell.lblselectcopy.text = myAppDelegate.changeLanguage(key: "msg_language233")
+        
+        cell.lblcouponcode.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language230"),strcouponcode)
+        cell.lblexpdate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language231"),strexpdate)
         
         if strselectedrow == String(format: "%d", indexPath.row)
         {
@@ -280,7 +290,7 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
                             print("arrMCoupons --->",self.arrMCoupons)
                             
                             if self.arrMCoupons.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
                             }
                             
                             self.tabvcoupons.reloadData()
@@ -290,7 +300,7 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -342,7 +352,7 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -371,11 +381,11 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: "You have applied coupon code succesfully." , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language232") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 
                                 guard let vc = self.navigationController?.viewControllers else { return }
@@ -390,9 +400,9 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
                             }))
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -405,7 +415,7 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()

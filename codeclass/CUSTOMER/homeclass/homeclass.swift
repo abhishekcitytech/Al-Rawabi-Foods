@@ -60,13 +60,24 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     @IBOutlet weak var lblchoosesubscriptionplan: UILabel!
     @IBOutlet weak var lblalertmessagelocationchecking: UILabel!
     @IBOutlet weak var btnBuyoncepopup: UIButton!
+    
     @IBOutlet var viewpopupSubscribeDaily: UIView!
     @IBOutlet weak var btnpopupSubscribeDaily: UIButton!
+    @IBOutlet weak var lbldaily1: UILabel!
+    @IBOutlet weak var lbldaily2: UILabel!
+    
     @IBOutlet var viewpopupSubscribeWeekly: UIView!
     @IBOutlet weak var btnBpopupSubscribeWeekly: UIButton!
+    @IBOutlet weak var lblweekly1: UILabel!
+    @IBOutlet weak var lblweekly2: UILabel!
+    
     @IBOutlet var viewpopupSubscribeMothly: UIView!
     @IBOutlet weak var btnpopupSubscribeMothly: UIButton!
+    @IBOutlet weak var lblmonthly1: UILabel!
+    @IBOutlet weak var lblmonthly2: UILabel!
+    
     @IBOutlet weak var lblgetyourdelivery: UILabel!
+    
     @IBOutlet weak var btncrossSubscribeBuyoncePopup: UIButton!
     @IBOutlet weak var btninfoSubscriptionBuyoncePopup: UIButton!
     
@@ -116,6 +127,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.isHidden = false
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let subscribebyoncepopupshown = UserDefaults.standard.integer(forKey: "subscribebyoncepopupshown")
         if subscribebyoncepopupshown == 0
         {
@@ -147,9 +160,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             }
             else
             {
-                let uiAlert = UIAlertController(title: "", message: "Please choose alternate location to continue" , preferredStyle: UIAlertController.Style.alert)
+                let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language324") , preferredStyle: UIAlertController.Style.alert)
                 self.present(uiAlert, animated: true, completion: nil)
-                uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                     print("Click of default button")
                 }))
             }
@@ -276,6 +289,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     //MARK: - press View All Top Deals Method
     @IBAction func pressviewalltopdeals(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         print("self.arrMcategory",self.arrMcategory)
         var strcatid = ""
         var strcatname = ""
@@ -293,9 +308,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         if strcatid == "" || strcatname == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "No more offers available on Top Deals!", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language46"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -527,6 +542,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     }
     func alertViewFunction()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         //ALERT VIEW CHECKING
         if boolcheck == true{
             
@@ -540,7 +557,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 self.present(alert, animated: true, completion: nil)*/
                 
                 self.lblalertmessagelocationchecking.backgroundColor = UIColor(named: "lightgreencolor")!
-                self.lblalertmessagelocationchecking.text = "You are inside our delivery area!"
+                self.lblalertmessagelocationchecking.text = myAppDelegate.changeLanguage(key: "msg_language262")
                 self.lblalertmessagelocationchecking.textColor = .black
                 self.lblalertmessagelocationchecking.layer.cornerRadius = 0.0
                 self.lblalertmessagelocationchecking.layer.masksToBounds = true
@@ -585,7 +602,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 self.present(alert, animated: true, completion: nil)*/
                 
                 self.lblalertmessagelocationchecking.backgroundColor = UIColor(named: "lightred")!
-                self.lblalertmessagelocationchecking.text = "We do not deliver to this area! please choose alternate location."
+                self.lblalertmessagelocationchecking.text = myAppDelegate.changeLanguage(key: "msg_language323")
                 self.lblalertmessagelocationchecking.textColor = .black
                 self.lblalertmessagelocationchecking.layer.cornerRadius = 0.0
                 self.lblalertmessagelocationchecking.layer.masksToBounds = true
@@ -659,6 +676,36 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         btncrossSubscribeBuyoncePopup.isHidden = false
         
         self.txtlocationselect.isUserInteractionEnabled = true
+        
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.txtlocationselect.placeholder = myAppDelegate.changeLanguage(key: "msg_language53")
+        
+        lblchoosesubscriptionplan.text = myAppDelegate.changeLanguage(key: "msg_language36")
+        
+        btnBuyoncepopup.setTitle(myAppDelegate.changeLanguage(key: "msg_language44"), for: .normal)
+        
+        lbldaily1.text = myAppDelegate.changeLanguage(key: "msg_language37")
+        lbldaily2.text = myAppDelegate.changeLanguage(key: "msg_language40")
+        
+        lblweekly1.text = myAppDelegate.changeLanguage(key: "msg_language38")
+        lblweekly2.text = myAppDelegate.changeLanguage(key: "msg_language41")
+        
+        lblmonthly1.text = myAppDelegate.changeLanguage(key: "msg_language39")
+        lblmonthly2.text = myAppDelegate.changeLanguage(key: "msg_language42")
+        
+        lblgetyourdelivery.text = myAppDelegate.changeLanguage(key: "msg_language43")
+        
+
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            
+        }
+        else
+        {
+
+        }
         
         viewPopupAddNewExistingBG123 = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height))
         viewPopupAddNewExistingBG123.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
@@ -1397,7 +1444,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1454,7 +1501,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     self.btnviewalltopdeals.isHidden = true
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1500,7 +1547,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             self.btnviewalltopdeals.isHidden = true
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1516,7 +1563,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.btnviewalltopdeals.isHidden = true
@@ -1566,7 +1613,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1608,7 +1655,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1623,7 +1670,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1674,7 +1721,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1706,7 +1753,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         {
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 
                                 self.getOrderOnceCartCountAPIMethod()
@@ -1715,7 +1762,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1728,7 +1775,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()
@@ -1772,7 +1819,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1827,7 +1874,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1842,7 +1889,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1876,7 +1923,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1920,7 +1967,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         {
                             /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))*/
                         }
@@ -1935,7 +1982,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1969,7 +2016,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -2012,7 +2059,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         else{
                             /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))*/
                         }
@@ -2026,7 +2073,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -2060,7 +2107,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -2102,7 +2149,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         else{
                            /* let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))*/
                         }
@@ -2115,7 +2162,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -2149,7 +2196,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -2190,7 +2237,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -2203,7 +2250,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     

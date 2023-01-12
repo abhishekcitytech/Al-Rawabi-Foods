@@ -38,6 +38,7 @@
                 <outlet property="lblTDtypevalue" destination="vC8-Hp-ev6" id="OOg-nO-zgg"/>
                 <outlet property="lblrecentpayments" destination="BCg-iR-UUb" id="qcH-jo-RC9"/>
                 <outlet property="lbltransactiondetailsheader" destination="cTX-qe-0hk" id="iPL-RQ-KJf"/>
+                <outlet property="lblwalletbalance" destination="bzM-So-gfI" id="3CV-6M-KRv"/>
                 <outlet property="lblwalletbalancevalue" destination="T2B-jR-k9c" id="F2U-5a-a0G"/>
                 <outlet property="tabvmyrecharges" destination="oS5-mS-n7S" id="EJb-OU-yfl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -274,7 +275,7 @@
             <color red="0.94900000095367432" green="0.9649999737739563" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themecolor">
-            <color red="0.0" green="0.18799999356269836" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.18823529411764706" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

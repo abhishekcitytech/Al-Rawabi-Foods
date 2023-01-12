@@ -44,14 +44,24 @@ class maidhomeclass: UIViewController,UICollectionViewDelegate,UICollectionViewD
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         
-        self.title = "Maid Home"
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language293")
         
         let searchicon = UIImage(named: "slidemenuB")
         let search = UIBarButtonItem(image: searchicon, style: .plain, target: self, action: #selector(pressMenu))
         search.tintColor = UIColor.black
-        self.navigationItem.leftBarButtonItem = search
         
-        arrMmaidhome = ["View Subscriptions","Paused Subscriptions","Order Once","Wallet Balance"]
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.navigationItem.leftBarButtonItem = search
+        }
+        else{
+            self.navigationItem.rightBarButtonItem = search
+        }
+        
+        arrMmaidhome = [myAppDelegate.changeLanguage(key: "msg_language294"),myAppDelegate.changeLanguage(key: "msg_language295"),myAppDelegate.changeLanguage(key: "msg_language104"),myAppDelegate.changeLanguage(key: "msg_language296")]
         
         colmaidhome.backgroundColor = .clear
         let layout = colmaidhome.collectionViewLayout as! UICollectionViewFlowLayout
@@ -131,22 +141,24 @@ class maidhomeclass: UIViewController,UICollectionViewDelegate,UICollectionViewD
         
         let strname = String(format: "%@", arrMmaidhome.object(at: indexPath.row)as? String ?? "")
         
-        if strname == "View Subscriptions"
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        if strname == myAppDelegate.changeLanguage(key: "msg_language294")
         {
             cellA.imgvicon.image = UIImage(named: "acc4.png")
             cellA.viewcell.backgroundColor = UIColor(named: "colorviewsubscription")!
         }
-        else if strname == "Paused Subscriptions"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language295")
         {
             cellA.imgvicon.image = UIImage(named: "acc10.png")
             cellA.viewcell.backgroundColor = UIColor(named: "colorpausedsubscription")!
         }
-        else if strname == "Order Once"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language104")
         {
             cellA.imgvicon.image = UIImage(named: "sl3.png")
             cellA.viewcell.backgroundColor = UIColor(named: "colormaidorderonce")!
         }
-        else if strname == "Wallet Balance"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language296")
         {
             cellA.imgvicon.image = UIImage(named: "acc6.png")
             cellA.viewcell.backgroundColor = UIColor(named: "colormaidwallet")!
@@ -165,24 +177,26 @@ class maidhomeclass: UIViewController,UICollectionViewDelegate,UICollectionViewD
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let strname = String(format: "%@", arrMmaidhome.object(at: indexPath.row)as? String ?? "")
         
-        if strname == "View Subscriptions"
+        if strname == myAppDelegate.changeLanguage(key: "msg_language294")
         {
             let obj = maidviewsubscriptions(nibName: "maidviewsubscriptions", bundle: nil)
             self.navigationController?.pushViewController(obj, animated: true)
         }
-        else if strname == "Paused Subscriptions"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language295")
         {
             let obj = maidpausedsubscriptions(nibName: "maidpausedsubscriptions", bundle: nil)
             self.navigationController?.pushViewController(obj, animated: true)
         }
-        else if strname == "Order Once"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language104")
         {
             let obj = maidorderonce(nibName: "maidorderonce", bundle: nil)
             self.navigationController?.pushViewController(obj, animated: true)
         }
-        else if strname == "Wallet Balance"
+        else if strname == myAppDelegate.changeLanguage(key: "msg_language296")
         {
             let obj = maidwalletdetails(nibName: "maidwalletdetails", bundle: nil)
             self.navigationController?.pushViewController(obj, animated: true)
@@ -227,7 +241,7 @@ class maidhomeclass: UIViewController,UICollectionViewDelegate,UICollectionViewD
                 DispatchQueue.main.async {
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -281,7 +295,7 @@ class maidhomeclass: UIViewController,UICollectionViewDelegate,UICollectionViewD
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -294,7 +308,7 @@ class maidhomeclass: UIViewController,UICollectionViewDelegate,UICollectionViewD
 
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     

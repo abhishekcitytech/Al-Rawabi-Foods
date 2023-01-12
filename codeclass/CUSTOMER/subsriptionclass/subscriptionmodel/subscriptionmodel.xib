@@ -23,6 +23,7 @@
                 <outlet property="btnRevieworder" destination="Dlb-38-g4w" id="qHr-1Y-W2l"/>
                 <outlet property="btnautorenew" destination="JY8-D0-Y3j" id="N2f-Z1-Vja"/>
                 <outlet property="btncrosseditpopup" destination="yIe-UA-rck" id="ofk-zz-0ER"/>
+                <outlet property="lblautorenew" destination="uTS-S6-lGg" id="47G-nn-Xyz"/>
                 <outlet property="lbleditpopupDateDay" destination="GDl-Dv-NdP" id="o2n-id-MPl"/>
                 <outlet property="lblmessage" destination="nsm-Nk-59L" id="auU-JG-JRC"/>
                 <outlet property="lblsubscriptionselected" destination="w7W-1F-vY0" id="RxV-ye-0nI"/>

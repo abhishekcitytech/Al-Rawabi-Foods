@@ -27,6 +27,11 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
     @IBOutlet weak var txtremainingbalance: UITextField!
     @IBOutlet weak var btnpaymentwallet: UIButton!
     
+    @IBOutlet weak var lblwallet1: UILabel!
+    @IBOutlet weak var lblwallet2: UILabel!
+    @IBOutlet weak var lblwallet3: UILabel!
+    
+    
     
     var arrMpaymentmethodlist = NSMutableArray()
     var strselectedpaymentmethodID = ""
@@ -65,12 +70,27 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Payment Method"
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language185")
+        
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
+        
+        lblCardPaymentOrderAmount.text = myAppDelegate.changeLanguage(key: "msg_language312")
+        txtCardPaymentOrderAmount.placeholder = myAppDelegate.changeLanguage(key: "msg_language313")
+        btnpayment.setTitle(myAppDelegate.changeLanguage(key: "msg_language94"), for: .normal)
+        
+        lblwallet1.text = myAppDelegate.changeLanguage(key: "msg_language314")
+        lblwallet2.text = myAppDelegate.changeLanguage(key: "msg_language312")
+        lblwallet3.text = myAppDelegate.changeLanguage(key: "msg_language315")
+        
+        txtwalletbalance.placeholder = myAppDelegate.changeLanguage(key: "msg_language314")
+        txtpaymentamount.placeholder = myAppDelegate.changeLanguage(key: "msg_language312")
+        txtremainingbalance.placeholder = myAppDelegate.changeLanguage(key: "msg_language315")
+        btnpaymentwallet.setTitle(myAppDelegate.changeLanguage(key: "msg_language94"), for: .normal)
         
         self.scrolloverall.backgroundColor = .clear
         self.scrolloverall.showsVerticalScrollIndicator = false
@@ -354,7 +374,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -442,7 +462,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
                             print("arrMpaymentmethodlist --->",self.arrMpaymentmethodlist)
                             
                             if self.arrMpaymentmethodlist.count == 0{
-                                self.msg = "No payment methods found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language320")
                             }
                             
                             let dictemp = self.arrMpaymentmethodlist.object(at: 0)as? NSDictionary
@@ -484,7 +504,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -607,7 +627,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -687,9 +707,9 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
                             self.navigationController?.pushViewController(ctrl, animated: true)
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

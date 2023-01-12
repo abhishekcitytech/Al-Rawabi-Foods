@@ -14,15 +14,19 @@ class maidprofiledetails: BaseViewController,UIScrollViewDelegate,UITextFieldDel
     @IBOutlet weak var scrolloverall: UIScrollView!
     
     @IBOutlet weak var viewfirstname: UIView!
+    @IBOutlet weak var viewfirstname1: UIView!
     @IBOutlet weak var txtfirstname: UITextField!
     
     @IBOutlet weak var viewlastname: UIView!
+    @IBOutlet weak var viewlastname1: UIView!
     @IBOutlet weak var txtlastname: UITextField!
     
     @IBOutlet weak var viewemail: UIView!
+    @IBOutlet weak var viewemail1: UIView!
     @IBOutlet weak var txtemail: UITextField!
     
     @IBOutlet weak var viewmobile: UIView!
+    @IBOutlet weak var viewmobile1: UIView!
     @IBOutlet weak var txtmobile: UITextField!
     
     var dicprofiledetails = NSMutableDictionary()
@@ -53,7 +57,9 @@ class maidprofiledetails: BaseViewController,UIScrollViewDelegate,UITextFieldDel
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Profile Details"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language310")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -68,6 +74,54 @@ class maidprofiledetails: BaseViewController,UIScrollViewDelegate,UITextFieldDel
         txtlastname.setLeftPaddingPoints(10)
         txtemail.setLeftPaddingPoints(10)
         txtmobile.setLeftPaddingPoints(10)
+        
+        self.txtfirstname.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language28"))
+        self.txtlastname.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language29"))
+        self.txtemail.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language30"))
+        self.txtmobile.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language31"))
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            txtfirstname.textAlignment = .left
+            txtlastname.textAlignment = .left
+            txtemail.textAlignment = .left
+            txtmobile.textAlignment = .left
+            
+            self.viewfirstname1.frame = CGRect(x: 1, y: self.viewfirstname1.frame.origin.y, width: self.viewfirstname1.frame.size.width, height: self.viewfirstname1.frame.size.height)
+            self.txtfirstname.frame = CGRect(x: 54, y: self.txtfirstname.frame.origin.y, width: self.txtfirstname.frame.size.width, height: self.txtfirstname.frame.size.height)
+            
+            self.viewlastname1.frame = CGRect(x: 1, y: self.viewlastname1.frame.origin.y, width: self.viewlastname1.frame.size.width, height: self.viewlastname1.frame.size.height)
+            self.txtlastname.frame = CGRect(x: 54, y: self.txtlastname.frame.origin.y, width: self.txtlastname.frame.size.width, height: self.txtlastname.frame.size.height)
+            
+            self.viewemail1.frame = CGRect(x: 1, y: self.viewemail1.frame.origin.y, width: self.viewemail1.frame.size.width, height: self.viewemail1.frame.size.height)
+            self.txtemail.frame = CGRect(x: 54, y: self.txtemail.frame.origin.y, width: self.txtemail.frame.size.width, height: self.txtemail.frame.size.height)
+            
+            self.viewmobile1.frame = CGRect(x: 1, y: self.viewmobile1.frame.origin.y, width: self.viewmobile1.frame.size.width, height: self.viewmobile1.frame.size.height)
+            self.txtmobile.frame = CGRect(x: 54, y: self.txtmobile.frame.origin.y, width: self.txtmobile.frame.size.width, height: self.txtmobile.frame.size.height)
+            
+        }
+        else
+        {
+            txtfirstname.textAlignment = .right
+            txtlastname.textAlignment = .right
+            txtemail.textAlignment = .right
+            txtmobile.textAlignment = .right
+            
+            self.viewfirstname1.frame = CGRect(x: self.viewfirstname.frame.size.width - 53, y: self.viewfirstname1.frame.origin.y, width: self.viewfirstname1.frame.size.width, height: self.viewfirstname1.frame.size.height)
+            self.txtfirstname.frame = CGRect(x: 1, y: self.txtfirstname.frame.origin.y, width: self.txtfirstname.frame.size.width, height: self.txtfirstname.frame.size.height)
+            
+            self.viewlastname1.frame = CGRect(x: self.viewlastname.frame.size.width - 53, y: self.viewlastname1.frame.origin.y, width: self.viewlastname1.frame.size.width, height: self.viewlastname1.frame.size.height)
+            self.txtlastname.frame = CGRect(x: 1, y: self.txtlastname.frame.origin.y, width: self.txtlastname.frame.size.width, height: self.txtlastname.frame.size.height)
+            
+            self.viewemail1.frame = CGRect(x: self.viewemail.frame.size.width - 53, y: self.viewemail1.frame.origin.y, width: self.viewemail1.frame.size.width, height: self.viewemail1.frame.size.height)
+            self.txtemail.frame = CGRect(x: 1, y: self.txtemail.frame.origin.y, width: self.txtemail.frame.size.width, height: self.txtemail.frame.size.height)
+            
+            self.viewmobile1.frame = CGRect(x: self.viewmobile.frame.size.width - 53, y: self.viewmobile1.frame.origin.y, width: self.viewmobile1.frame.size.width, height: self.viewmobile1.frame.size.height)
+            self.txtmobile.frame = CGRect(x: 1, y: self.txtmobile.frame.origin.y, width: self.txtmobile.frame.size.width, height: self.txtmobile.frame.size.height)
+            
+
+        }
        
     }
     
@@ -193,7 +247,7 @@ class maidprofiledetails: BaseViewController,UIScrollViewDelegate,UITextFieldDel
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

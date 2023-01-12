@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -25,6 +25,7 @@
                 <outlet property="btnautorenew" destination="Lhk-No-o76" id="7J6-BR-gyZ"/>
                 <outlet property="btncrosseditpopup" destination="AqD-SB-vGP" id="ZOo-tg-JzE"/>
                 <outlet property="colmonthlycalendar" destination="GHp-t6-GuL" id="weN-Hb-dhQ"/>
+                <outlet property="lblautorenew" destination="XOe-4k-5JE" id="eVL-D9-U54"/>
                 <outlet property="lbleditpopupDateDay" destination="CUK-XN-Tle" id="VU5-kE-cJx"/>
                 <outlet property="lblmessage" destination="77D-Vu-kKt" id="OEG-bF-ojD"/>
                 <outlet property="lblsubscriptionselected" destination="zdD-ZL-Pxk" id="haM-RN-23W"/>

@@ -14,7 +14,7 @@ class addreviewpage: UIViewController,UITextFieldDelegate,UITextViewDelegate
     
     @IBOutlet weak var lbl1: UILabel!
     @IBOutlet weak var lbl2: UILabel!
-
+    
     
     @IBOutlet weak var imgvpencil: UIImageView!
     @IBOutlet weak var lbl3: UILabel!
@@ -35,7 +35,7 @@ class addreviewpage: UIViewController,UITextFieldDelegate,UITextViewDelegate
     var strproductid = ""
     
     var rating = ""
-
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -51,13 +51,18 @@ class addreviewpage: UIViewController,UITextFieldDelegate,UITextViewDelegate
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        setupRTLLTR()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Write Reviews"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.title = myAppDelegate.changeLanguage(key: "msg_language179")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -98,32 +103,65 @@ class addreviewpage: UIViewController,UITextFieldDelegate,UITextViewDelegate
         self.navigationController?.popViewController(animated: true)
     }
     
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        lbl1.text = myAppDelegate.changeLanguage(key: "msg_language171")
+        lbl2.text = String(format: "%@\n%@", myAppDelegate.changeLanguage(key: "msg_language172"),myAppDelegate.changeLanguage(key: "msg_language173"))
+        lbl3.text = myAppDelegate.changeLanguage(key: "msg_language177")
+        
+        txtreviewtitle.placeholder = myAppDelegate.changeLanguage(key: "msg_language176")
+        txtenternickname.placeholder = myAppDelegate.changeLanguage(key: "msg_language175")
+        
+        btnsubmit.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language178")), for: .normal)
+        
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            txtvreviewcomments.textAlignment = .left
+            txtreviewtitle.textAlignment = .left
+            txtenternickname.textAlignment = .left
+        }
+        else
+        {
+            txtvreviewcomments.textAlignment = .right
+            txtreviewtitle.textAlignment = .right
+            txtenternickname.textAlignment = .right
+        }
+    }
+    
+    
     //MARK: press Submit method
     @IBAction func pressSubmit(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if rating == ""{
-            let uiAlert = UIAlertController(title: "", message: "Please give your rating star", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language180"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtenternickname.text == ""{
-            let uiAlert = UIAlertController(title: "", message: "Please enter your Nickname", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language181"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtreviewtitle.text == ""{
-            let uiAlert = UIAlertController(title: "", message: "Please enter Review Title", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language182"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtvreviewcomments.text == ""{
-            let uiAlert = UIAlertController(title: "", message: "Please enter Review Comments", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language183"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                 print("Click of default button")
@@ -242,7 +280,7 @@ class addreviewpage: UIViewController,UITextFieldDelegate,UITextViewDelegate
                           "reviewTitle": txtreviewtitle.text!,
                           "reviewDetail": txtvreviewcomments.text!,
                           "rating": rating
-         ] as [String : Any]
+        ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod14)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -263,7 +301,7 @@ class addreviewpage: UIViewController,UITextFieldDelegate,UITextViewDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -295,7 +333,7 @@ class addreviewpage: UIViewController,UITextFieldDelegate,UITextViewDelegate
                         {
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language268") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 
                                 self.rating = ""
@@ -315,7 +353,7 @@ class addreviewpage: UIViewController,UITextFieldDelegate,UITextViewDelegate
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -328,7 +366,7 @@ class addreviewpage: UIViewController,UITextFieldDelegate,UITextViewDelegate
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -339,5 +377,5 @@ class addreviewpage: UIViewController,UITextFieldDelegate,UITextViewDelegate
         }
         task.resume()
     }
-
+    
 }

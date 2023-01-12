@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 import CoreData
 
-class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate,CardPaymentDelegate
+class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate,CardPaymentDelegate,UITableViewDelegate,UITableViewDataSource
 {
     
     @IBOutlet weak var viewoverall: UIView!
@@ -33,16 +33,35 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
     @IBOutlet weak var btnpaymentwallet: UIButton!
     @IBOutlet weak var btnrechargewallet: UIButton!
     
+    @IBOutlet weak var lblrechargewallet1: UILabel!
+    @IBOutlet weak var lblrechargewallet2: UILabel!
+    @IBOutlet weak var lblrechargewallet3: UILabel!
+    
     
     @IBOutlet weak var viewcoupon: UIView!
     @IBOutlet weak var txtcouponcode: UITextField!
+    @IBOutlet weak var btnremovecouponcode: UIButton!
     @IBOutlet weak var btnapplycouponcode: UIButton!
+    @IBOutlet weak var btnviewcouponcode: UIButton!
+    @IBOutlet weak var lbldiscountedamountvalue: UILabel!
     
     @IBOutlet weak var viewrewardpoints: UIView!
     @IBOutlet weak var lblrewardpoints: UILabel!
     @IBOutlet weak var txtrewardpoints: UITextField!
     @IBOutlet weak var lblmaximumrewardpointsused: UILabel!
     @IBOutlet weak var btnapplyrewardpoints: UIButton!
+    @IBOutlet weak var btnremoverewardpoints: UIButton!
+    
+    
+    @IBOutlet var viewcouponlist: UIView!
+    @IBOutlet weak var viewcouponlistheader1: UIView!
+    @IBOutlet weak var lblcouponlistpopupheader: UILabel!
+    @IBOutlet weak var btncrosscouponlistpopup: UIButton!
+    @IBOutlet weak var tabvcouponlistpopup: UITableView!
+    var reuseIdentifier2 = "cellcoupon"
+    var viewPopupAddNewExistingBG2 = UIView()
+    var msg1 = ""
+    var arrMCoupons = NSMutableArray()
     
     
     var arrMpaymentmethodlist = NSMutableArray()
@@ -73,8 +92,18 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
     
     var dicCREATEORDER = NSMutableDictionary()
     var strSubscriptionincreamentalId = ""
+    
     var strDiscountAmount = ""
     var strDiscountCouponCode = ""
+    
+    var strAppliedRewardAmount = ""
+    var strAppliedRewardAmountPoint = ""
+    
+    var strGRANDTOTAL = ""
+    
+    var strloayltypointsavailable = ""
+    var strloayltypointsmax = ""
+    var strloayltypointsmin = ""
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -101,7 +130,37 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Payment Method"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.title = myAppDelegate.changeLanguage(key: "msg_language185")
+        
+        txtcouponcode.placeholder = myAppDelegate.changeLanguage(key: "msg_language229")
+        btnremovecouponcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language49")), for: .normal)
+        btnapplycouponcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
+        btnviewcouponcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language113")), for: .normal)
+        
+        lblCardPaymentOrderAmount.text = myAppDelegate.changeLanguage(key: "msg_language312")
+        txtCardPaymentOrderAmount.placeholder = myAppDelegate.changeLanguage(key: "msg_language313")
+        btnpayment.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
+        
+        txtwalletbalance.placeholder = myAppDelegate.changeLanguage(key: "msg_language314")
+        txtpaymentamount.placeholder = myAppDelegate.changeLanguage(key: "msg_language312")
+        txtremainingbalance.placeholder = myAppDelegate.changeLanguage(key: "msg_language315")
+        btnpaymentwallet.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
+        btnrechargewallet.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language218")), for: .normal)
+        
+        lblrechargewallet1.text = myAppDelegate.changeLanguage(key: "msg_language314")
+        lblrechargewallet2.text = myAppDelegate.changeLanguage(key: "msg_language312")
+        lblrechargewallet3.text = myAppDelegate.changeLanguage(key: "msg_language315")
+        
+        
+        txtrewardpoints.placeholder = myAppDelegate.changeLanguage(key: "msg_language353")
+        btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
+        btnremoverewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language49")), for: .normal)
+        
+        lblmaximumrewardpointsused.textColor = UIColor(named: "darkgreencolor")!
+        lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language377")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -121,13 +180,15 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         btnrechargewallet.layer.cornerRadius = 14.0
         btnrechargewallet.layer.masksToBounds = true
         
-        viewcoupon.layer.cornerRadius = 8.0
+        viewcoupon.layer.borderWidth = 1.0
+        viewcoupon.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        viewcoupon.layer.cornerRadius = 6.0
         viewcoupon.layer.masksToBounds = true
         
         txtcouponcode.setLeftPaddingPoints(10)
-        txtcouponcode.layer.borderWidth = 1.0
+        txtcouponcode.layer.borderWidth = 0.0
         txtcouponcode.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
-        txtcouponcode.layer.cornerRadius = 6.0
+        txtcouponcode.layer.cornerRadius = 0.0
         txtcouponcode.layer.masksToBounds = true
         
         btnapplycouponcode.layer.cornerRadius = 0.0
@@ -144,16 +205,15 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         viewbottom1.layer.cornerRadius = 6.0
         viewbottom1.layer.masksToBounds = true
         
-        viewrewardpoints.layer.borderWidth = 0.0
+        viewrewardpoints.layer.borderWidth = 1.0
         viewrewardpoints.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
-        viewrewardpoints.layer.cornerRadius = 0.0
+        viewrewardpoints.layer.cornerRadius = 6.0
         viewrewardpoints.layer.masksToBounds = true
         
-        btnapplyrewardpoints.layer.cornerRadius = 18.0
+        btnapplyrewardpoints.layer.cornerRadius = 14.0
         btnapplyrewardpoints.layer.masksToBounds = true
         
-        //FIXMESANDIPAN
-        viewrewardpoints.isHidden = true
+        txtrewardpoints.setLeftPaddingPoints(10)
        
         let toolbarDone = UIToolbar.init()
         toolbarDone.sizeToFit()
@@ -167,18 +227,37 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
             self.viewcoupon.isHidden = true
         }
         
+        if self.btnapplycouponcode.isUserInteractionEnabled == false
+        {
+            btnremovecouponcode.isHidden = false
+        }
+        else{
+            btnremovecouponcode.isHidden = true
+        }
+        
+        if txtrewardpoints.isUserInteractionEnabled == false
+        {
+            btnremoverewardpoints.isHidden = false
+        }
+        else
+        {
+            btnremoverewardpoints.isHidden = true
+        }
+        
         createmethodsview()
     }
     
     //MARK: - press back method
     @objc func pressBack()
     {
-        let refreshAlert = UIAlertController(title: "", message: "Do you want to cancel your payment process?", preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language344"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
             self.navigationController?.popViewController(animated: true)
         }))
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
@@ -191,18 +270,160 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
     }
     @IBAction func pressapplyrewardpoints(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let flt1  = (self.strloayltypointsavailable as NSString).floatValue
+        let flt2  = (self.txtrewardpoints.text! as NSString).floatValue
+        
         if self.txtrewardpoints.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your reward points to be spend", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language345"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else if flt2 > flt1
+        {
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language379"), preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else
         {
+            let a = Float(self.txtrewardpoints.text!)
+            let b = Float(10)
+            let c = Float(a! / b)
             
+            let numberString = String(c)
+            let numberComponent = numberString.components(separatedBy :".")
+            let integerNumber = Int(numberComponent [0])
+            let fractionalNumber = Int(numberComponent [1])
+            
+            if fractionalNumber! != 0
+            {
+                print("DISALLOW")
+                
+                let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language364"), preferredStyle: UIAlertController.Style.alert)
+                self.present(uiAlert, animated: true, completion: nil)
+                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                    print("Click of default button")
+                }))
+            }
+            else
+            {
+                print("ALLOW")
+                
+                if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
+                {
+                    let fltamount  = (self.strGRANDTOTAL as NSString).floatValue
+                    self.postApplyRewardPointsSubscriptionAPI(strorderamount: String(format: "%0.2f", fltamount))
+                }
+                else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
+                {
+                    let fltamount  = (self.strGRANDTOTAL as NSString).floatValue
+                    self.postApplyRewardPointsSubscriptionAPI(strorderamount: String(format: "%0.2f", fltamount))
+                }
+            }
         }
+    }
+    @IBAction func pressremoverewardpoints(_ sender: Any)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language354"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+            print("Handle Continue Logic here")
+            
+            if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
+            {
+                var fltupdated = 0.00
+                let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
+                let fltamount11  = (self.strAppliedRewardAmount as NSString).floatValue
+                
+                fltupdated = Double(fltamount1 + fltamount11)
+                print("fltupdated",fltupdated)
+                self.strGRANDTOTAL = String(format: "%0.2f",fltupdated)
+                
+                self.txtCardPaymentOrderAmount.text = String(format: "%@ %@",self.strcurrency,self.strGRANDTOTAL)
+
+            }
+            else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
+            {
+                var fltupdated = 0.00
+                let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
+                let fltamount11  = (self.strAppliedRewardAmount as NSString).floatValue
+                
+                fltupdated = Double(fltamount1 + fltamount11)
+                print("fltupdated",fltupdated)
+                self.strGRANDTOTAL = String(format: "%0.2f",fltupdated)
+                
+                let fltamount3  = (strwalletremainingbalance as NSString).doubleValue
+                print("fltamount3",fltamount3)
+                
+                let fltamount4  = (self.strGRANDTOTAL as NSString).doubleValue
+                print("fltamount4",fltamount4)
+                
+                if fltamount3 == 0.00
+                {
+                    //Wallet balance zero, Recharge Your Wallet First
+                    
+                    self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
+                    self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
+                    
+                    self.btnpaymentwallet.isUserInteractionEnabled = false
+                    self.btnpaymentwallet.setTitleColor(.black, for: .normal)
+                    self.btnpaymentwallet.backgroundColor = UIColor(named: "graybordercolor")!
+                }
+                else if fltamount3 < fltamount4
+                {
+                    //Wallet balance low from Grand total
+                    
+                    self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
+                    self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
+                    
+                    self.btnpaymentwallet.isUserInteractionEnabled = false
+                    self.btnpaymentwallet.setTitleColor(.black, for: .normal)
+                    self.btnpaymentwallet.backgroundColor = UIColor(named: "graybordercolor")!
+                }
+                else
+                {
+                    //Wallet Balance is sufficient to place order
+                    
+                    var fltremainingbalance = 0.00
+                    fltremainingbalance = Double(fltamount3) - fltamount4
+                    
+                    self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
+                    
+                    self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
+                    
+                    self.txtremainingbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltremainingbalance)
+                    
+                    self.btnpaymentwallet.isUserInteractionEnabled = true
+                    self.btnpaymentwallet.setTitleColor(.white, for: .normal)
+                    self.btnpaymentwallet.backgroundColor = UIColor(named: "greencolor")!
+                }
+                print("self.txtCardPaymentOrderAmount",self.txtpaymentamount.text!)
+                
+            }
+            
+            //RESET UI DESIGN COUPON VIEW
+            self.strAppliedRewardAmount = ""
+            self.strAppliedRewardAmountPoint = ""
+            
+            self.txtrewardpoints.backgroundColor = .white
+            self.txtrewardpoints.isUserInteractionEnabled = true
+            self.txtrewardpoints.text = ""
+            self.btnapplyrewardpoints.isUserInteractionEnabled = true
+            self.btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
+            self.btnremoverewardpoints.isHidden = true
+        }))
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
     }
     
     //MARK: - create methods box view method
@@ -265,21 +486,263 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         }
     }
     
-    //MARK: - press Apply coupon code
+    //MARK: - press View coupon code
+    @IBAction func pressViewcouponcode(_ sender: Any)
+    {
+        self.getallCoupons()
+    }
+    
+    
+    //MARK: - press Apply / Remove coupon code
     @IBAction func pressApplycouponcode(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if txtcouponcode.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter coupon voucher code", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language346"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
-        else{
-            self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: strsubtotalamount)
+        else
+        {
+            if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
+            {
+                let fltamount  = (self.strGRANDTOTAL as NSString).floatValue
+                self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: String(format: "%0.2f", fltamount))
+            }
+            else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
+            {
+                let fltamount  = (self.strGRANDTOTAL as NSString).floatValue
+                self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: String(format: "%0.2f", fltamount))
+            }
+            
         }
     }
+    @IBAction func pressRemovecouponcode(_ sender: Any)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        print("self.strsubtotalamount",self.strsubtotalamount)
+        print("self.strDiscountAmount",self.strDiscountAmount)
+        print("self.strshippingchargesamount",self.strshippingchargesamount)
+        print("self.strcurrency",self.strcurrency)
+        
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language347"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+            
+            print("Handle Continue Logic here")
+            
+            if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
+            {
+                var fltupdated = 0.00
+                let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
+                let fltamount11  = (self.strDiscountAmount as NSString).floatValue
+                
+                fltupdated = Double(fltamount1 + fltamount11)
+                print("fltupdated",fltupdated)
+                self.strGRANDTOTAL = String(format: "%0.2f",fltupdated)
+                
+                self.txtCardPaymentOrderAmount.text = String(format: "%@ %@",self.strcurrency,self.strGRANDTOTAL)
+
+            }
+            else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
+            {
+                var fltupdated = 0.00
+                let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
+                let fltamount11  = (self.strDiscountAmount as NSString).floatValue
+                
+                fltupdated = Double(fltamount1 + fltamount11)
+                print("fltupdated",fltupdated)
+                self.strGRANDTOTAL = String(format: "%0.2f",fltupdated)
+                
+                let fltamount3  = (strwalletremainingbalance as NSString).doubleValue
+                print("fltamount3",fltamount3)
+                
+                let fltamount4  = (self.strGRANDTOTAL as NSString).doubleValue
+                print("fltamount4",fltamount4)
+                
+                if fltamount3 == 0.00
+                {
+                    //Wallet balance zero, Recharge Your Wallet First
+                    
+                    self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
+                    self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
+                    
+                    self.btnpaymentwallet.isUserInteractionEnabled = false
+                    self.btnpaymentwallet.setTitleColor(.black, for: .normal)
+                    self.btnpaymentwallet.backgroundColor = UIColor(named: "graybordercolor")!
+                }
+                else if fltamount3 < fltamount4
+                {
+                    //Wallet balance low from Grand total
+                    
+                    self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
+                    self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
+                    
+                    self.btnpaymentwallet.isUserInteractionEnabled = false
+                    self.btnpaymentwallet.setTitleColor(.black, for: .normal)
+                    self.btnpaymentwallet.backgroundColor = UIColor(named: "graybordercolor")!
+                }
+                else
+                {
+                    //Wallet Balance is sufficient to place order
+                    
+                    var fltremainingbalance = 0.00
+                    fltremainingbalance = Double(fltamount3) - fltamount4
+                    
+                    self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
+                    
+                    self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
+                    
+                    self.txtremainingbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltremainingbalance)
+                    
+                    self.btnpaymentwallet.isUserInteractionEnabled = true
+                    self.btnpaymentwallet.setTitleColor(.white, for: .normal)
+                    self.btnpaymentwallet.backgroundColor = UIColor(named: "greencolor")!
+                }
+                print("self.txtCardPaymentOrderAmount",self.txtpaymentamount.text!)
+                
+            }
+            
+            //RESET UI DESIGN COUPON VIEW
+            self.strDiscountAmount = ""
+            self.strDiscountCouponCode = ""
+            self.txtcouponcode.isUserInteractionEnabled = true
+            self.txtcouponcode.text = ""
+            self.btnapplycouponcode.isUserInteractionEnabled = true
+            self.btnapplycouponcode.setTitle("Apply", for: .normal)
+            self.btnremovecouponcode.isHidden = true
+        }))
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
+    }
+    
+    //MARK: - create POPUP COUPON LIST method
+    func createCOUPONLIST()
+    {
+        let height1 = Float(UIApplication.shared.statusBarFrame.height) as Float
+        let height2 = Float((self.navigationController?.navigationBar.frame.size.height)!) as Float
+        let myFloat1 = height1 + height2
+        print(myFloat1)
+        
+        self.viewcouponlist.layer.cornerRadius = 6.0
+        self.viewcouponlist.layer.masksToBounds = true
+        
+        let appDel = UIApplication.shared.delegate as! AppDelegate
+        
+        self.lblcouponlistpopupheader.text = appDel.changeLanguage(key: "msg_language228")
+        
+        tabvcouponlistpopup.register(UINib(nibName: "cellcoupon", bundle: nil), forCellReuseIdentifier: reuseIdentifier2)
+        tabvcouponlistpopup.separatorStyle = .none
+        tabvcouponlistpopup.backgroundView=nil
+        tabvcouponlistpopup.tag = 1111
+        tabvcouponlistpopup.backgroundColor=UIColor.clear
+        tabvcouponlistpopup.separatorColor=UIColor.clear
+        tabvcouponlistpopup.showsVerticalScrollIndicator = false
+        
+        viewPopupAddNewExistingBG2 = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height))
+        viewPopupAddNewExistingBG2.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
+        let frameSize: CGPoint = CGPoint(x:viewPopupAddNewExistingBG2.bounds.size.width*0.5,y: (viewPopupAddNewExistingBG2.bounds.size.height*0.5) - 20)
+        viewPopupAddNewExistingBG2.addSubview(self.viewcouponlist)
+        self.viewcouponlist.center = frameSize
+        self.view.addSubview(viewPopupAddNewExistingBG2)
+        
+        self.tabvcouponlistpopup.reloadData()
+    }
+    @IBAction func presscrosscouponpopup(_ sender: Any)
+    {
+        viewPopupAddNewExistingBG2.removeFromSuperview()
+    }
+    
+    // MARK: - tableView delegate & datasource Method
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        if arrMCoupons.count == 0 {
+            self.tabvcouponlistpopup.setEmptyMessage(msg)
+        } else {
+            self.tabvcouponlistpopup.restore()
+        }
+        return arrMCoupons.count
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 70
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
+    {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        let headerView = UIView()
+        headerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
+    {
+        let footerView = UIView()
+        footerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+        footerView.backgroundColor = UIColor.clear
+        return footerView
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier2, for: indexPath) as! cellcoupon
+        
+        cell.selectionStyle=UITableViewCell.SelectionStyle.none
+        cell.accessoryType = UITableViewCell.AccessoryType.none
+        cell.backgroundColor = .clear
+        cell.clearsContextBeforeDrawing = true
+        cell.contentView.clearsContextBeforeDrawing = true
+        
+        let dic = self.arrMCoupons.object(at: indexPath.row)as! NSDictionary
+        
+        let strcouponcode = String(format: "%@", dic.value(forKey: "code")as? String ?? "")
+        let strexpdate = String(format: "%@", dic.value(forKey: "expiration_date")as? String ?? "DD/MM/YYYY")
+        
+        cell.lblselectcopy.layer.cornerRadius = 6.0
+        cell.lblselectcopy.layer.masksToBounds = true
+        
+        cell.lblcouponcode.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language230"),strcouponcode)
+        cell.lblexpdate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language231"),strexpdate)
+     
+        //cell.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+        cell.viewcell.backgroundColor = .white
+        
+        let lblSeparator = UILabel(frame: CGRect(x: 0, y: 69.5, width: tableView.frame.size.width, height: 0.5))
+        lblSeparator.backgroundColor = UIColor.lightGray
+        cell.contentView.addSubview(lblSeparator)
+        
+        return cell;
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        let dic = self.arrMCoupons.object(at: indexPath.row)as! NSDictionary
+        let strcouponcode = String(format: "%@", dic.value(forKey: "code")as? String ?? "")
+        //let strexpdate = String(format: "%@", dic.value(forKey: "expiration_date")as? String ?? "DD/MM/YYYY")
+        print("strcouponcode",strcouponcode)
+        
+        self.txtcouponcode.text = strcouponcode
+        
+        viewPopupAddNewExistingBG2.removeFromSuperview()
+    }
+    
     
     // MARK: - Textfield Delegate Method
     func textFieldDidBeginEditing(_ textField: UITextField)
@@ -369,33 +832,83 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        var strpreviouslyselectedcode = self.strselectedpaymentmethodID
+        
         let dictemp = arrMpaymentmethodlist.object(at: indexPath.row)as? NSDictionary
         let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
         let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
         
         self.strselectedpaymentmethodID = strcode
-        self.colpaymentmethods.reloadData()
         
-        if strcode.containsIgnoreCase("ngeniusonline")
+        print("strpreviouslyselectedcode",strpreviouslyselectedcode)
+        print("self.strselectedpaymentmethodID",self.strselectedpaymentmethodID)
+        
+        if strpreviouslyselectedcode.count > 0
         {
-            self.viewbottom.isHidden = false
-            self.viewbottom1.isHidden = true
+            //ALREADY PRE SELECTED PAYMENT METHOD
             
-            if self.strcurrency.count == 0{
-                self.strcurrency = "AED"
+            if strpreviouslyselectedcode != self.strselectedpaymentmethodID
+            {
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language363"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                    print("Handle Continue Logic here")
+                    
+                    self.colpaymentmethods.reloadData()
+                    strpreviouslyselectedcode = ""
+                    
+                    if strcode.containsIgnoreCase("ngeniusonline")
+                    {
+                        self.viewbottom.isHidden = false
+                        self.viewbottom1.isHidden = true
+                        
+                        if self.strcurrency.count == 0{
+                            self.strcurrency = "AED"
+                        }
+                        
+                        let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
+                        
+                        self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount1)
+                    }
+                    else if strcode.containsIgnoreCase("walletpayment") || strcode.containsIgnoreCase("walletsystem")
+                    {
+                        self.viewbottom.isHidden = true
+                        self.viewbottom1.isHidden = false
+                        
+                        self.getwalletremainingbalancelist()
+                    }
+                }))
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                      print("Handle Cancel Logic here")
+                }))
+                self.present(refreshAlert, animated: true, completion: nil)
             }
-            var fltTotal = 0.00
-            let fltamount1  = (strsubtotalamount as NSString).floatValue
-            let fltamount2  = (strshippingchargesamount as NSString).floatValue
-            fltTotal = Double(fltamount1 + fltamount2)
-            self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
         }
-        else if strcode.containsIgnoreCase("walletsystem") || strcode.containsIgnoreCase("walletpayment")
+        else
         {
-            self.viewbottom.isHidden = true
-            self.viewbottom1.isHidden = false
+            //ALREADY NO PRE SELECTED PAYMENT METHOD
             
-            self.getwalletremainingbalancelist()
+            if strcode.containsIgnoreCase("ngeniusonline")
+            {
+                self.viewbottom.isHidden = false
+                self.viewbottom1.isHidden = true
+                
+                if self.strcurrency.count == 0{
+                    self.strcurrency = "AED"
+                }
+                
+                let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
+                
+                self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount1)
+            }
+            else if strcode.containsIgnoreCase("walletsystem") || strcode.containsIgnoreCase("walletpayment")
+            {
+                self.viewbottom.isHidden = true
+                self.viewbottom1.isHidden = false
+                
+                self.getwalletremainingbalancelist()
+            }
         }
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
@@ -410,14 +923,8 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
     //MARK: - populate wallet view calculation
     func populatewalletviewcalculation()
     {
-        print(strsubtotalamount)
-        print(strshippingchargesamount)
-        
-        var fltTotal = 0.00
-        let fltamount1  = (strsubtotalamount as NSString).floatValue
-        let fltamount2  = (strshippingchargesamount as NSString).floatValue
-        fltTotal = Double(Float(fltamount1 + fltamount2))
-        print("fltTotal",fltTotal)
+        print("self.strGRANDTOTAL",self.strGRANDTOTAL)
+        let fltamount4  = (self.strGRANDTOTAL as NSString).doubleValue
         
         let fltamount3  = (strwalletremainingbalance as NSString).doubleValue
         print("fltamount3",fltamount3)
@@ -427,18 +934,20 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
             //Wallet balance zero, Recharge Your Wallet First
             
             self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
-            self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+            
+            self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
             
             self.btnpaymentwallet.isUserInteractionEnabled = false
             self.btnpaymentwallet.setTitleColor(.black, for: .normal)
             self.btnpaymentwallet.backgroundColor = UIColor(named: "graybordercolor")!
         }
-        else if fltamount3 < fltTotal
+        else if fltamount3 < fltamount4
         {
             //Wallet balance low from Grand total
             
             self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
-            self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+            
+            self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
             
             self.btnpaymentwallet.isUserInteractionEnabled = false
             self.btnpaymentwallet.setTitleColor(.black, for: .normal)
@@ -449,10 +958,12 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
             //Wallet Balance is sufficient to place order
             
             var fltremainingbalance = 0.00
-            fltremainingbalance = Double(fltamount3) - fltTotal
+            fltremainingbalance = Double(fltamount3) - fltamount4
             
             self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
-            self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+            
+            self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
+            
             self.txtremainingbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltremainingbalance)
             
             self.btnpaymentwallet.isUserInteractionEnabled = true
@@ -493,6 +1004,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
             {
                 //check for fundamental networking error
                 DispatchQueue.main.async {
+                    self.getLoyaltyPointAPIMethod()
                     self.view.activityStopAnimating()
                 }
                 print("Error=\(String(describing: error))")
@@ -561,12 +1073,24 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                                 let fltamount1  = (self.strsubtotalamount as NSString).floatValue
                                 let fltamount2  = (self.strshippingchargesamount as NSString).floatValue
                                 fltTotal = Double(fltamount1 + fltamount2)
-                                self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                                
+                                self.strGRANDTOTAL = String(format: "%0.2f",fltTotal)
+                                self.txtCardPaymentOrderAmount.text = String(format: "%@ %@",self.strcurrency,self.strGRANDTOTAL)
                             }
                             else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
                             {
                                 self.viewbottom.isHidden = true
                                 self.viewbottom1.isHidden = false
+                                
+                                if self.strcurrency.count == 0{
+                                    self.strcurrency = "AED"
+                                }
+                                var fltTotal = 0.00
+                                let fltamount1  = (self.strsubtotalamount as NSString).floatValue
+                                let fltamount2  = (self.strshippingchargesamount as NSString).floatValue
+                                fltTotal = Double(fltamount1 + fltamount2)
+                                
+                                self.strGRANDTOTAL = String(format: "%0.2f",fltTotal)
                                 
                                 self.getwalletremainingbalancelist()
                             }
@@ -577,16 +1101,18 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
+                        self.getLoyaltyPointAPIMethod()
                     }
                 }
             }
             catch {
                 //check for internal server data error
                 DispatchQueue.main.async {
+                    self.getLoyaltyPointAPIMethod()
                     self.view.activityStopAnimating()
                 }
                 print("Error -> \(error)")
@@ -658,7 +1184,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -676,7 +1202,497 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         task.resume()
     }
     
-    //MARK: - create DAILY Subscription Create Order Data
+    
+    
+    //MARK: - get All Coupons API method
+    func getallCoupons()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        var strconnurl = String()
+        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod22)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                    
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    print("json --->",json)
+                    
+                    let dictemp = json as NSDictionary
+                    
+                   
+                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            if self.arrMCoupons.count > 0{
+                                self.arrMCoupons.removeAllObjects()
+                            }
+                            
+                            let arrmcoupon = json.value(forKey: "list") as? NSArray ?? []
+                            self.arrMCoupons = NSMutableArray(array: arrmcoupon)
+                            print("arrMCoupons --->",self.arrMCoupons)
+                            
+                            if self.arrMCoupons.count == 0{
+                                self.msg = "No orders found!"
+                            }
+                            
+                            self.createCOUPONLIST()
+                        }
+                        else
+                        {
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - post Apply Coupon code Method
+    func postApplyCouponMethod(strcode:String,strsubtotal:String)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strcustomerid = UserDefaults.standard.value(forKey: "customerid")as? String ?? ""
+        print("strcustomerid",strcustomerid)
+        
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        let parameters = ["couponCode": strcode,"subTotal":strsubtotal] as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod51)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    //print("strstatus",strstatus)
+                    //print("strsuccess",strsuccess)
+                    //print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async { [self] in
+                        
+                        if strsuccess == true
+                        {
+                            //let strsubtotal = String(format: "%@", dictemp.value(forKey: "subtotal")as? String ?? "")
+                            let strdiscount_amount = String(format: "%@", dictemp.value(forKey: "discount_amount")as! CVarArg)
+                            let strcoupon_code = String(format: "%@", dictemp.value(forKey: "coupon_code")as? String ?? "")
+                            
+                            self.strDiscountAmount = strdiscount_amount
+                            self.strDiscountCouponCode = strcoupon_code
+                            
+                            self.txtcouponcode.isUserInteractionEnabled = false
+                            self.btnapplycouponcode.isUserInteractionEnabled = false
+                            self.btnapplycouponcode.setTitle("Applied", for: .normal)
+                            
+                            self.btnremovecouponcode.isHidden = false
+
+                            if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
+                            {
+                                var fltupdated = 0.00
+                                
+                                print("self.strGRANDTOTAL",self.strGRANDTOTAL)
+                                let fltgrand  = (self.strGRANDTOTAL as NSString).floatValue
+                                
+                                print("self.strDiscountAmount",self.strDiscountAmount)
+                                let fltdiscountamount  = (self.strDiscountAmount as NSString).floatValue
+                                fltupdated = Double(fltgrand - fltdiscountamount)
+                                
+                                self.strGRANDTOTAL = String(format: "%0.2f", fltupdated)
+                                
+                                self.txtCardPaymentOrderAmount.text = String(format: "%@ %@",self.strcurrency,self.strGRANDTOTAL)
+                            }
+                            else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
+                            {
+                                var fltupdated = 0.00
+                                
+                                print("self.strGRANDTOTAL",self.strGRANDTOTAL)
+                                let fltgrand  = (self.strGRANDTOTAL as NSString).floatValue
+                                
+                                print("self.strDiscountAmount",self.strDiscountAmount)
+                                let fltdiscountamount  = (self.strDiscountAmount as NSString).floatValue
+                                fltupdated = Double(fltgrand - fltdiscountamount)
+                                
+                                self.strGRANDTOTAL = String(format: "%0.2f", fltupdated)
+                                
+                                self.getwalletremainingbalancelist()
+                            }
+                            
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language232"), preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                        else{
+                            
+                            self.btnremovecouponcode.isHidden = true
+                            
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - get Loyalty Point API method
+    func getLoyaltyPointAPIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        var strconnurl = String()
+        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod90)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                    
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                   
+                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            let strpoints = dictemp.value(forKey: "points")as? String ?? ""
+                    
+                            self.strloayltypointsavailable =  strpoints
+                            print("self.strloayltypointsavailable",self.strloayltypointsavailable)
+                            
+                            self.lblrewardpoints.text = String(format: "%@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language359"),self.strloayltypointsavailable,myAppDelegate.changeLanguage(key: "msg_language360"))
+                            
+                            if strpoints == "0" || strpoints == "0.0"
+                            {
+                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkmostredcolor")!
+                                self.lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language355")
+                                self.btnapplyrewardpoints.isUserInteractionEnabled = false
+                            }
+                            
+                            /*if strpoints == "0" || strpoints == "0.0"
+                            {
+                                //YOU CANT APPLY REWARD POINT
+                                self.txtrewardpoints.isUserInteractionEnabled = false
+                                self.btnapplyrewardpoints.isUserInteractionEnabled = false
+                                self.btnremoverewardpoints.isHidden = true
+                                
+                            }
+                            else
+                            {
+                                //YOU CAN APPLY
+                                self.txtrewardpoints.isUserInteractionEnabled = true
+                                self.btnapplyrewardpoints.isUserInteractionEnabled = true
+                                self.btnremoverewardpoints.isHidden = true
+                            }*/
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    
+    //MARK: - Apply Reward point for Subscription Payment API method
+    func postApplyRewardPointsSubscriptionAPI(strorderamount:String)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        let parameters = ["grandTotal":strorderamount,"appliedRewardPoint": self.txtrewardpoints.text!] as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod107)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    self.txtrewardpoints.isUserInteractionEnabled = true
+                    self.btnapplyrewardpoints.isUserInteractionEnabled = true
+                    self.view.activityStopAnimating()
+                    
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                   
+                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    
+                    //let str_availableRewardPoint = dictemp.value(forKey: "availableRewardPoint")as! CVarArg
+                    let str_appliedRewardPoint = dictemp.value(forKey: "appliedRewardPoint")as! CVarArg
+                    //let str_remainingRewardPoint = dictemp.value(forKey: "remainingRewardPoint")as! CVarArg
+                    let str_amountDeducted = dictemp.value(forKey: "amountDeducted")as! CVarArg
+
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
+                    
+                    self.strAppliedRewardAmountPoint = String(format: "%@", str_appliedRewardPoint)
+                    self.strAppliedRewardAmount = String(format: "%@", str_amountDeducted)
+
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            let uiAlert = UIAlertController(title: "", message: String(format: "%@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language365"),self.txtrewardpoints.text!,myAppDelegate.changeLanguage(key: "msg_language366")), preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                            
+                            self.txtrewardpoints.backgroundColor = UIColor(named: "greenlighter")!
+                            self.txtrewardpoints.isUserInteractionEnabled = false
+                            
+                            self.btnapplyrewardpoints.isUserInteractionEnabled = false
+                            self.btnapplyrewardpoints.setTitle(myAppDelegate.changeLanguage(key: "msg_language361"), for: .normal)
+                            
+                            self.btnremoverewardpoints.isHidden = false
+                            
+                            //REFRESH
+                            
+                            if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
+                            {
+                                var fltupdated = 0.00
+                                
+                                print("self.strGRANDTOTAL",self.strGRANDTOTAL)
+                                let fltgrand  = (self.strGRANDTOTAL as NSString).floatValue
+                                
+                                print("self.strAppliedRewardAmount",self.strAppliedRewardAmount)
+                                let fltdeductedrewardamount  = (self.strAppliedRewardAmount as NSString).floatValue
+                                fltupdated = Double(fltgrand - fltdeductedrewardamount)
+                                
+                                self.strGRANDTOTAL = String(format: "%0.2f", fltupdated)
+                                
+                                self.txtCardPaymentOrderAmount.text = String(format: "%@ %@",self.strcurrency,self.strGRANDTOTAL)
+                            }
+                            else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
+                            {
+                                var fltupdated = 0.00
+                                
+                                print("self.strGRANDTOTAL",self.strGRANDTOTAL)
+                                let fltgrand  = (self.strGRANDTOTAL as NSString).floatValue
+                                
+                                print("self.strDiscountAmount",self.strDiscountAmount)
+                                let fltdeductedrewardamount  = (self.strAppliedRewardAmount as NSString).floatValue
+                                fltupdated = Double(fltgrand - fltdeductedrewardamount)
+                                
+                                self.strGRANDTOTAL = String(format: "%0.2f", fltupdated)
+                                
+                                self.getwalletremainingbalancelist()
+                            }
+                        }
+                        else
+                        {
+                            self.txtrewardpoints.backgroundColor = .white
+                            
+                            self.txtrewardpoints.isUserInteractionEnabled = true
+                            self.btnapplyrewardpoints.isUserInteractionEnabled = true
+                            
+                            self.btnremoverewardpoints.isHidden = true
+                            
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    self.txtrewardpoints.isUserInteractionEnabled = true
+                    self.btnapplyrewardpoints.isUserInteractionEnabled = true
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
+    //MARK: - create DAILY / WEEKLY / MONTHLY Subscription Create Order Data
     @objc func createorderDataDAILYSubscription()
     {
         
@@ -813,14 +1829,15 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         dicCREATEORDER.setValue(self.strDiscountAmount, forKey: "discountAmount")
         dicCREATEORDER.setValue(self.strDiscountCouponCode, forKey: "couponCode")
         dicCREATEORDER.setValue(strshippingchargesamount, forKey: "shippingAmount")
+        
+        dicCREATEORDER.setValue(self.strAppliedRewardAmount, forKey: "appliedRewardAmount")
+        dicCREATEORDER.setValue(self.strAppliedRewardAmountPoint, forKey: "appliedRewardPoint")
 
         print("dicCREATEORDER ----->",dicCREATEORDER)
         
         //CALL API
         self.postSusbscriptionCreateOrder()
     }
-    
-    //MARK: - create WEEKLY Subscription Create Order Data
     @objc func createorderDataWEEKLYSubscription()
     {
         print("arrmShippingchargeslist1",self.arrmShippingchargeslist1)
@@ -956,13 +1973,14 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         dicCREATEORDER.setValue(self.strDiscountCouponCode, forKey: "couponCode")
         dicCREATEORDER.setValue(strshippingchargesamount, forKey: "shippingAmount")
         
+        dicCREATEORDER.setValue(self.strAppliedRewardAmount, forKey: "appliedRewardAmount")
+        dicCREATEORDER.setValue(self.strAppliedRewardAmountPoint, forKey: "appliedRewardPoint")
+        
         print("dicCREATEORDER ----->",dicCREATEORDER)
         
         //CALL API
         self.postSusbscriptionCreateOrder()
     }
-    
-    //MARK: - create MONTHLY Subscription Create Order Data
     @objc func createorderDataMONTHLYSubscription()
     {
         print("arrmShippingchargeslist1",self.arrmShippingchargeslist1)
@@ -1098,6 +2116,9 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         dicCREATEORDER.setValue(self.strDiscountCouponCode, forKey: "couponCode")
         dicCREATEORDER.setValue(strshippingchargesamount, forKey: "shippingAmount")
         
+        dicCREATEORDER.setValue(self.strAppliedRewardAmount, forKey: "appliedRewardAmount")
+        dicCREATEORDER.setValue(self.strAppliedRewardAmountPoint, forKey: "appliedRewardPoint")
+        
         print("dicCREATEORDER ----->",dicCREATEORDER)
         
         //CALL API
@@ -1193,7 +2214,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1255,7 +2276,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1268,7 +2289,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()
@@ -1279,143 +2300,6 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         task.resume()
     }
     
-    
-    //MARK: - post Apply Coupon code Method
-    func postApplyCouponMethod(strcode:String,strsubtotal:String)
-    {
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        DispatchQueue.main.async {
-            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
-        }
-        
-        let strcustomerid = UserDefaults.standard.value(forKey: "customerid")as? String ?? ""
-        print("strcustomerid",strcustomerid)
-        
-        
-        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
-        print("strbearertoken",strbearertoken)
-        
-        let parameters = ["couponCode": strcode,"subTotal":strsubtotal] as [String : Any]
-        
-        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod51)
-        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
-        request.httpMethod = "POST"
-        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
-        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
-        print("json string = \(jsonString)")
-        request.httpBody = jsonData as Data
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
-            guard error == nil && data != nil else
-            {
-                //check for fundamental networking error
-                DispatchQueue.main.async {
-                    
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
-                    self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                        print("Click of default button")
-                    }))
-                    
-                    self.view.activityStopAnimating()
-                }
-                print("Error=\(String(describing: error))")
-                return
-            }
-            do{
-                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
-                {
-                    DispatchQueue.main.async {
-                        self.view.activityStopAnimating()
-                    }
-                
-                    let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
-                    
-                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    //print("strstatus",strstatus)
-                    //print("strsuccess",strsuccess)
-                    //print("strmessage",strmessage)
-                    
-                    DispatchQueue.main.async { [self] in
-                        
-                        if strsuccess == true
-                        {
-                            let strsubtotal = String(format: "%@", dictemp.value(forKey: "subtotal")as? String ?? "")
-                            let strdiscount_amount = String(format: "%@", dictemp.value(forKey: "discount_amount")as! CVarArg)
-                            let strcoupon_code = String(format: "%@", dictemp.value(forKey: "coupon_code")as? String ?? "")
-                            
-                            self.strDiscountAmount = strdiscount_amount
-                            self.strDiscountCouponCode = strcoupon_code
-                            
-                            self.txtcouponcode.isUserInteractionEnabled = false
-                            self.btnapplycouponcode.isUserInteractionEnabled = false
-                            self.btnapplycouponcode.setTitle("Applied", for: .normal)
-
-                            if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
-                            {
-                                
-                                var fltTotal11 = 0.00
-                                let fltamount1  = (strsubtotal as NSString).floatValue
-                                let fltamount11  = (strdiscount_amount as NSString).floatValue
-                                fltTotal11 = Double(fltamount1 - fltamount11)
-                                
-                                self.strsubtotalamount = String(format: "%0.2f", fltTotal11)
-                                
-                                var fltTotal = 0.00
-                                let fltamount2  = (self.strshippingchargesamount as NSString).doubleValue
-                                fltTotal = Double(fltTotal11 + fltamount2)
-                                self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
-                            }
-                            else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
-                            {
-                                var fltTotal11 = 0.00
-                                let fltamount1  = (strsubtotal as NSString).floatValue
-                                let fltamount11  = (strdiscount_amount as NSString).floatValue
-                                fltTotal11 = Double(fltamount1 - fltamount11)
-                                
-                                self.strsubtotalamount = String(format: "%0.2f", fltTotal11)
-                                
-                                self.getwalletremainingbalancelist()
-                            }
-                            
-                            let uiAlert = UIAlertController(title: "", message: "You have successfully applied coupon code.", preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                                print("Click of default button")
-                            }))
-                        }
-                        else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                                print("Click of default button")
-                            }))
-                        }
-                    }
-                }
-            }
-            catch {
-                //check for internal server data error
-                DispatchQueue.main.async {
-                    
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
-                    self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                        print("Click of default button")
-                    }))
-                    self.view.activityStopAnimating()
-                }
-                print("Error -> \(error)")
-            }
-        }
-        task.resume()
-    }
     
     //MARK: - post Place Order API -- WALLET -- method
     func postPlaceOrder(strpaymentmethodcode:String)
@@ -1501,7 +2385,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1600,7 +2484,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1618,7 +2502,6 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         task.resume()
     }
     
-    
     //MARK: - NI SDK DELEGATE METHOD
     func paymentDidCompleteWithAuthCode(with status: PaymentStatus, authCode:String)
     {
@@ -1630,6 +2513,8 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         
         print("status",status)
         self.view.backgroundColor = .white
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         if(status == .PaymentSuccess)
         {
@@ -1657,17 +2542,17 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         }
         else if(status == .PaymentFailed)
         {
-            let uiAlert = UIAlertController(title: "", message: "Payment failed" , preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language348") , preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 self.navigationController?.popToRootViewController(animated: true)
             }))
         }
         else if(status == .PaymentCancelled)
         {
-            let uiAlert = UIAlertController(title: "", message: "Payment cancelled" , preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language349") , preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 self.navigationController?.popToRootViewController(animated: true)
             }))
         }

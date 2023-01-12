@@ -23,7 +23,7 @@
 "msg_language14" = "please enter 10 digit valid mobile number";
 "msg_language15" = "Register";
 "msg_language16" = "Quickly create account";
-"msg_language17" = "Verify Now";
+"msg_language17" = "Verify";
 "msg_language18" = "Verified";
 "msg_language19" = "OR";
 "msg_language20" = "Login";
@@ -90,10 +90,10 @@
 "msg_language81" = "Review Your Order";
 "msg_language82" = "Do you want to clear your selected subscription items?";
 "msg_language83" = "Choose Your Preferred Delivery Slots Date & Time";
-"msg_language84" = "Cart Subtotal";
+"msg_language84" = "Cart Subtotal + Tax";
 "msg_language85" = "Shipping Charges";
 "msg_language86" = "Grand Total";
-"msg_language87" = "Total Product Items :";
+"msg_language87" = "Total Product Items:";
 "msg_language88" = "Sub Total:";
 "msg_language89" = "Delivery on";
 "msg_language90" = "Shop AED 15 or more, for FREE delivery";
@@ -104,7 +104,7 @@
 "msg_language95" = "Shipping Process";
 "msg_language96" = "Choose Your Expected Delivery Date";
 "msg_language97" = "Current Location";
-"msg_language98" = "PROCEED ANYWAY";
+"msg_language98" = "PROCEED";
 "msg_language99" = "Morning";
 "msg_language100" = "Afternoon";
 "msg_language101" = "Evening";
@@ -119,7 +119,7 @@
 "msg_language110" = "Discount:";
 "msg_language111" = "Tax:";
 "msg_language112" = "Order Total:";
-"msg_language113" = "View  Coupons";
+"msg_language113" = "View Coupons";
 "msg_language114" = "Cart";
 "msg_language115" = "Do you want to remove this item from your cart?";
 "msg_language116" = "Code -";
@@ -235,7 +235,7 @@
 "msg_language226" = "Out for Delivery";
 "msg_language227" = "Order Delivered";
 "msg_language228" = "Available Coupons Offered";
-"msg_language229" = "Please enter coupon code";
+"msg_language229" = "Enter coupon code";
 "msg_language230" = "Coupon Code:";
 "msg_language231" = "Expiration Date:";
 "msg_language232" = "You have applied coupon code succesfully.";
@@ -294,4 +294,146 @@
 "msg_language285" = "Disclaimer";
 "msg_language286" = "Please check your SMS app for OTP";
 "msg_language287" = "Please enter allowable location";
+"msg_language288" = "Maid Login";
+"msg_language289" = "Sign in to your account.";
+"msg_language290" = "Do you want to resend OTP to your mobile number?";
+"msg_language291" = "Please update with your new password";
+"msg_language292" = "Reset Password";
+"msg_language293" = "Maid Home";
+"msg_language294" = "View Subscriptions";
+"msg_language295" = "Paused Subscriptions";
+"msg_language296" = "Wallet Balance";
+"msg_language297" = "My Profile";
+"msg_language298" = "Shipping Addresses";
+"msg_language299" = "End Date";
+"msg_language300" = "Renew Policy";
+"msg_language301" = "Subscription Details";
+"msg_language302" = "Do you want to Pause this subscription?";
+"msg_language303" = "Do you want to Resume this subscription?";
+
+"msg_language304" = "SubTotal";
+"msg_language305" = "Shipping Amount";
+"msg_language306" = "Discount Amount";
+"msg_language307" = "Grnad Total";
+
+"msg_language308" = "Order";
+"msg_language309" = "Place on";
+
+"msg_language310" = "Profile Details";
+"msg_language311" = "Sub Total + Tax:";
+
+"msg_language312" = "Ordered Amount";
+"msg_language313" = "Payment To Be Made";
+
+"msg_language314" = "Wallet Balance Amount";
+"msg_language315" = "Wallet Remaining Balance Amount";
+
+"msg_language316" = "Please select delivery expected date";
+"msg_language317" = "Please select delivery preferred time slot.";
+
+"msg_language318" = "Earn";
+"msg_language319" = "for this order";
+
+"msg_language320" = "No payment methods found!";
+
+"msg_language321" = "Please enter your username";
+"msg_language322" = "Please enter your passsword";
+
+"msg_language323" = "We do not deliver to this area! please choose alternate location.";
+
+"msg_language324" = "Please choose alternate location to continue";
+
+"msg_language325" = "Your existing Daily subscription will be deleted & new subscription created.";
+"msg_language326" = "Your existing Weekly subscription will be deleted & new subscription created.";
+"msg_language327" = "Your existing Monthly subscription will be deleted & new subscription created.";
+
+"msg_language328" = "Remove Coupon";
+"msg_language329" = "out of";
+
+"msg_language330" = "Warning!";
+"msg_language331" = "Please add products of your choosen dates";
+
+"msg_language332" = "Do you want to proceed with full payment?";
+"msg_language333" = "Do you want to proceed with first 3 days payment?";
+
+"msg_language334" = "CLEAR ALL";
+
+"msg_language335" = "Shop AED 15.00 or more for FREE delivery";
+
+"msg_language336" = "Pay Full Amount";
+"msg_language337" = "Pay Amount For First 3 Days";
+
+"msg_language338" = "Delivery date & slots";
+"msg_language339" = "Subscription plan";
+"msg_language340" = "Subscription Start Date";
+"msg_language341" = "Subscription End Date";
+"msg_language342" = "Choose delivery time slots";
+
+"msg_language343" = "Shop AED 15 or more, for FREE delivery";
+
+"msg_language344" = "Do you want to cancel your payment process?";
+
+"msg_language345" = "Please enter your reward points to be spend";
+
+"msg_language346" = "Please enter coupon voucher code";
+
+"msg_language347" = "Do you want to remove this coupon discount from your cart?";
+
+"msg_language348" = "Payment failed";
+"msg_language349" = "Payment cancelled";
+
+"msg_language350" = "Shipping Rate";
+
+"msg_language351" = "Please create an shipping address for delivery.";
+"msg_language352" = "Please select an shipping method for delivery.";
+
+"msg_language353" = "Enter reward point";
+
+"msg_language354" = "Do you want to remove this applied reward point?";
+
+"msg_language355" = "You can not use reward points now.";
+"msg_language356" = "You can use minimum";
+"msg_language357" = "& maximum";
+"msg_language358" = "points";
+
+"msg_language359" = "You have";
+"msg_language360" = "reward points available.";
+
+"msg_language361" = "Applied";
+
+"msg_language362" = "Please eneter your search keyword";
+
+"msg_language363" = "Are You Sure You Want To Change Payment Method";
+
+"msg_language364" = "Please Insert Numbers That Are Multiple Of 10";
+
+"msg_language365" = "You have applied";
+"msg_language366" = "reward points successfully.";
+
+
+"msg_language367" = "Keep Shopping For More";
+
+"msg_language368" = "Please verify your mobile number";
+
+"msg_language369" = "Your profile has been updated successfully";
+
+"msg_language370" = "Please enter recharge amount";
+"msg_language371" = "Make Payment";
+
+"msg_language372" = "Please enter your recharge amount";
+"msg_language373" = "Please amount should be greater than zero";
+
+"msg_language374" = "Your wallet has been recharged successfully";
+
+"msg_language375" = "Update Password";
+"msg_language376" = "Change Language:";
+
+"msg_language377" = "You can only apply maximum avaialable reward points";
+
+"msg_language378" = "Your mobile no already verified, kindly update with new mobile number.";
+
+"msg_language379" = "You have insufficient reward points available.";
+
+
+
 
