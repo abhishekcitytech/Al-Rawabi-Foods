@@ -43,6 +43,9 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
     
     var weeklydatecounter = 0
     
+    @IBOutlet weak var lblSelectedCounter: UILabel!
+    var inSelectedDateCounter = 0
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -55,10 +58,19 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
     {
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = false
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
+        
+        if inSelectedDateCounter > 0{
+            self.lblSelectedCounter.isHidden = false
+            self.lblSelectedCounter.text = String(format: "%d %@ %@", inSelectedDateCounter,myAppDelegate.changeLanguage(key: "msg_language380"),myAppDelegate.changeLanguage(key: "msg_language57"))
+        }
+        else{
+            self.lblSelectedCounter.isHidden = true
+        }
         
         self.fetchDataWEEKLYSubscriptionmodelTableAUTORENEW()
         
@@ -75,6 +87,8 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         self.title = myAppDelegate.changeLanguage(key: "msg_language74")
+        
+        self.lblSelectedCounter.isHidden = true
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -106,7 +120,8 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
         btnReviewPlaceOrder.layer.cornerRadius = 22.0
         btnReviewPlaceOrder.layer.masksToBounds = true
         
-        
+        self.lblSelectedCounter.layer.cornerRadius = 14.0
+        self.lblSelectedCounter.layer.masksToBounds = true
     }
     
     //MARK: - press Back method
@@ -475,6 +490,8 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let dict = self.arrMDateBlock.object(at: indexPath.row)as? NSMutableDictionary
         let strdate = String(format: "%@", dict?.value(forKey: "date")as? String ?? "")
         let strday = String(format: "%@", dict?.value(forKey: "day")as? String ?? "")
@@ -516,6 +533,7 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
                 print("err")
             }
             
+            inSelectedDateCounter = inSelectedDateCounter + 1
             //fetch refreshed date list
             self.fetchDataWeeklymodelTableREFRESH()
         }
@@ -568,8 +586,19 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
                 // Do something... fatalerror
             }
             
+            inSelectedDateCounter = inSelectedDateCounter - 1
             //fetch refreshed date list
             self.fetchDataWeeklymodelTableREFRESH()
+        }
+        
+        //CHECKING NO OF DAYS SELECTED COUNTER
+        print("inSelectedDateCounter",inSelectedDateCounter)
+        if inSelectedDateCounter > 0{
+            self.lblSelectedCounter.isHidden = false
+            self.lblSelectedCounter.text = String(format: "%d %@ %@", inSelectedDateCounter,myAppDelegate.changeLanguage(key: "msg_language380"),myAppDelegate.changeLanguage(key: "msg_language57"))
+        }
+        else{
+            self.lblSelectedCounter.isHidden = true
         }
         
         self.colweeklycalendar.reloadData()

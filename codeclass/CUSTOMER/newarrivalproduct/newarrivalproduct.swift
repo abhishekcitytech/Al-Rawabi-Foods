@@ -15,6 +15,12 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
     var reuseIdentifier1 = "colcelltopdeals"
     var msg = ""
     var arrMNewArrivals = NSMutableArray()
+    
+    
+    @IBOutlet weak var viewfloatcart: UIView!
+    @IBOutlet weak var imgvfloatcart: UIImageView!
+    @IBOutlet weak var lblfloatcartcount: UILabel!
+    @IBOutlet weak var btnfloatcart: UIButton!
 
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -55,6 +61,11 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
          self.navigationItem.rightBarButtonItem = search*/
         
         
+        self.viewfloatcart.backgroundColor = .clear
+        self.lblfloatcartcount.layer.cornerRadius = self.lblfloatcartcount.frame.self.width / 2.0
+        self.lblfloatcartcount.layer.masksToBounds = true
+        
+        
         colproductlist.backgroundColor = .clear
         let layout = colproductlist.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/2.0 - 15, height: 275)
@@ -70,6 +81,13 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
     @objc func pressBack()
     {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - press FLOAT CART METHOD
+    @IBAction func pressFloatCart(_ sender: Any)
+    {
+        let ctrl = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
+        self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
     // MARK: - UICollectionView Delegate & DataSource Method

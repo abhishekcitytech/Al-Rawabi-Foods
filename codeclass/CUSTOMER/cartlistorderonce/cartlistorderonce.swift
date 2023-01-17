@@ -67,7 +67,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(true)
-        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: - viewWillAppear Method
@@ -82,6 +82,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     {
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -94,6 +95,9 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        
+        
         // Do any additional setup after loading the view.
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
@@ -118,7 +122,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
         back.tintColor = UIColor.black
-        self.navigationItem.leftBarButtonItem = back
+        //self.navigationItem.leftBarButtonItem = back
 
         txtchoosedeliverydate.layer.borderWidth = 1.0
         txtchoosedeliverydate.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
@@ -161,7 +165,15 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     //MARK: - press KeepShopping method
     @IBAction func pressKeepShopping(_ sender: Any)
     {
-        self.navigationController?.popViewController(animated: true)
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.tabBarController?.selectedIndex = 2
+        }
+        else
+        {
+            self.tabBarController?.selectedIndex = 2
+        }
     }
     
     //MARK: - press Pay&Checkout method
@@ -675,6 +687,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                             }
                             else
                             {
+                                self.viewtop.isHidden = false
                                 self.viewbottom.isHidden = false
                                 self.btnpaycheckout.isHidden = false
                                 self.btnkeepshopping.isHidden = false

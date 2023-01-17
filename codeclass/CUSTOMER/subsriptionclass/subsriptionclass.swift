@@ -136,7 +136,8 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         
-        setupNavLogo()
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language74")
         
         //let searchicon = UIImage(named: "search")
         //let search = UIBarButtonItem(image: searchicon, style: .plain, target: self, action: #selector(pressSearch))
@@ -170,9 +171,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         tabvplan.backgroundColor=UIColor.clear
         tabvplan.separatorColor=UIColor.clear
         tabvplan.showsVerticalScrollIndicator = false
-        
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        
+         
         lblhowto.text = String(format: "%@\n%@", myAppDelegate.changeLanguage(key: "msg_language54"),myAppDelegate.changeLanguage(key: "msg_language55"))
         lblor.text = myAppDelegate.changeLanguage(key: "msg_language19")
         btnbuynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language44")), for: .normal)
@@ -592,7 +591,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
 
     //MARK: - press Buy Once Method
     @IBAction func pressbuynow(_ sender: Any) {
-        self.tabBarController?.selectedIndex = 2
+        
     }
     
     
@@ -617,66 +616,13 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 self.tabvplan.reloadData()
                 
                 let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language325"), preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                refreshAlert.addAction(UIAlertAction(title: String(format: "%@ & %@", myAppDelegate.changeLanguage(key: "msg_language50"),myAppDelegate.changeLanguage(key: "msg_language49")), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "1"
                     let ctrl = subscriptionmodel(nibName: "subscriptionmodel", bundle: nil)
                     ctrl.strplanname = "Daily"
                     self.navigationController?.pushViewController(ctrl, animated: true)*/
-                    
-                    //Remove Subscriptionmodel table data
-                    let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
-                    guard let appDelegate1 = UIApplication.shared.delegate as? AppDelegate else {return}
-                    let manageContent1 = appDelegate1.persistentContainer.viewContext
-                    let fetchData1 = NSFetchRequest<NSFetchRequestResult>(entityName: "Subscriptionmodel")
-                    fetchData1.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"1")
-                    let objects1 = try! manageContent1.fetch(fetchData1)
-                    for obj in objects1 {
-                        manageContent1.delete(obj as! NSManagedObject)
-                    }
-                    do {
-                        try manageContent1.save() // <- remember to put this :)
-                    } catch {
-                        // Do something... fatalerror
-                    }
-                    
-                    //Remove Dailymodel table data
-                    guard let appDelegate2 = UIApplication.shared.delegate as? AppDelegate else {return}
-                    let manageContent2 = appDelegate2.persistentContainer.viewContext
-                    let fetchData2 = NSFetchRequest<NSFetchRequestResult>(entityName: "Dailymodel")
-                    fetchData2.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"1")
-                    let objects2 = try! manageContent2.fetch(fetchData2)
-                    for obj in objects2 {
-                        manageContent2.delete(obj as! NSManagedObject)
-                    }
-                    do {
-                        try manageContent2.save() // <- remember to put this :)
-                    } catch {
-                        // Do something... fatalerror
-                    }
-                    
-                    //Remove Dailyproduct table data
-                    guard let appDelegate3 = UIApplication.shared.delegate as? AppDelegate else {return}
-                    let manageContent3 = appDelegate3.persistentContainer.viewContext
-                    let fetchData3 = NSFetchRequest<NSFetchRequestResult>(entityName: "Dailyproduct")
-                    let objects3 = try! manageContent3.fetch(fetchData3)
-                    for obj in objects3 {
-                        manageContent3.delete(obj as! NSManagedObject)
-                    }
-                    do {
-                        try manageContent3.save() // <- remember to put this :)
-                    } catch {
-                        // Do something... fatalerror
-                    }
-                    
-                    self.strSelectedplanCurrently = ""
-                    self.tabvplan.reloadData()
-                    self.tabvplan.isUserInteractionEnabled = true
-                    
-                }))
-                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language49"), style: .destructive, handler: { (action: UIAlertAction!) in
-                      print("Handle Cancel Logic here")
                     
                     //Remove Subscriptionmodel table data
                     let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
@@ -764,7 +710,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 self.tabvplan.reloadData()
                 
                 let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language326"), preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                refreshAlert.addAction(UIAlertAction(title: String(format: "%@ & %@", myAppDelegate.changeLanguage(key: "msg_language50"),myAppDelegate.changeLanguage(key: "msg_language49")), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "2"
@@ -822,58 +768,6 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     self.tabvplan.isUserInteractionEnabled = true
                     
                 }))
-                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language49"), style: .destructive, handler: { (action: UIAlertAction!) in
-                      print("Handle Cancel Logic here")
-                    
-                    //Remove Subscriptionmodel table data
-                    let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
-                    guard let appDelegate1 = UIApplication.shared.delegate as? AppDelegate else {return}
-                    let manageContent1 = appDelegate1.persistentContainer.viewContext
-                    let fetchData1 = NSFetchRequest<NSFetchRequestResult>(entityName: "Subscriptionmodel")
-                    fetchData1.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"2")
-                    let objects1 = try! manageContent1.fetch(fetchData1)
-                    for obj in objects1 {
-                        manageContent1.delete(obj as! NSManagedObject)
-                    }
-                    do {
-                        try manageContent1.save() // <- remember to put this :)
-                    } catch {
-                        // Do something... fatalerror
-                    }
-                    
-                    //Remove Weeklymodel table data
-                    guard let appDelegate2 = UIApplication.shared.delegate as? AppDelegate else {return}
-                    let manageContent2 = appDelegate2.persistentContainer.viewContext
-                    let fetchData2 = NSFetchRequest<NSFetchRequestResult>(entityName: "Weeklymodel")
-                    fetchData2.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"2")
-                    let objects2 = try! manageContent2.fetch(fetchData2)
-                    for obj in objects2 {
-                        manageContent2.delete(obj as! NSManagedObject)
-                    }
-                    do {
-                        try manageContent2.save() // <- remember to put this :)
-                    } catch {
-                        // Do something... fatalerror
-                    }
-                    
-                    //Remove Weeklyproduct table data
-                    guard let appDelegate3 = UIApplication.shared.delegate as? AppDelegate else {return}
-                    let manageContent3 = appDelegate3.persistentContainer.viewContext
-                    let fetchData3 = NSFetchRequest<NSFetchRequestResult>(entityName: "Weeklyproduct")
-                    let objects3 = try! manageContent3.fetch(fetchData3)
-                    for obj in objects3 {
-                        manageContent3.delete(obj as! NSManagedObject)
-                    }
-                    do {
-                        try manageContent3.save() // <- remember to put this :)
-                    } catch {
-                        // Do something... fatalerror
-                    }
-                    
-                    self.strSelectedplanCurrently = ""
-                    self.tabvplan.reloadData()
-                    self.tabvplan.isUserInteractionEnabled = true
-                }))
                 self.present(refreshAlert, animated: true, completion: nil)
                
             }
@@ -911,7 +805,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 self.tabvplan.reloadData()
                 
                 let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language327"), preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                refreshAlert.addAction(UIAlertAction(title: String(format: "%@ & %@", myAppDelegate.changeLanguage(key: "msg_language50"),myAppDelegate.changeLanguage(key: "msg_language49")), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "3"
@@ -968,58 +862,6 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     self.tabvplan.reloadData()
                     self.tabvplan.isUserInteractionEnabled = true
                     
-                }))
-                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language49"), style: .destructive, handler: { (action: UIAlertAction!) in
-                      print("Handle Cancel Logic here")
-                    
-                    //Remove Subscriptionmodel table data
-                    let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
-                    guard let appDelegate1 = UIApplication.shared.delegate as? AppDelegate else {return}
-                    let manageContent1 = appDelegate1.persistentContainer.viewContext
-                    let fetchData1 = NSFetchRequest<NSFetchRequestResult>(entityName: "Subscriptionmodel")
-                    fetchData1.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"3")
-                    let objects1 = try! manageContent1.fetch(fetchData1)
-                    for obj in objects1 {
-                        manageContent1.delete(obj as! NSManagedObject)
-                    }
-                    do {
-                        try manageContent1.save() // <- remember to put this :)
-                    } catch {
-                        // Do something... fatalerror
-                    }
-                    
-                    //Remove Monthlymodel table data
-                    guard let appDelegate2 = UIApplication.shared.delegate as? AppDelegate else {return}
-                    let manageContent2 = appDelegate2.persistentContainer.viewContext
-                    let fetchData2 = NSFetchRequest<NSFetchRequestResult>(entityName: "Monthlymodel")
-                    fetchData2.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"3")
-                    let objects2 = try! manageContent2.fetch(fetchData2)
-                    for obj in objects2 {
-                        manageContent2.delete(obj as! NSManagedObject)
-                    }
-                    do {
-                        try manageContent2.save() // <- remember to put this :)
-                    } catch {
-                        // Do something... fatalerror
-                    }
-                    
-                    //Remove Monthlyproduct table data
-                    guard let appDelegate3 = UIApplication.shared.delegate as? AppDelegate else {return}
-                    let manageContent3 = appDelegate3.persistentContainer.viewContext
-                    let fetchData3 = NSFetchRequest<NSFetchRequestResult>(entityName: "Monthlyproduct")
-                    let objects3 = try! manageContent3.fetch(fetchData3)
-                    for obj in objects3 {
-                        manageContent3.delete(obj as! NSManagedObject)
-                    }
-                    do {
-                        try manageContent3.save() // <- remember to put this :)
-                    } catch {
-                        // Do something... fatalerror
-                    }
-                    
-                    self.strSelectedplanCurrently = ""
-                    self.tabvplan.reloadData()
-                    self.tabvplan.isUserInteractionEnabled = true
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
                

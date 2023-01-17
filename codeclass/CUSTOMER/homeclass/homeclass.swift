@@ -26,6 +26,21 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     @IBOutlet weak var viewoverall: UIView!
     @IBOutlet weak var scrolloverall: UIScrollView!
     
+    @IBOutlet weak var viewfloatcart: UIView!
+    @IBOutlet weak var imgvfloatcart: UIImageView!
+    @IBOutlet weak var lblfloatcartcount: UILabel!
+    @IBOutlet weak var btnfloatcart: UIButton!
+    
+    
+    
+    
+    @IBOutlet weak var viewsearchbar: UIView!
+    @IBOutlet weak var viewsearchbar1: UIView!
+    @IBOutlet weak var imgvsearchbar: UIImageView!
+    @IBOutlet weak var txtsearchbar: UITextField!
+    @IBOutlet weak var btnsearchbar: UIButton!
+    
+    
     @IBOutlet weak var viewone: UIView!
     @IBOutlet weak var viewbanner: ImageSlideshow!
     
@@ -179,6 +194,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     {
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -191,7 +207,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     // MARK: - viewWillAppear Method
     override func viewWillDisappear(_ animated: Bool)
     {
-        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = false
         super.viewWillDisappear(true)
     }
     
@@ -207,8 +223,13 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
         
         setupNavLogo()
+        
+        self.viewfloatcart.backgroundColor = .clear
+        self.lblfloatcartcount.layer.cornerRadius = self.lblfloatcartcount.frame.self.width / 2.0
+        self.lblfloatcartcount.layer.masksToBounds = true
         
         let searchicon = UIImage(named: "search")
         let search = UIBarButtonItem(image: searchicon, style: .plain, target: self, action: #selector(pressSearch))
@@ -217,11 +238,12 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
         {
-            self.navigationItem.leftBarButtonItem = search
+            //self.navigationItem.leftBarButtonItem = search
         }
         else{
-            self.navigationItem.rightBarButtonItem = search
+            //self.navigationItem.rightBarButtonItem = search
         }
+        
         
         
         print("self.viewoverall.bounds.size.height",self.viewoverall.bounds.size.height)
@@ -230,7 +252,14 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         self.btnviewalltopdeals.isHidden = true
         
-        self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+        //self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+        
+        if (strLangCode == "en")
+        {
+            self.tabBarController!.tabBar.items![3].badgeValue = ""
+        }else{
+            self.tabBarController!.tabBar.items![1].badgeValue = ""
+        }
         
         self.createExploreCategory()
         self.createExploreTopDeals()
@@ -255,11 +284,19 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
     }
     
+    //MARK: - press FLOAT CART METHOD
+    @IBAction func pressFloatCart(_ sender: Any)
+    {
+        let ctrl = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
+        self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    
     //MARK: - setup RTL LTR method
     func setupRTLLTR()
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
+        txtsearchbar.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language80"))
         lbltopdeals.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language34"))
         btnviewalltopdeals.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language35")), for: .normal)
         
@@ -285,6 +322,12 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let ctrl = searchproductlist(nibName: "searchproductlist", bundle: nil)
         self.navigationController?.pushViewController(ctrl, animated: true)
     }
+    @IBAction func pressSearchbar(_ sender: Any)
+    {
+        let ctrl = searchproductlist(nibName: "searchproductlist", bundle: nil)
+        self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    
     
     //MARK: - press View All Top Deals Method
     @IBAction func pressviewalltopdeals(_ sender: Any)
@@ -294,10 +337,13 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         print("self.arrMcategory",self.arrMcategory)
         var strcatid = ""
         var strcatname = ""
+        var arrm1 = NSArray()
         for x in 0 ..< self.arrMcategory.count
         {
             let dictemp = self.arrMcategory.object(at: x)as! NSDictionary
             let strname = String(format: "%@", dictemp.value(forKey: "text")as? String ?? "")
+            arrm1 = dictemp.value(forKey: "children") as? NSArray ?? []
+            
             if strname.containsIgnoreCase("offers")
             {
                 let strid = String(format: "%@", dictemp.value(forKey: "id") as! CVarArg)
@@ -319,6 +365,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             ctrl.strpageidentifier = "1001"
             ctrl.strFromCategoryID = strcatid
             ctrl.strFromCategoryNAME = strcatname
+            ctrl.arrmsubcatlist = NSMutableArray(array: arrm1)
             self.navigationController?.pushViewController(ctrl, animated: true)
         }
     }
@@ -379,6 +426,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             let dict = self.arrMcategory.object(at: x)as? NSDictionary
             let strtext = String(format: "%@", dict!.value(forKey: "text") as? String ?? "")
             let strid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+            let arrm1 = dict!.value(forKey: "children") as? NSArray ?? []
             
             if strtext.containsIgnoreCase("Juice")
             {
@@ -386,6 +434,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 ctrl.strpageidentifier = "1001"
                 ctrl.strFromCategoryID = strid
                 ctrl.strFromCategoryNAME = strtext
+                ctrl.arrmsubcatlist = NSMutableArray(array: arrm1)
                 self.navigationController?.pushViewController(ctrl, animated: true)
             }
         }
@@ -730,7 +779,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         }
         else
         {
-            self.tabBarController?.selectedIndex = 3
+            self.tabBarController?.selectedIndex = 4
         }
         
     }
@@ -748,7 +797,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         }
         else
         {
-            self.tabBarController?.selectedIndex = 1
+            self.tabBarController?.selectedIndex = 2
         }
         
     }
@@ -759,9 +808,16 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.viewpopupSubscribe.removeFromSuperview()
         viewPopupAddNewExistingBG123.removeFromSuperview()
         
-        self.tabBarController?.selectedIndex = 1
         
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.tabBarController?.selectedIndex = 1
+        }
+        else
+        {
+            self.tabBarController?.selectedIndex = 3
+        }
         
         let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
         let SV = navVC.topViewController as! subsriptionclass
@@ -777,7 +833,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.viewpopupSubscribe.removeFromSuperview()
         viewPopupAddNewExistingBG123.removeFromSuperview()
         
-        self.tabBarController?.selectedIndex = 1
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.tabBarController?.selectedIndex = 1
+        }
+        else
+        {
+            self.tabBarController?.selectedIndex = 3
+        }
         
         let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
         let SV = navVC.topViewController as! subsriptionclass
@@ -793,7 +857,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.viewpopupSubscribe.removeFromSuperview()
         viewPopupAddNewExistingBG123.removeFromSuperview()
         
-        self.tabBarController?.selectedIndex = 1
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.tabBarController?.selectedIndex = 1
+        }
+        else
+        {
+            self.tabBarController?.selectedIndex = 3
+        }
         
         let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
         let SV = navVC.topViewController as! subsriptionclass
@@ -1202,6 +1274,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             let strFinalurl = strcategoryImage.replacingOccurrences(of: " ", with: "%20")
             print("strFinalurl",strFinalurl)
             
+            print("strtext",strtext)
+            
             
             cellA.viewcell.layer.cornerRadius = 6.0
             cellA.viewcell.layer.masksToBounds = true
@@ -1230,6 +1304,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 cellA.imgvbg.isHidden = true
                 //cellA.imgv.image = UIImage(named: "cathome4.png")
                 cellA.imgv.imageFromURL(urlString: strFinalurl)
+            }
+            else if strtext.containsIgnoreCase("Gift"){
+                cellA.contentView.isHidden = true
             }
             else
             {
@@ -1339,6 +1416,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             let strtext = String(format: "%@", dict.value(forKey: "text") as? String ?? "")
             let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
             
+            let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
+            
             if strtext.containsIgnoreCase("new arrivals")
             {
                 print("Go to New Arrival Page")
@@ -1351,6 +1430,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 ctrl.strpageidentifier = "1001"
                 ctrl.strFromCategoryID = strid
                 ctrl.strFromCategoryNAME = strtext
+                ctrl.arrmsubcatlist = NSMutableArray(array: arrm1)
                 self.navigationController?.pushViewController(ctrl, animated: true)
             }
         }
@@ -1860,14 +1940,32 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                                 
                                 let strcount = UserDefaults.standard.value(forKey: "orderoncecartcount")as? Int ?? 0
                                 print("strcount",strcount)
-                                self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
+                                
+                                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                                if (strLangCode == "en")
+                                {
+                                    self.tabBarController!.tabBar.items![3].badgeValue = String(format: "%d", strcount)
+                                    
+                                }else{
+                                    self.tabBarController!.tabBar.items![1].badgeValue = String(format: "%d", strcount)
+                                }
+                                
+                                //self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
                             }
                             else{
                                 print("Not found!")
                                 
                                 UserDefaults.standard.set("0", forKey: "orderoncecartcount")
                                 UserDefaults.standard.synchronize()
-                                self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                
+                                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                                if (strLangCode == "en")
+                                {
+                                    self.tabBarController!.tabBar.items![3].badgeValue = ""
+                                }else{
+                                    self.tabBarController!.tabBar.items![1].badgeValue = ""
+                                }
+                                //self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
                                 
                             }
                         }

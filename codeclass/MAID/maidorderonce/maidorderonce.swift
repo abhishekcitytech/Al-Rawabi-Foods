@@ -20,8 +20,15 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
     @IBOutlet weak var colcategory: UICollectionView!
     var reuseIdentifier2 = "colcellcat"
     
+    //sub catrgoey carousal
+    @IBOutlet weak var viewsubcategorycarousal: UIView!
+    @IBOutlet weak var colsubcategory: UICollectionView!
+    var reuseIdentifier3 = "colcellcat"
+    
     var arrmcatlist = NSMutableArray()
+    
     var strSelectedCat = ""
+    var strSelectedSubCat = ""
     
     var arrMproducts = NSMutableArray()
     
@@ -171,6 +178,19 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         colcategory.showsHorizontalScrollIndicator = false
         colcategory.showsVerticalScrollIndicator=false
         colcategory.backgroundColor = .clear
+        
+        
+        let layout1: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout1.scrollDirection = .horizontal
+        layout1.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout1.itemSize = CGSize(width: colsubcategory.frame.size.width / 2.5, height: 60)
+        layout1.minimumInteritemSpacing = 5
+        layout1.minimumLineSpacing = 5
+        colsubcategory.collectionViewLayout = layout1
+        colsubcategory.register(UINib(nibName: "colcellcat", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier3)
+        colsubcategory.showsHorizontalScrollIndicator = false
+        colsubcategory.showsVerticalScrollIndicator=false
+        colsubcategory.backgroundColor = .clear
     }
     
 
@@ -181,6 +201,22 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         if collectionView ==  colcategory
         {
             return arrmcatlist.count
+        }
+        else if collectionView ==  colsubcategory
+        {
+            print("strSelectedCat",strSelectedCat)
+            if strSelectedCat == ""{
+                return 0
+            }
+            
+            let intselectedcatIndex = Int(strSelectedCat)
+            let dict = self.arrmcatlist.object(at: intselectedcatIndex!) as! NSDictionary
+            let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
+            var arrm2 = NSMutableArray()
+            arrm2 = NSMutableArray(array: arrm1)
+            print("arrm2",arrm2)
+            
+            return arrm2.count
         }
         
         if arrMproducts.count == 0 {
@@ -227,8 +263,8 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             else if strtext.containsIgnoreCase("Meat"){
                 cellA.viewcell.backgroundColor = UIColor(named: "plate4")!
             }
-            else if strtext.containsIgnoreCase("Functional"){
-                cellA.viewcell.backgroundColor = UIColor(named: "plate5")!
+            else if strtext.containsIgnoreCase("Gift"){
+                cellA.viewcell.backgroundColor = UIColor(named: "plate7")!
             }
             else{
                 cellA.viewcell.backgroundColor = UIColor(named: "plate7")!
@@ -241,6 +277,54 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             if self.strSelectedCat == String(format: "%d", indexPath.row){
                 cellA.viewcell.layer.borderWidth = 2.0
                 cellA.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+                cellA.viewcell.layer.cornerRadius = 6.0
+                cellA.viewcell.layer.masksToBounds = true
+            }
+            else{
+                cellA.viewcell.layer.borderWidth = 2.0
+                cellA.viewcell.layer.borderColor = UIColor.clear.cgColor
+                cellA.viewcell.layer.cornerRadius = 6.0
+                cellA.viewcell.layer.masksToBounds = true
+            }
+            
+            // Set up cell
+            return cellA
+        }
+        else if collectionView ==  colsubcategory
+        {
+            let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier3, for: indexPath as IndexPath) as! colcellcat
+            cellA.contentView.backgroundColor = .white
+            cellA.contentView.layer.borderWidth = 1.0
+            cellA.contentView.layer.cornerRadius = 0.0
+            cellA.contentView.layer.borderColor = UIColor.clear.cgColor
+            cellA.contentView.layer.masksToBounds = true
+            
+            let intselectedcatIndex = Int(strSelectedCat)
+            print("intselectedcatIndex",intselectedcatIndex)
+            let dict = self.arrmcatlist.object(at: intselectedcatIndex!) as! NSDictionary
+            let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
+            var arrm2 = NSMutableArray()
+            arrm2 = NSMutableArray(array: arrm1)
+            print("arrm2",arrm2)
+            
+            let dict1 = arrm2.object(at: indexPath.row) as! NSDictionary
+            
+            let strtext = String(format: "%@", dict1.value(forKey: "text") as? String ?? "")
+            let strid = String(format: "%@", dict1.value(forKey: "id") as! CVarArg)
+            //let strcategoryImage = String(format: "%@", dict.value(forKey: "categoryImage") as? String ?? "")
+            //let strFinalurl = strcategoryImage.replacingOccurrences(of: " ", with: "%20")
+            //print("strFinalurl",strFinalurl)
+            
+            cellA.viewcell.layer.cornerRadius = 6.0
+            cellA.viewcell.layer.masksToBounds = true
+            
+            cellA.viewcell.backgroundColor = UIColor(named: "greenlighter")!
+            cellA.lblcell.text =  strtext
+            
+            
+            if self.strSelectedSubCat == strid{
+                cellA.viewcell.layer.borderWidth = 2.0
+                cellA.viewcell.layer.borderColor = UIColor(named: "themecolor")!.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
             }
@@ -347,7 +431,40 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             self.strSelectedCat = String(format: "%d", indexPath.row)
             self.colcategory.reloadData()
             
+            let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
+            if arrm1.count > 0{
+                self.viewsubcategorycarousal.isHidden = false
+                self.colsubcategory.reloadData()
+            }
+            else{
+                self.viewsubcategorycarousal.isHidden = true
+            }
+            
             self.getProductListingAPIMethod(strselectedcategoryid: strid)
+        }
+        else if collectionView == self.colsubcategory
+        {
+            let intselectedcatIndex = Int(strSelectedCat)
+            let dict = self.arrmcatlist.object(at: intselectedcatIndex!) as! NSDictionary
+            let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
+            var arrm2 = NSMutableArray()
+            arrm2 = NSMutableArray(array: arrm1)
+            //print("arrm2",arrm2)
+            
+            let dict1 = arrm2.object(at: indexPath.row) as! NSDictionary
+            
+            let strtext = String(format: "%@", dict1.value(forKey: "text") as? String ?? "")
+            let strid = String(format: "%@", dict1.value(forKey: "id") as! CVarArg)
+            
+            print("strid",strid)
+            print("strtext",strtext)
+            
+            self.strSelectedSubCat = String(format: "%@", strid)
+            self.colsubcategory.reloadData()
+            
+            print("self.strSelectedSubCat",self.strSelectedSubCat)
+            
+            //self.getProductListingAPIMethod(strselectedcategoryid: strid)
         }
         else{
             
@@ -391,7 +508,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         //let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
         //print("strbearertoken",strbearertoken)
         
-        let parameters = ["categoryCount": "none", 
+        let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
                           "categoryId": "none"] as [String : Any]
@@ -457,6 +574,15 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
                             self.strSelectedCat = "0"
                             let dict = self.arrmcatlist.object(at: 0) as! NSDictionary
                             let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
+                            let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
+                            print("arrm1",arrm1)
+                            if arrm1.count > 0{
+                                let dict1 = arrm1.object(at: 0) as! NSDictionary
+                                let strid1 = String(format: "%@", dict1.value(forKey: "id") as! CVarArg)
+                                self.strSelectedSubCat = String(format: "%@", strid1)
+                                self.colsubcategory.reloadData()
+                            }
+                            
                             self.getProductListingAPIMethod(strselectedcategoryid: strid)
                         }
                         else{

@@ -319,7 +319,6 @@
                             </state>
                             <connections>
                                 <action selector="pressKeepShopping:" destination="-1" eventType="touchUpInside" id="qeA-to-Oy6"/>
-                                <action selector="presspaycheckout:" destination="-1" eventType="touchUpInside" id="qZr-We-fRm"/>
                             </connections>
                         </button>
                     </subviews>
@@ -359,7 +358,7 @@
             <color red="1" green="0.66699999570846558" blue="0.019999999552965164" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themecolor">
-            <color red="0.0" green="0.18823529411764706" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.18799999356269836" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

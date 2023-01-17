@@ -7,7 +7,7 @@
 
 import UIKit
 
-class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
+class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITabBarControllerDelegate
 {
     @IBOutlet weak var viewoverall: UIView!
     @IBOutlet weak var btnmenu: UIButton!
@@ -20,13 +20,72 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     var arrMenu = NSMutableArray()
     var arrmAccount = NSMutableArray()
-  
+    
+    var strSELECTED1 = ""
+    var strSELECTED2 = ""
+    
+    //MARK: - press tab bar controller Did Select Method
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController)
+    {
+        let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController)!
+        print("selectedIndex",selectedIndex as Any)
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            if selectedIndex != 3
+            {
+                print("first tab bar was selected")
+                strSELECTED1 = ""
+                strSELECTED2 = ""
+                
+                if btnmenu.isSelected == true{
+                    tabvlist.tag = 100
+                    tabvlist.reloadData()
+                }
+                else{
+                    tabvlist.tag = 200
+                    tabvlist.reloadData()
+                }
+                
+            }
+            else {
+                //do whatever
+            }
+        }
+        else
+        {
+            if selectedIndex != 0
+            {
+                print("first tab bar was selected")
+                strSELECTED1 = ""
+                strSELECTED2 = ""
+                
+                if btnmenu.isSelected == true{
+                    tabvlist.tag = 100
+                    tabvlist.reloadData()
+                }
+                else{
+                    tabvlist.tag = 200
+                    tabvlist.reloadData()
+                }
+                
+            }
+            else {
+                //do whatever
+            }
+        }
+    }
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
         self.tabBarController?.tabBar.isHidden = false
+        
+        print("strSELECTED1",strSELECTED1)
+        print("strSELECTED2",strSELECTED2)
     }
     
     // MARK: - viewDidAppear Method
@@ -34,14 +93,15 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
     {
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = true
-
+        self.tabBarController?.tabBar.isHidden = false
+        
         btnmenu.backgroundColor =  UIColor(named: "themecolor")!
         btnmenu.setTitleColor(.white, for: .normal)
         btnaccount.backgroundColor =  UIColor.white
         btnaccount.setTitleColor(.black, for: .normal)
         
         self.tabvlist.isHidden = true
-         
+        
         self.createMenuArraylist()
         
         self.createAccountArraylist()
@@ -54,6 +114,9 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = false
+        
+        tabBarController?.delegate = self
         
         tabvlist.register(UINib(nibName: "tabvcelllist", bundle: nil), forCellReuseIdentifier: reuseIdentifier1)
         tabvlist.separatorStyle = .none
@@ -337,7 +400,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.tabvlist.tag = 100
         self.tabvlist.reloadData()
         
-        print("self.arrMenu",self.arrMenu)
+        //print("self.arrMenu",self.arrMenu)
     }
     
     //MARK: - create Account Tab Array List Method
@@ -352,15 +415,10 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
         var arr1 = NSMutableArray()
         var arr2 = NSMutableArray()
         
-       /* arr1 = ["View edit profile","My Wish List","View order history","View up-coming deliveries","My Subscriptions","Add/edit/delete sub-accounts","Top up/view balance","Re-order from old orders","Vacation/time-off settings","Loyalty point balance","Upgrade/downgrade/cancel membership","Returns/refunds","Manage multiple shipping address","Change Password"]
-        arr2 = ["acc01.png","fav1.png","acc02.png","acc3.png","acc4.png","acc5.png","acc6.png","acc7.png","acc8.png","acc9.png","acc10.png","acc11.png","acc12.png","acc13.png"]*/
-        
         arr1 = [myAppDelegate.changeLanguage(key: "msg_language122"),myAppDelegate.changeLanguage(key: "msg_language123")
                 ,myAppDelegate.changeLanguage(key: "msg_language273"),myAppDelegate.changeLanguage(key: "msg_language274"),myAppDelegate.changeLanguage(key: "msg_language128")
                 ,myAppDelegate.changeLanguage(key: "msg_language129"),myAppDelegate.changeLanguage(key: "msg_language131"),myAppDelegate.changeLanguage(key: "msg_language133")
                 ,myAppDelegate.changeLanguage(key: "msg_language134"),myAppDelegate.changeLanguage(key: "msg_language275"),myAppDelegate.changeLanguage(key: "msg_language276")]
-        
-        //arr1 = ["View edit profile","My Wish List","View order history","My Subscriptions","Maid Accounts","Top up/view balance","Re-order from old orders","Loyalty point balance","Returns/refunds","Manage multiple shipping address","Change Password & Language","Logout"]
         
         arr2 = ["acc01.png","fav1.png","acc4.png","acc5.png","acc6.png","acc7.png","acc9.png","acc11.png","acc12.png","acc13.png","logout"]
         
@@ -376,7 +434,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
             
             self.arrmAccount.add(dic1)
         }
-        print("self.arrmAccount",self.arrmAccount)
+        //print("self.arrmAccount",self.arrmAccount)
     }
     
     
@@ -430,16 +488,19 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! tabvcelllist
-        
-        cell.selectionStyle=UITableViewCell.SelectionStyle.none
-        cell.accessoryType = UITableViewCell.AccessoryType.none
-        cell.backgroundColor = .clear
-        cell.clearsContextBeforeDrawing = true
-        cell.contentView.clearsContextBeforeDrawing = true
+        print("strSELECTED1",strSELECTED1)
+        print("strSELECTED2",strSELECTED2)
         
         if tabvlist.tag == 100
         {
+            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! tabvcelllist
+            
+            cell.selectionStyle=UITableViewCell.SelectionStyle.gray
+            cell.accessoryType = UITableViewCell.AccessoryType.none
+            cell.backgroundColor = .clear
+            //cell.clearsContextBeforeDrawing = true
+            //cell.contentView.clearsContextBeforeDrawing = true
+            
             let dic = arrMenu.object(at: indexPath.row) as! NSDictionary
             let strplanname = String(format: "%@", dic.value(forKey: "value")as? String ?? "")
             let strplanimage = String(format: "%@", dic.value(forKey: "image")as? String ?? "")
@@ -454,7 +515,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                 cell.lblname.textAlignment = .right
                 cell.imgvicon.frame = CGRect(x: tabvlist.frame.size.width - cell.imgvicon.frame.size.width - 10, y: cell.imgvicon.frame.origin.y, width: cell.imgvicon.frame.size.width, height: cell.imgvicon.frame.size.height)
             }
-
+            
             
             cell.lblname.text = strplanname
             
@@ -468,29 +529,55 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                 cell.imgvicon.image = UIImage(named: strplanimage)
             }
             
-        }
-        else{
-            
-            let dic = arrmAccount.object(at: indexPath.row) as! NSDictionary
-            let strplanname = String(format: "%@", dic.value(forKey: "value")as? String ?? "")
-            let strplanimage = String(format: "%@", dic.value(forKey: "image")as? String ?? "")
-            
-            
-            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-            if (strLangCode == "en")
-            {
-                cell.lblname.textAlignment = .left
-                cell.imgvicon.frame = CGRect(x: 20, y: cell.imgvicon.frame.origin.y, width: cell.imgvicon.frame.size.width, height: cell.imgvicon.frame.size.height)
+            if strSELECTED1 == String(format: "%d", indexPath.row){
+                cell.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
             }
             else{
-                cell.lblname.textAlignment = .right
-                cell.imgvicon.frame = CGRect(x: tabvlist.frame.size.width - cell.imgvicon.frame.size.width - 10, y: cell.imgvicon.frame.origin.y, width: cell.imgvicon.frame.size.width, height: cell.imgvicon.frame.size.height)
+                cell.viewcell.backgroundColor = .white
             }
             
-            cell.lblname.text = strplanname
-            cell.imgvicon.image = UIImage(named: strplanimage)
+            let lblSeparator = UILabel(frame: CGRect(x: 0, y: 53.5, width: tableView.frame.size.width, height: 0.5))
+            lblSeparator.backgroundColor = UIColor.lightGray
+            cell.contentView.addSubview(lblSeparator)
+            
+            return cell;
             
         }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! tabvcelllist
+        
+        cell.selectionStyle=UITableViewCell.SelectionStyle.gray
+        cell.accessoryType = UITableViewCell.AccessoryType.none
+        cell.backgroundColor = .clear
+        //cell.clearsContextBeforeDrawing = true
+        //cell.contentView.clearsContextBeforeDrawing = true
+        
+        let dic = arrmAccount.object(at: indexPath.row) as! NSDictionary
+        let strplanname = String(format: "%@", dic.value(forKey: "value")as? String ?? "")
+        let strplanimage = String(format: "%@", dic.value(forKey: "image")as? String ?? "")
+        
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            cell.lblname.textAlignment = .left
+            cell.imgvicon.frame = CGRect(x: 20, y: cell.imgvicon.frame.origin.y, width: cell.imgvicon.frame.size.width, height: cell.imgvicon.frame.size.height)
+        }
+        else{
+            cell.lblname.textAlignment = .right
+            cell.imgvicon.frame = CGRect(x: tabvlist.frame.size.width - cell.imgvicon.frame.size.width - 10, y: cell.imgvicon.frame.origin.y, width: cell.imgvicon.frame.size.width, height: cell.imgvicon.frame.size.height)
+        }
+        
+        cell.lblname.text = strplanname
+        cell.imgvicon.image = UIImage(named: strplanimage)
+        
+        if strSELECTED2 == String(format: "%d", indexPath.row){
+            cell.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+        }
+        else{
+            cell.viewcell.backgroundColor = .white
+        }
+        
         let lblSeparator = UILabel(frame: CGRect(x: 0, y: 53.5, width: tableView.frame.size.width, height: 0.5))
         lblSeparator.backgroundColor = UIColor.lightGray
         cell.contentView.addSubview(lblSeparator)
@@ -508,6 +595,9 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
             let strplanname = String(format: "%@", dic.value(forKey: "value")as? String ?? "")
             let strplanimage = String(format: "%@", dic.value(forKey: "image")as? String ?? "")
             print("strplanimage",strplanimage)
+            
+            self.strSELECTED1 = String(format: "%d", indexPath.row)
+            self.strSELECTED2 = ""
             
             if strplanname == myAppDelegate.changeLanguage(key: "msg_language136")
             {
@@ -529,7 +619,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                 {
                     self.tabBarController?.selectedIndex = 1
                 }else{
-                    self.tabBarController?.selectedIndex = 2
+                    self.tabBarController?.selectedIndex = 3
                 }
                 
             }
@@ -541,15 +631,20 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                 {
                     self.tabBarController?.selectedIndex = 2
                 }else{
-                    self.tabBarController?.selectedIndex = 1
+                    self.tabBarController?.selectedIndex = 2
                 }
                 
             }
             else if strplanname == myAppDelegate.changeLanguage(key: "msg_language143")
             {
                 //Cart
-                let ctrl = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
-                self.navigationController?.pushViewController(ctrl, animated: true)
+                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                if (strLangCode == "en")
+                {
+                    self.tabBarController?.selectedIndex = 3
+                }else{
+                    self.tabBarController?.selectedIndex = 1
+                }
             }
             else if strplanname == myAppDelegate.changeLanguage(key: "msg_language144")
             {
@@ -615,7 +710,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                 let whatsappURL = URL(string: String(format: "%@%@", "https://wa.me/",strplanname))
                 
                 if UIApplication.shared.canOpenURL(whatsappURL!) {
-                   UIApplication.shared.open(whatsappURL!, options: [:], completionHandler: nil)
+                    UIApplication.shared.open(whatsappURL!, options: [:], completionHandler: nil)
                 } else {
                     
                     let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage")! as! CVarArg)
@@ -646,6 +741,9 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
             let strplanimage = String(format: "%@", dic.value(forKey: "image")as? String ?? "")
             print("strplanimage",strplanimage)
             
+            self.strSELECTED2 = String(format: "%d", indexPath.row)
+            self.strSELECTED1 = ""
+            
             if strplanname == myAppDelegate.changeLanguage(key: "msg_language122")
             {
                 let ctrl = myprofile(nibName: "myprofile", bundle: nil)
@@ -657,10 +755,10 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                 self.navigationController?.pushViewController(ctrl, animated: true)
             }
             /*else if strplanname == myAppDelegate.changeLanguage(key: "msg_language124")
-            {
-                let ctrl = myorderhistory(nibName: "myorderhistory", bundle: nil)
-                self.navigationController?.pushViewController(ctrl, animated: true)
-            }*/
+             {
+             let ctrl = myorderhistory(nibName: "myorderhistory", bundle: nil)
+             self.navigationController?.pushViewController(ctrl, animated: true)
+             }*/
             else if strplanname == myAppDelegate.changeLanguage(key: "msg_language273")
             {
                 let ctrl = mysubscriptions(nibName: "mysubscriptions", bundle: nil)
@@ -717,11 +815,11 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource
                     
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
                     appDelegate.tabSetting(type: "login")
-                   // self.navigationController?.popToRootViewController(animated: true)
+                    // self.navigationController?.popToRootViewController(animated: true)
                     
                 }))
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-                      print("Handle Cancel Logic here")
+                    print("Handle Cancel Logic here")
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
             }

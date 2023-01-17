@@ -13,9 +13,11 @@
             <connections>
                 <outlet property="colcategory" destination="DrD-1p-k7W" id="91R-2B-Ucl"/>
                 <outlet property="colproductlist" destination="L8U-ak-rf8" id="bxw-a5-Qcv"/>
+                <outlet property="colsubcategory" destination="Dww-7r-gWn" id="dER-Eu-1RE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewcategorycarousal" destination="tGM-Kh-OWX" id="d4j-7R-eEx"/>
                 <outlet property="viewoverall" destination="xYb-a0-t7g" id="Buz-E3-vNr"/>
+                <outlet property="viewsubcategorycarousal" destination="BlU-Ta-hBy" id="fkA-9u-zBS"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -48,8 +50,30 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BlU-Ta-hBy">
+                            <rect key="frame" x="0.0" y="76" width="375" height="76"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <subviews>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Dww-7r-gWn">
+                                    <rect key="frame" x="8" y="8" width="359" height="60"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7bv-CR-fyX">
+                                        <size key="itemSize" width="128" height="128"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="tlM-Ye-hVG"/>
+                                        <outlet property="delegate" destination="-1" id="zkD-k3-UUP"/>
+                                    </connections>
+                                </collectionView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="L8U-ak-rf8">
-                            <rect key="frame" x="8" y="84" width="359" height="539"/>
+                            <rect key="frame" x="8" y="160" width="359" height="463"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="eRp-5r-eKJ">

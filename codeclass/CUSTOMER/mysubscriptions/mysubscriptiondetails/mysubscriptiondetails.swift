@@ -371,7 +371,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
                 }else if self.strselectedplan.containsIgnoreCase("weekly"){
                     intdiff = 7
                 }else if self.strselectedplan.containsIgnoreCase("monthly"){
-                    intdiff = 28
+                    intdiff = 30
                 }
                 
                 let nextdate1 = Calendar.current.date(byAdding: .day, value: +intdiff, to: enddate!)!
@@ -397,7 +397,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         }else if self.strselectedplan.containsIgnoreCase("weekly"){
             intdiff = 7
         }else if self.strselectedplan.containsIgnoreCase("monthly"){
-            intdiff = 28
+            intdiff = 30
         }
         
         let minimumdaterange = Calendar.current.date(byAdding: .day, value: +intdiff, to: startdate!)!

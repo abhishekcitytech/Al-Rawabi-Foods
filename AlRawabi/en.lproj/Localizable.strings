@@ -60,8 +60,8 @@
 "msg_language51" = "You have already made a Weekly Subscription under pre-order, kindly complete that order first.";
 "msg_language52" = "You have already made a Monthly Subscription under pre-order, kindly complete that order first.";
 "msg_language53" = "Choose your precise location";
-"msg_language54" = "How often would you";
-"msg_language55" = "like it to deliver?";
+"msg_language54" = "Please Select Your Subscription";
+"msg_language55" = "From Below Listing";
 "msg_language56" = "Select";
 "msg_language57" = "Selected";
 "msg_language58" = "Subscription - Daily ";
@@ -433,6 +433,8 @@
 "msg_language378" = "Your mobile no already verified, kindly update with new mobile number.";
 
 "msg_language379" = "You have insufficient reward points available.";
+
+"msg_language380" = "Days";
 
 
 

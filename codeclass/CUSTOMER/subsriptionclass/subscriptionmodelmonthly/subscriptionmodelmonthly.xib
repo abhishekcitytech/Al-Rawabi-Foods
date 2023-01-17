@@ -25,6 +25,7 @@
                 <outlet property="btnautorenew" destination="Lhk-No-o76" id="7J6-BR-gyZ"/>
                 <outlet property="btncrosseditpopup" destination="AqD-SB-vGP" id="ZOo-tg-JzE"/>
                 <outlet property="colmonthlycalendar" destination="GHp-t6-GuL" id="weN-Hb-dhQ"/>
+                <outlet property="lblSelectedCounter" destination="q4c-mu-BFd" id="xBd-Nn-VPs"/>
                 <outlet property="lblautorenew" destination="XOe-4k-5JE" id="eVL-D9-U54"/>
                 <outlet property="lbleditpopupDateDay" destination="CUK-XN-Tle" id="VU5-kE-cJx"/>
                 <outlet property="lblmessage" destination="77D-Vu-kKt" id="OEG-bF-ojD"/>
@@ -52,7 +53,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="GHp-t6-GuL">
-                            <rect key="frame" x="8" y="170" width="359" height="333"/>
+                            <rect key="frame" x="8" y="200" width="359" height="303"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="COh-6e-Efc">
@@ -111,9 +112,17 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You have to select 'Minimum 8 orders a month OR full month i.e. no. of days in a month' for Monthly subscription plan." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77D-Vu-kKt">
                             <rect key="frame" x="8" y="96" width="359" height="66"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
                             <color key="textColor" name="themecolor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4c-mu-BFd">
+                            <rect key="frame" x="8" y="163" width="359" height="29"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <color key="backgroundColor" name="themecolor"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -205,7 +214,7 @@
             <color red="0.95300000905990601" green="0.97600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themecolor">
-            <color red="0.0" green="0.18799999356269836" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.18823529411764706" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

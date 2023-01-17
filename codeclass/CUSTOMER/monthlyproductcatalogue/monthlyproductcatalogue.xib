@@ -26,6 +26,7 @@
                 <outlet property="colcategory" destination="Oag-Ku-oAs" id="WXo-CZ-CKZ"/>
                 <outlet property="colorderon" destination="dbQ-rj-ZRz" id="5gg-AW-fzT"/>
                 <outlet property="colproductlist" destination="4Co-OT-qov" id="zDg-4a-USV"/>
+                <outlet property="colsubcategory" destination="GzU-hs-hh1" id="QJa-ih-dK3"/>
                 <outlet property="lblorderon" destination="msp-el-RLD" id="ibt-9U-keC"/>
                 <outlet property="txtsearchbox" destination="sSc-S5-6Rk" id="Byk-3C-hYB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -33,6 +34,7 @@
                 <outlet property="vieworderon" destination="29w-Mm-aK3" id="8n3-55-1VR"/>
                 <outlet property="viewoverall" destination="rhc-u1-w1G" id="HPR-QS-ejs"/>
                 <outlet property="viewsearchbox" destination="Ar2-k1-Gu2" id="TCj-5a-Py3"/>
+                <outlet property="viewsubcategorycarousal" destination="8Hn-Oh-b6M" id="KTL-8f-Xip"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -154,8 +156,30 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGray6Color"/>
                         </view>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Hn-Oh-b6M">
+                            <rect key="frame" x="0.0" y="277" width="375" height="76"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <subviews>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="GzU-hs-hh1">
+                                    <rect key="frame" x="8" y="8" width="359" height="60"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KgY-3s-jb7">
+                                        <size key="itemSize" width="128" height="128"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="e1H-Vh-e98"/>
+                                        <outlet property="delegate" destination="-1" id="If7-b5-cnU"/>
+                                    </connections>
+                                </collectionView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        </view>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="4Co-OT-qov">
-                            <rect key="frame" x="8" y="278" width="359" height="345"/>
+                            <rect key="frame" x="8" y="355" width="359" height="268"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="Mxv-Vc-YHa">
@@ -192,7 +216,7 @@
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <nil key="simulatedBottomBarMetrics"/>
-            <point key="canvasLocation" x="132" y="-11"/>
+            <point key="canvasLocation" x="132" y="-11.244377811094454"/>
         </view>
     </objects>
     <resources>

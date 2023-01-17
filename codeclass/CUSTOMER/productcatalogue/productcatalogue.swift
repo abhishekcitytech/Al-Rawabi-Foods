@@ -16,6 +16,21 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
     @IBOutlet weak var btnfilter: UIButton!
     var msg = ""
     
+    
+    @IBOutlet weak var viewfloatcart: UIView!
+    @IBOutlet weak var imgvfloatcart: UIImageView!
+    @IBOutlet weak var lblfloatcartcount: UILabel!
+    @IBOutlet weak var btnfloatcart: UIButton!
+    
+    
+    //sub catrgoet carousal
+    @IBOutlet weak var viewsubcategorycarousal: UIView!
+    @IBOutlet weak var colsubcategory: UICollectionView!
+    var reuseIdentifier2 = "colcellcat"
+    var arrmsubcatlist = NSMutableArray()
+    var strSelectedSubCat = ""
+    
+    
     @IBOutlet weak var viewsearchbox: UIView!
     @IBOutlet weak var viewsearchbox1: UIView!
     @IBOutlet weak var txtsearchbox: UITextField!
@@ -48,6 +63,9 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        print("arrmsubcatlist",arrmsubcatlist)
+        
         
         setupRTLLTR()
         
@@ -92,6 +110,12 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         viewsearchbox.layer.cornerRadius = 16.0
         viewsearchbox.layer.masksToBounds = true
         
+        self.viewfloatcart.backgroundColor = .clear
+        self.lblfloatcartcount.layer.cornerRadius = self.lblfloatcartcount.frame.self.width / 2.0
+        self.lblfloatcartcount.layer.masksToBounds = true
+        
+        self.createSubCategoryGallery()
+        
     }
     
     //MARK: - press back method
@@ -110,6 +134,53 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
     {
         let ctrl = productfilerpage(nibName: "productfilerpage", bundle: nil)
         self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    
+    //MARK: - press FLOAT CART METHOD
+    @IBAction func pressFloatCart(_ sender: Any)
+    {
+        let ctrl = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
+        self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    
+    
+    //MARK: - create select category gallery method
+    func createSubCategoryGallery()
+    {
+        var devidercount = 3.5
+        if arrmsubcatlist.count >= 3{
+            devidercount = 3.5
+        }else{
+            devidercount = 1.8
+        }
+        print("devidercount",devidercount)
+        
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: colsubcategory.frame.size.width / devidercount, height: 60)
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 5
+        colsubcategory.collectionViewLayout = layout
+        colsubcategory.register(UINib(nibName: "colcellcat", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier2)
+        colsubcategory.showsHorizontalScrollIndicator = false
+        colsubcategory.showsVerticalScrollIndicator=false
+        colsubcategory.backgroundColor = .clear
+        
+        if arrmsubcatlist.count == 0{
+            //NO SUB CATEGORY FOUND
+            self.viewsubcategorycarousal.isHidden = true
+            self.colproductlist.frame = CGRect(x: self.colproductlist.frame.origin.x, y: self.viewsubcategorycarousal.frame.minY, width: self.colproductlist.frame.size.width, height: self.colproductlist.frame.size.height + self.viewsubcategorycarousal.frame.size.height)
+        }else{
+            
+            let dict = arrmsubcatlist.object(at: 0) as! NSDictionary
+            let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
+            print("strid",strid)
+            self.strSelectedSubCat = String(format: "%@", strid)
+            
+            self.viewsubcategorycarousal.isHidden = false
+            self.colproductlist.frame = CGRect(x: self.colproductlist.frame.origin.x, y: self.viewsubcategorycarousal.frame.maxY, width: self.colproductlist.frame.size.width, height: self.colproductlist.frame.size.height)
+        }
     }
     
     //MARK: - setup RTL LTR method
@@ -178,6 +249,11 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
     // MARK: - UICollectionView Delegate & DataSource Method
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
+        if collectionView ==  colsubcategory
+        {
+            return arrmsubcatlist.count
+        }
+        
         //FROM CATEGORY PAGE
         if arrMCategorywiseProductlist.count == 0 {
             self.colproductlist.setEmptyMessage(msg)
@@ -188,6 +264,50 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        if collectionView == self.colsubcategory
+        {
+            
+            let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier2, for: indexPath as IndexPath) as! colcellcat
+            cellA.contentView.backgroundColor = .white
+            cellA.contentView.layer.borderWidth = 1.0
+            cellA.contentView.layer.cornerRadius = 0.0
+            cellA.contentView.layer.borderColor = UIColor.clear.cgColor
+            cellA.contentView.layer.masksToBounds = true
+            
+            let dict = arrmsubcatlist.object(at: indexPath.row) as! NSDictionary
+            
+            let strtext = String(format: "%@", dict.value(forKey: "text") as? String ?? "")
+            let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
+            //let strcategoryImage = String(format: "%@", dict.value(forKey: "childCategoryImage") as? String ?? "")
+            //let strFinalurl = strcategoryImage.replacingOccurrences(of: " ", with: "%20")
+            //print("strFinalurl",strFinalurl)
+            
+            cellA.viewcell.layer.cornerRadius = 6.0
+            cellA.viewcell.layer.masksToBounds = true
+            
+
+            cellA.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+            cellA.lblcell.text =  strtext
+            
+            
+            if self.strSelectedSubCat == strid
+            {
+                cellA.viewcell.layer.borderWidth = 2.0
+                cellA.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+                cellA.viewcell.layer.cornerRadius = 6.0
+                cellA.viewcell.layer.masksToBounds = true
+            }
+            else{
+                cellA.viewcell.layer.borderWidth = 2.0
+                cellA.viewcell.layer.borderColor = UIColor.clear.cgColor
+                cellA.viewcell.layer.cornerRadius = 6.0
+                cellA.viewcell.layer.masksToBounds = true
+            }
+            
+            // Set up cell
+            return cellA
+        }
+        
         let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier1, for: indexPath as IndexPath) as! colcelltopdeals
         cellA.contentView.backgroundColor = .white
         cellA.contentView.layer.borderWidth = 8.0
@@ -281,20 +401,40 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        if strpageidentifier == "1001"
+        if collectionView == self.colsubcategory
         {
-            //FROM CATEGORY PAGE
-            let dict = arrMCategorywiseProductlist.object(at: indexPath.row)as? NSDictionary
-            let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+            let dict = arrmsubcatlist.object(at: indexPath.row) as! NSDictionary
+            let strtext = String(format: "%@", dict.value(forKey: "text") as? String ?? "")
+            let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
             
-            let ctrl = porudctdetails(nibName: "porudctdetails", bundle: nil)
-            ctrl.strSelectedProductID = strproductid
-            ctrl.strFrompageIdentifier = strpageidentifier
-            self.navigationController?.pushViewController(ctrl, animated: true)
+            print("strid",strid)
+            print("strtext",strtext)
+            
+            self.strSelectedSubCat = String(format: "%@", strid)
+            self.colsubcategory.reloadData()
+            
+            print("self.strSelectedSubCat",self.strSelectedSubCat)
+            
+            //self.getProductListingAPIMethod(strselectedcategoryid: strid)
         }
         else
         {
             
+            if strpageidentifier == "1001"
+            {
+                //FROM CATEGORY PAGE
+                let dict = arrMCategorywiseProductlist.object(at: indexPath.row)as? NSDictionary
+                let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+                
+                let ctrl = porudctdetails(nibName: "porudctdetails", bundle: nil)
+                ctrl.strSelectedProductID = strproductid
+                ctrl.strFrompageIdentifier = strpageidentifier
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+            else
+            {
+                
+            }
         }
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)

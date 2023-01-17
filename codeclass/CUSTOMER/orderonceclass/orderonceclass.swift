@@ -19,6 +19,17 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
 
     @IBOutlet weak var btnsortby: UIButton!
     
+    @IBOutlet weak var viewfloatcart: UIView!
+    @IBOutlet weak var imgvfloatcart: UIImageView!
+    @IBOutlet weak var lblfloatcartcount: UILabel!
+    @IBOutlet weak var btnfloatcart: UIButton!
+    
+    
+    @IBOutlet weak var viewsearchbar: UIView!
+    @IBOutlet weak var viewsearchbar1: UIView!
+    @IBOutlet weak var imgvsearchbar: UIImageView!
+    @IBOutlet weak var txtsearchbar: UITextField!
+    @IBOutlet weak var btnsearchbar: UIButton!
     
     
     //POPUP DELIVERY LOCATION
@@ -28,16 +39,22 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
     @IBOutlet weak var lbldeliverylocationmessage: UILabel!
     var viewPopupAddNewExistingBG1 = UIView()
     
-    //catrgoet carousal
+    //catrgoey carousal
     @IBOutlet weak var viewcategorycarousal: UIView!
     @IBOutlet weak var colcategory: UICollectionView!
     var reuseIdentifier2 = "colcellcat"
     var arrmcatlist = NSMutableArray()
     
+    //sub catrgoey carousal
+    @IBOutlet weak var viewsubcategorycarousal: UIView!
+    @IBOutlet weak var colsubcategory: UICollectionView!
+    var reuseIdentifier3 = "colcellcat"
+    
     
     var arrMproducts = NSMutableArray()
     
     var strSelectedCat = ""
+    var strSelectedSubCat = ""
     
     
     var strstreetaddressfrommapORDERONCE = ""
@@ -107,15 +124,26 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
         {
-            self.navigationItem.leftBarButtonItem = search
+            //self.navigationItem.leftBarButtonItem = search
         }
         else{
-            self.navigationItem.rightBarButtonItem = search
+            //self.navigationItem.rightBarButtonItem = search
         }
         
         
-        self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+        //self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
         
+        if (strLangCode == "en")
+        {
+            self.tabBarController!.tabBar.items![3].badgeValue = ""
+        }else{
+            self.tabBarController!.tabBar.items![1].badgeValue = ""
+        }
+        
+        
+        self.viewfloatcart.backgroundColor = .clear
+        self.lblfloatcartcount.layer.cornerRadius = self.lblfloatcartcount.frame.self.width / 2.0
+        self.lblfloatcartcount.layer.masksToBounds = true
        
         
         colproductlist.backgroundColor = .clear
@@ -132,6 +160,13 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
     
     //MARK: - press Cartbag method
     @objc func presscartbag()
+    {
+        let ctrl = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
+        self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    
+    //MARK: - press FLOAT CART METHOD
+    @IBAction func pressFloatCart(_ sender: Any)
     {
         let ctrl = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
         self.navigationController?.pushViewController(ctrl, animated: true)
@@ -174,6 +209,11 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
     
     //MARK: - press Search method
     @objc func pressSearch()
+    {
+        let ctrl = searchproductlist(nibName: "searchproductlist", bundle: nil)
+        self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    @IBAction func pressSearchbar(_ sender: Any)
     {
         let ctrl = searchproductlist(nibName: "searchproductlist", bundle: nil)
         self.navigationController?.pushViewController(ctrl, animated: true)
@@ -329,6 +369,18 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         colcategory.showsHorizontalScrollIndicator = false
         colcategory.showsVerticalScrollIndicator=false
         colcategory.backgroundColor = .clear
+        
+        let layout1: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout1.scrollDirection = .horizontal
+        layout1.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout1.itemSize = CGSize(width: colsubcategory.frame.size.width / 2.5, height: 60)
+        layout1.minimumInteritemSpacing = 5
+        layout1.minimumLineSpacing = 5
+        colsubcategory.collectionViewLayout = layout1
+        colsubcategory.register(UINib(nibName: "colcellcat", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier3)
+        colsubcategory.showsHorizontalScrollIndicator = false
+        colsubcategory.showsVerticalScrollIndicator=false
+        colsubcategory.backgroundColor = .clear
     }
     
 
@@ -339,6 +391,22 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         if collectionView ==  colcategory
         {
             return arrmcatlist.count
+        }
+        else if collectionView ==  colsubcategory
+        {
+            print("strSelectedCat",strSelectedCat)
+            if strSelectedCat == ""{
+                return 0
+            }
+            
+            let intselectedcatIndex = Int(strSelectedCat)
+            let dict = self.arrmcatlist.object(at: intselectedcatIndex!) as! NSDictionary
+            let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
+            var arrm2 = NSMutableArray()
+            arrm2 = NSMutableArray(array: arrm1)
+            print("arrm2",arrm2)
+            
+            return arrm2.count
         }
         
         if arrMproducts.count == 0 {
@@ -385,6 +453,9 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             else if strtext.containsIgnoreCase("Meat"){
                 cellA.viewcell.backgroundColor = UIColor(named: "plate4")!
             }
+            else if strtext.containsIgnoreCase("Gift"){
+                cellA.viewcell.backgroundColor = UIColor(named: "plate7")!
+            }
             else{
                 cellA.viewcell.backgroundColor = UIColor(named: "plate7")!
             }
@@ -396,6 +467,54 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             if self.strSelectedCat == String(format: "%d", indexPath.row){
                 cellA.viewcell.layer.borderWidth = 2.0
                 cellA.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+                cellA.viewcell.layer.cornerRadius = 6.0
+                cellA.viewcell.layer.masksToBounds = true
+            }
+            else{
+                cellA.viewcell.layer.borderWidth = 2.0
+                cellA.viewcell.layer.borderColor = UIColor.clear.cgColor
+                cellA.viewcell.layer.cornerRadius = 6.0
+                cellA.viewcell.layer.masksToBounds = true
+            }
+            
+            // Set up cell
+            return cellA
+        }
+        else if collectionView ==  colsubcategory
+        {
+            let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier3, for: indexPath as IndexPath) as! colcellcat
+            cellA.contentView.backgroundColor = .white
+            cellA.contentView.layer.borderWidth = 1.0
+            cellA.contentView.layer.cornerRadius = 0.0
+            cellA.contentView.layer.borderColor = UIColor.clear.cgColor
+            cellA.contentView.layer.masksToBounds = true
+            
+            let intselectedcatIndex = Int(strSelectedCat)
+            print("intselectedcatIndex",intselectedcatIndex)
+            let dict = self.arrmcatlist.object(at: intselectedcatIndex!) as! NSDictionary
+            let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
+            var arrm2 = NSMutableArray()
+            arrm2 = NSMutableArray(array: arrm1)
+            print("arrm2",arrm2)
+            
+            let dict1 = arrm2.object(at: indexPath.row) as! NSDictionary
+            
+            let strtext = String(format: "%@", dict1.value(forKey: "text") as? String ?? "")
+            let strid = String(format: "%@", dict1.value(forKey: "id") as! CVarArg)
+            //let strcategoryImage = String(format: "%@", dict.value(forKey: "categoryImage") as? String ?? "")
+            //let strFinalurl = strcategoryImage.replacingOccurrences(of: " ", with: "%20")
+            //print("strFinalurl",strFinalurl)
+            
+            cellA.viewcell.layer.cornerRadius = 6.0
+            cellA.viewcell.layer.masksToBounds = true
+            
+            cellA.viewcell.backgroundColor = UIColor(named: "greenlighter")!
+            cellA.lblcell.text =  strtext
+            
+            
+            if self.strSelectedSubCat == strid{
+                cellA.viewcell.layer.borderWidth = 2.0
+                cellA.viewcell.layer.borderColor = UIColor(named: "themecolor")!.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
             }
@@ -502,7 +621,40 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             self.strSelectedCat = String(format: "%d", indexPath.row)
             self.colcategory.reloadData()
             
+            let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
+            if arrm1.count > 0{
+                self.viewsubcategorycarousal.isHidden = false
+                self.colsubcategory.reloadData()
+            }
+            else{
+                self.viewsubcategorycarousal.isHidden = true
+            }
+            
             self.getProductListingAPIMethod(strselectedcategoryid: strid)
+        }
+        else if collectionView == self.colsubcategory
+        {
+            let intselectedcatIndex = Int(strSelectedCat)
+            let dict = self.arrmcatlist.object(at: intselectedcatIndex!) as! NSDictionary
+            let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
+            var arrm2 = NSMutableArray()
+            arrm2 = NSMutableArray(array: arrm1)
+            print("arrm2",arrm2)
+            
+            let dict1 = arrm2.object(at: indexPath.row) as! NSDictionary
+            
+            let strtext = String(format: "%@", dict1.value(forKey: "text") as? String ?? "")
+            let strid = String(format: "%@", dict1.value(forKey: "id") as! CVarArg)
+            
+            print("strid",strid)
+            print("strtext",strtext)
+            
+            self.strSelectedSubCat = String(format: "%@", strid)
+            self.colsubcategory.reloadData()
+            
+            print("self.strSelectedSubCat",self.strSelectedSubCat)
+            
+            //self.getProductListingAPIMethod(strselectedcategoryid: strid)
         }
         else{
             
@@ -620,6 +772,16 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                             self.strSelectedCat = "0"
                             let dict = self.arrmcatlist.object(at: 0) as! NSDictionary
                             let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
+                            let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
+                            print("arrm1",arrm1)
+                            if arrm1.count > 0{
+                                
+                                let dict1 = arrm1.object(at: 0) as! NSDictionary
+                                let strid1 = String(format: "%@", dict1.value(forKey: "id") as! CVarArg)
+                                self.strSelectedSubCat = String(format: "%@", strid1)
+                                self.colsubcategory.reloadData()
+                            }
+                            
                             self.getProductListingAPIMethod(strselectedcategoryid: strid)
                         }
                         else{
@@ -919,14 +1081,33 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                                 
                                 let strcount = UserDefaults.standard.value(forKey: "orderoncecartcount")as? Int ?? 0
                                 print("strcount",strcount)
-                                self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
+                                
+                                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                                if (strLangCode == "en")
+                                {
+                                    self.tabBarController!.tabBar.items![3].badgeValue = String(format: "%d", strcount)
+                                    
+                                }else{
+                                    self.tabBarController!.tabBar.items![1].badgeValue = String(format: "%d", strcount)
+                                }
+                                //self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
                             }
                             else{
                                 print("Not found!")
                                 
                                 UserDefaults.standard.set("0", forKey: "orderoncecartcount")
                                 UserDefaults.standard.synchronize()
-                                self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                
+                                
+                                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                                if (strLangCode == "en")
+                                {
+                                    self.tabBarController!.tabBar.items![3].badgeValue = ""
+                                }else{
+                                    self.tabBarController!.tabBar.items![1].badgeValue = ""
+                                }
+                                
+                                //self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
                                 
                             }
                         }

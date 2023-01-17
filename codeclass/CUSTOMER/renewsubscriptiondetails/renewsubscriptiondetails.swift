@@ -26,12 +26,16 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var lblsubtotalvalue: UILabel!
     @IBOutlet weak var lblshipping: UILabel!
     @IBOutlet weak var lblshippingvalue: UILabel!
+    @IBOutlet weak var lbltaxtotal: UILabel!
+    @IBOutlet weak var lbltaxtotalvalue: UILabel!
     @IBOutlet weak var lblgrandtotal: UILabel!
     @IBOutlet weak var lblgrandtotalvalue: UILabel!
     
     @IBOutlet weak var viewcoupon: UIView!
     @IBOutlet weak var txtcouponcode: UITextField!
     @IBOutlet weak var btnapplycouponcode: UIButton!
+    @IBOutlet weak var btnremovecouponcode: UIButton!
+    @IBOutlet weak var btnviewcouponcode: UIButton!
     
     
     @IBOutlet weak var lblautorenew: UILabel!
@@ -72,12 +76,24 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
     
     var strSUBTOTAL = ""
     var strSHIPPING = ""
+    var strTAX = ""
     var strGRANDTOTAL = ""
     
     var strDISCOUNTCODE = ""
     var strDISCOUNTAMOUNT = ""
     
     var strISAUTORENEW = "0"
+    
+    //Coupon View POPUP LIST
+    @IBOutlet var viewcouponlist: UIView!
+    @IBOutlet weak var viewcouponlistheader1: UIView!
+    @IBOutlet weak var lblcouponlistpopupheader: UILabel!
+    @IBOutlet weak var btncrosscouponlistpopup: UIButton!
+    @IBOutlet weak var tabvcouponlistpopup: UITableView!
+    var reuseIdentifier3 = "cellcoupon"
+    var viewPopupAddNewExistingBG3 = UIView()
+    var msg1 = ""
+    var arrMCoupons = NSMutableArray()
 
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -155,6 +171,25 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         tabvorderlist.separatorColor=UIColor.clear
         tabvorderlist.showsVerticalScrollIndicator = false
         
+        viewcoupon.layer.borderWidth = 1.0
+        viewcoupon.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        viewcoupon.layer.cornerRadius = 6.0
+        viewcoupon.layer.masksToBounds = true
+        
+        txtcouponcode.setLeftPaddingPoints(10)
+        txtcouponcode.layer.borderWidth = 0.0
+        txtcouponcode.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        txtcouponcode.layer.cornerRadius = 0.0
+        txtcouponcode.layer.masksToBounds = true
+        
+        btnapplycouponcode.layer.cornerRadius = 0.0
+        btnapplycouponcode.layer.masksToBounds = true
+        
+        if self.btnapplycouponcode.isUserInteractionEnabled == false{
+            btnremovecouponcode.isHidden = false
+        }else{
+            btnremovecouponcode.isHidden = true
+        }
     }
     
     //MARK: - press back method
@@ -222,13 +257,13 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         self.btnfullpayment.isSelected = false
         self.btnfirst3payment.isSelected = true
         
-        calculateFullPAY()
+        calculate3DAYSPAY()
     }
-    
     func calculateFullPAY()
     {
         var flttotalSUBTOTAL = Float()
         var flttotalSHIPPING = Float()
+        var flttotalTAX = Float()
         var flttotalGRANDTOTAL = Float()
         for x in 0 ..< self.arrMOrderList.count
         {
@@ -236,67 +271,98 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             let strshipping_amount = String(format: "%@", dict!.value(forKey: "shipping_amount")as! CVarArg)
             let strorder_subtotal = String(format: "%@", dict!.value(forKey: "order_subtotal")as! CVarArg)
             
+            let strtax = String(format: "%@", dict!.value(forKey: "tax")as! CVarArg)
+            
             let fltsubtotal = (strorder_subtotal as NSString).floatValue
             let fltshipping = (strshipping_amount as NSString).floatValue
+            let flttax = (strtax as NSString).floatValue
             
             flttotalSUBTOTAL = flttotalSUBTOTAL + fltsubtotal
             flttotalSHIPPING = flttotalSHIPPING + fltshipping
+            flttotalTAX = flttotalTAX + flttax
         }
         print("flttotalSUBTOTAL",flttotalSUBTOTAL)
         print("flttotalSHIPPING",flttotalSHIPPING)
+        print("flttotalTAX",flttotalTAX)
         flttotalGRANDTOTAL = flttotalSUBTOTAL + flttotalSHIPPING
         print("flttotalGRANDTOTAL",flttotalGRANDTOTAL)
         
         strSUBTOTAL = String(format: "%0.2f", flttotalSUBTOTAL)
         strSHIPPING = String(format: "%0.2f", flttotalSHIPPING)
+        strTAX = String(format: "%0.2f", flttotalTAX)
         strGRANDTOTAL = String(format: "%0.2f", flttotalGRANDTOTAL)
         
-        self.lblsubtotalvalue.text = strSUBTOTAL
-        self.lblshippingvalue.text = strSHIPPING
-        self.lblgrandtotalvalue.text = strGRANDTOTAL
+        //CHCEKING IF DISCOUNT EXIST OR NOT
+        if strDISCOUNTAMOUNT != "" || strDISCOUNTAMOUNT == "0.00"
+        {
+            var fltupdated = 0.00
+            let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
+            let fltamount11  = (self.strDISCOUNTAMOUNT as NSString).floatValue
+            
+            fltupdated = Double(fltamount1 - fltamount11)
+            print("fltupdated",fltupdated)
+            
+            self.strGRANDTOTAL = String(format: "%0.2f", fltupdated)
+        }
+        
+        self.lblsubtotalvalue.text = String(format: "AED %@", strSUBTOTAL)
+        self.lblshippingvalue.text = String(format: "AED %@", strSHIPPING)
+        self.lbltaxtotalvalue.text = String(format: "AED %@", strTAX)
+        self.lblgrandtotalvalue.text = String(format: "AED %@", strGRANDTOTAL)
     }
     func calculate3DAYSPAY()
     {
-        var intcount = 0
+        //var intcount = 0
+        
         var flttotalSUBTOTAL = Float()
         var flttotalSHIPPING = Float()
+        var flttotalTAX = Float()
         var flttotalGRANDTOTAL = Float()
-        for x in 0 ..< self.arrMOrderList.count
+        
+        for x in 0 ..< 3
         {
             let dict = self.arrMOrderList.object(at: x)as? NSDictionary
             let strshipping_amount = String(format: "%@", dict!.value(forKey: "shipping_amount")as! CVarArg)
             let strorder_subtotal = String(format: "%@", dict!.value(forKey: "order_subtotal")as! CVarArg)
             
+            let strtax = String(format: "%@", dict!.value(forKey: "tax")as! CVarArg)
+            
             let fltsubtotal = (strorder_subtotal as NSString).floatValue
             let fltshipping = (strshipping_amount as NSString).floatValue
+            let flttax = (strtax as NSString).floatValue
             
-            if intcount == 3{
-                return
-            }
-            else
-            {
-                
-                if fltsubtotal != 0.00
-                {
-                    intcount = intcount + 1
-                    
-                    flttotalSUBTOTAL = flttotalSUBTOTAL + fltsubtotal
-                    flttotalSHIPPING = flttotalSHIPPING + fltshipping
-                }
-            }
+            flttotalSUBTOTAL = flttotalSUBTOTAL + fltsubtotal
+            flttotalSHIPPING = flttotalSHIPPING + fltshipping
+            flttotalTAX = flttotalTAX + flttax
         }
         print("flttotalSUBTOTAL",flttotalSUBTOTAL)
         print("flttotalSHIPPING",flttotalSHIPPING)
+        print("flttotalTAX",flttotalTAX)
         flttotalGRANDTOTAL = flttotalSUBTOTAL + flttotalSHIPPING
         print("flttotalGRANDTOTAL",flttotalGRANDTOTAL)
         
         strSUBTOTAL = String(format: "%0.2f", flttotalSUBTOTAL)
         strSHIPPING = String(format: "%0.2f", flttotalSHIPPING)
+        strTAX = String(format: "%0.2f", flttotalTAX)
         strGRANDTOTAL = String(format: "%0.2f", flttotalGRANDTOTAL)
         
-        self.lblsubtotalvalue.text = strSUBTOTAL
-        self.lblshippingvalue.text = strSHIPPING
-        self.lblgrandtotalvalue.text = strGRANDTOTAL
+        //CHCEKING IF DISCOUNT EXIST OR NOT
+        if strDISCOUNTAMOUNT != "" || strDISCOUNTAMOUNT == "0.00"
+        {
+            var fltupdated = 0.00
+            let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
+            let fltamount11  = (self.strDISCOUNTAMOUNT as NSString).floatValue
+            
+            fltupdated = Double(fltamount1 - fltamount11)
+            print("fltupdated",fltupdated)
+            
+            self.strGRANDTOTAL = String(format: "%0.2f", fltupdated)
+        }
+        
+        self.lblsubtotalvalue.text = String(format: "AED %@", strSUBTOTAL)
+        self.lblshippingvalue.text = String(format: "AED %@", strSHIPPING)
+        self.lbltaxtotalvalue.text = String(format: "AED %@", strTAX)
+        self.lblgrandtotalvalue.text = String(format: "AED %@", strGRANDTOTAL)
     }
     
     
@@ -304,6 +370,9 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
     func numberOfSections(in tableView: UITableView) -> Int
     {
         if tableView == tabveditpopupitems{
+            return 1
+        }
+        else if tableView == tabvcouponlistpopup{
             return 1
         }
         
@@ -320,6 +389,14 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         {
             return self.arrMProductItemsEdit.count
         }
+        else if tableView == tabvcouponlistpopup{
+            if arrMCoupons.count == 0 {
+                self.tabvcouponlistpopup.setEmptyMessage(msg)
+            } else {
+                self.tabvcouponlistpopup.restore()
+            }
+            return arrMCoupons.count
+        }
         return 1
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -328,12 +405,18 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         {
             return 155
         }
+        else if tableView == tabvcouponlistpopup{
+            return 70
+        }
         return 125
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
         if tableView == tabveditpopupitems
         {
+            return 1
+        }
+        else if tableView == tabvcouponlistpopup{
             return 1
         }
         return 5
@@ -344,12 +427,21 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         {
             return 1
         }
+        else if tableView == tabvcouponlistpopup{
+            return 1
+        }
         return 5
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         if tableView == tabveditpopupitems
         {
+            let headerView = UIView()
+            headerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+            headerView.backgroundColor = UIColor.clear
+            return headerView
+        }
+        else if tableView == tabvcouponlistpopup{
             let headerView = UIView()
             headerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
             headerView.backgroundColor = UIColor.clear
@@ -364,6 +456,12 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
     {
         if tableView == tabveditpopupitems
         {
+            let footerView = UIView()
+            footerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
+            footerView.backgroundColor = UIColor.clear
+            return footerView
+        }
+        else if tableView == tabvcouponlistpopup{
             let footerView = UIView()
             footerView.frame=CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1)
             footerView.backgroundColor = UIColor.clear
@@ -476,6 +574,38 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             
             return cell;
         }
+        else if tableView == tabvcouponlistpopup
+        {
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier3, for: indexPath) as! cellcoupon
+            
+            cell.selectionStyle=UITableViewCell.SelectionStyle.none
+            cell.accessoryType = UITableViewCell.AccessoryType.none
+            cell.backgroundColor = .clear
+            cell.clearsContextBeforeDrawing = true
+            cell.contentView.clearsContextBeforeDrawing = true
+            
+            let dic = self.arrMCoupons.object(at: indexPath.row)as! NSDictionary
+            
+            let strcouponcode = String(format: "%@", dic.value(forKey: "code")as? String ?? "")
+            let strexpdate = String(format: "%@", dic.value(forKey: "expiration_date")as? String ?? "DD/MM/YYYY")
+            
+            cell.lblselectcopy.layer.cornerRadius = 6.0
+            cell.lblselectcopy.layer.masksToBounds = true
+            
+            cell.lblcouponcode.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language230"),strcouponcode)
+            cell.lblexpdate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language231"),strexpdate)
+         
+            //cell.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+            cell.viewcell.backgroundColor = .white
+            
+            let lblSeparator = UILabel(frame: CGRect(x: 0, y: 69.5, width: tableView.frame.size.width, height: 0.5))
+            lblSeparator.backgroundColor = UIColor.lightGray
+            cell.contentView.addSubview(lblSeparator)
+            
+            return cell;
+        }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! celltabvsubscriptionorderview
         cell.selectionStyle=UITableViewCell.SelectionStyle.none
@@ -554,7 +684,19 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         if tableView == tabveditpopupitems
         {
         }
-        else{
+        else if tableView == tabvcouponlistpopup
+        {
+            let dic = self.arrMCoupons.object(at: indexPath.row)as! NSDictionary
+            let strcouponcode = String(format: "%@", dic.value(forKey: "code")as? String ?? "")
+            //let strexpdate = String(format: "%@", dic.value(forKey: "expiration_date")as? String ?? "DD/MM/YYYY")
+            print("strcouponcode",strcouponcode)
+            
+            self.txtcouponcode.text = strcouponcode
+            
+            viewPopupAddNewExistingBG3.removeFromSuperview()
+        }
+        else
+        {
             
         }
     }
@@ -654,20 +796,199 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
     {
     }
     
-    //MARK: - press Apply coupon code
+    //MARK: - press VIEW / APPLY / REMOVE - Coupon Method
+    @IBAction func pressViewcouponcode(_ sender: Any)
+    {
+        self.getallCoupons()
+    }
     @IBAction func pressApplycouponcode(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if txtcouponcode.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter coupon voucher code", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language346"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
-        else{
-            self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: strSUBTOTAL)
+        else
+        {
+            print("strSUBTOTAL",strSUBTOTAL)
+            print("strSHIPPING",strSHIPPING)
+            print("strGRANDTOTAL",strGRANDTOTAL)
+            
+            self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: strGRANDTOTAL)
         }
+    }
+    @IBAction func pressRemovecouponcode(_ sender: Any)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        print("self.strGRANDTOTAL",self.strGRANDTOTAL)
+        print("self.strDISCOUNTAMOUNT",self.strDISCOUNTAMOUNT)
+        print("self.strSUBTOTAL",self.strSUBTOTAL)
+        print("self.strSHIPPING",self.strSHIPPING)
+        
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language347"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+            
+            print("Handle Continue Logic here")
+            
+            var fltupdated = 0.00
+            let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
+            let fltamount11  = (self.strDISCOUNTAMOUNT as NSString).floatValue
+            
+            fltupdated = Double(fltamount1 + fltamount11)
+            print("fltupdated",fltupdated)
+            
+            self.strGRANDTOTAL = String(format: "%0.2f",fltupdated)
+            
+            self.lblgrandtotal.text = "Grand Total:"
+            self.lblgrandtotalvalue.text = String(format: "AED %0.2f", fltupdated)
+            
+            //RESET UI DESIGN COUPON VIEW
+            self.strDISCOUNTAMOUNT = ""
+            self.strDISCOUNTCODE = ""
+            
+            self.txtcouponcode.isUserInteractionEnabled = true
+            self.txtcouponcode.text = ""
+            self.btnapplycouponcode.isUserInteractionEnabled = true
+            self.btnapplycouponcode.setTitle("Apply", for: .normal)
+            self.btnremovecouponcode.isHidden = true
+        }))
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
+    }
+    
+    
+    //MARK: - create POPUP COUPON LIST method
+    func createCOUPONLIST()
+    {
+        let height1 = Float(UIApplication.shared.statusBarFrame.height) as Float
+        let height2 = Float((self.navigationController?.navigationBar.frame.size.height)!) as Float
+        let myFloat1 = height1 + height2
+        print(myFloat1)
+        
+        self.viewcouponlist.layer.cornerRadius = 6.0
+        self.viewcouponlist.layer.masksToBounds = true
+        
+        let appDel = UIApplication.shared.delegate as! AppDelegate
+        
+        self.lblcouponlistpopupheader.text = appDel.changeLanguage(key: "msg_language228")
+        
+        tabvcouponlistpopup.register(UINib(nibName: "cellcoupon", bundle: nil), forCellReuseIdentifier: reuseIdentifier3)
+        tabvcouponlistpopup.separatorStyle = .none
+        tabvcouponlistpopup.backgroundView=nil
+        tabvcouponlistpopup.tag = 1111
+        tabvcouponlistpopup.backgroundColor=UIColor.clear
+        tabvcouponlistpopup.separatorColor=UIColor.clear
+        tabvcouponlistpopup.showsVerticalScrollIndicator = false
+        
+        viewPopupAddNewExistingBG3 = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height))
+        viewPopupAddNewExistingBG3.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
+        let frameSize: CGPoint = CGPoint(x:viewPopupAddNewExistingBG3.bounds.size.width*0.5,y: (viewPopupAddNewExistingBG3.bounds.size.height*0.5) - 20)
+        viewPopupAddNewExistingBG3.addSubview(self.viewcouponlist)
+        self.viewcouponlist.center = frameSize
+        self.view.addSubview(viewPopupAddNewExistingBG3)
+        
+        self.tabvcouponlistpopup.reloadData()
+    }
+    @IBAction func presscrosscouponpopup(_ sender: Any)
+    {
+        viewPopupAddNewExistingBG3.removeFromSuperview()
+    }
+    
+    //MARK: - get All Coupons API method
+    func getallCoupons()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        var strconnurl = String()
+        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod22)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                    
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    //print("json --->",json)
+                    
+                    let dictemp = json as NSDictionary
+                    
+                   
+                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            if self.arrMCoupons.count > 0{
+                                self.arrMCoupons.removeAllObjects()
+                            }
+                            
+                            let arrmcoupon = json.value(forKey: "list") as? NSArray ?? []
+                            self.arrMCoupons = NSMutableArray(array: arrmcoupon)
+                            //print("arrMCoupons --->",self.arrMCoupons)
+                            
+                            if self.arrMCoupons.count == 0{
+                                self.msg = "No orders found!"
+                            }
+                            
+                            self.createCOUPONLIST()
+                        }
+                        else
+                        {
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
     }
     
     //MARK: - post Apply Coupon code Method
@@ -743,33 +1064,35 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
                             self.strDISCOUNTAMOUNT = strdiscount_amount
                             self.strDISCOUNTCODE = strcoupon_code
                             
+                            self.lblgrandtotal.text = String(format: "Grand Total: (Discounted AED %@)", self.strDISCOUNTAMOUNT)
+                            
+                            
                             self.txtcouponcode.isUserInteractionEnabled = false
                             self.btnapplycouponcode.isUserInteractionEnabled = false
                             self.btnapplycouponcode.setTitle("Applied", for: .normal)
+                            self.btnremovecouponcode.isHidden = false
 
                             var fltTotal3 = 0.00
-                            let fltamount1  = (self.strSUBTOTAL as NSString).floatValue
+                            let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
                             let fltamount2  = (self.strDISCOUNTAMOUNT as NSString).floatValue
                             fltTotal3 = Double(fltamount1 - fltamount2)
                             
-                            var fltTotal5 = 0.00
-                            let fltamount4  = (self.strSHIPPING as NSString).doubleValue
-                            fltTotal5 = Double(fltTotal3 + fltamount4)
+                            self.strGRANDTOTAL = String(format: "%0.2f",fltTotal3)
+                            self.lblgrandtotalvalue.text = String(format: "AED %0.2f", fltTotal3)
                             
-                            self.lblsubtotalvalue.text = self.strSUBTOTAL
-                            self.lblsubtotalvalue.text = self.strSHIPPING
-                            self.lblgrandtotalvalue.text = String(format: "%0.2f", fltTotal5)
-                            
-                            /*let uiAlert = UIAlertController(title: "", message: "You have successfully applied coupon code.", preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language232"), preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
-                            }))*/
+                            }))
                         }
-                        else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                        else
+                        {
+                            self.btnremovecouponcode.isHidden = true
+                            
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

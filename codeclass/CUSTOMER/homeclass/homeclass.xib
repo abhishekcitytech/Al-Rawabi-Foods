@@ -23,22 +23,27 @@
                 <outlet property="btnBpopupSubscribeWeekly" destination="FDp-QK-2jG" id="x6u-eO-upK"/>
                 <outlet property="btnBuyoncepopup" destination="47x-6D-q2Z" id="AUK-js-gQr"/>
                 <outlet property="btncrossSubscribeBuyoncePopup" destination="WCt-zq-ALI" id="7tf-tb-86L"/>
+                <outlet property="btnfloatcart" destination="eOv-Pv-LTS" id="ymh-Ym-JFt"/>
                 <outlet property="btninfoSubscriptionBuyoncePopup" destination="IpG-J6-V4r" id="Ioc-7q-dvN"/>
                 <outlet property="btnlocationselect" destination="Xo3-cc-0uX" id="nCT-nP-KBg"/>
                 <outlet property="btnpopupSubscribeDaily" destination="ijw-pQ-6qx" id="p1g-Q0-ooP"/>
                 <outlet property="btnpopupSubscribeMothly" destination="5y9-3d-kSg" id="ilb-KL-QKW"/>
+                <outlet property="btnsearchbar" destination="GlT-5O-F0E" id="csv-ls-CMb"/>
                 <outlet property="btnviewalltopdeals" destination="9J3-QW-L0Z" id="fky-NU-9xM"/>
                 <outlet property="colcategory" destination="mZU-Ro-6j2" id="ZnY-Zm-nCt"/>
                 <outlet property="coltopdeals" destination="Oxg-v2-5tI" id="f92-sb-ALa"/>
+                <outlet property="imgvfloatcart" destination="sNB-Bl-NQE" id="K9c-sx-VFM"/>
                 <outlet property="imgvlocationselect" destination="kdM-pV-NTa" id="GFT-B0-BH3"/>
                 <outlet property="imgvlogosubscribe" destination="v7Y-Ns-id8" id="Uih-Df-v7K"/>
                 <outlet property="imgvpromobox1" destination="WFL-3X-i5O" id="3em-1C-yww"/>
                 <outlet property="imgvpromobox2" destination="dMS-5N-rpf" id="vhM-Lk-7qf"/>
                 <outlet property="imgvpromobox3" destination="yOt-sh-a6C" id="RKG-cQ-GUG"/>
+                <outlet property="imgvsearchbar" destination="2ed-eW-NyJ" id="ktj-20-fUf"/>
                 <outlet property="lblalertmessagelocationchecking" destination="QEX-Wf-Bze" id="3Li-uR-ly2"/>
                 <outlet property="lblchoosesubscriptionplan" destination="XBg-nz-Bb7" id="2C8-wA-DK0"/>
                 <outlet property="lbldaily1" destination="gMu-YO-Wxv" id="CxN-9s-q6K"/>
                 <outlet property="lbldaily2" destination="vuG-wM-KHj" id="bu2-U0-bit"/>
+                <outlet property="lblfloatcartcount" destination="aB0-SW-lDv" id="2yI-t7-skj"/>
                 <outlet property="lblgetyourdelivery" destination="79p-qu-qP4" id="ajJ-Ey-ZqL"/>
                 <outlet property="lblmonthly1" destination="qVZ-N1-hWb" id="8cC-QA-oxF"/>
                 <outlet property="lblmonthly2" destination="hVm-3d-lZe" id="m9J-FQ-QaK"/>
@@ -47,8 +52,10 @@
                 <outlet property="lblweekly2" destination="NBo-Ly-E9e" id="ixx-Q2-nXA"/>
                 <outlet property="scrolloverall" destination="6bR-yg-21j" id="AYq-qz-zBa"/>
                 <outlet property="txtlocationselect" destination="KvF-Df-fbz" id="9Fe-dt-umc"/>
+                <outlet property="txtsearchbar" destination="j0j-4x-eoU" id="sLE-IV-KdT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewbanner" destination="uCc-Sw-yWR" id="iq3-3h-WiY"/>
+                <outlet property="viewfloatcart" destination="7Qg-6f-1Sz" id="KpC-y7-3dh"/>
                 <outlet property="viewfour" destination="B99-7w-JrL" id="YK6-nK-hjR"/>
                 <outlet property="viewlocationselect" destination="l0L-YD-OyT" id="BNB-WN-61W"/>
                 <outlet property="viewone" destination="gSG-VE-SA0" id="wUX-KS-HyT"/>
@@ -60,24 +67,63 @@
                 <outlet property="viewpromobox1" destination="aG6-OY-Fxa" id="0UI-TS-VgF"/>
                 <outlet property="viewpromobox2" destination="lsN-OB-TKo" id="E4m-3L-JIa"/>
                 <outlet property="viewpromobox3" destination="HCG-HL-lBe" id="T2s-Dc-1yq"/>
+                <outlet property="viewsearchbar" destination="uI4-vJ-gLU" id="nm6-1d-yhg"/>
+                <outlet property="viewsearchbar1" destination="AsJ-En-3ij" id="VOh-F4-HEC"/>
                 <outlet property="viewthree" destination="FLY-8n-ftb" id="iLq-Bw-asr"/>
                 <outlet property="viewtwo" destination="HvD-pi-qsC" id="FLc-YG-mxk"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="1205"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="1252"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cj9-UL-ezG">
-                    <rect key="frame" x="0.0" y="44" width="375" height="1112"/>
+                    <rect key="frame" x="0.0" y="44" width="375" height="1159"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6bR-yg-21j">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="1112"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="1159"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uI4-vJ-gLU">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AsJ-En-3ij">
+                                            <rect key="frame" x="1" y="1" width="52" height="45"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="2ed-eW-NyJ">
+                                                    <rect key="frame" x="14" y="10" width="24" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search by product name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j0j-4x-eoU">
+                                            <rect key="frame" x="54" y="1" width="320" height="45"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="dlA-I2-VN5"/>
+                                            </connections>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GlT-5O-F0E">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <connections>
+                                                <action selector="pressSearchbar:" destination="-1" eventType="touchUpInside" id="Glt-32-EvO"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gSG-VE-SA0">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="176"/>
+                                    <rect key="frame" x="0.0" y="50" width="375" height="176"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uCc-Sw-yWR" customClass="ImageSlideshow" customModule="ImageSlideshow">
@@ -89,7 +135,7 @@
                                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HvD-pi-qsC">
-                                    <rect key="frame" x="0.0" y="178" width="375" height="320"/>
+                                    <rect key="frame" x="0.0" y="228" width="375" height="320"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mZU-Ro-6j2">
@@ -111,11 +157,11 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FLY-8n-ftb">
-                                    <rect key="frame" x="0.0" y="500" width="375" height="369"/>
+                                    <rect key="frame" x="0.0" y="550" width="375" height="369"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Top Deals" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOD-lb-RUR">
-                                            <rect key="frame" x="8" y="25" width="359" height="23"/>
+                                            <rect key="frame" x="8" y="14" width="359" height="34"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="17"/>
@@ -153,7 +199,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B99-7w-JrL">
-                                    <rect key="frame" x="0.0" y="870" width="375" height="238"/>
+                                    <rect key="frame" x="0.0" y="920" width="375" height="238"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aG6-OY-Fxa">
@@ -218,6 +264,33 @@
                                 </view>
                             </subviews>
                         </scrollView>
+                        <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Qg-6f-1Sz">
+                            <rect key="frame" x="306" y="1085" width="60" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cartbag" translatesAutoresizingMaskIntoConstraints="NO" id="sNB-Bl-NQE">
+                                    <rect key="frame" x="10" y="10" width="40" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aB0-SW-lDv">
+                                    <rect key="frame" x="32" y="0.0" width="28" height="28"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                                    <color key="backgroundColor" name="darkmostredcolor"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eOv-Pv-LTS">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <connections>
+                                        <action selector="pressFloatCart:" destination="-1" eventType="touchUpInside" id="OcG-5e-Rjc"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
@@ -233,7 +306,7 @@
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="132" y="356.67166416791605"/>
+            <point key="canvasLocation" x="132" y="377.36131934032989"/>
         </view>
         <view contentMode="scaleToFill" id="gRQ-4z-BT9">
             <rect key="frame" x="0.0" y="0.0" width="344" height="503"/>
@@ -442,11 +515,16 @@
         </view>
     </objects>
     <resources>
+        <image name="cartbag" width="32" height="32"/>
         <image name="crossblack" width="24" height="24"/>
         <image name="info.circle.fill" catalog="system" width="128" height="123"/>
         <image name="location" width="32" height="40"/>
         <image name="location.circle.fill" catalog="system" width="128" height="123"/>
         <image name="logonav" width="72" height="40"/>
+        <image name="search" width="24" height="24"/>
+        <namedColor name="darkmostredcolor">
+            <color red="0.87099999189376831" green="0.071000002324581146" blue="0.30199998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="greencolor">
             <color red="0.1289999932050705" green="0.58799999952316284" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

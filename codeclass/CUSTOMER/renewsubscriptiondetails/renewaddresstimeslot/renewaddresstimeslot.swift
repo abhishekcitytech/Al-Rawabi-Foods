@@ -130,7 +130,20 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
         }
         else
         {
-            self.postCreateRenewDataAPIMethod()
+            let ctrl = renewpaymentmethodlist(nibName: "renewpaymentmethodlist", bundle: nil)
+            ctrl.strSubscriptionID = strSubscriptionID
+            ctrl.strpaymentype = strpaymentype
+            ctrl.strautorenew = strautorenew
+            ctrl.strsubtotalamount = strsubtotalamount
+            ctrl.strshippingchargesamount = strshippingchargesamount
+            ctrl.strgrandtotalamount = strgrandtotalamount
+            ctrl.strdiscountamount = strdiscountamount
+            ctrl.strcouponcode = strcouponcode
+            ctrl.strplanid = strplanid
+            ctrl.dicDetails = dicDetails
+            ctrl.strselectedslotid = strselectedslotid
+            ctrl.strSelectedaddressID = strSelectedaddressID
+            self.navigationController?.pushViewController(ctrl, animated: true)
         }
     }
     
@@ -726,139 +739,6 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
         task.resume()
     }
     
-    //MARK: - post Create Renew Data API method
-    func postCreateRenewDataAPIMethod()
-    {
-        var strpaycondition = ""
-        if strpaymentype == "FULL"{
-            strpaycondition = "1"
-        }else{
-            strpaycondition = "2"
-        }
-        
-        let dateString = String(format: "%@", Date.getCurrentDate())
-        print("subscription_created_date",dateString)
-      
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        DispatchQueue.main.async {
-            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
-        }
-        
-        let strcustomerid = UserDefaults.standard.value(forKey: "customerid")as? String ?? ""
-        print("strcustomerid",strcustomerid)
-        
-        
-        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
-        print("strbearertoken",strbearertoken)
-        
-        print("strSubscriptionID",strSubscriptionID)
-        print("strplanid",strplanid)
-        print("paymentcondition",strpaycondition)
-        print("subTotal",strsubtotalamount)
-        print("shippingAmount",strshippingchargesamount)
-        print("grandtotal",strgrandtotalamount)
-        print("discountAmount",strdiscountamount)
-        print("couponcode",strcouponcode)
-        print("autorenew",strautorenew)
-        print("strselectedslotid",strselectedslotid)
-        print("strSelectedaddressID",strSelectedaddressID)
-        
-        let parameters = ["subscriptionId": strSubscriptionID,
-                          "slot": strselectedslotid,
-                          "delivery_address_id": strSelectedaddressID,
-                          "is_auto_renewal": strautorenew,
-                          "subTotal": strsubtotalamount,
-                          "grandTotal": strgrandtotalamount,
-                          "shippingAmount": strshippingchargesamount,
-                          "discountAmount": strdiscountamount,
-                          "paymentcondition": strpaycondition,
-                          "couponCode": strcouponcode] as [String : Any]
-        
-        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod73)
-        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
-        request.httpMethod = "POST"
-        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
-        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
-        print("json string = \(jsonString)")
-        request.httpBody = jsonData as Data
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
-            guard error == nil && data != nil else
-            {
-                //check for fundamental networking error
-                DispatchQueue.main.async {
-                    
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
-                    self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                        print("Click of default button")
-                    }))
-                    
-                    self.view.activityStopAnimating()
-                }
-                print("Error=\(String(describing: error))")
-                return
-            }
-            do{
-                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
-                {
-                    DispatchQueue.main.async {
-                        self.view.activityStopAnimating()
-                    }
-                
-                    let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
-                    
-                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    print("strstatus",strstatus)
-                    print("strsuccess",strsuccess)
-                    print("strmessage",strmessage)
-                    
-                    DispatchQueue.main.async {
-                        
-                        if strsuccess == true
-                        {
-                            let strsubscription_increment_id = String(format: "%@", dictemp.value(forKey: "subscription_increment_id")as? String ?? "")
-                            
-                            //Create Subscription Renew Successfully -- Go into Payment Page
-                            
-                            let ctrl = renewpaymentmethodlist(nibName: "renewpaymentmethodlist", bundle: nil)
-                            ctrl.strsubtotalamount = self.strsubtotalamount
-                            ctrl.strshippingchargesamount = self.strshippingchargesamount
-                            ctrl.strgrandtotalamount = self.strgrandtotalamount
-                            ctrl.strSubscriptionincreamentalId = strsubscription_increment_id
-                            self.navigationController?.pushViewController(ctrl, animated: true)
-                        }
-                        else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                                print("Click of default button")
-                            }))
-                        }
-                    }
-                }
-            }
-            catch {
-                //check for internal server data error
-                DispatchQueue.main.async {
-                    
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
-                    self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                        print("Click of default button")
-                    }))
-                    self.view.activityStopAnimating()
-                }
-                print("Error -> \(error)")
-            }
-        }
-        task.resume()
-    }
+    
 
 }

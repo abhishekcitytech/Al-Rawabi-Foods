@@ -375,6 +375,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         orderonce.tabBarItem.selectedImage = UIImage(named: "tab3")
         let orderonceNav  = UINavigationController(rootViewController: orderonce)
         
+        let cartorderonce = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
+        cartorderonce.tabBarItem.title = myAppDelegate.changeLanguage(key: "msg_language114")
+        cartorderonce.tabBarItem.image = UIImage(named: "tab55")
+        cartorderonce.tabBarItem.selectedImage = UIImage(named: "tab5")
+        let cartorderonceNav  = UINavigationController(rootViewController: cartorderonce)
+        
         let menu = menuclass(nibName: "menuclass", bundle: nil)
         if (strLangCode == "en"){
             menu.tabBarItem.title = ""
@@ -404,6 +410,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         homeNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -20, right: 0)
         subsriptionNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -20, right: 0)
         orderonceNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -20, right: 0)
+        cartorderonceNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -20, right: 0)
         menuNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -20, right: 0)
         
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: +10)
@@ -412,10 +419,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font : UIFont(name: "NunitoSans-Bold", size: 14) as Any], for: .selected)
          
         if strLangCode == "ar"{
-            tabBarController.viewControllers = [menuNav,orderonceNav,subsriptionNav,homeNav]
-            tabBarController.selectedIndex = 3
+            tabBarController.viewControllers = [menuNav,cartorderonceNav,orderonceNav,subsriptionNav,homeNav]
+            tabBarController.selectedIndex = 4
         }else{
-            tabBarController.viewControllers = [homeNav,subsriptionNav,orderonceNav,menuNav]
+            tabBarController.viewControllers = [homeNav,subsriptionNav,orderonceNav,cartorderonceNav,menuNav]
             tabBarController.selectedIndex = 0
         }
         
