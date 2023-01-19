@@ -66,9 +66,50 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
         txtsearchbar.layer.masksToBounds = true
         txtsearchbar.setLeftPaddingPoints(10.0)
         
+        var floatDevider = 0.0
+        //FIXMEDEVICETYPE
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            // iPad
+            let screenSize = UIScreen.main.bounds
+            if (screenSize.height == 1024){
+                print("7.9 inch")
+            }
+            else if(screenSize.height == 1133){
+                print("8.3 inch")
+            }
+            else if(screenSize.height == 1024){
+                print("9.7 inch")
+            }
+            else if(screenSize.height == 1080){
+                print("10.2 inch")
+            }
+            else if(screenSize.height == 1112){
+                print("10.5 inch")
+            }
+            else if(screenSize.height == 1180){
+                print("10.9 inch")
+            }
+            else if(screenSize.height == 1194){
+                print("11 inch")
+            }
+            else if(screenSize.height == 1366){
+                print("12.9 inch")
+            }
+            else{
+                
+            }
+            floatDevider = 3.0
+        }
+        else
+        {
+            // not iPad (iPhone, mac, tv, carPlay, unspecified)
+            floatDevider = 2.0
+        }
+        
         colproductlist.backgroundColor = .clear
         let layout = colproductlist.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/2.0 - 15, height: 210)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: 210)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colproductlist.register(UINib(nibName: "colcellproductonly", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)
@@ -253,7 +294,7 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
         let strkeywrodfinal = strkeywrod.replacingOccurrences(of: " ", with: "%20")
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,"",strkeywrodfinal)
+        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,"",strkeywrodfinal,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{
@@ -299,7 +340,7 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
                         {
                             let arrmproducts = json.value(forKey: "product") as? NSArray ?? []
                             self.arrMCategorywiseProductlist = NSMutableArray(array: arrmproducts)
-                            print("arrMCategorywiseProductlist --->",self.arrMCategorywiseProductlist)
+                            //print("arrMCategorywiseProductlist --->",self.arrMCategorywiseProductlist)
                             
                             if self.arrMCategorywiseProductlist.count == 0{
                                 self.msg = "No products found!"

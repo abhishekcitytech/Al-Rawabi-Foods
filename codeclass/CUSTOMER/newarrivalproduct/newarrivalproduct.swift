@@ -66,9 +66,50 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
         self.lblfloatcartcount.layer.masksToBounds = true
         
         
+        var floatDevider = 0.0
+        //FIXMEDEVICETYPE
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            // iPad
+            let screenSize = UIScreen.main.bounds
+            if (screenSize.height == 1024){
+                print("7.9 inch")
+            }
+            else if(screenSize.height == 1133){
+                print("8.3 inch")
+            }
+            else if(screenSize.height == 1024){
+                print("9.7 inch")
+            }
+            else if(screenSize.height == 1080){
+                print("10.2 inch")
+            }
+            else if(screenSize.height == 1112){
+                print("10.5 inch")
+            }
+            else if(screenSize.height == 1180){
+                print("10.9 inch")
+            }
+            else if(screenSize.height == 1194){
+                print("11 inch")
+            }
+            else if(screenSize.height == 1366){
+                print("12.9 inch")
+            }
+            else{
+                
+            }
+            floatDevider = 3.0
+        }
+        else
+        {
+            // not iPad (iPhone, mac, tv, carPlay, unspecified)
+            floatDevider = 2.0
+        }
+        
         colproductlist.backgroundColor = .clear
         let layout = colproductlist.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/2.0 - 15, height: 275)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: 275)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colproductlist.register(UINib(nibName: "colcelltopdeals", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)

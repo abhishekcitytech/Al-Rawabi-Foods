@@ -188,10 +188,54 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
     //MARK: - create select category gallery method
     func createCategoryGallery()
     {
+        var floatDevider = 0.0
+        var floatDevider1 = 0.0
+        //FIXMEDEVICETYPE
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            // iPad
+            let screenSize = UIScreen.main.bounds
+            if (screenSize.height == 1024){
+                print("7.9 inch")
+            }
+            else if(screenSize.height == 1133){
+                print("8.3 inch")
+            }
+            else if(screenSize.height == 1024){
+                print("9.7 inch")
+            }
+            else if(screenSize.height == 1080){
+                print("10.2 inch")
+            }
+            else if(screenSize.height == 1112){
+                print("10.5 inch")
+            }
+            else if(screenSize.height == 1180){
+                print("10.9 inch")
+            }
+            else if(screenSize.height == 1194){
+                print("11 inch")
+            }
+            else if(screenSize.height == 1366){
+                print("12.9 inch")
+            }
+            else{
+                
+            }
+            floatDevider = 2.8
+            floatDevider1 = 1.8
+        }
+        else
+        {
+            // not iPad (iPhone, mac, tv, carPlay, unspecified)
+            floatDevider = 3.5
+            floatDevider1 = 2.5
+        }
+        
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: colcategory.frame.size.width / 3.5, height: 60)
+        layout.itemSize = CGSize(width: colcategory.frame.size.width / floatDevider, height: 60)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         colcategory.collectionViewLayout = layout
@@ -204,7 +248,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         let layout1: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout1.scrollDirection = .horizontal
         layout1.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout1.itemSize = CGSize(width: colsubcategory.frame.size.width / 2.5, height: 60)
+        layout1.itemSize = CGSize(width: colsubcategory.frame.size.width / floatDevider1, height: 60)
         layout1.minimumInteritemSpacing = 5
         layout1.minimumLineSpacing = 5
         colsubcategory.collectionViewLayout = layout1
@@ -217,9 +261,50 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
     //MARK: - create product gallery method
     func createProductGallery()
     {
+        var floatDevider = 0.0
+        //FIXMEDEVICETYPE
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            // iPad
+            let screenSize = UIScreen.main.bounds
+            if (screenSize.height == 1024){
+                print("7.9 inch")
+            }
+            else if(screenSize.height == 1133){
+                print("8.3 inch")
+            }
+            else if(screenSize.height == 1024){
+                print("9.7 inch")
+            }
+            else if(screenSize.height == 1080){
+                print("10.2 inch")
+            }
+            else if(screenSize.height == 1112){
+                print("10.5 inch")
+            }
+            else if(screenSize.height == 1180){
+                print("10.9 inch")
+            }
+            else if(screenSize.height == 1194){
+                print("11 inch")
+            }
+            else if(screenSize.height == 1366){
+                print("12.9 inch")
+            }
+            else{
+                
+            }
+            floatDevider = 3.0
+        }
+        else
+        {
+            // not iPad (iPhone, mac, tv, carPlay, unspecified)
+            floatDevider = 2.0
+        }
+        
         colproductlist.backgroundColor = .clear
         let layout = colproductlist.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/2.0 - 15, height: 356)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: 356)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colproductlist.register(UINib(nibName: "cellcoldailyproduct", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)
@@ -450,11 +535,8 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             else if strtext.containsIgnoreCase("Meat"){
                 cellA.viewcell.backgroundColor = UIColor(named: "plate4")!
             }
-            else if strtext.containsIgnoreCase("Gift"){
-                cellA.viewcell.backgroundColor = UIColor(named: "plate7")!
-            }
             else{
-                cellA.viewcell.backgroundColor = UIColor(named: "plate7")!
+                cellA.viewcell.backgroundColor = .white
             }
             
             cellA.lblcell.text =  strtext
@@ -587,7 +669,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                 cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)
             }
             
-            cellA.btnfav.isHidden = false
+            cellA.btnfav.isHidden = true
         }
         
         cellA.viewcell.layer.cornerRadius = 8.0
@@ -734,6 +816,10 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
             if arrm1.count > 0{
                 self.viewsubcategorycarousal.isHidden = false
+                
+                let dict2222 = arrm1.object(at: 0) as! NSDictionary
+                let strid2222 = String(format: "%@", dict2222.value(forKey: "id") as! CVarArg)
+                self.strSelectedSubCat = String(format: "%@", strid2222)
                 self.colsubcategory.reloadData()
             }
             else{
@@ -764,7 +850,9 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             
             print("self.strSelectedSubCat",self.strSelectedSubCat)
             
-            //self.getProductListingAPIMethod(strselectedcategoryid: strid)
+            let dict111 = arrmcatlist.object(at: Int(self.strSelectedCat)!) as! NSDictionary
+            let strid111 = String(format: "%@", dict111.value(forKey: "id") as! CVarArg)
+            self.getProductListingAPIMethod(strselectedcategoryid: strid111)
         }
         else if collectionView == colproductlist
         {
@@ -1353,8 +1441,8 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
-                          "categoryId": "none"] as [String : Any]
-        //FIXMESANDIPAN ,"pageFromId": "3"
+                          "categoryId": "none","pageFromId": "3"] as [String : Any]
+        //FIXMESANDIPAN
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -1477,7 +1565,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         print("strsearchkeyword",strsearchkeyword)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,strsearchkeyword)
+        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,strsearchkeyword,strSelectedSubCat)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{

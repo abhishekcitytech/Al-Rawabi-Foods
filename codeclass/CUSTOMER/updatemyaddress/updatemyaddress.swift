@@ -45,6 +45,8 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
     var strSelectedLATITUDE = ""
     var strSelectedLONGITUDE = ""
     
+    var strSELECTEDPOLYGONDETAILS = ""
+    
     var strisdefaultaddress = "0"
     var strisformaid = "0"
     
@@ -650,6 +652,8 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
     //MARK: - post Update address API Method
     func postUpdateAddressAPIMethod()
     {
+        print("strSelectedLONGITUDE",self.strSELECTEDPOLYGONDETAILS)
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)

@@ -81,11 +81,52 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
         
         txtamount.setLeftPaddingPoints(10)
         
+        var floatDevider = 0.0
+        //FIXMEDEVICETYPE
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            // iPad
+            let screenSize = UIScreen.main.bounds
+            if (screenSize.height == 1024){
+                print("7.9 inch")
+            }
+            else if(screenSize.height == 1133){
+                print("8.3 inch")
+            }
+            else if(screenSize.height == 1024){
+                print("9.7 inch")
+            }
+            else if(screenSize.height == 1080){
+                print("10.2 inch")
+            }
+            else if(screenSize.height == 1112){
+                print("10.5 inch")
+            }
+            else if(screenSize.height == 1180){
+                print("10.9 inch")
+            }
+            else if(screenSize.height == 1194){
+                print("11 inch")
+            }
+            else if(screenSize.height == 1366){
+                print("12.9 inch")
+            }
+            else{
+                
+            }
+            floatDevider = 2.5
+        }
+        else
+        {
+            // not iPad (iPhone, mac, tv, carPlay, unspecified)
+            floatDevider = 4
+        }
+        
         arrMamount = ["50","100","200","300","500"]
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: colrechargeamount.frame.size.width / 4, height: 70)
+        layout.itemSize = CGSize(width: colrechargeamount.frame.size.width / floatDevider, height: 70)
         layout.minimumInteritemSpacing = 2
         layout.minimumLineSpacing = 2
         colrechargeamount.collectionViewLayout = layout

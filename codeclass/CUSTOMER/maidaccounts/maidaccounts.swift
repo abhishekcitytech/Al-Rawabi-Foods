@@ -73,6 +73,9 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         tabvmaidlist.separatorColor=UIColor.clear
         tabvmaidlist.showsVerticalScrollIndicator = false
         
+        btncreatemaid.layer.cornerRadius = 16.0
+        btncreatemaid.layer.masksToBounds = true
+        
     }
     
     //MARK: - press back method

@@ -42,6 +42,8 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
     var strSelectedLATITUDE = ""
     var strSelectedLONGITUDE = ""
     
+    var strSELECTEDPOLYGONDETAILS = ""
+    
     var strisdefaultaddress = "0"
     var strisformaid = "0"
     
@@ -571,6 +573,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
     {
         print("strSelectedLATITUDE",self.strSelectedLATITUDE)
         print("strSelectedLONGITUDE",self.strSelectedLONGITUDE)
+        print("strSelectedLONGITUDE",self.strSELECTEDPOLYGONDETAILS)
         
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {

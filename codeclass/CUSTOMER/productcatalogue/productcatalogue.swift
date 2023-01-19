@@ -98,9 +98,51 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
         
+        
+        var floatDevider = 0.0
+        //FIXMEDEVICETYPE
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            // iPad
+            let screenSize = UIScreen.main.bounds
+            if (screenSize.height == 1024){
+                print("7.9 inch")
+            }
+            else if(screenSize.height == 1133){
+                print("8.3 inch")
+            }
+            else if(screenSize.height == 1024){
+                print("9.7 inch")
+            }
+            else if(screenSize.height == 1080){
+                print("10.2 inch")
+            }
+            else if(screenSize.height == 1112){
+                print("10.5 inch")
+            }
+            else if(screenSize.height == 1180){
+                print("10.9 inch")
+            }
+            else if(screenSize.height == 1194){
+                print("11 inch")
+            }
+            else if(screenSize.height == 1366){
+                print("12.9 inch")
+            }
+            else{
+                
+            }
+            floatDevider = 3.0
+        }
+        else
+        {
+            // not iPad (iPhone, mac, tv, carPlay, unspecified)
+            floatDevider = 2.0
+        }
+        
         colproductlist.backgroundColor = .clear
         let layout = colproductlist.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/2.0 - 15, height: 275)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: 275)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colproductlist.register(UINib(nibName: "colcelltopdeals", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)
@@ -123,7 +165,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
     {
         self.navigationController?.popViewController(animated: true)
     }
-   
+    
     //MARK: - press Sortby Method
     @IBAction func pressSortby(_ sender: Any){
         
@@ -147,18 +189,61 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
     //MARK: - create select category gallery method
     func createSubCategoryGallery()
     {
-        var devidercount = 3.5
-        if arrmsubcatlist.count >= 3{
-            devidercount = 3.5
-        }else{
-            devidercount = 1.8
+        var floatDevider = 0.0
+        //FIXMEDEVICETYPE
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            // iPad
+            let screenSize = UIScreen.main.bounds
+            if (screenSize.height == 1024){
+                print("7.9 inch")
+            }
+            else if(screenSize.height == 1133){
+                print("8.3 inch")
+            }
+            else if(screenSize.height == 1024){
+                print("9.7 inch")
+            }
+            else if(screenSize.height == 1080){
+                print("10.2 inch")
+            }
+            else if(screenSize.height == 1112){
+                print("10.5 inch")
+            }
+            else if(screenSize.height == 1180){
+                print("10.9 inch")
+            }
+            else if(screenSize.height == 1194){
+                print("11 inch")
+            }
+            else if(screenSize.height == 1366){
+                print("12.9 inch")
+            }
+            else{
+                
+            }
+            
+            if arrmsubcatlist.count >= 3{
+                floatDevider = 2.4
+            }else{
+                floatDevider = 2
+            }
         }
-        print("devidercount",devidercount)
+        else
+        {
+            // not iPad (iPhone, mac, tv, carPlay, unspecified)
+            if arrmsubcatlist.count >= 3{
+                floatDevider = 3.5
+            }else{
+                floatDevider = 1.8
+            }
+        }
+        print("floatDevider",floatDevider)
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: colsubcategory.frame.size.width / devidercount, height: 60)
+        layout.itemSize = CGSize(width: colsubcategory.frame.size.width / floatDevider, height: 60)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         colsubcategory.collectionViewLayout = layout
@@ -285,7 +370,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
             cellA.viewcell.layer.cornerRadius = 6.0
             cellA.viewcell.layer.masksToBounds = true
             
-
+            
             cellA.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
             cellA.lblcell.text =  strtext
             
@@ -337,7 +422,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                 let strimageurl = String(format: "%@", arrmedia.object(at: 0)as? String ?? "")
                 let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
                 print("strFinalurl",strFinalurl)
-               
+                
                 cellA.imgv.contentMode = .scaleAspectFit
                 cellA.imgv.imageFromURL(urlString: strFinalurl)
             }
@@ -380,7 +465,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
             }
             
         }
-
+        
         cellA.btnaddonce.layer.borderWidth = 1.0
         cellA.btnaddonce.layer.borderColor = UIColor(named: "themecolor")!.cgColor
         cellA.btnaddonce.layer.cornerRadius = 16.0
@@ -418,7 +503,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
             
             print("self.strSelectedSubCat",self.strSelectedSubCat)
             
-            //self.getProductListingAPIMethod(strselectedcategoryid: strid)
+            self.getProductListingFromCategoryIDAPIMethod()
         }
         else
         {
@@ -469,7 +554,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     self.postAddtoWishlistAPIMethod(strproductid: strproductid)
                 }))
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-                      print("Handle Cancel Logic here")
+                    print("Handle Cancel Logic here")
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
             }
@@ -480,7 +565,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strproductid)
                 }))
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-                      print("Handle Cancel Logic here")
+                    print("Handle Cancel Logic here")
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
             }
@@ -505,8 +590,8 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         
     }
     
-
-
+    
+    
     //MARK: - get Product Listing From Category ID API method
     func getProductListingFromCategoryIDAPIMethod()
     {
@@ -533,7 +618,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         print("strsearchkeyword",strsearchkeyword)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strFromCategoryID,strsearchkeyword)
+        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strFromCategoryID,strsearchkeyword,strSelectedSubCat)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{
@@ -562,15 +647,15 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     
                     print("json --->",json)
                     let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
-                   
+                    //print("dictemp --->",dictemp)
                     
-                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     //print("strstatus",strstatus)
-                     //print("strsuccess",strsuccess)
-                     //print("strmessage",strmessage)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    //print("strstatus",strstatus)
+                    //print("strsuccess",strsuccess)
+                    //print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -583,7 +668,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                             
                             let arrmproducts = json.value(forKey: "product") as? NSArray ?? []
                             self.arrMCategorywiseProductlist = NSMutableArray(array: arrmproducts)
-                            print("arrMCategorywiseProductlist --->",self.arrMCategorywiseProductlist)
+                            //print("arrMCategorywiseProductlist --->",self.arrMCategorywiseProductlist)
                             
                             if self.arrMCategorywiseProductlist.count == 0{
                                 self.msg = "No products found!"
@@ -623,9 +708,9 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         }
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-      
+        
         let parameters = ["productid": strproductid
-                          ] as [String : Any]
+        ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod12)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -661,7 +746,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -681,7 +766,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
-
+                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
@@ -766,7 +851,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -825,9 +910,9 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         }
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-      
+        
         let parameters = ["productid": strSelectedProductID
-                          ] as [String : Any]
+        ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod31)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -863,7 +948,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     

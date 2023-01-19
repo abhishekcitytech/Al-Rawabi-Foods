@@ -1209,10 +1209,51 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     //MARK: - create Explore Category method
     func createExploreCategory()
     {
+        var floatDevider = 0.0
+        //FIXMEDEVICETYPE
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            // iPad
+            let screenSize = UIScreen.main.bounds
+            if (screenSize.height == 1024){
+                print("7.9 inch")
+            }
+            else if(screenSize.height == 1133){
+                print("8.3 inch")
+            }
+            else if(screenSize.height == 1024){
+                print("9.7 inch")
+            }
+            else if(screenSize.height == 1080){
+                print("10.2 inch")
+            }
+            else if(screenSize.height == 1112){
+                print("10.5 inch")
+            }
+            else if(screenSize.height == 1180){
+                print("10.9 inch")
+            }
+            else if(screenSize.height == 1194){
+                print("11 inch")
+            }
+            else if(screenSize.height == 1366){
+                print("12.9 inch")
+            }
+            else{
+                
+            }
+            floatDevider = 2.0
+        }
+        else
+        {
+            // not iPad (iPhone, mac, tv, carPlay, unspecified)
+            floatDevider = 3.0
+        }
+        
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: colcategory.frame.size.width / 3, height: 144)
+        layout.itemSize = CGSize(width: colcategory.frame.size.width / floatDevider, height: 144)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         colcategory.collectionViewLayout = layout
@@ -1602,9 +1643,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
-                          "categoryId": "none"] as [String : Any]
+                          "categoryId": "none","pageFromId": "2"] as [String : Any]
         
-        //FIXMESANDIPAN ,"pageFromId": "2"
+        //FIXMESANDIPAN
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

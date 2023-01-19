@@ -103,9 +103,53 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
         btnReviewPlaceOrder.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language67")), for: .normal)
         btnContinuetoAddProducts.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language72")), for: .normal)
         
+        var floatDevider = 0.0
+        var floatcellheight = 0.0
+        //FIXMEDEVICETYPE
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            // iPad
+            let screenSize = UIScreen.main.bounds
+            if (screenSize.height == 1024){
+                print("7.9 inch")
+            }
+            else if(screenSize.height == 1133){
+                print("8.3 inch")
+            }
+            else if(screenSize.height == 1024){
+                print("9.7 inch")
+            }
+            else if(screenSize.height == 1080){
+                print("10.2 inch")
+            }
+            else if(screenSize.height == 1112){
+                print("10.5 inch")
+            }
+            else if(screenSize.height == 1180){
+                print("10.9 inch")
+            }
+            else if(screenSize.height == 1194){
+                print("11 inch")
+            }
+            else if(screenSize.height == 1366){
+                print("12.9 inch")
+            }
+            else{
+                
+            }
+            floatDevider = 5.0
+            floatcellheight = 134.0
+        }
+        else
+        {
+            // not iPad (iPhone, mac, tv, carPlay, unspecified)
+            floatDevider = 3.0
+            floatcellheight = 114.0
+        }
+        
         colweeklycalendar.backgroundColor = .clear
         let layout = colweeklycalendar.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/3.0 - 15, height: 114)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: floatcellheight)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colweeklycalendar.register(UINib(nibName: "colcellsubmodelweekly", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)

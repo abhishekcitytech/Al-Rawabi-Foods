@@ -259,7 +259,7 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
         let strkeywrodfinal = strkeywrod.replacingOccurrences(of: " ", with: "%20")
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,"",strkeywrodfinal)
+        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,"",strkeywrodfinal,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{
@@ -305,7 +305,7 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
                         {
                             let arrmproducts = json.value(forKey: "product") as? NSArray ?? []
                             self.arrMCategorywiseProductlist = NSMutableArray(array: arrmproducts)
-                            print("arrMCategorywiseProductlist --->",self.arrMCategorywiseProductlist)
+                            //print("arrMCategorywiseProductlist --->",self.arrMCategorywiseProductlist)
                             
                             if self.arrMCategorywiseProductlist.count == 0{
                                 self.msg = "No products found!"

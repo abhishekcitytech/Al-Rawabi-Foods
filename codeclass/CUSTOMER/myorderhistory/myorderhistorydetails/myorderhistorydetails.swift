@@ -11,6 +11,9 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
 {
 
     @IBOutlet weak var viewoverall: UIView!
+    
+    
+    @IBOutlet weak var lbltotalorderitems: UILabel!
     @IBOutlet weak var tabvitemlist: UITableView!
     var reuseIdentifier1 = "cellorderhistoryitems"
     
@@ -73,6 +76,7 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
         tabvitemlist.showsVerticalScrollIndicator = false
         
         self.viewtop.isHidden = true
+        self.lbltotalorderitems.isHidden = true
         
     }
     
@@ -229,6 +233,7 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                         if strsuccess == true
                         {
                             self.viewtop.isHidden = false
+                            self.lbltotalorderitems.isHidden = false
                             
                             let dic = dictemp.value(forKey: "details")as! NSDictionary
                             self.dicMOrderDetails = dic.mutableCopy() as! NSMutableDictionary

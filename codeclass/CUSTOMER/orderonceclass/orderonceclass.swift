@@ -144,11 +144,53 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         self.viewfloatcart.backgroundColor = .clear
         self.lblfloatcartcount.layer.cornerRadius = self.lblfloatcartcount.frame.self.width / 2.0
         self.lblfloatcartcount.layer.masksToBounds = true
+        
+        
+        var floatDevider = 0.0
+        //FIXMEDEVICETYPE
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            // iPad
+            let screenSize = UIScreen.main.bounds
+            if (screenSize.height == 1024){
+                print("7.9 inch")
+            }
+            else if(screenSize.height == 1133){
+                print("8.3 inch")
+            }
+            else if(screenSize.height == 1024){
+                print("9.7 inch")
+            }
+            else if(screenSize.height == 1080){
+                print("10.2 inch")
+            }
+            else if(screenSize.height == 1112){
+                print("10.5 inch")
+            }
+            else if(screenSize.height == 1180){
+                print("10.9 inch")
+            }
+            else if(screenSize.height == 1194){
+                print("11 inch")
+            }
+            else if(screenSize.height == 1366){
+                print("12.9 inch")
+            }
+            else{
+                
+            }
+            floatDevider = 3.0
+        }
+        else
+        {
+            // not iPad (iPhone, mac, tv, carPlay, unspecified)
+            floatDevider = 2.0
+        }
        
         
         colproductlist.backgroundColor = .clear
         let layout = colproductlist.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/2.0 - 15, height: 275)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: 275)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colproductlist.register(UINib(nibName: "cellcolbuyonce", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)
@@ -630,6 +672,10 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
             if arrm1.count > 0{
                 self.viewsubcategorycarousal.isHidden = false
+                
+                let dict2222 = arrm1.object(at: 0) as! NSDictionary
+                let strid2222 = String(format: "%@", dict2222.value(forKey: "id") as! CVarArg)
+                self.strSelectedSubCat = String(format: "%@", strid2222)
                 self.colsubcategory.reloadData()
             }
             else{
@@ -660,7 +706,10 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             
             print("self.strSelectedSubCat",self.strSelectedSubCat)
             
-            //self.getProductListingAPIMethod(strselectedcategoryid: strid)
+            
+            let dict111 = arrmcatlist.object(at: Int(self.strSelectedCat)!) as! NSDictionary
+            let strid111 = String(format: "%@", dict111.value(forKey: "id") as! CVarArg)
+            self.getProductListingAPIMethod(strselectedcategoryid: strid111)
         }
         else{
             
@@ -754,8 +803,8 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
-                          "categoryId": "none"] as [String : Any]
-        //FIXMESANDIPAN ,"pageFromId": "3"
+                          "categoryId": "none","pageFromId": "3"] as [String : Any]
+        //FIXMESANDIPAN
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -878,7 +927,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,"")
+        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,"",strSelectedSubCat)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{

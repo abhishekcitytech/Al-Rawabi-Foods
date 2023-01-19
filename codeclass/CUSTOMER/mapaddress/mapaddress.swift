@@ -358,7 +358,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             arrmpolygonobject.add(polygon)
             self.mapview.addOverlay(polygon)
             
-            let strcombine = String(format:"%@+%@",strid,strname)
+            let strcombine = String(format:"%@+%@+%@",strid,strname,stremirate)
             arrmpolygonobjectName.add(strcombine)
         }
         
@@ -1587,6 +1587,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             {
                 print("Your location was inside your polygon1.")
                 let strpolygonname = String(format:"%@",self.arrmpolygonobjectName.object(at: xx) as? String ?? "")
+    
                 print("strpolygonname",strpolygonname)
                 boolcheck = true
                 strSelectedPolygonName = strpolygonname
@@ -1817,6 +1818,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                        tabVC.strstreetaddressfrommapCity = strcityname
                        tabVC.strSelectedLATITUDE = String(self.strsearchlat)
                        tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
+                       tabVC.strSELECTEDPOLYGONDETAILS = self.strSelectedPolygonName
                       self.navigationController?.popToViewController(tabVC, animated: true)
                    }
                 }
@@ -1834,6 +1836,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                        tabVC.strstreetaddressfrommapCity = strcityname
                        tabVC.strSelectedLATITUDE = String(self.strsearchlat)
                        tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
+                       tabVC.strSELECTEDPOLYGONDETAILS = self.strSelectedPolygonName
                       self.navigationController?.popToViewController(tabVC, animated: true)
                    }
                 }
