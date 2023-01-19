@@ -26,6 +26,8 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     var reuseIdentifier1 = "colcellselectsize"
     
     @IBOutlet weak var viewevent: UIView!
+    
+    @IBOutlet weak var viewPlusMinus: UIView!
     @IBOutlet weak var btnMINUS: UIButton!
     @IBOutlet weak var btnPLUS: UIButton!
     @IBOutlet weak var txtqty: UITextField!
@@ -280,14 +282,29 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
             //FROM CATEGORY BUY ONCE LOGIN
             
             var intqty = Int(self.txtqty.text!)
+            print("intqty",intqty as Any)
             if intqty! >= 0{
                 intqty = intqty! - 1
             }
             else{
-                //cart item 0
+                //product qunatity item 0 - Add to cart button will show
+                self.viewPlusMinus.isHidden = true
+                self.btnaddonce.isHidden = false
+                
             }
             print("intqty",intqty as Any)
-            self.txtqty.text = String(format: "%d", intqty!)
+            
+            if intqty == 0{
+                //product qunatity item 0 - Add to cart button will show
+                self.viewPlusMinus.isHidden = true
+                self.btnaddonce.isHidden = false
+            }
+            else
+            {
+                self.txtqty.text = String(format: "%d", intqty!)
+                self.postAddToCartApiMethod(strqty: self.txtqty.text!, strproductid: strSelectedProductID)
+            }
+            
         }
     }
     @IBAction func pressplus(_ sender: Any)
@@ -297,14 +314,19 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
             //FROM CATEGORY BUY ONCE LOGIN
             
             var intqty = Int(self.txtqty.text!)
+            print("intqty",intqty)
             if intqty! >= 0{
                 intqty = intqty! + 1
             }
             else{
-                //cart item 0
+                //product qunatity item 0 - Add to cart button will show
+                self.viewPlusMinus.isHidden = true
+                self.btnaddonce.isHidden = false
             }
             print("intqty",intqty as Any)
             self.txtqty.text = String(format: "%d", intqty!)
+            
+            self.postAddToCartApiMethod(strqty: self.txtqty.text!, strproductid: strSelectedProductID)
         }
     }
     
@@ -553,9 +575,10 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
         cellA.lblsize.text = strsize
         
         let fltprice = Float(strprice)
-        cellA.lblrpcie.text = String(format: "%.2f", fltprice!)
-
+        cellA.lblrpcie.text = String(format: "AED %.2f", fltprice!)
         
+        cellA.lblrpcie.textColor = UIColor(named: "darkgreencolor")!
+
         cellA.viewcell.layer.cornerRadius = 6.0
         cellA.viewcell.layer.borderWidth = 2.0
         cellA.viewcell.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
@@ -737,7 +760,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                    
                     
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
@@ -765,6 +788,10 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                             
                             if self.arrMBanners.count > 0 {
                                 self.createBannerGallery(arrimages: self.arrMBanners)
+                            }
+                            
+                            if self.arrMsize.count > 0 {
+                                self.arrMsize.removeAllObjects()
                             }
                             
                             //SET PRODUCT TYPE SIZE VARIANTS

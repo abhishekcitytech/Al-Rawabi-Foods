@@ -88,9 +88,11 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     var polyg2 = MKPolygon()
     
     var boolcheck = false
+    var strSelectedPolygonName = ""
     
     var arrmPolygonlist = NSMutableArray()
     var arrmpolygonobject = NSMutableArray()
+    var arrmpolygonobjectName = NSMutableArray()
     
     
     var strFrompageMap = ""
@@ -99,6 +101,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     var strcityname = ""
     
     var strSelectedRowAddress = ""
+   
     
     // MARK: - viewWillDisappear Method
     override func viewWillDisappear(_ animated: Bool) {
@@ -189,9 +192,11 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         self.mapview.mapType = .standard
         
         //self.setUpGeofenceForPlayaGrandeBeachMultiple()
-        self.addPolygonZoneArea()
         
-        self.createMultiPolygon()
+        self.getPolygonApiList()
+        
+        //self.addPolygonZoneArea()
+        
         
         //self.drawpolygon1()
         //self.drawpolygon2()
@@ -324,29 +329,41 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     {
         for x in 0 ..< arrmPolygonlist.count
         {
-            let dictemp = arrmPolygonlist.object(at: x)as? NSMutableDictionary
+            let dictemp = arrmPolygonlist.object(at: x)as? NSDictionary
             let strname = String(format: "%@", dictemp?.value(forKey: "name")as? String ?? "")
-            print("strname",strname)
-            let arrm = dictemp?.value(forKey: "coordinates")as? NSMutableArray
+            let strid = String(format: "%@", dictemp?.value(forKey: "id")as! CVarArg)
+            let stremirate = String(format: "%@", dictemp?.value(forKey: "emirate")as? String ?? "")
+            print("strid %@ strname %@ stremirate %2",strid,strname,stremirate)
+            
+            let arrm = dictemp?.value(forKey: "coordinates")as? NSArray
             
             var polygon = MKPolygon()
             var coordinateArray: [CLLocationCoordinate2D] = []
             
             for xx in 0 ..< arrm!.count
             {
-                let strcoordinate = String(format: "%@", arrm?.object(at: xx)as? String ?? "")
+                let dic1 = arrm!.object(at: xx)as? NSDictionary
+                let strlatitude = String(format: "%@", dic1?.value(forKey: "latitude")as! CVarArg)
+                let strlongitude = String(format: "%@", dic1?.value(forKey: "longitude")as! CVarArg)
                 
-                let items = strcoordinate.components(separatedBy: ", ")
-                let str1 = items[0]
-                let str2 = items[1]
+                //let strcoordinate = String(format: "%@", arrm?.object(at: xx)as? String ?? "")
+                //let items = strcoordinate.components(separatedBy: ", ")
+                //let str1 = items[0]
+                //let str2 = items[1]
                 
-                let point = CLLocationCoordinate2DMake(Double(str1)!,Double(str2)!)
+                let point = CLLocationCoordinate2DMake(Double(strlatitude)!,Double(strlongitude)!)
                 coordinateArray.append(point)
             }
             polygon = MKPolygon(coordinates:&coordinateArray, count:arrm!.count)
             arrmpolygonobject.add(polygon)
             self.mapview.addOverlay(polygon)
+            
+            let strcombine = String(format:"%@+%@",strid,strname)
+            arrmpolygonobjectName.add(strcombine)
         }
+        
+        print("arrmpolygonobject",arrmpolygonobject.count)
+        print("arrmpolygonobjectName",arrmpolygonobjectName.count)
     }
     
     
@@ -655,7 +672,10 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         self.removeAppleMapOverlays()
         
         //RECREATE POLYGON AGAIN AFTER CLEAR MAPVIEW ANNOTATION PIN
-        self.createMultiPolygon()
+        
+        self.getPolygonApiList()
+        
+        //self.createMultiPolygon()
         //self.drawpolygon1()
         //self.drawpolygon2()
         
@@ -749,6 +769,8 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     func alertViewFunction()
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        print("self.strSelectedPolygonName",self.strSelectedPolygonName)
         
         //ALERT VIEW CHECKING
         if boolcheck == true{
@@ -1564,11 +1586,15 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             if polygonRenderer.path.contains(polygonViewPoint)
             {
                 print("Your location was inside your polygon1.")
+                let strpolygonname = String(format:"%@",self.arrmpolygonobjectName.object(at: xx) as? String ?? "")
+                print("strpolygonname",strpolygonname)
                 boolcheck = true
+                strSelectedPolygonName = strpolygonname
             }else{
                 print("Your location was outside your polygon1.")
             }
         }
+
     }
     
     //MARK: - Check Search Coordinate WITHIN POLYGON OR NOT
@@ -1960,6 +1986,89 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                             let arrmaddress = dicadetails.value(forKey: "address") as? NSArray ?? []
                             self.arrMMyaddresslist = NSMutableArray(array: arrmaddress)
                             print("arrMMyaddresslist --->",self.arrMMyaddresslist)
+                            
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - get Polugon API List method
+    func getPolygonApiList()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        var strconnurl = String()
+        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod109)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        //request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                    
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                   
+                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            if self.arrmPolygonlist.count > 0{
+                                self.arrmPolygonlist.removeAllObjects()
+                            }
+                            
+                            let arrmlocation = dictemp.value(forKey: "location") as? NSArray ?? []
+                            self.arrmPolygonlist = NSMutableArray(array: arrmlocation)
+                            print("arrmPolygonlist --->",self.arrmPolygonlist)
+                            
+                            self.createMultiPolygon()
                             
                         }
                         else{

@@ -508,10 +508,13 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         //let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
         //print("strbearertoken",strbearertoken)
         
+        //$pageFromId = 1 (all), $pageFromId = 2 (main + offer + newarrival), $pageFromId = 3 (main)
+        
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
                           "categoryId": "none"] as [String : Any]
+        //FIXMESANDIPAN ,"pageFromId": "3"
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

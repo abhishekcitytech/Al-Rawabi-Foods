@@ -587,6 +587,9 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             {
                 cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)
             }
+            else{
+                cellA.btnfav.setImage(UIImage(named: "fav1"), for: .normal)
+            }
             
             cellA.btnfav.isHidden = false
         }
@@ -605,6 +608,9 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         
         cellA.btnaddtocart.tag = indexPath.row
         cellA.btnaddtocart.addTarget(self, action: #selector(pressAddtoCart), for: .touchUpInside)
+        
+        cellA.btnfav.tag = indexPath.row
+        cellA.btnfav.addTarget(self, action: #selector(pressAddToWishlist), for: .touchUpInside)
         
         // Set up cell
         return cellA
@@ -694,6 +700,43 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         self.postAddToCartApiMethod(strqty: "1", strproductid: strproductid)
     }
     
+    //MARK: - press Add To Wishlist Method
+    @objc func pressAddToWishlist(sender:UIButton)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let dict = arrMproducts.object(at: sender.tag)as? NSDictionary
+        let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+        
+        let stris_addedwishlist = String(format: "%@", dict!.value(forKey: "is_addedwishlist") as? String ?? "")
+        
+        print("stris_addedwishlist",stris_addedwishlist)
+        
+        if stris_addedwishlist != "True"
+        {
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language149"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Continue Logic here")
+                self.postAddtoWishlistAPIMethod(strproductid: strproductid)
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                  print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
+        }
+        else{
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language152"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Continue Logic here")
+                self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strproductid)
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                  print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
+        }
+    }
+    
     
     //MARK: - post All Category Home Page method
     func postAllCategoryHomepageAPImethod()
@@ -706,10 +749,13 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         //let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         //print("strbearertoken",strbearertoken)
         
+        //$pageFromId = 1 (all), $pageFromId = 2 (main + offer + newarrival), $pageFromId = 3 (main)
+        
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
                           "categoryId": "none"] as [String : Any]
+        //FIXMESANDIPAN ,"pageFromId": "3"
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -760,6 +806,10 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                         
                         if strstatus == 200
                         {
+                            if self.arrmcatlist.count > 0{
+                                self.arrmcatlist.removeAllObjects()
+                            }
+                            
                             let arrmcategorytree = dictemp.value(forKey: "categoryTree") as? NSArray ?? []
                             self.arrmcatlist = NSMutableArray(array: arrmcategorytree)
                             print("arrmcatlist --->",self.arrmcatlist)
@@ -767,6 +817,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                             if self.arrmcatlist.count > 0{
                                 self.colcategory.reloadData()
                             }
+                            
                             
                             //BY DEFAULT SELECTED CATEGORY FIXME
                             self.strSelectedCat = "0"
@@ -870,6 +921,9 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                         
                         if strstatus == 200
                         {
+                            if self.arrMproducts.count > 0 {
+                                self.arrMproducts.removeAllObjects()
+                            }
                             
                             let arrmproducts = json.value(forKey: "product") as? NSArray ?? []
                             self.arrMproducts = NSMutableArray(array: arrmproducts)
@@ -1207,6 +1261,197 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                             let arrmproducts = json.value(forKey: "timeslot") as? NSArray ?? []
                             self.arrMAvailbleTimeSlots = NSMutableArray(array: arrmproducts)
                             print("arrMAvailbleTimeSlots --->",self.arrMAvailbleTimeSlots)
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - post Add to Wishlist Product Details API method
+    func postAddtoWishlistAPIMethod(strproductid:String)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+      
+        let parameters = ["productid": strproductid
+                          ] as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod12)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    //print("strstatus",strstatus)
+                    //print("strsuccess",strsuccess)
+                    //print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strstatus == 200
+                        {
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                        
+                        self.postAllCategoryHomepageAPImethod()
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - post Remove From Wishlist Product Details API method
+    func postRemoveFromWishlistAPIMethod(strSelectedProductID:String)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+      
+        let parameters = ["productid": strSelectedProductID
+                          ] as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod31)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    //print("strstatus",strstatus)
+                    //print("strsuccess",strsuccess)
+                    //print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strstatus == 200
+                        {
+                            self.postAllCategoryHomepageAPImethod()
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)

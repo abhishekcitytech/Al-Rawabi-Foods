@@ -14,6 +14,7 @@ class colcellcategory: UICollectionViewCell {
     @IBOutlet weak var imgvbg: UIImageView!
     @IBOutlet weak var imgv: UIImageView!
     @IBOutlet weak var lblname: UILabel!
+    
    
     override func awakeFromNib() {
         super.awakeFromNib()

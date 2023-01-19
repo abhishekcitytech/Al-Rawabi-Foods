@@ -163,7 +163,7 @@
 "msg_language154" = "Add to Wishlist";
 "msg_language155" = "No reviews available!";
 "msg_language156" = "global ratings";
-"msg_language157" = "Select Size";
+"msg_language157" = "Select Variance";
 "msg_language158" = "Short Descriptions";
 "msg_language159" = "Benifits";
 "msg_language160" = "Nutrition Facts";
@@ -281,7 +281,7 @@
 "msg_language272" = "Click here for maid login";
 "msg_language273" = "My Subscriptions";
 "msg_language274" = "Maid Accounts";
-"msg_language275" = "Change Password & Language";
+"msg_language275" = "Change Password";
 "msg_language276" = "Logout";
 "msg_language277" = "Do you want to logout?";
 "msg_language278" = "Back to Login";

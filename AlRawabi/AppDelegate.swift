@@ -148,6 +148,8 @@ struct Constants {
         
         static let apimethod108 = "mobileOtpRequestExist/mobileOtpRequestExist-api"
         
+        static let apimethod109 = "locationcoordinates/locationcoordinates-api"
+        
         
         
         

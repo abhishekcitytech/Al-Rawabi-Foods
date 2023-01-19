@@ -796,8 +796,12 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             }
             else if strplanname == myAppDelegate.changeLanguage(key: "msg_language275")
             {
-                let ctrl = changepassword(nibName: "changepassword", bundle: nil)
-                self.navigationController?.pushViewController(ctrl, animated: true)
+                /*let ctrl = changepassword(nibName: "changepassword", bundle: nil)
+                self.navigationController?.pushViewController(ctrl, animated: true)*/
+                
+                let obj = passwordupdatemobile(nibName: "passwordupdatemobile", bundle: nil)
+                obj.strpageidentifier = "200"
+                self.navigationController?.pushViewController(obj, animated: true)
             }
             else if strplanname == myAppDelegate.changeLanguage(key: "msg_language276")
             {

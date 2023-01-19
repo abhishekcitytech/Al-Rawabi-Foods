@@ -371,6 +371,9 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                 {
                     cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)
                 }
+                else{
+                    cellA.btnfav.setImage(UIImage(named: "fav1"), for: .normal)
+                }
                 
                 cellA.btnfav.isHidden = false
                 cellA.btnright.isHidden = true
@@ -456,15 +459,33 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
             let dict = arrMCategorywiseProductlist.object(at: sender.tag)as? NSDictionary
             let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
             
-            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language149"), preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
-                print("Handle Continue Logic here")
-                self.postAddtoWishlistAPIMethod(strproductid: strproductid)
-            }))
-            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-                  print("Handle Cancel Logic here")
-            }))
-            self.present(refreshAlert, animated: true, completion: nil)
+            let stris_addedwishlist = String(format: "%@", dict!.value(forKey: "is_addedwishlist") as? String ?? "")
+            print("stris_addedwishlist",stris_addedwishlist)
+            if stris_addedwishlist != "True"
+            {
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language149"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                    print("Handle Continue Logic here")
+                    self.postAddtoWishlistAPIMethod(strproductid: strproductid)
+                }))
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                      print("Handle Cancel Logic here")
+                }))
+                self.present(refreshAlert, animated: true, completion: nil)
+            }
+            else{
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language152"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                    print("Handle Continue Logic here")
+                    self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strproductid)
+                }))
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                      print("Handle Cancel Logic here")
+                }))
+                self.present(refreshAlert, animated: true, completion: nil)
+            }
+            
+            
         }
     }
     
@@ -555,6 +576,11 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                         
                         if strsuccess == true
                         {
+                            
+                            if self.arrMCategorywiseProductlist.count > 0{
+                                self.arrMCategorywiseProductlist.removeAllObjects()
+                            }
+                            
                             let arrmproducts = json.value(forKey: "product") as? NSArray ?? []
                             self.arrMCategorywiseProductlist = NSMutableArray(array: arrmproducts)
                             print("arrMCategorywiseProductlist --->",self.arrMCategorywiseProductlist)
@@ -664,6 +690,8 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                                 print("Click of default button")
                             }))
                         }
+                        
+                        self.getProductListingFromCategoryIDAPIMethod()
                     }
                 }
             }
@@ -766,6 +794,8 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                                 print("Click of default button")
                             }))
                         }
+                        
+                        self.getProductListingFromCategoryIDAPIMethod()
                     }
                 }
             }
@@ -778,6 +808,98 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - post Remove From Wishlist Product Details API method
+    func postRemoveFromWishlistAPIMethod(strSelectedProductID:String)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+      
+        let parameters = ["productid": strSelectedProductID
+                          ] as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod31)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    //print("strstatus",strstatus)
+                    //print("strsuccess",strsuccess)
+                    //print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strstatus == 200
+                        {
+                            self.getProductListingFromCategoryIDAPIMethod()
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
                     self.view.activityStopAnimating()
                 }
                 print("Error -> \(error)")
