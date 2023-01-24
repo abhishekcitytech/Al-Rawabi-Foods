@@ -11,6 +11,14 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
 {
     @IBOutlet weak var viewoverall: UIView!
     
+    
+    @IBOutlet weak var viewsearchbar: UIView!
+    @IBOutlet weak var viewsearchbarbg: UIView!
+    @IBOutlet weak var viewsearchbar1: UIView!
+    @IBOutlet weak var imgvsearchbar: UIImageView!
+    @IBOutlet weak var txtsearchbar: UITextField!
+    @IBOutlet weak var btnsearchbar: UIButton!
+    
     @IBOutlet weak var colproductlist: UICollectionView!
     var reuseIdentifier1 = "cellcolbuyonce"
     var msg = ""
@@ -76,6 +84,11 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
         
+        
+        self.viewsearchbarbg.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        self.viewsearchbarbg.layer.borderWidth = 1.0
+        self.viewsearchbarbg.layer.cornerRadius = 18.0
+        self.viewsearchbarbg.layer.masksToBounds = true
         
         self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
         
@@ -143,6 +156,13 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
     @objc func presscartbag()
     {
         let ctrl = maidcartlist(nibName: "maidcartlist", bundle: nil)
+        self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    
+    //MARK: - press Search product method
+    @IBAction func pressSearchbar(_ sender: Any)
+    {
+        let ctrl = maidsearchproductlist(nibName: "maidsearchproductlist", bundle: nil)
         self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
@@ -291,8 +311,6 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             cellA.viewcell.layer.cornerRadius = 6.0
             cellA.viewcell.layer.masksToBounds = true
             
-            
-            
             if strtext.containsIgnoreCase("Dairy"){
                 cellA.viewcell.backgroundColor = UIColor(named: "plate1")!
             }
@@ -317,14 +335,12 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             
             if self.strSelectedCat == String(format: "%d", indexPath.row)
             {
-                cellA.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
                 cellA.viewcell.layer.borderWidth = 4.0
                 cellA.viewcell.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
             }
             else{
-                cellA.viewcell.backgroundColor = UIColor(named: "graybordercolor")!
                 cellA.viewcell.layer.borderWidth = 2.0
                 cellA.viewcell.layer.borderColor = UIColor.clear.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
@@ -366,13 +382,17 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             cellA.lblcell.text =  strtext
             
             
-            if self.strSelectedSubCat == strid{
-                cellA.viewcell.layer.borderWidth = 2.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+            if self.strSelectedSubCat == strid
+            {
+                cellA.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+                cellA.viewcell.layer.borderWidth = 4.0
+                cellA.viewcell.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
             }
-            else{
+            else
+            {
+                cellA.viewcell.backgroundColor = UIColor(named: "graybordercolor")!
                 cellA.viewcell.layer.borderWidth = 2.0
                 cellA.viewcell.layer.borderColor = UIColor.clear.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
@@ -516,14 +536,13 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             let strid111 = String(format: "%@", dict111.value(forKey: "id") as! CVarArg)
             self.getProductListingAPIMethod(strselectedcategoryid: strid111)
         }
-        else{
-            
+        else
+        {
             let dict = arrMproducts.object(at: indexPath.row)as? NSDictionary
             let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
             
-            //let ctrl = porudctdetails(nibName: "porudctdetails", bundle: nil)
+            //let ctrl = maidproductdetails(nibName: "maidproductdetails", bundle: nil)
             //ctrl.strSelectedProductID = strproductid
-            //ctrl.strFrompageIdentifier = "1001"
             //self.navigationController?.pushViewController(ctrl, animated: true)
             
         }

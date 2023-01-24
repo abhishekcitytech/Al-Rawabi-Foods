@@ -642,11 +642,6 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                             let arrmaddress = dicadetails.value(forKey: "address") as? NSArray ?? []
                             let aarrm1 = NSMutableArray(array: arrmaddress)
                             
-                            
-                            let strallowed_addresses = String(format: "%@", self.dicdetails.value(forKey: "allowed_addresses")as? String ?? "")
-                            let itemsaddress = strallowed_addresses.components(separatedBy: ",")
-                            print("itemsaddress",itemsaddress)
-                           
                             for jj in 0 ..< aarrm1.count
                             {
                                 let dictemp = aarrm1.object(at: jj)as? NSDictionary
@@ -674,20 +669,53 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                                 self.arrMmyaddresslist.add(dictemp1)
                             }
                             
-                            for gg in 0 ..< itemsaddress.count
+                            print("self.arrMmyaddresslist",self.arrMmyaddresslist)
+                            
+                            let strallowed_addresses = String(format: "%@", self.dicdetails.value(forKey: "allowed_addresses")as? String ?? "")
+                            
+                            if strallowed_addresses.contains(",")
                             {
-                                let strvalue = itemsaddress[gg]
+                                print("multiple address id")
+                                let itemsaddress = strallowed_addresses.components(separatedBy: ",")
+                                print("itemsaddress",itemsaddress)
                                 
-                                let dictemp = self.arrMmyaddresslist.object(at: gg)as? NSMutableDictionary
-                                let strid = String(format: "%@", dictemp!.value(forKey: "id")as! CVarArg)
-                                if strid == strvalue
+                                for gsssg in 0 ..< itemsaddress.count
                                 {
-                                    dictemp!.setValue("1", forKey: "selected")
-                                }
-                                else{
-                                    dictemp!.setValue("0", forKey: "selected")
+                                    let strvalue = itemsaddress[gsssg]
+                                    print("strvalue",strvalue)
+                                    let strfinaladdresid = strvalue.replacingOccurrences(of: " ", with: "")
+                                    print("strfinaladdresid",strfinaladdresid)
+                                    
+                                    for hhhh in 0 ..< self.arrMmyaddresslist.count
+                                    {
+                                        let dictemp12121 = self.arrMmyaddresslist.object(at: hhhh)as? NSMutableDictionary
+                                        let strid = String(format: "%@", dictemp12121!.value(forKey: "id")as! CVarArg)
+                                        if strid == strfinaladdresid
+                                        {
+                                            dictemp12121!.setValue("1", forKey: "selected")
+                                        }
+                                    }
+                                    print("self.arrMmyaddresslist",self.arrMmyaddresslist)
                                 }
                             }
+                            else
+                            {
+                                print("single address id")
+                                let strfinaladdresid = strallowed_addresses.replacingOccurrences(of: " ", with: "")
+                                print("strfinaladdresid",strfinaladdresid)
+                                
+                                for gg in 0 ..< self.arrMmyaddresslist.count
+                                {
+                                    let dictemp = self.arrMmyaddresslist.object(at: gg)as? NSMutableDictionary
+                                    let strid = String(format: "%@", dictemp!.value(forKey: "id")as! CVarArg)
+                                    if strid == strfinaladdresid
+                                    {
+                                        dictemp!.setValue("1", forKey: "selected")
+                                    }
+                                }
+                            }
+                            
+                            
                             
                             print("self.arrMmyaddresslist",self.arrMmyaddresslist)
                             

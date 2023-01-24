@@ -285,7 +285,7 @@
                                         <action selector="pressupdateaddress:" destination="-1" eventType="touchUpInside" id="pQs-gU-dgT"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose Your precise location " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxg-q6-Y8e">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose Your location " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxg-q6-Y8e">
                                     <rect key="frame" x="8" y="180" width="228" height="21"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
@@ -347,6 +347,14 @@
                                     </state>
                                     <connections>
                                         <action selector="pressRemoveAddress:" destination="-1" eventType="touchUpInside" id="DSg-92-quk"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lla-Oj-OSt">
+                                    <rect key="frame" x="8" y="173" width="236" height="35"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <connections>
+                                        <action selector="pressCurrentlocationmethod:" destination="-1" eventType="touchUpInside" id="keR-6U-uGA"/>
                                     </connections>
                                 </button>
                             </subviews>

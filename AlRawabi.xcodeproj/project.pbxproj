@@ -80,6 +80,10 @@
 		CB27BAFE2914F7740024F07F /* maidaccounts.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB27BAFC2914F7740024F07F /* maidaccounts.xib */; };
 		CB27BB022914F8500024F07F /* celltabvmaidlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB27BB002914F8500024F07F /* celltabvmaidlist.swift */; };
 		CB27BB032914F8500024F07F /* celltabvmaidlist.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB27BB012914F8500024F07F /* celltabvmaidlist.xib */; };
+		CB27D0D6298015C3007D2CAC /* maidsearchproductlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB27D0D4298015C3007D2CAC /* maidsearchproductlist.swift */; };
+		CB27D0D7298015C3007D2CAC /* maidsearchproductlist.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB27D0D5298015C3007D2CAC /* maidsearchproductlist.xib */; };
+		CB27D0DA29801A69007D2CAC /* maidproductdetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB27D0D829801A68007D2CAC /* maidproductdetails.xib */; };
+		CB27D0DB29801A69007D2CAC /* maidproductdetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB27D0D929801A69007D2CAC /* maidproductdetails.swift */; };
 		CB3929182865F810003162E9 /* tabvcellreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3929162865F810003162E9 /* tabvcellreview.swift */; };
 		CB3929192865F810003162E9 /* tabvcellreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB3929172865F810003162E9 /* tabvcellreview.xib */; };
 		CB39291B2865F97E003162E9 /* graycircle.png in Resources */ = {isa = PBXBuildFile; fileRef = CB39291A2865F97E003162E9 /* graycircle.png */; };
@@ -537,6 +541,10 @@
 		CB27BAFC2914F7740024F07F /* maidaccounts.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = maidaccounts.xib; sourceTree = "<group>"; };
 		CB27BB002914F8500024F07F /* celltabvmaidlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = celltabvmaidlist.swift; sourceTree = "<group>"; };
 		CB27BB012914F8500024F07F /* celltabvmaidlist.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = celltabvmaidlist.xib; sourceTree = "<group>"; };
+		CB27D0D4298015C3007D2CAC /* maidsearchproductlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = maidsearchproductlist.swift; sourceTree = "<group>"; };
+		CB27D0D5298015C3007D2CAC /* maidsearchproductlist.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = maidsearchproductlist.xib; sourceTree = "<group>"; };
+		CB27D0D829801A68007D2CAC /* maidproductdetails.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = maidproductdetails.xib; sourceTree = "<group>"; };
+		CB27D0D929801A69007D2CAC /* maidproductdetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = maidproductdetails.swift; sourceTree = "<group>"; };
 		CB29C78028F97882008270E2 /* NISdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NISdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB3929162865F810003162E9 /* tabvcellreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabvcellreview.swift; sourceTree = "<group>"; };
 		CB3929172865F810003162E9 /* tabvcellreview.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = tabvcellreview.xib; sourceTree = "<group>"; };
@@ -1305,6 +1313,15 @@
 			path = celltabvmaidlist;
 			sourceTree = "<group>";
 		};
+		CB27D0D3298015AC007D2CAC /* maidsearchproductlist */ = {
+			isa = PBXGroup;
+			children = (
+				CB27D0D4298015C3007D2CAC /* maidsearchproductlist.swift */,
+				CB27D0D5298015C3007D2CAC /* maidsearchproductlist.xib */,
+			);
+			path = maidsearchproductlist;
+			sourceTree = "<group>";
+		};
 		CB3929152865F7FF003162E9 /* tabvcellreview */ = {
 			isa = PBXGroup;
 			children = (
@@ -1959,6 +1976,15 @@
 			path = searchproductlist;
 			sourceTree = "<group>";
 		};
+		CBC4623F297FE2FB00051064 /* maidproductdetails */ = {
+			isa = PBXGroup;
+			children = (
+				CB27D0D929801A69007D2CAC /* maidproductdetails.swift */,
+				CB27D0D829801A68007D2CAC /* maidproductdetails.xib */,
+			);
+			path = maidproductdetails;
+			sourceTree = "<group>";
+		};
 		CBC8B25A2872F925008A68A8 /* cellwallettransaction */ = {
 			isa = PBXGroup;
 			children = (
@@ -2497,6 +2523,8 @@
 				CB1C203F2944772800966CAE /* maidSelectShippingAddress */,
 				CB1C203A2944751000966CAE /* maidcouponlist */,
 				CB1C20262943056600966CAE /* maidcartlist */,
+				CBC4623F297FE2FB00051064 /* maidproductdetails */,
+				CB27D0D3298015AC007D2CAC /* maidsearchproductlist */,
 				CB7B4F1D2935E01800BF72AA /* maidorderonce */,
 				CB1C2035294471D200966CAE /* maidallorderslist */,
 				CB1C20302943447500966CAE /* maidaddresslist */,
@@ -2842,6 +2870,7 @@
 				CBC8B26828730734008A68A8 /* trackorder.xib in Resources */,
 				CB1C20482946EAA900966CAE /* maidpaymentmethod.xib in Resources */,
 				CBCF06B128647F6B00069382 /* acc8.png in Resources */,
+				CB27D0DA29801A69007D2CAC /* maidproductdetails.xib in Resources */,
 				CBA2B4BA286EE4A00062609C /* ribbon.png in Resources */,
 				CBFBFBAA29224AB5008332FF /* loader24.png in Resources */,
 				CBFBFBA929224AB5008332FF /* loader20.png in Resources */,
@@ -2966,6 +2995,7 @@
 				CB7B4F3C29372CE100BF72AA /* returnrefundslisting.xib in Resources */,
 				CB39D45D2913F1A800265A03 /* maidpausedsubscriptions.xib in Resources */,
 				CB512C5A2976C53200BF0ECB /* icon-40@2x.png in Resources */,
+				CB27D0D7298015C3007D2CAC /* maidsearchproductlist.xib in Resources */,
 				CBCF069728647E1C00069382 /* sl1.png in Resources */,
 				CBA2B4BC286EE6BF0062609C /* warning.png in Resources */,
 				CB39D4432913A2D100265A03 /* maidloginclass.xib in Resources */,
@@ -3186,6 +3216,7 @@
 				CBA2B4B7286EE1080062609C /* celltabvsubscriptionOR.swift in Sources */,
 				CB7B4F36293717B100BF72AA /* cellloyaltyhistory.swift in Sources */,
 				CBA2B4EC286F77BD0062609C /* ordersuccess.swift in Sources */,
+				CB27D0D6298015C3007D2CAC /* maidsearchproductlist.swift in Sources */,
 				CB1C20242941E63D00966CAE /* cellallowedaddress.swift in Sources */,
 				CB14B85A290BA7D700AF904C /* SubscriptionShippingAddress.swift in Sources */,
 				CBD0CC5529110E2F00DCCA29 /* OrderAmount.swift in Sources */,
@@ -3208,6 +3239,7 @@
 				CBB1437F2860A82200D30A38 /* orderonceclass.swift in Sources */,
 				CB05342429151FCF00D3BCFC /* contactus.swift in Sources */,
 				CBBE9E542923A9D500970344 /* mysubscriptionlineviewdetails.swift in Sources */,
+				CB27D0DB29801A69007D2CAC /* maidproductdetails.swift in Sources */,
 				CBC2364528D850A1000DBC93 /* weeklyproductcatalogue.swift in Sources */,
 				CBF9132E28C06EE9009F8957 /* mywishlist.swift in Sources */,
 				CBA2B4AE286EDE3B0062609C /* subscriptionorderreview.swift in Sources */,

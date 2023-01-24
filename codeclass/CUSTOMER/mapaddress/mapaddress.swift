@@ -495,20 +495,34 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         let textRange = Range(range, in: text)
         {
             let updatedText = text.replacingCharacters(in: textRange,with: string)
-            
             print("updatedText",updatedText)
             
-            if updatedText.count >= 5 {
+            if updatedText.count >= 5
+            {
                 print("Call the Search Autocomplete Function")
                 self.googlePlacesResult(input: updatedText)
             }
-            else{
-                
-                if updatedText.count == 0
-                {
-                    self.handleTap1()
+            else if updatedText.count < 5
+            {
+                // Backspace handled
+                guard !string.isEmpty else {
+                    self.txtsearch.text = ""
+                    if self.isBoolDropdown == true{
+                        self.handleTap1()
+                    }
+                    return true
                 }
-                return true
+            }
+            else
+            {
+                // Backspace handled
+                guard !string.isEmpty else {
+                    self.txtsearch.text = ""
+                    if self.isBoolDropdown == true{
+                        self.handleTap1()
+                    }
+                    return true
+                }
             }
         }
         
@@ -522,6 +536,8 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     @objc func textFieldDidChange(_ textField: UITextField)
     {
     }
+    
+    
     
     //MARK: - Google autocomplete place API request
     func googlePlacesResult(input: String)
@@ -565,7 +581,9 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                         if self.arrMautocompletesearch.count > 0{
                             self.arrMautocompletesearch.removeAllObjects()
                         }
-                        self.handleTap1()
+                        if self.isBoolDropdown == true {
+                            self.handleTap1()
+                        }
                         
                         let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language261"), preferredStyle: UIAlertController.Style.alert)
                         self.present(uiAlert, animated: true, completion: nil)
@@ -610,7 +628,9 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                     if self.arrMautocompletesearch.count > 0{
                         self.arrMautocompletesearch.removeAllObjects()
                     }
-                    self.handleTap1()
+                    if self.isBoolDropdown == true {
+                        self.handleTap1()
+                    }
                 }
             }
             else if let error = error
@@ -620,7 +640,9 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 if self.arrMautocompletesearch.count > 0{
                     self.arrMautocompletesearch.removeAllObjects()
                 }
-                self.handleTap1()
+                if self.isBoolDropdown == true {
+                    self.handleTap1()
+                }
             }
         })
         task.resume()
@@ -1389,15 +1411,9 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     func handleTap1()
     {
         isBoolDropdown = false
-        UIView .animate(withDuration: 0.35, delay: 0.0, options: .curveEaseIn, animations: {
-            var frame = CGRect()
-            frame = (self.tblViewDropdownList?.frame)!
-            frame.size.height = 0
-            self.tblViewDropdownList?.frame = frame
-        }, completion: { (nil) in
-            self.tblViewDropdownList?.removeFromSuperview()
-            self.tblViewDropdownList = nil
-        })
+        
+        self.tblViewDropdownList?.removeFromSuperview()
+        self.tblViewDropdownList = nil
     }
     
     //MARK: - redirect popup page

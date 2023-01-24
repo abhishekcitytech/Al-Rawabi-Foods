@@ -244,7 +244,7 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     {
         if textField.isEqual(txtmobileno)
         {
-            let maxLength = 9
+            let maxLength = 10
             let currentString: NSString = txtmobileno.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
