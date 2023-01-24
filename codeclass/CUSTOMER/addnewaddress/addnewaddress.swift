@@ -306,7 +306,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         if textField.isEqual(txtmobileno) {
-            let maxLength = 10
+            let maxLength = 9
             let currentString: NSString = txtmobileno.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
@@ -575,6 +575,15 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
         print("strSelectedLONGITUDE",self.strSelectedLONGITUDE)
         print("strSelectedLONGITUDE",self.strSELECTEDPOLYGONDETAILS)
         
+        let result = self.strSELECTEDPOLYGONDETAILS.split(separator: "+")
+        let strpolygonid = String(format: "%@", result[0]as CVarArg)
+        let strpolygonname = String(format: "%@", result[1]as CVarArg)
+        let strpolygonemirates = String(format: "%@", result[2]as CVarArg)
+        print("strpolygonid",strpolygonid)
+        print("strpolygonname",strpolygonname)
+        print("strpolygonemirates",strpolygonemirates)
+        
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -594,7 +603,8 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
                           "latitude": self.strSelectedLATITUDE,
                           "longitude": self.strSelectedLONGITUDE,
                           "isdefaultaddress": strisdefaultaddress,
-                          "setasmaid": ""
+                          "setasmaid": "",
+                          "locationId": strpolygonid
                           ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod25)

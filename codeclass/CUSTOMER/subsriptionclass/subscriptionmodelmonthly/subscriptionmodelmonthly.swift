@@ -95,7 +95,7 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         lblautorenew.text = myAppDelegate.changeLanguage(key: "msg_language63")
         
         btnReviewPlaceOrder.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language67")), for: .normal)
-        btnContinuetoAddProducts.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language72")), for: .normal)
+        btnContinuetoAddProducts.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language382")), for: .normal)
         
         var floatDevider = 0.0
         var floatcellheight = 0.0
@@ -227,7 +227,7 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
     //MARK: - calculate time date Monthly
     func claculateDatetimeMonthly()
     {
-        let intdiff = 29
+        let intdiff = 27
         
         let date = Date()
         let df = DateFormatter()
@@ -454,7 +454,7 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         }
         else{
             cell.lbltotalprice.font = UIFont (name: "NunitoSans-Bold", size: 14)
-            cell.lbltotalprice.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language72"))
+            cell.lbltotalprice.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language382"))
         }
         
         if flttotalprice == 0.00

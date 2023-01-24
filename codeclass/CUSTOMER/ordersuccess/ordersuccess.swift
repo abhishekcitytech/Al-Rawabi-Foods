@@ -109,6 +109,10 @@ class ordersuccess: UIViewController
                     let tabVC = controller as! orderonceclass
                     self.navigationController?.popToViewController(tabVC, animated: true)
                 }
+                else if controller.isKind(of: cartlistorderonce.self) {
+                    let tabVC = controller as! cartlistorderonce
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
             }
         }
         else if strpayfromOrderonce == "3"
@@ -139,6 +143,10 @@ class ordersuccess: UIViewController
                     let tabVC = controller as! homeclass
                     self.navigationController?.popToViewController(tabVC, animated: true)
                 }
+                else if controller.isKind(of: cartlistorderonce.self) {
+                    let tabVC = controller as! cartlistorderonce
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
             }
         }
         else
@@ -152,6 +160,10 @@ class ordersuccess: UIViewController
                 }
                 else if controller.isKind(of: orderonceclass.self) {
                     let tabVC = controller as! orderonceclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: cartlistorderonce.self) {
+                    let tabVC = controller as! cartlistorderonce
                     self.navigationController?.popToViewController(tabVC, animated: true)
                 }
             }

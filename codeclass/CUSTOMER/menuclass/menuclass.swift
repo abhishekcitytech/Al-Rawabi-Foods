@@ -416,7 +416,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
         var arr2 = NSMutableArray()
         
         arr1 = [myAppDelegate.changeLanguage(key: "msg_language122"),myAppDelegate.changeLanguage(key: "msg_language123")
-                ,myAppDelegate.changeLanguage(key: "msg_language273"),myAppDelegate.changeLanguage(key: "msg_language274"),myAppDelegate.changeLanguage(key: "msg_language128")
+                ,myAppDelegate.changeLanguage(key: "msg_language273"),myAppDelegate.changeLanguage(key: "msg_language274"),myAppDelegate.changeLanguage(key: "msg_language215")
                 ,myAppDelegate.changeLanguage(key: "msg_language129"),myAppDelegate.changeLanguage(key: "msg_language131"),myAppDelegate.changeLanguage(key: "msg_language133")
                 ,myAppDelegate.changeLanguage(key: "msg_language134"),myAppDelegate.changeLanguage(key: "msg_language275"),myAppDelegate.changeLanguage(key: "msg_language276")]
         
@@ -769,7 +769,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
                 let ctrl = maidaccounts(nibName: "maidaccounts", bundle: nil)
                 self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language128")
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language215")
             {
                 let ctrl = mywallet(nibName: "mywallet", bundle: nil)
                 self.navigationController?.pushViewController(ctrl, animated: true)

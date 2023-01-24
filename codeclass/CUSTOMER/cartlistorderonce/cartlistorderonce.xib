@@ -41,6 +41,9 @@
                 <outlet property="lblsubtotalvalue" destination="Llb-99-cYl" id="XXH-Ab-MyJ"/>
                 <outlet property="lbltax" destination="say-8t-KO1" id="lFy-Wl-JiV"/>
                 <outlet property="lbltaxvalue" destination="7vv-dv-y1S" id="njZ-fc-RjJ"/>
+                <outlet property="lbltime1" destination="siH-UY-Nnz" id="ktL-vf-JIq"/>
+                <outlet property="lbltime2" destination="Qck-dn-bQq" id="8px-sJ-g6Z"/>
+                <outlet property="lbltime3" destination="6Wn-PV-VJM" id="Mn9-WA-qRu"/>
                 <outlet property="tabvcart" destination="gF3-cq-kZp" id="ARf-NH-ZMR"/>
                 <outlet property="txtchoosedeliverydate" destination="gMO-Tv-0y3" id="bVO-SK-tuX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -176,7 +179,7 @@
                             <color key="backgroundColor" name="greenlighter"/>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gF3-cq-kZp">
-                            <rect key="frame" x="8" y="169" width="359" height="173"/>
+                            <rect key="frame" x="8" y="169" width="359" height="174"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <connections>
@@ -196,7 +199,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Llb-99-cYl">
-                                    <rect key="frame" x="178" y="8" width="173" height="21"/>
+                                    <rect key="frame" x="197" y="8" width="154" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
                                     <nil key="textColor"/>
@@ -210,7 +213,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aX6-w0-LEK">
-                                    <rect key="frame" x="178" y="37" width="173" height="21"/>
+                                    <rect key="frame" x="197" y="37" width="154" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
                                     <nil key="textColor"/>
@@ -292,6 +295,12 @@
                                     <color key="textColor" name="greencolor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HaV-q8-NfG">
+                                    <rect key="frame" x="169" y="0.0" width="20" height="11"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" backgroundImage="downarrow.png"/>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGray6Color"/>
                         </view>
@@ -340,6 +349,7 @@
     </objects>
     <resources>
         <image name="calendar" width="28" height="28"/>
+        <image name="downarrow.png" width="11.5" height="7.5"/>
         <image name="radio1.png" width="20" height="20"/>
         <image name="radio2.png" width="20" height="20"/>
         <namedColor name="darkmostredcolor">

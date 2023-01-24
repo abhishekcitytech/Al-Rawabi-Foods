@@ -35,6 +35,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     
     
     @IBOutlet weak var viewsearchbar: UIView!
+    @IBOutlet weak var viewsearchbarbg: UIView!
     @IBOutlet weak var viewsearchbar1: UIView!
     @IBOutlet weak var imgvsearchbar: UIImageView!
     @IBOutlet weak var txtsearchbar: UITextField!
@@ -231,6 +232,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.lblfloatcartcount.layer.cornerRadius = self.lblfloatcartcount.frame.self.width / 2.0
         self.lblfloatcartcount.layer.masksToBounds = true
         
+        self.viewsearchbarbg.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        self.viewsearchbarbg.layer.borderWidth = 1.0
+        self.viewsearchbarbg.layer.cornerRadius = 18.0
+        self.viewsearchbarbg.layer.masksToBounds = true
+        
         let searchicon = UIImage(named: "search")
         let search = UIBarButtonItem(image: searchicon, style: .plain, target: self, action: #selector(pressSearch))
         search.tintColor = UIColor.black
@@ -279,8 +285,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.startUpdatingLocation()
         
-        self.addPolygonZoneArea()
-        self.createMultiPolygon()
+        self.getPolygonApiList()
+        //self.addPolygonZoneArea()
+        //self.createMultiPolygon()
         
     }
     
@@ -548,28 +555,36 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     {
         for x in 0 ..< arrmPolygonlist.count
         {
-            let dictemp = arrmPolygonlist.object(at: x)as? NSMutableDictionary
+            let dictemp = arrmPolygonlist.object(at: x)as? NSDictionary
             let strname = String(format: "%@", dictemp?.value(forKey: "name")as? String ?? "")
-            print("strname",strname)
-            let arrm = dictemp?.value(forKey: "coordinates")as? NSMutableArray
+            let strid = String(format: "%@", dictemp?.value(forKey: "id")as! CVarArg)
+            let stremirate = String(format: "%@", dictemp?.value(forKey: "emirate")as? String ?? "")
+            print("strid %@ strname %@ stremirate %2",strid,strname,stremirate)
+            
+            let arrm = dictemp?.value(forKey: "coordinates")as? NSArray
             
             var polygon = MKPolygon()
             var coordinateArray: [CLLocationCoordinate2D] = []
             
             for xx in 0 ..< arrm!.count
             {
-                let strcoordinate = String(format: "%@", arrm?.object(at: xx)as? String ?? "")
+                let dic1 = arrm!.object(at: xx)as? NSDictionary
+                let strlatitude = String(format: "%@", dic1?.value(forKey: "latitude")as! CVarArg)
+                let strlongitude = String(format: "%@", dic1?.value(forKey: "longitude")as! CVarArg)
                 
-                let items = strcoordinate.components(separatedBy: ", ")
-                let str1 = items[0]
-                let str2 = items[1]
+                //let strcoordinate = String(format: "%@", arrm?.object(at: xx)as? String ?? "")
+                //let items = strcoordinate.components(separatedBy: ", ")
+                //let str1 = items[0]
+                //let str2 = items[1]
                 
-                let point = CLLocationCoordinate2DMake(Double(str1)!,Double(str2)!)
+                let point = CLLocationCoordinate2DMake(Double(strlatitude)!,Double(strlongitude)!)
                 coordinateArray.append(point)
             }
             polygon = MKPolygon(coordinates:&coordinateArray, count:arrm!.count)
             self.arrmpolygonobject.add(polygon)
+            
         }
+        print("arrmpolygonobject",arrmpolygonobject.count)
     }
     func checkpolygonPointMultiple(lat:Double,long:Double)
     {
@@ -1645,8 +1660,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                           "categoryName": "none",
                           "categoryId": "none","pageFromId": "2"] as [String : Any]
         
-        //FIXMESANDIPAN
-        
+
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"
@@ -2714,6 +2728,89 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         print("Click of default button")
                     }))
                     
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - get Polugon API List method
+    func getPolygonApiList()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        var strconnurl = String()
+        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod109)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        //request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                    
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                   
+                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                     print("strstatus",strstatus)
+                     print("strsuccess",strsuccess)
+                     print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            if self.arrmPolygonlist.count > 0{
+                                self.arrmPolygonlist.removeAllObjects()
+                            }
+                            
+                            let arrmlocation = dictemp.value(forKey: "location") as? NSArray ?? []
+                            self.arrmPolygonlist = NSMutableArray(array: arrmlocation)
+                            print("arrmPolygonlist --->",self.arrmPolygonlist)
+                            
+                            self.createMultiPolygon()
+                            
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
                     self.view.activityStopAnimating()
                 }
                 print("Error -> \(error)")

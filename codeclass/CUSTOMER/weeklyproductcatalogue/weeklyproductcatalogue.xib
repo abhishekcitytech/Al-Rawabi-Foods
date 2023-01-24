@@ -22,17 +22,18 @@
             <connections>
                 <outlet property="btnReviewOrder" destination="ZV0-zg-xb1" id="Xob-SW-VdF"/>
                 <outlet property="btnfilter" destination="IG6-gy-OwH" id="gmH-dm-Ivu"/>
-                <outlet property="btnsortby" destination="Cya-Vp-qNQ" id="x6a-Pi-SIQ"/>
+                <outlet property="btnsortby" destination="SSO-xP-an4" id="83d-aq-Liq"/>
                 <outlet property="colcategory" destination="SlJ-9i-3Q6" id="DJU-wo-nA6"/>
                 <outlet property="colorderon" destination="7kv-9U-WKY" id="qYv-CW-hvp"/>
                 <outlet property="colproductlist" destination="zY5-AB-XYu" id="SoD-EU-HE9"/>
                 <outlet property="colsubcategory" destination="J4Y-nY-V1E" id="KF2-dK-569"/>
                 <outlet property="lblorderon" destination="YMu-PO-KQq" id="J5o-KR-ZA7"/>
-                <outlet property="txtsearchbox" destination="JCF-gC-PBh" id="Nmx-oD-xZ9"/>
+                <outlet property="txtsearchbox" destination="sUs-RV-bj6" id="CZz-Qv-5Qy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewcategorycarousal" destination="WCf-Lr-YOq" id="q61-D8-Hyl"/>
                 <outlet property="vieworderon" destination="98q-xg-w7H" id="uio-yT-hJI"/>
                 <outlet property="viewoverall" destination="x0U-dd-0lI" id="Qwr-qV-Wxg"/>
+                <outlet property="viewsearchbarbg" destination="WBT-Tz-Ziu" id="91I-kN-Xel"/>
                 <outlet property="viewsearchbox" destination="htJ-Ap-A78" id="8F5-OJ-tPx"/>
                 <outlet property="viewsubcategorycarousal" destination="afY-SE-SKd" id="N4P-BM-A0Y"/>
             </connections>
@@ -100,37 +101,44 @@
                             <rect key="frame" x="8" y="147" width="359" height="47"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hrW-LF-Sgv">
-                                    <rect key="frame" x="1" y="1" width="52" height="45"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WBT-Tz-Ziu">
+                                    <rect key="frame" x="6" y="2" width="346" height="42"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="vJd-ox-GrZ">
-                                            <rect key="frame" x="14" y="10" width="24" height="24"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
-                                        </imageView>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSO-xP-an4">
+                                            <rect key="frame" x="300" y="9" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" backgroundImage="sortby"/>
+                                            <connections>
+                                                <action selector="pressSortby:" destination="-1" eventType="touchUpInside" id="1R1-wf-kKm"/>
+                                            </connections>
+                                        </button>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MiF-BX-SJ3">
+                                            <rect key="frame" x="2" y="-2" width="52" height="45"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="OKk-XG-a5e">
+                                                    <rect key="frame" x="14" y="10" width="24" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search by product name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sUs-RV-bj6">
+                                            <rect key="frame" x="54" y="0.0" width="292" height="42"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="2Nh-W5-5kT"/>
+                                            </connections>
+                                        </textField>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
-                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search by product name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JCF-gC-PBh">
-                                    <rect key="frame" x="54" y="1" width="304" height="45"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
-                                    <textInputTraits key="textInputTraits" returnKeyType="search"/>
-                                    <connections>
-                                        <outlet property="delegate" destination="-1" id="m3v-5Y-uks"/>
-                                    </connections>
-                                </textField>
-                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cya-Vp-qNQ">
-                                    <rect key="frame" x="327" y="11" width="24" height="24"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" backgroundImage="sortby"/>
-                                    <connections>
-                                        <action selector="pressSortby:" destination="-1" eventType="touchUpInside" id="KsC-n0-dcs"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>

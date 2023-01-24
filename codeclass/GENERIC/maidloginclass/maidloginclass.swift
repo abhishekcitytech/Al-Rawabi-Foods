@@ -18,6 +18,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
     
     @IBOutlet weak var viewusername: UIView!
     @IBOutlet weak var viewusername1: UIView!
+    @IBOutlet weak var lblmobilecountrycode: UILabel!
     @IBOutlet weak var txtusername: UITextField!
     
     @IBOutlet weak var viewpassword: UIView!
@@ -106,7 +107,10 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             
             self.viewusername1.frame = CGRect(x: 1, y: self.viewusername1.frame.origin.y, width: self.viewusername1.frame.size.width, height: self.viewusername1.frame.size.height)
             
-            self.txtusername.frame = CGRect(x: 54, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
+            self.lblmobilecountrycode.frame = CGRect(x: 54, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
+            self.txtusername.frame = CGRect(x: self.lblmobilecountrycode.frame.maxX, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
+            
+            //self.txtusername.frame = CGRect(x: 54, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
             self.txtusername.textAlignment = .left
             
             self.viewpassword1.frame = CGRect(x: 1, y: self.viewpassword1.frame.origin.y, width: self.viewpassword1.frame.size.width, height: self.viewpassword1.frame.size.height)
@@ -126,7 +130,9 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             
             self.viewusername1.frame = CGRect(x: self.viewusername.frame.size.width - 53, y: self.viewusername1.frame.origin.y, width: self.viewusername1.frame.size.width, height: self.viewusername1.frame.size.height)
             
+            self.lblmobilecountrycode.frame = CGRect(x: self.txtusername.frame.maxX, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
             self.txtusername.frame = CGRect(x: 1, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
+            //self.txtusername.frame = CGRect(x: 1, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
             self.txtusername.textAlignment = .right
             
             self.viewpassword1.frame = CGRect(x: self.viewpassword.frame.size.width - 53, y: self.viewpassword1.frame.origin.y, width: self.viewpassword1.frame.size.width, height: self.viewpassword1.frame.size.height)

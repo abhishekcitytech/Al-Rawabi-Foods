@@ -26,6 +26,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
     
     
     @IBOutlet weak var viewsearchbar: UIView!
+    @IBOutlet weak var viewsearchbarbg: UIView!
     @IBOutlet weak var viewsearchbar1: UIView!
     @IBOutlet weak var imgvsearchbar: UIImageView!
     @IBOutlet weak var txtsearchbar: UITextField!
@@ -117,6 +118,11 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         self.title = myAppDelegate.changeLanguage(key: "msg_language104")
+        
+        self.viewsearchbarbg.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        self.viewsearchbarbg.layer.borderWidth = 1.0
+        self.viewsearchbarbg.layer.cornerRadius = 18.0
+        self.viewsearchbarbg.layer.masksToBounds = true
         
         let searchicon = UIImage(named: "search")
         let search = UIBarButtonItem(image: searchicon, style: .plain, target: self, action: #selector(pressSearch))
@@ -508,7 +514,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             
             if self.strSelectedCat == String(format: "%d", indexPath.row){
                 cellA.viewcell.layer.borderWidth = 2.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+                cellA.viewcell.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
             }
@@ -554,13 +560,17 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             cellA.lblcell.text =  strtext
             
             
-            if self.strSelectedSubCat == strid{
-                cellA.viewcell.layer.borderWidth = 2.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+            if self.strSelectedSubCat == strid
+            {
+                cellA.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+                cellA.viewcell.layer.borderWidth = 4.0
+                cellA.viewcell.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
             }
-            else{
+            else
+            {
+                cellA.viewcell.backgroundColor = UIColor(named: "graybordercolor")!
                 cellA.viewcell.layer.borderWidth = 2.0
                 cellA.viewcell.layer.borderColor = UIColor.clear.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
@@ -804,8 +814,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                           "categoryImage": "all",
                           "categoryName": "none",
                           "categoryId": "none","pageFromId": "3"] as [String : Any]
-        //FIXMESANDIPAN
-        
+
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"

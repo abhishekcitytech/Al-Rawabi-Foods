@@ -44,6 +44,9 @@
                 <outlet property="lblpopupdeliveryslot33" destination="iJS-vX-4Q0" id="NAW-Ls-7Dz"/>
                 <outlet property="lblpopupdeliveryslot44" destination="pv4-SZ-83J" id="7HZ-MY-uuO"/>
                 <outlet property="lblsubtotaleditpopup" destination="1Wb-5s-rhc" id="uap-0Y-SXf"/>
+                <outlet property="lbltime1" destination="rJM-tn-NhJ" id="bMh-vB-zNI"/>
+                <outlet property="lbltime2" destination="fPO-Cl-7M4" id="r7h-Wi-AHG"/>
+                <outlet property="lbltime3" destination="Xsz-K6-v6i" id="vxg-ch-DPa"/>
                 <outlet property="scrollviewdeliveryslotpopup" destination="u57-qW-VkW" id="EIG-uB-Y3A"/>
                 <outlet property="tabveditpopupitems" destination="vj5-Nt-PMx" id="iZP-Fv-bCM"/>
                 <outlet property="tabvordereview" destination="wSx-5k-F8V" id="eRk-JY-BzM"/>
@@ -76,21 +79,8 @@
                             <rect key="frame" x="0.0" y="0.0" width="82" height="77"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTS-3r-kHT">
-                            <rect key="frame" x="266" y="78" width="101" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" name="darkredcolor"/>
-                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="CLEAR ALL">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="pressClearAll:" destination="-1" eventType="touchUpInside" id="CdI-q2-rFR"/>
-                            </connections>
-                        </button>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wSx-5k-F8V">
-                            <rect key="frame" x="8" y="117" width="359" height="398"/>
+                            <rect key="frame" x="8" y="85" width="359" height="396"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <connections>
@@ -98,25 +88,6 @@
                                 <outlet property="delegate" destination="-1" id="GBt-U4-l9h"/>
                             </connections>
                         </tableView>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ImH-wM-FmT">
-                            <rect key="frame" x="17" y="575" width="173" height="40"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="PROCEED">
-                                <color key="titleColor" name="greencolor"/>
-                            </state>
-                            <connections>
-                                <action selector="pressproceed:" destination="-1" eventType="touchUpInside" id="7Un-Hd-Hme"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shop AED 15.00 or more for FREE delivery" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDN-Ja-qVt">
-                            <rect key="frame" x="198" y="575" width="160" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
-                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="12"/>
-                            <color key="textColor" name="darkredcolor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjF-Mp-Rv8">
                             <rect key="frame" x="8" y="523" width="359" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -162,6 +133,38 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGray6Color"/>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ImH-wM-FmT">
+                            <rect key="frame" x="17" y="575" width="173" height="40"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="PROCEED">
+                                <color key="titleColor" name="greencolor"/>
+                            </state>
+                            <connections>
+                                <action selector="pressproceed:" destination="-1" eventType="touchUpInside" id="7Un-Hd-Hme"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shop AED 15.00 or more for FREE delivery" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDN-Ja-qVt">
+                            <rect key="frame" x="198" y="575" width="160" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="12"/>
+                            <color key="textColor" name="darkredcolor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTS-3r-kHT">
+                            <rect key="frame" x="266" y="484" width="101" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                            <color key="backgroundColor" name="darkredcolor"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="CLEAR ALL">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="pressClearAll:" destination="-1" eventType="touchUpInside" id="CdI-q2-rFR"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>

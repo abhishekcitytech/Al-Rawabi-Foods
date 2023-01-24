@@ -29,6 +29,7 @@
                 <outlet property="btnhideshowpassword" destination="v5h-Uo-oJ9" id="lx1-vP-JFk"/>
                 <outlet property="btnlogin" destination="Ibg-7z-8aC" id="3De-WH-hU6"/>
                 <outlet property="imgvbanner" destination="gcS-1o-lUj" id="dEj-eE-Wfb"/>
+                <outlet property="lblmobilecountrycode" destination="Y4c-94-evm" id="qiO-tQ-la5"/>
                 <outlet property="lblogin" destination="2Jg-5P-L6v" id="su0-uN-rvd"/>
                 <outlet property="lblsigntoyouraccount" destination="76o-zn-3pr" id="t4F-NT-SdS"/>
                 <outlet property="txtpassword" destination="zHS-xF-gmG" id="gbE-sB-nn6"/>
@@ -82,8 +83,16 @@
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+971" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y4c-94-evm">
+                                    <rect key="frame" x="54" y="1" width="44" height="45"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="13"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your mobile number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I3c-G2-Leh">
-                                    <rect key="frame" x="54" y="1" width="281" height="45"/>
+                                    <rect key="frame" x="97" y="1" width="238" height="45"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

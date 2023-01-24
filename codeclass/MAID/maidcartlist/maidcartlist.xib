@@ -41,6 +41,9 @@
                 <outlet property="lblsubtotalvalue" destination="QSa-ac-nPs" id="49Z-mT-nhB"/>
                 <outlet property="lbltax" destination="8xf-We-bzr" id="ISx-Bb-njA"/>
                 <outlet property="lbltaxvalue" destination="ph4-qY-4Eq" id="cu4-Hd-gRK"/>
+                <outlet property="lbltime1" destination="d1X-Pc-a9E" id="pYK-2K-MGi"/>
+                <outlet property="lbltime2" destination="7rq-Dl-PRw" id="cfq-YY-bvb"/>
+                <outlet property="lbltime3" destination="Igo-E2-RKa" id="nUj-vk-FgT"/>
                 <outlet property="tabvcart" destination="1DQ-yB-tto" id="kZ6-ry-Hm5"/>
                 <outlet property="txtchoosedeliverydate" destination="bDQ-L6-bTD" id="y1p-vH-0df"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

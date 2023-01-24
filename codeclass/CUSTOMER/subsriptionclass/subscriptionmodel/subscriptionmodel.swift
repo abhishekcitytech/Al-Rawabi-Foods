@@ -506,7 +506,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         }
         else{
             cell.lblprice.font = UIFont (name: "NunitoSans-Bold", size: 14)
-            cell.lblprice.text = String(format: "%@", appDel.changeLanguage(key: "msg_language72"))
+            cell.lblprice.text = String(format: "%@", appDel.changeLanguage(key: "msg_language382"))
         }
         
         if flttotalprice == 0.00

@@ -15,6 +15,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
     @IBOutlet weak var lblsubscriptionid: UILabel!
     @IBOutlet weak var lblstartdate: UILabel!
     @IBOutlet weak var lblenddate: UILabel!
+    @IBOutlet weak var lblgrandtotal: UILabel!
     @IBOutlet weak var lblstatus: UILabel!
     
     @IBOutlet weak var btnpause: UIButton!
@@ -602,9 +603,14 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                         
                         if strsuccess == true
                         {
+                            
                             let dic = dictemp.value(forKey: "subscription_detail") as? NSDictionary
                             self.dicMSubscriptionDetails = dic?.mutableCopy() as! NSMutableDictionary
                             print("dicMSubscriptionDetails --->",self.dicMSubscriptionDetails)
+                            
+                            let strGrandTotalValue = String(format: "%@", self.dicMSubscriptionDetails.value(forKey: "grandtotal")as? String ?? "")
+                            let fltTotal  = (strGrandTotalValue as NSString).floatValue
+                            self.lblgrandtotal.text = String(format: "%@: AED %0.2f", myAppDelegate.changeLanguage(key: "msg_language86"),fltTotal)
                             
                             let arrm = dic!.value(forKey: "subscription_order") as? NSArray ?? []
                             self.arrMsubscription_order = NSMutableArray(array: arrm)

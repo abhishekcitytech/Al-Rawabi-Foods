@@ -401,7 +401,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language41")
         }
         else if strplanname == "Monthly"{
-            cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language42")
+            cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language384")
         }
         
         cell.lbl1.textColor = .black

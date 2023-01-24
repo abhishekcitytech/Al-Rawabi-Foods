@@ -364,6 +364,18 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         
         print("arrmpolygonobject",arrmpolygonobject.count)
         print("arrmpolygonobjectName",arrmpolygonobjectName.count)
+        
+        if self.txtsearch.text?.count == 0
+        {
+            self.btnConfirmLocation.backgroundColor = UIColor.lightGray
+            self.btnConfirmLocation.titleLabel?.textColor = UIColor.black
+            self.btnConfirmLocation.isUserInteractionEnabled = false
+        }
+        else{
+            self.btnConfirmLocation.backgroundColor = UIColor(named: "greencolor")!
+            self.btnConfirmLocation.titleLabel?.textColor = UIColor.white
+            self.btnConfirmLocation.isUserInteractionEnabled = true
+        }
     }
     
     
@@ -681,6 +693,12 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         
         self.txtsearch.text = ""
         self.txtsearch.becomeFirstResponder()
+        
+        if self.txtsearch.text?.count == 0{
+            self.lblalertstatus.isHidden = true
+        }else{
+            self.lblalertstatus.isHidden = false
+        }
     }
     
     //MARK: - remove all annotations method
@@ -1005,6 +1023,14 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         self.strcurrentlong = String(format: "%0.10f", longdouble)
         print("self.strcurrentlat",self.strcurrentlat)
         print("self.strcurrentlong",self.strcurrentlong)
+        
+        
+        if self.txtsearch.text?.count == 0
+        {
+            //IF SEARCH TEXT ADDRESS IS BLANK THEN IT WILL AUTOMATICALLY CHECK CURRENT DEVICE LATITUDE LONGITUDE AREA WITH POLYGON AREA
+            
+            self.performPlaceidFromLatLong(strlat: self.strcurrentlat, strlong: self.strcurrentlong)
+        }
         
          /*self.checkdistanceradiousZone(lat: latdouble, lng: longdouble)*/
         
@@ -1450,6 +1476,49 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                    tabVC.strstreetaddressfrommapCitySUBSCRIPTION = strcity
                   self.navigationController?.popToViewController(tabVC, animated: true)
                }
+            }
+        }
+    }
+    
+    //MARK: - GET PLACEID from LATITUDE LONGITUDE - Google API
+    func performPlaceidFromLatLong(strlat:String,strlong:String)
+    {
+        //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=50000&key=AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk
+        
+        var strconnurl = String(format: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%@,%@&radius=50000&key=AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk", strlat,strlong)
+        strconnurl = strconnurl.replacingOccurrences(of: " ", with: "%20")
+        print("strconnurl",strconnurl)
+        AF.request(strconnurl,method: .get,encoding: JSONEncoding.default).responseJSON {
+            response in
+            print(response.result)
+            
+            switch response.result{
+            case .success(let JSON):
+                
+                //print("Success with JSON: \(String(describing: JSON))")
+                
+                //let array = JSON as? NSArray
+                //print("array",array)
+                
+                let dic = JSON as? NSDictionary
+                print("dic",dic as Any)
+
+                DispatchQueue.main.async {
+                    
+                    //FIXME_____ FETCH PLACE ID ______//
+                    let arraddress_components = dic?.value(forKey: "results")as! NSArray
+                    
+                    if arraddress_components.count > 0{
+                        let dicaddress = arraddress_components.object(at: 0)as! NSDictionary
+                        let strplace_id = String(format: "%@", dicaddress.value(forKey: "place_id")as? String ?? "")
+                        self.performGoogleSearchPlaceID(strplaceid: strplace_id)
+                    }
+                    
+                }
+
+                break
+            case .failure:
+                print("failure")
             }
         }
     }

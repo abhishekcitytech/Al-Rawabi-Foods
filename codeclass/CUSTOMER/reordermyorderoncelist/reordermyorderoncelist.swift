@@ -343,6 +343,14 @@ class reordermyorderoncelist: UIViewController,UITableViewDelegate,UITableViewDa
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")
+                                
+                                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                                if (strLangCode == "en")
+                                {
+                                    self.tabBarController?.selectedIndex = 3
+                                }else{
+                                    self.tabBarController?.selectedIndex = 1
+                                }
                             }))
                         }
                         else{

@@ -24,6 +24,11 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var btnupdatelocation: UIButton!
     
     
+    @IBOutlet weak var lbltime1: UILabel!
+    @IBOutlet weak var lbltime2: UILabel!
+    @IBOutlet weak var lbltime3: UILabel!
+    
+    
     @IBOutlet weak var tabvcart: UITableView!
     var reuseIdentifier1 = "tabvcellcartorderonce"
     var msg = ""
@@ -1045,6 +1050,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     }))
                     
                     self.view.activityStopAnimating()
+                    self.getOrderOnceCartCountAPIMethod()
                 }
                 print("Error=\(String(describing: error))")
                 return
@@ -1076,6 +1082,24 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                             let arrmproducts = json.value(forKey: "timeslot") as? NSArray ?? []
                             self.arrMAvailbleTimeSlots = NSMutableArray(array: arrmproducts)
                             //print("arrMAvailbleTimeSlots --->",self.arrMAvailbleTimeSlots)
+                            
+                            for x in 0 ..< self.arrMAvailbleTimeSlots.count
+                            {
+                                let dictemp = self.arrMAvailbleTimeSlots.object(at: x)as? NSDictionary
+                                let strname = String(format: "%@", dictemp?.value(forKey: "label")as? String ?? "")
+                                let strtime1 = String(format: "%@", dictemp?.value(forKey: "from")as? String ?? "")
+                                let strtime2 = String(format: "%@", dictemp?.value(forKey: "to")as? String ?? "")
+                                
+                                if strname.containsIgnoreCase("Morning"){
+                                    self.lbltime1.text = String(format: "%@-%@", strtime1,strtime2)
+                                }
+                                else if strname.containsIgnoreCase("Afternoon"){
+                                    self.lbltime2.text = String(format: "%@-%@", strtime1,strtime2)
+                                }
+                                else if strname.containsIgnoreCase("Evening"){
+                                    self.lbltime3.text = String(format: "%@-%@", strtime1,strtime2)
+                                }
+                            }
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
@@ -1084,6 +1108,8 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                                 print("Click of default button")
                             }))
                         }
+                        
+                        self.getOrderOnceCartCountAPIMethod()
                     }
                 }
             }
@@ -1098,6 +1124,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     }))
                     
                     self.view.activityStopAnimating()
+                    self.getOrderOnceCartCountAPIMethod()
                 }
                 print("Error -> \(error)")
             }
@@ -1150,6 +1177,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     
                     self.view.isUserInteractionEnabled = true
                     //self.view.activityStopAnimating()
+                    
                 }
                 print("Error=\(String(describing: error))")
                 return
@@ -1277,6 +1305,136 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    
+    //MARK: - get Order Once Cart Count API method
+    func getOrderOnceCartCountAPIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        /*let parameters = ["productid": strSelectedProductID
+         ] as [String : Any]*/
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod29)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        //let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        //let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        //print("json string = \(jsonString)")
+        //request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            if json["total_quantity"] != nil
+                            {
+                                print("found!")
+                                
+                                let strqty = dictemp.value(forKey: "total_quantity")as! CVarArg
+                                UserDefaults.standard.set(strqty, forKey: "orderoncecartcount")
+                                UserDefaults.standard.synchronize()
+                                
+                                let strcount = UserDefaults.standard.value(forKey: "orderoncecartcount")as? Int ?? 0
+                                print("strcount",strcount)
+                                
+                                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                                if (strLangCode == "en")
+                                {
+                                    self.tabBarController!.tabBar.items![3].badgeValue = String(format: "%d", strcount)
+                                    
+                                }else{
+                                    self.tabBarController!.tabBar.items![1].badgeValue = String(format: "%d", strcount)
+                                }
+                                
+                                //self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
+                            }
+                            else{
+                                print("Not found!")
+                                
+                                UserDefaults.standard.set("0", forKey: "orderoncecartcount")
+                                UserDefaults.standard.synchronize()
+                                
+                                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                                if (strLangCode == "en")
+                                {
+                                    self.tabBarController!.tabBar.items![3].badgeValue = ""
+                                }else{
+                                    self.tabBarController!.tabBar.items![1].badgeValue = ""
+                                }
+                                //self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                
+                            }
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")

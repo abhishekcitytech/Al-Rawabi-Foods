@@ -64,6 +64,10 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
     @IBOutlet weak var btnafternoonslot: UIButton!
     @IBOutlet weak var btneveningslot: UIButton!
     
+    @IBOutlet weak var lbltime1: UILabel!
+    @IBOutlet weak var lbltime2: UILabel!
+    @IBOutlet weak var lbltime3: UILabel!
+    
     @IBOutlet weak var btncrossdateslotspopup: UIButton!
     @IBOutlet weak var btnsavedateslotspopup: UIButton!
     var viewPopupAddNewExistingBG3 = UIView()
@@ -2225,6 +2229,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         lblpopupdeliveryslot44.text = appDel.changeLanguage(key: "msg_language342")
         btnsavedateslotspopup.setTitle(String(format: "%@", appDel.changeLanguage(key: "msg_language191")), for: .normal)
         
+        
         self.viewdateslotsdeliverypopup.layer.cornerRadius = 6.0
         self.viewdateslotsdeliverypopup.layer.masksToBounds = true
         
@@ -2814,6 +2819,24 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                             let arrmproducts = json.value(forKey: "timeslot") as? NSArray ?? []
                             self.arrMAvailbleTimeSlots = NSMutableArray(array: arrmproducts)
                             print("arrMAvailbleTimeSlots --->",self.arrMAvailbleTimeSlots)
+                            
+                            for x in 0 ..< self.arrMAvailbleTimeSlots.count
+                            {
+                                let dictemp = self.arrMAvailbleTimeSlots.object(at: x)as? NSDictionary
+                                let strname = String(format: "%@", dictemp?.value(forKey: "label")as? String ?? "")
+                                let strtime1 = String(format: "%@", dictemp?.value(forKey: "from")as? String ?? "")
+                                let strtime2 = String(format: "%@", dictemp?.value(forKey: "to")as? String ?? "")
+                                
+                                if strname.containsIgnoreCase("Morning"){
+                                    self.lbltime1.text = String(format: "%@-%@", strtime1,strtime2)
+                                }
+                                else if strname.containsIgnoreCase("Afternoon"){
+                                    self.lbltime2.text = String(format: "%@-%@", strtime1,strtime2)
+                                }
+                                else if strname.containsIgnoreCase("Evening"){
+                                    self.lbltime3.text = String(format: "%@-%@", strtime1,strtime2)
+                                }
+                            }
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)

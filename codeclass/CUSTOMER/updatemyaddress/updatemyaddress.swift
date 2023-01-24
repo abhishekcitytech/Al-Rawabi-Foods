@@ -182,6 +182,8 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
         let strcity = String(format: "%@", self.dicAddressDetails.value(forKey: "city")as? String ?? "")
         let strdefault_shipping = String(format: "%@", self.dicAddressDetails.value(forKey: "default_shipping")as! CVarArg)
         
+        
+        
         let dicregion = self.dicAddressDetails.value(forKey: "region")as! NSDictionary
         let strregionname = String(format: "%@", dicregion.value(forKey: "region")as? String ?? "")
         
@@ -215,6 +217,11 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
             
             if str1.containsIgnoreCase("longitude"){
                 self.strSelectedLATITUDE = str2
+            }
+            
+            if str1.containsIgnoreCase("location"){
+                let strlocationId = String(format: "%@", str2)
+                print("strlocationId",strlocationId)
             }
         }
         
@@ -388,7 +395,7 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         if textField.isEqual(txtmobileno) {
-            let maxLength = 10
+            let maxLength = 9
             let currentString: NSString = txtmobileno.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
@@ -654,6 +661,38 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
     {
         print("strSelectedLONGITUDE",self.strSELECTEDPOLYGONDETAILS)
         
+        var strCurrentlodationid = ""
+        if self.strSELECTEDPOLYGONDETAILS == ""
+        {
+            
+            let strcustomattributes = (self.dicAddressDetails.value(forKey: "custom_attributes")as? NSArray ?? [])
+            for ww in 0 ..< strcustomattributes.count
+            {
+                let dic = strcustomattributes.object(at: ww) as! NSDictionary
+                let str1 = String(format: "%@ ",dic.value(forKey: "attribute_code") as? String ?? "")
+                let str2 = String(format: "%@ ",dic.value(forKey: "value") as? String ?? "")
+
+                if str1.containsIgnoreCase("location"){
+                    strCurrentlodationid = String(format: "%@", str2)
+                    print("strCurrentlodationid",strCurrentlodationid)
+                }
+            }
+        }
+        else
+        {
+            
+            let result = self.strSELECTEDPOLYGONDETAILS.split(separator: "+")
+            let strpolygonid = String(format: "%@", result[0] as CVarArg)
+            let strpolygonname = String(format: "%@", result[1]as CVarArg)
+            let strpolygonemirates = String(format: "%@", result[2]as CVarArg)
+            print("strpolygonid",strpolygonid)
+            print("strpolygonname",strpolygonname)
+            print("strpolygonemirates",strpolygonemirates)
+            
+            strCurrentlodationid = strpolygonid
+        }
+        print("strCurrentlodationid",strCurrentlodationid)
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -674,7 +713,8 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
                           "latitude": self.strSelectedLATITUDE,
                           "longitude": self.strSelectedLONGITUDE,
                           "isdefaultaddress": strisdefaultaddress,
-                          "setasmaid": ""
+                          "setasmaid": "",
+                          "locationId": strCurrentlodationid
         ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod28)
@@ -726,7 +766,7 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
                         
                         if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: "Your address has been updated succesfully." , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language383") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                 print("Click of default button")

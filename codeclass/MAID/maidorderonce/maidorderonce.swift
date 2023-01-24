@@ -315,14 +315,16 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             cellA.lblcell.text =  strtext
             
             
-            
-            if self.strSelectedCat == String(format: "%d", indexPath.row){
-                cellA.viewcell.layer.borderWidth = 2.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+            if self.strSelectedCat == String(format: "%d", indexPath.row)
+            {
+                cellA.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+                cellA.viewcell.layer.borderWidth = 4.0
+                cellA.viewcell.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
             }
             else{
+                cellA.viewcell.backgroundColor = UIColor(named: "graybordercolor")!
                 cellA.viewcell.layer.borderWidth = 2.0
                 cellA.viewcell.layer.borderColor = UIColor.clear.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
@@ -562,8 +564,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
                           "categoryImage": "all",
                           "categoryName": "none",
                           "categoryId": "none","pageFromId": "3"] as [String : Any]
-        //FIXMESANDIPAN
-        
+
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"

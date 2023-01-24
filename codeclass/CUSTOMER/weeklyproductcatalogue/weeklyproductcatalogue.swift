@@ -20,6 +20,7 @@ class weeklyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionV
     var arrmorderon = NSMutableArray()
     
     @IBOutlet weak var viewsearchbox: UIView!
+    @IBOutlet weak var viewsearchbarbg: UIView!
     @IBOutlet weak var txtsearchbox: UITextField!
     @IBOutlet weak var btnsortby: UIButton!
     
@@ -80,6 +81,11 @@ class weeklyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionV
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         self.title = myAppDelegate.changeLanguage(key: "msg_language78")
+        
+        self.viewsearchbarbg.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        self.viewsearchbarbg.layer.borderWidth = 1.0
+        self.viewsearchbarbg.layer.cornerRadius = 18.0
+        self.viewsearchbarbg.layer.masksToBounds = true
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -165,7 +171,8 @@ class weeklyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionV
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         lblorderon.text = myAppDelegate.changeLanguage(key: "msg_language45")
-        btnReviewOrder.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language79")), for: .normal)
+        lblorderon.isHidden = true
+        btnReviewOrder.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language381")), for: .normal)
         
         txtsearchbox.placeholder = myAppDelegate.changeLanguage(key: "msg_language80")
         
@@ -366,7 +373,7 @@ class weeklyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionV
                 cellA.viewcell.backgroundColor = .white
                 cellA.viewcell.layer.cornerRadius = 4.0
                 cellA.viewcell.layer.borderWidth = 4.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "lightblue")!.cgColor
+                cellA.viewcell.layer.borderColor = UIColor(named: "yellowboxorder")!.cgColor
                 cellA.viewcell.layer.masksToBounds = true
             }
             else{
@@ -586,13 +593,16 @@ class weeklyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionV
             cellA.lblcell.text =  strtext
             
             
-            if self.strSelectedSubCat == strid{
-                cellA.viewcell.layer.borderWidth = 2.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+            if self.strSelectedSubCat == strid
+            {
+                cellA.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+                cellA.viewcell.layer.borderWidth = 4.0
+                cellA.viewcell.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
             }
             else{
+                cellA.viewcell.backgroundColor = UIColor(named: "graybordercolor")!
                 cellA.viewcell.layer.borderWidth = 2.0
                 cellA.viewcell.layer.borderColor = UIColor.clear.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
@@ -636,9 +646,6 @@ class weeklyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionV
             cellA.imgv.contentMode = .scaleAspectFit
             cellA.imgv.image = UIImage(named: "productplaceholder.png")
         }
-        
-        
-        
         
         cellA.lblname.text = strname
         cellA.lblbrand.text = strbrand
@@ -1434,8 +1441,7 @@ class weeklyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionV
                           "categoryImage": "all",
                           "categoryName": "none",
                           "categoryId": "none","pageFromId": "3"] as [String : Any]
-        //FIXMESANDIPAN
-        
+
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"

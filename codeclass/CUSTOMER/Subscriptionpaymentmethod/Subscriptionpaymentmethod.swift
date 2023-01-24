@@ -463,6 +463,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
     @IBAction func pressrechargewallet(_ sender: Any)
     {
         let ctrl = rechargewallet(nibName: "rechargewallet", bundle: nil)
+        ctrl.strpageFromPayment = "1021"
         self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
@@ -1049,17 +1050,25 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                             self.viewcoupon.isHidden = false
                             
                             
-                            //BY DEFAULT CREDIT CARD PAYMENT SET ON PAGE LOAD
-                            for jj in 0 ..< self.arrMpaymentmethodlist.count
+                            if self.strselectedpaymentmethodID.count > 0
                             {
-                                let dictemp = self.arrMpaymentmethodlist.object(at: jj)as? NSDictionary
-                                let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
-                                let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
-                                if strcode.containsIgnoreCase("ngeniusonline")
+                                //ALREADY SELECTED PRE DEFINED PAYMENT METHOD, NO NEED TO RELOAD PAGE
+                            }
+                            else
+                            {
+                                //BY DEFAULT CREDIT CARD PAYMENT SET ON PAGE LOAD
+                                for jj in 0 ..< self.arrMpaymentmethodlist.count
                                 {
-                                    self.strselectedpaymentmethodID = strcode
+                                    let dictemp = self.arrMpaymentmethodlist.object(at: jj)as? NSDictionary
+                                    let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
+                                    let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
+                                    if strcode.containsIgnoreCase("ngeniusonline")
+                                    {
+                                        self.strselectedpaymentmethodID = strcode
+                                    }
                                 }
                             }
+                            
                             
                             if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
                             {

@@ -30,6 +30,8 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
     var CardReference = ""
     var CardOutletId = ""
     var refNumber:String?
+    
+    var strpageFromPayment = ""
 
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -383,6 +385,7 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 self.txtamount.text = ""
+                                
                                 self.navigationController?.popViewController(animated: true)
                             }))
                         }
