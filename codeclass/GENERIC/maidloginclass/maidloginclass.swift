@@ -108,7 +108,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             self.viewusername1.frame = CGRect(x: 1, y: self.viewusername1.frame.origin.y, width: self.viewusername1.frame.size.width, height: self.viewusername1.frame.size.height)
             
             self.lblmobilecountrycode.frame = CGRect(x: 54, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
-            self.txtusername.frame = CGRect(x: self.lblmobilecountrycode.frame.maxX, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
+            self.txtusername.frame = CGRect(x: self.lblmobilecountrycode.frame.maxX, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width - 1, height: self.txtusername.frame.size.height)
             
             //self.txtusername.frame = CGRect(x: 54, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
             self.txtusername.textAlignment = .left
@@ -243,7 +243,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         if textField.isEqual(txtusername) {
-            let maxLength = 10
+            let maxLength = 9 //FIXMESANDIPAN
             let currentString: NSString = txtusername.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength

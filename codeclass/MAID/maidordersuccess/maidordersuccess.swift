@@ -107,6 +107,10 @@ class maidordersuccess: UIViewController
               let tabVC = controller as! maidhomeclass
               self.navigationController?.popToViewController(tabVC, animated: true)
            }
+            else if controller.isKind(of: maidproductdetails.self) {
+                let tabVC = controller as! maidhomeclass
+                self.navigationController?.popToViewController(tabVC, animated: true)
+             }
         }
     }
 

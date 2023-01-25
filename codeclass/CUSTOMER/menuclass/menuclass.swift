@@ -95,18 +95,100 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
         self.navigationController?.navigationBar.isHidden = true
         self.tabBarController?.tabBar.isHidden = false
         
-        btnmenu.backgroundColor =  UIColor(named: "themecolor")!
-        btnmenu.setTitleColor(.white, for: .normal)
-        btnaccount.backgroundColor =  UIColor.white
-        btnaccount.setTitleColor(.black, for: .normal)
+        if strSELECTED1.count == 0 && strSELECTED2.count == 0{
+            //By Default Menu Selcted
+            
+            btnmenu.backgroundColor =  UIColor(named: "themecolor")!
+            btnmenu.setTitleColor(.white, for: .normal)
+            
+            btnaccount.backgroundColor =  UIColor.white
+            btnaccount.setTitleColor(.black, for: .normal)
+            
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                imgvmenu.image = UIImage(named: "mn1")
+                imgvaccount.image = UIImage(named: "acc1")
+            }
+            else{
+                imgvmenu.image = UIImage(named: "acc1")
+                imgvaccount.image = UIImage(named: "mn1")
+            }
+            
+            tabvlist.tag = 100
+            tabvlist.reloadData()
+        }
+        else if strSELECTED1.count > 0 && strSELECTED2.count == 0{
+            //Menu selected
+            
+            btnmenu.backgroundColor =  UIColor(named: "themecolor")!
+            btnmenu.setTitleColor(.white, for: .normal)
+            
+            btnaccount.backgroundColor =  UIColor.white
+            btnaccount.setTitleColor(.black, for: .normal)
+            
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                imgvmenu.image = UIImage(named: "mn1")
+                imgvaccount.image = UIImage(named: "acc1")
+            }
+            else{
+                imgvmenu.image = UIImage(named: "acc1")
+                imgvaccount.image = UIImage(named: "mn1")
+            }
+            
+            tabvlist.tag = 100
+            tabvlist.reloadData()
+        }
+        else if strSELECTED1.count == 0 && strSELECTED2.count > 0{
+            //Account selected
+            
+            btnaccount.backgroundColor =  UIColor(named: "themecolor")!
+            btnaccount.setTitleColor(.white, for: .normal)
+            
+            btnmenu.backgroundColor =  UIColor.white
+            btnmenu.setTitleColor(.black, for: .normal)
+            
+            
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                imgvaccount.image = UIImage(named: "acc2")
+                imgvmenu.image = UIImage(named: "mn2")
+            }
+            else{
+                imgvmenu.image = UIImage(named: "acc2")
+                imgvaccount.image = UIImage(named: "mn2")
+            }
+            
+            tabvlist.tag = 200
+            tabvlist.reloadData()
+        }
+        else{
+            //By Default Menu Selcted
+            
+            btnmenu.backgroundColor =  UIColor(named: "themecolor")!
+            btnmenu.setTitleColor(.white, for: .normal)
+            
+            btnaccount.backgroundColor =  UIColor.white
+            btnaccount.setTitleColor(.black, for: .normal)
+            
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                imgvmenu.image = UIImage(named: "mn1")
+                imgvaccount.image = UIImage(named: "acc1")
+            }
+            else{
+                imgvmenu.image = UIImage(named: "acc1")
+                imgvaccount.image = UIImage(named: "mn1")
+            }
+            
+            tabvlist.tag = 100
+            tabvlist.reloadData()
+        }
         
-        self.tabvlist.isHidden = true
-        
-        self.createMenuArraylist()
-        
-        self.createAccountArraylist()
-        
-        setupRTLLTR()
     }
     
     // MARK: - viewDidLoad method
@@ -124,6 +206,19 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
         tabvlist.backgroundColor=UIColor.clear
         tabvlist.separatorColor=UIColor.clear
         tabvlist.showsVerticalScrollIndicator = false
+        
+        btnmenu.backgroundColor =  UIColor(named: "themecolor")!
+        btnmenu.setTitleColor(.white, for: .normal)
+        btnaccount.backgroundColor =  UIColor.white
+        btnaccount.setTitleColor(.black, for: .normal)
+        
+        self.tabvlist.isHidden = true
+
+        self.createMenuArraylist()
+        
+        self.createAccountArraylist()
+        
+        setupRTLLTR()
         
     }
     
@@ -164,7 +259,6 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
         
         btnaccount.backgroundColor =  UIColor.white
         btnaccount.setTitleColor(.black, for: .normal)
-        
         
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")

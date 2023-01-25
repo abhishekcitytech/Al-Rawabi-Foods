@@ -243,7 +243,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: colsubcategory.frame.size.width / floatDevider, height: 60)
+        layout.itemSize = CGSize(width: colsubcategory.frame.size.width / floatDevider, height: 44)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         colsubcategory.collectionViewLayout = layout
@@ -377,12 +377,14 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
             
             if self.strSelectedSubCat == strid
             {
-                cellA.viewcell.layer.borderWidth = 2.0
-                cellA.viewcell.layer.borderColor = UIColor(named: "greencolor")!.cgColor
+                cellA.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+                cellA.viewcell.layer.borderWidth = 4.0
+                cellA.viewcell.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
             }
             else{
+                cellA.viewcell.backgroundColor = UIColor(named: "graybordercolor")!
                 cellA.viewcell.layer.borderWidth = 2.0
                 cellA.viewcell.layer.borderColor = UIColor.clear.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0

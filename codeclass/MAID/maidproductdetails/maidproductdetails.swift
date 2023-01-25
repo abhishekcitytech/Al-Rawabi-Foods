@@ -180,6 +180,12 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
         self.createreviewrating()
         self.createrelatedProducts()
         
+        viewwishlist.isHidden = true
+        btnwriteyourreview.isHidden = true
+        
+        self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+        
+        
     }
     
     // MARK: - viewDidLayoutSubviews Method
@@ -192,6 +198,47 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
     @objc func pressBack()
     {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - Set Up Right Bar Cart Bag Item UI Design Method
+    @objc func setupRightBarCartBagDesignMethod(intcountOrder:Int)
+    {
+        let badgeCount = UILabel(frame: CGRect(x: 20, y: -4, width: 20, height: 20))
+        badgeCount.layer.borderColor = UIColor.clear.cgColor
+        badgeCount.layer.borderWidth = 0
+        badgeCount.layer.cornerRadius = badgeCount.bounds.size.height / 2
+        badgeCount.textAlignment = .center
+        badgeCount.layer.masksToBounds = true
+        badgeCount.textColor = .white
+        badgeCount.font = UIFont(name: "NunitoSans-Regular", size: 12.5)
+        badgeCount.backgroundColor = UIColor(red: 239/255, green: 53/255, blue: 48/255, alpha: 1.0)
+        badgeCount.text = String(format: "%d", intcountOrder)
+        
+        let rightBarButton = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+        rightBarButton.setBackgroundImage(UIImage(named: "cartbag"), for: .normal)
+        //rightBarButton.tintColor = .black
+        rightBarButton.addTarget(self, action: #selector(presscartbag), for: .touchUpInside)
+        rightBarButton.addSubview(badgeCount)
+        let rightBarButtomItem = UIBarButtonItem(customView: rightBarButton)
+        
+        let stackViewAppearance = UIStackView.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
+        stackViewAppearance.spacing = 1
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            navigationItem.rightBarButtonItems = [rightBarButtomItem]
+        }
+        else{
+            navigationItem.leftBarButtonItems = [rightBarButtomItem]
+        }
+        
+    }
+    //MARK: - press Cartbag method
+    @objc func presscartbag()
+    {
+        let ctrl = maidcartlist(nibName: "maidcartlist", bundle: nil)
+        self.navigationController?.pushViewController(ctrl, animated: true)
     }
     
     //MARK: - setup RTL LTR method
@@ -289,84 +336,73 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
     //MARK: -  press minus plus method
     @IBAction func pressminus(_ sender: Any)
     {
-        if strFrompageIdentifier == "1001"
-        {
-            //FROM CATEGORY BUY ONCE LOGIN
-            
-            var intqty = Int(self.txtqty.text!)
-            print("intqty",intqty as Any)
-            if intqty! >= 0{
-                intqty = intqty! - 1
-            }
-            else{
-                //product qunatity item 0 - Add to cart button will show
-                self.viewPlusMinus.isHidden = true
-                self.btnaddonce.isHidden = false
-                
-            }
-            print("intqty",intqty as Any)
-            
-            if intqty == 0
-            {
-                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-                
-                //product qunatity item 0 - Add to cart button will show
-                
-                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
-                    print("Handle Continue Logic here")
-                    
-                    self.viewPlusMinus.isHidden = true
-                    self.btnaddonce.isHidden = false
-                    
-                    self.postCartListRemoveItemAPIMethod(stritemid: strcartItemId, strquoteid: strquoteId)
-                }))
-                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-                      print("Handle Cancel Logic here")
-                }))
-                self.present(refreshAlert, animated: true, completion: nil)
-                
-            }
-            else
-            {
-                self.txtqty.text = String(format: "%d", intqty!)
-                
-                self.postCartListUpdateQTYItemAPIMethod(stritemid: strcartItemId, strquoteid: strquoteId, strproductQty: self.txtqty.text!)
-            }
+        //FROM CATEGORY BUY ONCE LOGIN
+        
+        var intqty = Int(self.txtqty.text!)
+        print("intqty",intqty as Any)
+        if intqty! >= 0{
+            intqty = intqty! - 1
+        }
+        else{
+            //product qunatity item 0 - Add to cart button will show
+            self.viewPlusMinus.isHidden = true
+            self.btnaddonce.isHidden = false
             
         }
-    }
-    @IBAction func pressplus(_ sender: Any)
-    {
-        if strFrompageIdentifier == "1001"
+        print("intqty",intqty as Any)
+        
+        if intqty == 0
         {
-            //FROM CATEGORY BUY ONCE LOGIN
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
             
-            var intqty = Int(self.txtqty.text!)
-            print("intqty",intqty)
-            if intqty! >= 0{
-                intqty = intqty! + 1
-            }
-            else{
-                //product qunatity item 0 - Add to cart button will show
+            //product qunatity item 0 - Add to cart button will show
+            
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Continue Logic here")
+                
                 self.viewPlusMinus.isHidden = true
                 self.btnaddonce.isHidden = false
-            }
-            print("intqty",intqty as Any)
+                
+                self.postCartListRemoveItemAPIMethod(stritemid: strcartItemId, strquoteid: strquoteId)
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                  print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
+            
+        }
+        else
+        {
             self.txtqty.text = String(format: "%d", intqty!)
             
             self.postCartListUpdateQTYItemAPIMethod(stritemid: strcartItemId, strquoteid: strquoteId, strproductQty: self.txtqty.text!)
         }
     }
+    @IBAction func pressplus(_ sender: Any)
+    {
+        //FROM CATEGORY BUY ONCE LOGIN
+        
+        var intqty = Int(self.txtqty.text!)
+        print("intqty",intqty)
+        if intqty! >= 0{
+            intqty = intqty! + 1
+        }
+        else{
+            //product qunatity item 0 - Add to cart button will show
+            self.viewPlusMinus.isHidden = true
+            self.btnaddonce.isHidden = false
+        }
+        print("intqty",intqty as Any)
+        self.txtqty.text = String(format: "%d", intqty!)
+        
+        self.postCartListUpdateQTYItemAPIMethod(stritemid: strcartItemId, strquoteid: strquoteId, strproductQty: self.txtqty.text!)
+    }
     
     //MARK: -  press Addonce  method
     @IBAction func pressaddonce(_ sender: Any) {
         
-        if strFrompageIdentifier == "1001"
-        {
-            //FROM CATEGORY PAGE BUY ONCE CASE
-            self.postAddToCartApiMethod(strqty: "1", strproductid: strSelectedProductID)
-        }
+        self.postAddToCartApiMethod(strqty: "1", strproductid: strSelectedProductID)
     }
     
     
@@ -793,6 +829,7 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                 DispatchQueue.main.async {
                     self.view.activityStopAnimating()
                     self.viewoverall.isHidden = false
+                    self.getOrderOnceCartCountAPIMethod()
                 }
                 print("Error=\(String(describing: error))")
                 return
@@ -1080,7 +1117,7 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                                 print("Click of default button")
                             }))
                         }
-                        
+                        self.getOrderOnceCartCountAPIMethod()
                     }
                 }
             }
@@ -1089,6 +1126,7 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                 DispatchQueue.main.async {
                     self.view.activityStopAnimating()
                     self.viewoverall.isHidden = false
+                    self.getOrderOnceCartCountAPIMethod()
                 }
                 print("Error -> \(error)")
             }
@@ -1585,4 +1623,114 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
         }
         task.resume()
     }*/
+    
+    //MARK: - get Order Once Cart Count API method
+    func getOrderOnceCartCountAPIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        /*let parameters = ["productid": strSelectedProductID
+         ] as [String : Any]*/
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod29)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        //let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        //let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        //print("json string = \(jsonString)")
+        //request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    //print("strstatus",strstatus)
+                    //print("strsuccess",strsuccess)
+                    //print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strstatus == 200
+                        {
+                            if let total_quantity = json["total_quantity"]
+                            {
+                                print("found!")
+                                
+                                let strqty = dictemp.value(forKey: "total_quantity")as! CVarArg
+                                UserDefaults.standard.set(strqty, forKey: "orderoncecartcount")
+                                UserDefaults.standard.synchronize()
+                                
+                                let strcount = UserDefaults.standard.value(forKey: "orderoncecartcount")as? Int ?? 0
+                                print("strcount",strcount)
+                                self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
+                            }
+                            else{
+                                print("Not found!")
+                                
+                                UserDefaults.standard.set("0", forKey: "orderoncecartcount")
+                                UserDefaults.standard.synchronize()
+                                self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                
+                            }
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
 }

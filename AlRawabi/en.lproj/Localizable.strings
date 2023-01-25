@@ -444,3 +444,6 @@
 
 
 "msg_language384" = "You have to select minimum of 8 days of order";
+
+
+"msg_language385" = "Estimated Tax:";

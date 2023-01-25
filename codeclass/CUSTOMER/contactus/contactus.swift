@@ -185,7 +185,7 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         if textField.isEqual(txtmobile) {
-            let maxLength = 9
+            let maxLength = 9 //FIXMESANDIPAN
             let currentString: NSString = txtmobile.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength

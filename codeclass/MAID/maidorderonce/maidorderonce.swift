@@ -245,7 +245,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         let layout1: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout1.scrollDirection = .horizontal
         layout1.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout1.itemSize = CGSize(width: colsubcategory.frame.size.width / 2.5, height: 60)
+        layout1.itemSize = CGSize(width: colsubcategory.frame.size.width / 3, height: 44)
         layout1.minimumInteritemSpacing = 5
         layout1.minimumLineSpacing = 5
         colsubcategory.collectionViewLayout = layout1
@@ -335,7 +335,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             
             if self.strSelectedCat == String(format: "%d", indexPath.row)
             {
-                cellA.viewcell.layer.borderWidth = 4.0
+                cellA.viewcell.layer.borderWidth = 2.0
                 cellA.viewcell.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
@@ -393,7 +393,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             else
             {
                 cellA.viewcell.backgroundColor = UIColor(named: "graybordercolor")!
-                cellA.viewcell.layer.borderWidth = 2.0
+                cellA.viewcell.layer.borderWidth = 4.0
                 cellA.viewcell.layer.borderColor = UIColor.clear.cgColor
                 cellA.viewcell.layer.cornerRadius = 6.0
                 cellA.viewcell.layer.masksToBounds = true
@@ -541,9 +541,9 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             let dict = arrMproducts.object(at: indexPath.row)as? NSDictionary
             let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
             
-            //let ctrl = maidproductdetails(nibName: "maidproductdetails", bundle: nil)
-            //ctrl.strSelectedProductID = strproductid
-            //self.navigationController?.pushViewController(ctrl, animated: true)
+            let ctrl = maidproductdetails(nibName: "maidproductdetails", bundle: nil)
+            ctrl.strSelectedProductID = strproductid
+            self.navigationController?.pushViewController(ctrl, animated: true)
             
         }
     }

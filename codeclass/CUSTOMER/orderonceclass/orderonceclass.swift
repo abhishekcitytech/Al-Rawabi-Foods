@@ -421,7 +421,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         let layout1: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout1.scrollDirection = .horizontal
         layout1.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout1.itemSize = CGSize(width: colsubcategory.frame.size.width / 2.5, height: 60)
+        layout1.itemSize = CGSize(width: colsubcategory.frame.size.width / 2.5, height: 44)
         layout1.minimumInteritemSpacing = 5
         layout1.minimumLineSpacing = 5
         colsubcategory.collectionViewLayout = layout1

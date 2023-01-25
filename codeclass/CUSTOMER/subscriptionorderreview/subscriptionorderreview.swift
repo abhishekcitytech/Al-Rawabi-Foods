@@ -153,7 +153,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         
         tabvordereview.register(UINib(nibName: "celltabvsubscriptionOR", bundle: nil), forCellReuseIdentifier: reuseIdentifier1)
         tabvordereview.separatorStyle = .none
-        tabvordereview.backgroundView=nil
+        tabvordereview.backgroundView = nil
         tabvordereview.backgroundColor=UIColor.clear
         tabvordereview.separatorColor=UIColor.clear
         tabvordereview.showsVerticalScrollIndicator = false
@@ -238,7 +238,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         tabvordereview.isHidden = false
         btnclearall.isHidden = false
         btnproceed.isHidden = false
-        lblminimumwarningshippingcost.isHidden = false
+        lblminimumwarningshippingcost.isHidden = true
     }
     
     //MARK: -  press proceed method
@@ -305,7 +305,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             
             if btnfullpayment.isSelected == true
             {
-                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language332"), preferredStyle: UIAlertController.Style.alert)
+                /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language332"), preferredStyle: UIAlertController.Style.alert)
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
 
@@ -323,11 +323,22 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                     print("Handle Cancel Logic here")
                 }))
-                self.present(refreshAlert, animated: true, completion: nil)
+                self.present(refreshAlert, animated: true, completion: nil)*/
+                
+                let ctrl = SubscriptionShippingAddress(nibName: "SubscriptionShippingAddress", bundle: nil)
+                ctrl.strpageidentifier = strpageidentifier
+                ctrl.strpageidentifierplanname = strpageidentifierplanname
+                ctrl.strsubtotalamount = strSubtotalAmount
+                ctrl.strshippingchargesamount = strShippingchargesAmount
+                ctrl.strselectedslotid = self.strSelectedTimeSlotID
+                ctrl.strselectedslotname = self.strSelectedTimeSlotNAME
+                ctrl.strpaymentype = self.strSelectedpaymentoption
+                ctrl.arrmShippingchargeslist = self.arrMshippingcalculationOutput
+                self.navigationController?.pushViewController(ctrl, animated: true)
             }
             else if btnfirst3payment.isSelected == true
             {
-                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language333"), preferredStyle: UIAlertController.Style.alert)
+                /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language333"), preferredStyle: UIAlertController.Style.alert)
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
 
@@ -345,7 +356,18 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                     print("Handle Cancel Logic here")
                 }))
-                self.present(refreshAlert, animated: true, completion: nil)
+                self.present(refreshAlert, animated: true, completion: nil)*/
+                
+                let ctrl = SubscriptionShippingAddress(nibName: "SubscriptionShippingAddress", bundle: nil)
+                ctrl.strpageidentifier = strpageidentifier
+                ctrl.strpageidentifierplanname = strpageidentifierplanname
+                ctrl.strsubtotalamount = strSubtotalAmount
+                ctrl.strshippingchargesamount = strShippingchargesAmount
+                ctrl.strselectedslotid = self.strSelectedTimeSlotID
+                ctrl.strselectedslotname = self.strSelectedTimeSlotNAME
+                ctrl.strpaymentype = self.strSelectedpaymentoption
+                ctrl.arrmShippingchargeslist = self.arrMshippingcalculationOutput
+                self.navigationController?.pushViewController(ctrl, animated: true)
             }
             
         }
@@ -573,7 +595,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         if tableView == tabveditpopupitems{
             return 1
         }
-        return 170
+        return 120
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
@@ -705,25 +727,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             title2value.font = UIFont (name: "NunitoSans-Regular", size: 16)
             footerView.addSubview(title2value)
             
-            //TOTALTAX
-            let title4 = UILabel(frame: CGRect(x: 0, y: title2.frame.maxY, width:footerView.frame.self.width / 2, height: 50))
-            title4.textAlignment = .left
-            title4.textColor = UIColor.black
-            title4.backgroundColor = .clear
-            title4.numberOfLines = 3
-            title4.font = UIFont (name: "NunitoSans-Regular", size: 16)
-            title4.text = String(format: "  %@", myAppDelegate.changeLanguage(key: "msg_language111"))
-            footerView.addSubview(title4)
-            
-            let title4value = UILabel(frame: CGRect(x: title4.frame.maxX, y: title2.frame.maxY, width:footerView.frame.self.width / 2, height: 50))
-            title4value.textAlignment = .right
-            title4value.textColor = UIColor.black
-            title4value.backgroundColor = .clear
-            title4value.font = UIFont (name: "NunitoSans-Regular", size: 16)
-            footerView.addSubview(title4value)
-            
             //GRANDTOTAL
-            let title3 = UILabel(frame: CGRect(x: 0, y: title4.frame.maxY, width:footerView.frame.self.width / 2, height: 30))
+            let title3 = UILabel(frame: CGRect(x: 0, y: title2.frame.maxY, width:footerView.frame.self.width / 2, height: 30))
             title3.textAlignment = .left
             title3.textColor = UIColor.black
             title3.backgroundColor = .clear
@@ -732,12 +737,33 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             title3.text = String(format: "  %@", myAppDelegate.changeLanguage(key: "msg_language86"))
             footerView.addSubview(title3)
             
-            let title3value = UILabel(frame: CGRect(x: title3.frame.maxX, y: title4.frame.maxY, width:footerView.frame.self.width / 2, height: 30))
+            let title3value = UILabel(frame: CGRect(x: title3.frame.maxX, y: title2.frame.maxY, width:footerView.frame.self.width / 2, height: 30))
             title3value.textAlignment = .right
             title3value.textColor = UIColor.black
             title3value.backgroundColor = .clear
             title3value.font = UIFont (name: "NunitoSans-Bold", size: 16)
             footerView.addSubview(title3value)
+            
+            //TOTALTAX
+            //let title4 = UILabel(frame: CGRect(x: 0, y: title3.frame.maxY, width:footerView.frame.self.width, height: 50))
+            //title4.textAlignment = .left
+            //title4.textColor = UIColor.black
+            //title4.backgroundColor = .clear
+            //title4.numberOfLines = 3
+            //title4.font = UIFont (name: "NunitoSans-Regular", size: 16)
+            //title4.text = String(format: "  %@", myAppDelegate.changeLanguage(key: "msg_language385"))
+            //footerView.addSubview(title4)
+            
+            /*let title4value = UILabel(frame: CGRect(x: 0, y: title3.frame.maxY, width:footerView.frame.self.width, height: 50))
+            title4value.textAlignment = .left
+            title4value.textColor = UIColor(named: "themecolor")!
+            title4value.backgroundColor = .clear
+            title4value.font = UIFont (name: "NunitoSans-SemiBold", size: 14)
+            footerView.addSubview(title4value)
+            
+            title4value.isHidden = true*/
+            
+            
             
             if strSelectedpaymentoption == "FULL"
             {
@@ -758,7 +784,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 strShippingchargesAmount = String(format: "%0.2f", flttotalcharges)
                 title2value.text = String(format: "AED %0.2f", flttotalcharges)
                 
-                title4value.text = String(format: "AED %@", self.strTotalTaxAmount)
+                //title4value.text = String(format: "( %@ AED %@)", myAppDelegate.changeLanguage(key: "msg_language385"),self.strTotalTaxAmount)
                 
                 var fltgrandtotal = 0.00
                 fltgrandtotal = flttotalcharges + Double(strSubtotalAmount)!
@@ -792,7 +818,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 strShippingchargesAmount = String(format: "%0.2f", flttotal1)
                 title2value.text = String(format: "AED %0.2f", flttotal1)
                 
-                title4value.text = String(format: "AED %@", self.strTotalTaxAmount)
+                //title4value.text = String(format: "( %@ AED %@)", myAppDelegate.changeLanguage(key: "msg_language385"),self.strTotalTaxAmount)
                 
                 var fltgrandtotal = 0.00
                 fltgrandtotal = Double(flttotal1) + Double(strSubtotalAmount)!

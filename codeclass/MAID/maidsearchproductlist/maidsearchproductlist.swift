@@ -289,7 +289,6 @@ class maidsearchproductlist: UIViewController,UITextFieldDelegate,UICollectionVi
         
         let ctrl = maidproductdetails(nibName: "maidproductdetails", bundle: nil)
         ctrl.strSelectedProductID = strproductid
-        ctrl.strFrompageIdentifier = "2002"
         self.navigationController?.pushViewController(ctrl, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
