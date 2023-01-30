@@ -210,7 +210,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         viewrewardpoints.layer.cornerRadius = 6.0
         viewrewardpoints.layer.masksToBounds = true
         
-        btnapplyrewardpoints.layer.cornerRadius = 14.0
+        btnapplyrewardpoints.layer.cornerRadius = 0.0
         btnapplyrewardpoints.layer.masksToBounds = true
         
         txtrewardpoints.setLeftPaddingPoints(10)
@@ -225,6 +225,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
             self.viewbottom.isHidden = true
             self.viewbottom1.isHidden = true
             self.viewcoupon.isHidden = true
+            self.viewrewardpoints.isHidden = true
         }
         
         if self.btnapplycouponcode.isUserInteractionEnabled == false
@@ -1048,6 +1049,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                             }
                             
                             self.viewcoupon.isHidden = false
+                            self.viewrewardpoints.isHidden = false
                             
                             
                             if self.strselectedpaymentmethodID.count > 0

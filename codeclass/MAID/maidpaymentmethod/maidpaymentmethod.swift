@@ -260,6 +260,10 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        var strpreviouslyselectedcode = self.strselectedpaymentmethodID
+        
         let dictemp = arrMpaymentmethodlist.object(at: indexPath.row)as? NSDictionary
         let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
         let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
@@ -267,34 +271,93 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
         self.strselectedpaymentmethodID = strcode
         self.colpaymentmethods.reloadData()
         
-        if strcode.containsIgnoreCase("ngeniusonline")
+        print("strpreviouslyselectedcode",strpreviouslyselectedcode)
+        print("self.strselectedpaymentmethodID",self.strselectedpaymentmethodID)
+        
+        if strpreviouslyselectedcode.count > 0
         {
-            //self.viewbottom.isHidden = false
-            //self.viewbottom1.isHidden = true
+            //ALREADY PRE SELECTED PAYMENT METHOD
             
-            //let fltTotal  = (self.strgrandtotal as NSString).floatValue
-            //self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
-            
-            self.btnpayment.tag = 100
+            if strpreviouslyselectedcode != self.strselectedpaymentmethodID
+            {
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language363"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                    print("Handle Continue Logic here")
+                    
+                    self.colpaymentmethods.reloadData()
+                    strpreviouslyselectedcode = ""
+                    
+                    if strcode.containsIgnoreCase("ngeniusonline")
+                    {
+                        //self.viewbottom.isHidden = false
+                        //self.viewbottom1.isHidden = true
+                        
+                        //let fltTotal  = (self.strgrandtotal as NSString).floatValue
+                        //self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                        
+                        self.btnpayment.tag = 100
+                    }
+                    else if strcode.containsIgnoreCase("walletpayment") || strcode.containsIgnoreCase("walletsystem")
+                    {
+                        self.viewbottom.isHidden = true
+                        self.viewbottom1.isHidden = false
+                        
+                        self.getwalletremainingbalancelist()
+                    }
+                    else if strcode.containsIgnoreCase("cashondelivery")
+                    {
+                        self.viewbottom.isHidden = false
+                        self.viewbottom1.isHidden = true
+                        
+                        let fltTotal  = (self.strgrandtotal as NSString).floatValue
+                       
+                        self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                        
+                        self.btnpayment.tag = 200
+                    }
+                    
+                }))
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                      print("Handle Cancel Logic here")
+                }))
+                self.present(refreshAlert, animated: true, completion: nil)
+            }
         }
-        else if strcode.containsIgnoreCase("walletpayment") || strcode.containsIgnoreCase("walletsystem")
+        else
         {
-            self.viewbottom.isHidden = true
-            self.viewbottom1.isHidden = false
+            //ALREADY NO PRE SELECTED PAYMENT METHOD
             
-            self.getwalletremainingbalancelist()
+            if strcode.containsIgnoreCase("ngeniusonline")
+            {
+                //self.viewbottom.isHidden = false
+                //self.viewbottom1.isHidden = true
+                
+                //let fltTotal  = (self.strgrandtotal as NSString).floatValue
+                //self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                
+                self.btnpayment.tag = 100
+            }
+            else if strcode.containsIgnoreCase("walletpayment") || strcode.containsIgnoreCase("walletsystem")
+            {
+                self.viewbottom.isHidden = true
+                self.viewbottom1.isHidden = false
+                
+                self.getwalletremainingbalancelist()
+            }
+            else if strcode.containsIgnoreCase("cashondelivery")
+            {
+                self.viewbottom.isHidden = false
+                self.viewbottom1.isHidden = true
+                
+                let fltTotal  = (self.strgrandtotal as NSString).floatValue
+               
+                self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                
+                self.btnpayment.tag = 200
+            }
         }
-        else if strcode.containsIgnoreCase("cashondelivery")
-        {
-            self.viewbottom.isHidden = false
-            self.viewbottom1.isHidden = true
-            
-            let fltTotal  = (self.strgrandtotal as NSString).floatValue
-           
-            self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
-            
-            self.btnpayment.tag = 200
-        }
+        
+        
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
     {
