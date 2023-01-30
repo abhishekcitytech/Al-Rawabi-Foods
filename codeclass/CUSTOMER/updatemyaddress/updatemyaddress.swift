@@ -127,6 +127,28 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
         switchformaid.isOn = false
         
         createbordersetup()
+        
+        setupRTLLTR()
+    }
+    
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        
+        lblpreciselocationdetails.text = myAppDelegate.changeLanguage(key: "msg_language387")
+        btncurrentlocation.setTitle(String(format: "   %@", myAppDelegate.changeLanguage(key: "msg_language388")), for: .normal)
+
+         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+         if (strLangCode == "en")
+         {
+        
+         }
+         else
+         {
+
+         }
     }
     
     //MARK: - create curve border setup method

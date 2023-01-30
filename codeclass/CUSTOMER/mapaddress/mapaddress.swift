@@ -24,9 +24,9 @@ class MyPointAnnotation : MKPointAnnotation {
     var image: UIImage?
 }
 
-class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource
+class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource, UIGestureRecognizerDelegate
 {
-
+    
     @IBOutlet weak var viewoverall: UIView!
     
     
@@ -101,7 +101,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     var strcityname = ""
     
     var strSelectedRowAddress = ""
-   
+    
     
     // MARK: - viewWillDisappear Method
     override func viewWillDisappear(_ animated: Bool) {
@@ -174,6 +174,12 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
         }
+        
+        
+        // add pan gesture to detect when the map moves
+        /*let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.didDragMap(_:)))
+        panGesture.delegate = self
+        self.mapview.addGestureRecognizer(panGesture)*/
         
         self.locationManager.requestAlwaysAuthorization()
         // For use in foreground
@@ -381,93 +387,93 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     
     //MARK: - Create Draw Polygon View on Map for specific AREA
     /*func drawpolygon1()
-    {
-        //JLT - Dubai - United Arab Emirates
-        
-         let point1 = CLLocationCoordinate2DMake(25.060434, 55.137123)
-         let point2 = CLLocationCoordinate2DMake(25.069423, 55.146558)
-         let point3 = CLLocationCoordinate2DMake(25.070085, 55.146663)
-         let point4 = CLLocationCoordinate2DMake(25.072293, 55.144330)
-         let point5 = CLLocationCoordinate2DMake(25.076550, 55.148299)
-         let point6 = CLLocationCoordinate2DMake(25.075951, 55.149378)
-         let point7 = CLLocationCoordinate2DMake(25.078505, 55.156899)
-         let point8 = CLLocationCoordinate2DMake(25.081168, 55.154189)
-         let point9 = CLLocationCoordinate2DMake(25.081480, 55.149907)
-         let point10 = CLLocationCoordinate2DMake(25.076452, 55.143786)
-         let point11 = CLLocationCoordinate2DMake(25.072730, 55.140333)
-         let point12 = CLLocationCoordinate2DMake(25.068414, 55.136748)
-         let point13 = CLLocationCoordinate2DMake(25.064652, 55.136311)
-         let point14 = CLLocationCoordinate2DMake(25.060533, 55.137054)
-         var coordinateInput:[CLLocationCoordinate2D]=[point1,point2,point3,point4,point5,point6,point7,point8,point9,point10,point11,point12,point13,point14]
-         
-         polyg1 = MKPolygon(coordinates:&coordinateInput, count:14)
-        
-        self.mapview.addOverlay(polyg1)
-    }
-    func drawpolygon2()
-    {
-        //Dubai Internet City - Dubai - United Arab Emirates
-        
-         let point1 = CLLocationCoordinate2DMake(25.089044, 55.152976)
-         let point2 = CLLocationCoordinate2DMake(25.090310, 55.154730)
-         let point3 = CLLocationCoordinate2DMake(25.088804, 55.156203)
-         let point4 = CLLocationCoordinate2DMake(25.090896, 55.158728)
-         let point5 = CLLocationCoordinate2DMake(25.092057, 55.159706)
-         let point6 = CLLocationCoordinate2DMake(25.092333, 55.160226)
-         let point7 = CLLocationCoordinate2DMake(25.097117, 55.165989)
-         let point8 = CLLocationCoordinate2DMake(25.102277, 55.172210)
-         let point9 = CLLocationCoordinate2DMake(25.103539, 55.171471)
-         let point10 = CLLocationCoordinate2DMake(25.103927, 55.171719)
-         let point11 = CLLocationCoordinate2DMake(25.103358, 55.169766)
-         let point12 = CLLocationCoordinate2DMake(25.102512, 55.170457)
-         let point13 = CLLocationCoordinate2DMake(25.102154, 55.170484)
-         let point14 = CLLocationCoordinate2DMake(25.099925, 55.167756)
-         let point15 = CLLocationCoordinate2DMake(25.100210, 55.167142)
-         let point16 = CLLocationCoordinate2DMake(25.100752, 55.167032)
-         let point17 = CLLocationCoordinate2DMake(25.101764, 55.167378)
-         let point18 = CLLocationCoordinate2DMake(25.102691, 55.167174)
-         let point19 = CLLocationCoordinate2DMake(25.104602, 55.167332)
-         let point20 = CLLocationCoordinate2DMake(25.104209, 55.168576)
-         let point21 = CLLocationCoordinate2DMake(25.106007, 55.170437)
-         let point22 = CLLocationCoordinate2DMake(25.106809, 55.169573)
-         let point23 = CLLocationCoordinate2DMake(25.104688, 55.167153)
-         let point24 = CLLocationCoordinate2DMake(25.104874, 55.165944)
-         let point25 = CLLocationCoordinate2DMake(25.102765, 55.165609)
-         let point26 = CLLocationCoordinate2DMake(25.102505, 55.164689)
-         let point27 = CLLocationCoordinate2DMake(25.103144, 55.164247)
-         let point28 = CLLocationCoordinate2DMake(25.102267, 55.162742)
-         let point29 = CLLocationCoordinate2DMake(25.101575, 55.163578)
-         let point30 = CLLocationCoordinate2DMake(25.100586, 55.162966)
-         let point31 = CLLocationCoordinate2DMake(25.097416, 55.162147)
-         let point32 = CLLocationCoordinate2DMake(25.096885, 55.161819)
-         let point33 = CLLocationCoordinate2DMake(25.096255, 55.160881)
-         let point34 = CLLocationCoordinate2DMake(25.096000, 55.159060)
-         let point35 = CLLocationCoordinate2DMake(25.094896, 55.157238)
-         let point36 = CLLocationCoordinate2DMake(25.094284, 55.156551)
-         let point37 = CLLocationCoordinate2DMake(25.092515, 55.158430)
-         let point38 = CLLocationCoordinate2DMake(25.091927, 55.157633)
-         let point39 = CLLocationCoordinate2DMake(25.093538, 55.155932)
-         let point40 = CLLocationCoordinate2DMake(25.093316, 55.155518)
-         let point41 = CLLocationCoordinate2DMake(25.090705, 55.152697)
-         let point42 = CLLocationCoordinate2DMake(25.089887, 55.151953)
-         let point43 = CLLocationCoordinate2DMake(25.089429, 55.152449)
-         let point44 = CLLocationCoordinate2DMake(25.089024, 55.152970)
-         
-         var coordinateInput:[CLLocationCoordinate2D]=[point1,point2,point3,point4,point5,point6,point7,point8,point9,point10,point11,point12,point13,
-                                                       point14,point15,point16,point17,point18,point19,point20,point21,point22,point23,point24,point25,
-         point26,point27,point28,point29,point30,point31,point32,point33,point34,point35,point36,point37,point38,point39,point40,point41,point42,point43,point44]
-         
-        
-        polyg2 = MKPolygon(coordinates:&coordinateInput, count:44)
-        
-        self.mapview.addOverlay(polyg2)
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
-        }
-    }*/
+     {
+     //JLT - Dubai - United Arab Emirates
+     
+     let point1 = CLLocationCoordinate2DMake(25.060434, 55.137123)
+     let point2 = CLLocationCoordinate2DMake(25.069423, 55.146558)
+     let point3 = CLLocationCoordinate2DMake(25.070085, 55.146663)
+     let point4 = CLLocationCoordinate2DMake(25.072293, 55.144330)
+     let point5 = CLLocationCoordinate2DMake(25.076550, 55.148299)
+     let point6 = CLLocationCoordinate2DMake(25.075951, 55.149378)
+     let point7 = CLLocationCoordinate2DMake(25.078505, 55.156899)
+     let point8 = CLLocationCoordinate2DMake(25.081168, 55.154189)
+     let point9 = CLLocationCoordinate2DMake(25.081480, 55.149907)
+     let point10 = CLLocationCoordinate2DMake(25.076452, 55.143786)
+     let point11 = CLLocationCoordinate2DMake(25.072730, 55.140333)
+     let point12 = CLLocationCoordinate2DMake(25.068414, 55.136748)
+     let point13 = CLLocationCoordinate2DMake(25.064652, 55.136311)
+     let point14 = CLLocationCoordinate2DMake(25.060533, 55.137054)
+     var coordinateInput:[CLLocationCoordinate2D]=[point1,point2,point3,point4,point5,point6,point7,point8,point9,point10,point11,point12,point13,point14]
+     
+     polyg1 = MKPolygon(coordinates:&coordinateInput, count:14)
+     
+     self.mapview.addOverlay(polyg1)
+     }
+     func drawpolygon2()
+     {
+     //Dubai Internet City - Dubai - United Arab Emirates
+     
+     let point1 = CLLocationCoordinate2DMake(25.089044, 55.152976)
+     let point2 = CLLocationCoordinate2DMake(25.090310, 55.154730)
+     let point3 = CLLocationCoordinate2DMake(25.088804, 55.156203)
+     let point4 = CLLocationCoordinate2DMake(25.090896, 55.158728)
+     let point5 = CLLocationCoordinate2DMake(25.092057, 55.159706)
+     let point6 = CLLocationCoordinate2DMake(25.092333, 55.160226)
+     let point7 = CLLocationCoordinate2DMake(25.097117, 55.165989)
+     let point8 = CLLocationCoordinate2DMake(25.102277, 55.172210)
+     let point9 = CLLocationCoordinate2DMake(25.103539, 55.171471)
+     let point10 = CLLocationCoordinate2DMake(25.103927, 55.171719)
+     let point11 = CLLocationCoordinate2DMake(25.103358, 55.169766)
+     let point12 = CLLocationCoordinate2DMake(25.102512, 55.170457)
+     let point13 = CLLocationCoordinate2DMake(25.102154, 55.170484)
+     let point14 = CLLocationCoordinate2DMake(25.099925, 55.167756)
+     let point15 = CLLocationCoordinate2DMake(25.100210, 55.167142)
+     let point16 = CLLocationCoordinate2DMake(25.100752, 55.167032)
+     let point17 = CLLocationCoordinate2DMake(25.101764, 55.167378)
+     let point18 = CLLocationCoordinate2DMake(25.102691, 55.167174)
+     let point19 = CLLocationCoordinate2DMake(25.104602, 55.167332)
+     let point20 = CLLocationCoordinate2DMake(25.104209, 55.168576)
+     let point21 = CLLocationCoordinate2DMake(25.106007, 55.170437)
+     let point22 = CLLocationCoordinate2DMake(25.106809, 55.169573)
+     let point23 = CLLocationCoordinate2DMake(25.104688, 55.167153)
+     let point24 = CLLocationCoordinate2DMake(25.104874, 55.165944)
+     let point25 = CLLocationCoordinate2DMake(25.102765, 55.165609)
+     let point26 = CLLocationCoordinate2DMake(25.102505, 55.164689)
+     let point27 = CLLocationCoordinate2DMake(25.103144, 55.164247)
+     let point28 = CLLocationCoordinate2DMake(25.102267, 55.162742)
+     let point29 = CLLocationCoordinate2DMake(25.101575, 55.163578)
+     let point30 = CLLocationCoordinate2DMake(25.100586, 55.162966)
+     let point31 = CLLocationCoordinate2DMake(25.097416, 55.162147)
+     let point32 = CLLocationCoordinate2DMake(25.096885, 55.161819)
+     let point33 = CLLocationCoordinate2DMake(25.096255, 55.160881)
+     let point34 = CLLocationCoordinate2DMake(25.096000, 55.159060)
+     let point35 = CLLocationCoordinate2DMake(25.094896, 55.157238)
+     let point36 = CLLocationCoordinate2DMake(25.094284, 55.156551)
+     let point37 = CLLocationCoordinate2DMake(25.092515, 55.158430)
+     let point38 = CLLocationCoordinate2DMake(25.091927, 55.157633)
+     let point39 = CLLocationCoordinate2DMake(25.093538, 55.155932)
+     let point40 = CLLocationCoordinate2DMake(25.093316, 55.155518)
+     let point41 = CLLocationCoordinate2DMake(25.090705, 55.152697)
+     let point42 = CLLocationCoordinate2DMake(25.089887, 55.151953)
+     let point43 = CLLocationCoordinate2DMake(25.089429, 55.152449)
+     let point44 = CLLocationCoordinate2DMake(25.089024, 55.152970)
+     
+     var coordinateInput:[CLLocationCoordinate2D]=[point1,point2,point3,point4,point5,point6,point7,point8,point9,point10,point11,point12,point13,
+     point14,point15,point16,point17,point18,point19,point20,point21,point22,point23,point24,point25,
+     point26,point27,point28,point29,point30,point31,point32,point33,point34,point35,point36,point37,point38,point39,point40,point41,point42,point43,point44]
+     
+     
+     polyg2 = MKPolygon(coordinates:&coordinateInput, count:44)
+     
+     self.mapview.addOverlay(polyg2)
+     
+     if CLLocationManager.locationServicesEnabled() {
+     locationManager.delegate = self
+     locationManager.desiredAccuracy = kCLLocationAccuracyBest
+     locationManager.startUpdatingLocation()
+     }
+     }*/
     
     
     // MARK: - Textfield Delegate Method
@@ -492,7 +498,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         if let text = txtsearch.text,
-        let textRange = Range(range, in: text)
+           let textRange = Range(range, in: text)
         {
             let updatedText = text.replacingCharacters(in: textRange,with: string)
             print("updatedText",updatedText)
@@ -818,11 +824,11 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             DispatchQueue.main.async {
                 
                 /*let alert = UIAlertController(title: "Alert", message: "You are inside our delivery area!", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
-                    self.boolcheck = false
-                }
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)*/
+                 let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                 self.boolcheck = false
+                 }
+                 alert.addAction(okAction)
+                 self.present(alert, animated: true, completion: nil)*/
                 
                 self.lblalertstatus.isHidden = false
                 self.lblalertstatus.backgroundColor = .blue
@@ -839,11 +845,11 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             DispatchQueue.main.async {
                 
                 /*let alert = UIAlertController(title: "Alert", message: "We do not deliver to this area!", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
-                    self.boolcheck = false
-                }
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)*/
+                 let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                 self.boolcheck = false
+                 }
+                 alert.addAction(okAction)
+                 self.present(alert, animated: true, completion: nil)*/
                 
                 self.lblalertstatus.isHidden = false
                 self.lblalertstatus.backgroundColor = .red
@@ -909,10 +915,10 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             
             // Drop a pin at geofence location
             /*let hello = MyPointAnnotation()
-            hello.coordinate = CLLocationCoordinate2D(latitude: mdl.lat, longitude: mdl.long)
-            hello.pinTintColor = .blue
-            hello.image = UIImage(named: "pinblue1")
-            self.mapview.addAnnotation(hello)*/
+             hello.coordinate = CLLocationCoordinate2D(latitude: mdl.lat, longitude: mdl.long)
+             hello.pinTintColor = .blue
+             hello.image = UIImage(named: "pinblue1")
+             self.mapview.addAnnotation(hello)*/
             
             self.mapview.showsUserLocation = false;
             //locationManager.startMonitoring(for: geofenceRegion)
@@ -1036,10 +1042,10 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     {
         print("Current Location Updating...")
         
-         var latdouble = Double()
-         var longdouble = Double()
-         latdouble = (manager.location?.coordinate.latitude)!
-         longdouble = (manager.location?.coordinate.longitude)!
+        var latdouble = Double()
+        var longdouble = Double()
+        latdouble = (manager.location?.coordinate.latitude)!
+        longdouble = (manager.location?.coordinate.longitude)!
         
         self.strcurrentlat = String(format: "%0.10f", latdouble)
         self.strcurrentlong = String(format: "%0.10f", longdouble)
@@ -1054,10 +1060,9 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             self.performPlaceidFromLatLong(strlat: self.strcurrentlat, strlong: self.strcurrentlong)
         }
         
-         /*self.checkdistanceradiousZone(lat: latdouble, lng: longdouble)*/
+        /*self.checkdistanceradiousZone(lat: latdouble, lng: longdouble)*/
         
     }
-    
     
     //MARK: - Mapview Annotation PIN  delegate method
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
@@ -1070,19 +1075,22 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         
         if (annotation is MyPointAnnotation)
         {
-            let reuseId = "Zone"
+            let reuseId = "pin"
+            
             var anView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
-            if anView == nil {
+            if anView == nil
+            {
                 anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
                 anView!.canShowCallout = true
+                anView?.isDraggable = true
                 
-                anView?.isDraggable = false
-
-                let drag = UILongPressGestureRecognizer(target: self, action: #selector(handleDrag))
-                drag.minimumPressDuration = 0 // set this to whatever you want
-                anView?.addGestureRecognizer(drag)
-
-            }else {
+                 let drag = UILongPressGestureRecognizer(target: self, action: #selector(handleDrag))
+                 drag.minimumPressDuration = 0 // set this to whatever you want
+                 anView?.addGestureRecognizer(drag)
+                
+            }
+            else
+            {
                 anView!.annotation = annotation
             }
             
@@ -1103,11 +1111,11 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             }
             
             /*if (restaurantAnnotation.image != nil) {
-                anView!.image = UIImage(named: "pinblue1")
-            }else{
-                // Perhaps set some default image
-                //anView!.image = UIImage(named: "pingreen")
-            }*/
+             anView!.image = UIImage(named: "pinblue1")
+             }else{
+             // Perhaps set some default image
+             //anView!.image = UIImage(named: "pingreen")
+             }*/
             
             return anView
             
@@ -1117,15 +1125,80 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         annotationView.image = UIImage(named: "")
         return annotationView
     }
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState)
+    {
+        if newState == MKAnnotationView.DragState.ending
+        {
+            let droppedAt = view.annotation?.coordinate
+            
+            print("latitude",droppedAt?.latitude as Any)
+            print("longitude",droppedAt?.longitude as Any)
+        }
+    }
     
     
+    /*func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool
+    {
+        return true
+    }
+    @objc func didDragMap(_ sender: UIGestureRecognizer)
+    {
+        let location = sender.location(in: mapview)
+        
+        if sender.state == .began
+        {
+            print("-------------began-------------")
+            startLocation = location
+        }
+        else if sender.state == .changed
+        {
+            print("-------------changed-------------")
+            sender.view?.transform = CGAffineTransform(translationX: location.x - startLocation.x, y: location.y - startLocation.y)
+        }
+        else if sender.state == .ended
+        {
+            print("-------------ended-------------")
+            /*let topLeft = mapview.convert(CGPointMake(0, 0), toCoordinateFrom: self.view)
+             let bottomleft = mapview.convert(CGPointMake(0, self.view.frame.size.height), toCoordinateFrom: self.view)
+             print("latitude",topLeft.latitude)
+             print("longitude",bottomleft.longitude)*/
+            
+            var annotationView = MKAnnotationView()
+            for annotation in self.mapview.annotations
+            {
+                annotationView = self.mapview.view(for: annotation)!
+            }
+            
+            let annotation = annotationView.annotation as! MyPointAnnotation
+            let translate = CGPoint(x: location.x - startLocation.x, y: location.y - startLocation.y)
+            let originalLocation = mapview.convert(annotation.coordinate, toPointTo: mapview)
+            let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
+            annotationView.transform = CGAffineTransform.identity
+            annotation.coordinate = mapview.convert(updatedLocation, toCoordinateFrom: mapview)
+            
+            print("latitude",annotation.coordinate.latitude)
+            print("longitude",annotation.coordinate.longitude)
+            
+            //REMOVE LAST PIN
+            self.mapview.removeAnnotations([self.mapview.annotations].last!)
+            
+            //RECREATE NEW PIN
+             let hello = MyPointAnnotation()
+             hello.coordinate = CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+             hello.pinTintColor = .green
+             hello.image = UIImage(named: "pingreen")
+             hello.title = "My Delivery Location"
+             self.mapview.addAnnotation(hello)
+            
+        }
+    }*/
     
     //MARK: - Draggable PIN ANNOTATION LONG PRESS GESTURE METHOD
     private var startLocation = CGPoint.zero
     @objc func handleDrag(gesture: UILongPressGestureRecognizer)
     {
         let location = gesture.location(in: mapview)
-
+        
         if gesture.state == .began
         {
             startLocation = location
@@ -1138,7 +1211,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         {
             let annotationView = gesture.view as! MKAnnotationView
             let annotation = annotationView.annotation as! MyPointAnnotation
-
+            
             let translate = CGPoint(x: location.x - startLocation.x, y: location.y - startLocation.y)
             let originalLocation = mapview.convert(annotation.coordinate, toPointTo: mapview)
             let updatedLocation = CGPoint(x: originalLocation.x + translate.x, y: originalLocation.y + translate.y)
@@ -1335,7 +1408,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         title1.backgroundColor = UIColor.clear
         title1.font = UIFont.systemFont(ofSize: 14)
         cell.contentView.addSubview(title1)
-      
+        
         let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
         
         let  str1 = String(format: "%@", dictemp.value(forKey: "description") as? String ?? "")
@@ -1425,13 +1498,13 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             
             guard let vc = self.navigationController?.viewControllers else { return }
             for controller in vc {
-               if controller.isKind(of: addnewaddress.self) {
-                  let tabVC = controller as! addnewaddress
-                   tabVC.strstreetaddressfrommap = String(format: "%@", straddress)
-                   tabVC.strstreetaddressfrommapLocation = strlocation
-                   tabVC.strstreetaddressfrommapCity = strcity
-                  self.navigationController?.popToViewController(tabVC, animated: true)
-               }
+                if controller.isKind(of: addnewaddress.self) {
+                    let tabVC = controller as! addnewaddress
+                    tabVC.strstreetaddressfrommap = String(format: "%@", straddress)
+                    tabVC.strstreetaddressfrommapLocation = strlocation
+                    tabVC.strstreetaddressfrommapCity = strcity
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
             }
         }
         else if strFrompageMap == "updatemyaddress"
@@ -1440,13 +1513,13 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             
             guard let vc = self.navigationController?.viewControllers else { return }
             for controller in vc {
-               if controller.isKind(of: updatemyaddress.self) {
-                  let tabVC = controller as! updatemyaddress
-                   tabVC.strstreetaddressfrommap = String(format: "%@", straddress)
-                   tabVC.strstreetaddressfrommapLocation = strlocation
-                   tabVC.strstreetaddressfrommapCity = strcity
-                  self.navigationController?.popToViewController(tabVC, animated: true)
-               }
+                if controller.isKind(of: updatemyaddress.self) {
+                    let tabVC = controller as! updatemyaddress
+                    tabVC.strstreetaddressfrommap = String(format: "%@", straddress)
+                    tabVC.strstreetaddressfrommapLocation = strlocation
+                    tabVC.strstreetaddressfrommapCity = strcity
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
             }
         }
         else if strFrompageMap == "subscriptionorderreview"
@@ -1455,13 +1528,13 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             
             guard let vc = self.navigationController?.viewControllers else { return }
             for controller in vc {
-               if controller.isKind(of: subscriptionorderreview.self) {
-                  let tabVC = controller as! subscriptionorderreview
-                   tabVC.strFulladdress = String(format: "%@", straddress)
-                   tabVC.strFulladdressLocationname = strlocation
-                   tabVC.strFulladdressCityname = strcity
-                  self.navigationController?.popToViewController(tabVC, animated: true)
-               }
+                if controller.isKind(of: subscriptionorderreview.self) {
+                    let tabVC = controller as! subscriptionorderreview
+                    tabVC.strFulladdress = String(format: "%@", straddress)
+                    tabVC.strFulladdressLocationname = strlocation
+                    tabVC.strFulladdressCityname = strcity
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
             }
         }
         else if strFrompageMap == "orderonceclass"
@@ -1470,13 +1543,13 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             
             guard let vc = self.navigationController?.viewControllers else { return }
             for controller in vc {
-               if controller.isKind(of: orderonceclass.self) {
-                  let tabVC = controller as! orderonceclass
-                   tabVC.strstreetaddressfrommapORDERONCE = String(format: "%@", straddress)
-                   tabVC.strstreetaddressfrommapLocationORDERONCE = strlocation
-                   tabVC.strstreetaddressfrommapCityORDERONCE = strcity
-                  self.navigationController?.popToViewController(tabVC, animated: true)
-               }
+                if controller.isKind(of: orderonceclass.self) {
+                    let tabVC = controller as! orderonceclass
+                    tabVC.strstreetaddressfrommapORDERONCE = String(format: "%@", straddress)
+                    tabVC.strstreetaddressfrommapLocationORDERONCE = strlocation
+                    tabVC.strstreetaddressfrommapCityORDERONCE = strcity
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
             }
         }
         else if strFrompageMap == "subsriptionclass"
@@ -1485,13 +1558,13 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             
             guard let vc = self.navigationController?.viewControllers else { return }
             for controller in vc {
-               if controller.isKind(of: subsriptionclass.self) {
-                  let tabVC = controller as! subsriptionclass
-                   tabVC.strstreetaddressfrommapSUBSCRIPTION = String(format: "%@", straddress)
-                   tabVC.strstreetaddressfrommapLocationSUBSCRIPTION = strlocation
-                   tabVC.strstreetaddressfrommapCitySUBSCRIPTION = strcity
-                  self.navigationController?.popToViewController(tabVC, animated: true)
-               }
+                if controller.isKind(of: subsriptionclass.self) {
+                    let tabVC = controller as! subsriptionclass
+                    tabVC.strstreetaddressfrommapSUBSCRIPTION = String(format: "%@", straddress)
+                    tabVC.strstreetaddressfrommapLocationSUBSCRIPTION = strlocation
+                    tabVC.strstreetaddressfrommapCitySUBSCRIPTION = strcity
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
             }
         }
     }
@@ -1518,7 +1591,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 
                 let dic = JSON as? NSDictionary
                 print("dic",dic as Any)
-
+                
                 DispatchQueue.main.async {
                     
                     //FIXME_____ FETCH PLACE ID ______//
@@ -1531,7 +1604,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                     }
                     
                 }
-
+                
                 break
             case .failure:
                 print("failure")
@@ -1636,7 +1709,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                     self.mapview.addAnnotation(hello)
                     
                     self.mapview.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: self.strsearchlat, longitude: self.strsearchlng), latitudinalMeters: 1000, longitudinalMeters: 1000), animated: true)
-
+                    
                     
                     //self.checkdistanceradiousZone(lat: self.strsearchlat, lng: self.strsearchlng)
                     
@@ -1672,7 +1745,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
             {
                 print("Your location was inside your polygon1.")
                 let strpolygonname = String(format:"%@",self.arrmpolygonobjectName.object(at: xx) as? String ?? "")
-    
+                
                 print("strpolygonname",strpolygonname)
                 boolcheck = true
                 strSelectedPolygonName = strpolygonname
@@ -1680,38 +1753,38 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 print("Your location was outside your polygon1.")
             }
         }
-
+        
     }
     
     //MARK: - Check Search Coordinate WITHIN POLYGON OR NOT
     /*func checkpolygon1Point(lat:Double,long:Double)
-    {
-        let polygonRenderer = MKPolygonRenderer(polygon: polyg1)
-        let mapPoint: MKMapPoint = MKMapPoint(CLLocationCoordinate2D(latitude: lat, longitude: long))
-        let polygonViewPoint: CGPoint = polygonRenderer.point(for: mapPoint)
-
-        if polygonRenderer.path.contains(polygonViewPoint)
-        {
-            print("Your location was inside your polygon1.")
-            boolcheck = true
-        }else{
-            print("Your location was outside your polygon1.")
-        }
-    }
-    func checkpolygon2Point(lat:Double,long:Double)
-    {
-        let polygonRenderer = MKPolygonRenderer(polygon: polyg2)
-        let mapPoint: MKMapPoint = MKMapPoint(CLLocationCoordinate2D(latitude: lat, longitude: long))
-        let polygonViewPoint: CGPoint = polygonRenderer.point(for: mapPoint)
-
-        if polygonRenderer.path.contains(polygonViewPoint)
-        {
-            print("Your location was inside your polygon1.")
-            boolcheck = true
-        }else{
-            print("Your location was outside your polygon1.")
-        }
-    }*/
+     {
+     let polygonRenderer = MKPolygonRenderer(polygon: polyg1)
+     let mapPoint: MKMapPoint = MKMapPoint(CLLocationCoordinate2D(latitude: lat, longitude: long))
+     let polygonViewPoint: CGPoint = polygonRenderer.point(for: mapPoint)
+     
+     if polygonRenderer.path.contains(polygonViewPoint)
+     {
+     print("Your location was inside your polygon1.")
+     boolcheck = true
+     }else{
+     print("Your location was outside your polygon1.")
+     }
+     }
+     func checkpolygon2Point(lat:Double,long:Double)
+     {
+     let polygonRenderer = MKPolygonRenderer(polygon: polyg2)
+     let mapPoint: MKMapPoint = MKMapPoint(CLLocationCoordinate2D(latitude: lat, longitude: long))
+     let polygonViewPoint: CGPoint = polygonRenderer.point(for: mapPoint)
+     
+     if polygonRenderer.path.contains(polygonViewPoint)
+     {
+     print("Your location was inside your polygon1.")
+     boolcheck = true
+     }else{
+     print("Your location was outside your polygon1.")
+     }
+     }*/
     
     //MARK: - GET Address by Lat Long - Google API
     func getAddressFromLatLong(latitude: Double, longitude : Double)
@@ -1782,7 +1855,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                             }
                         }
                         
-                       
+                        
                         let strformattedaddress = String(format: "%@", dic?.value(forKey: "formatted_address")as? String ?? "")
                         print("strformattedaddress",strformattedaddress)
                         print("location name",self.strlocationname)
@@ -1896,16 +1969,16 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 
                 guard let vc = self.navigationController?.viewControllers else { return }
                 for controller in vc {
-                   if controller.isKind(of: addnewaddress.self) {
-                      let tabVC = controller as! addnewaddress
-                       tabVC.strstreetaddressfrommap = String(format: "%@", txtsearch.text!)
-                       tabVC.strstreetaddressfrommapLocation = strlocationname
-                       tabVC.strstreetaddressfrommapCity = strcityname
-                       tabVC.strSelectedLATITUDE = String(self.strsearchlat)
-                       tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
-                       tabVC.strSELECTEDPOLYGONDETAILS = self.strSelectedPolygonName
-                      self.navigationController?.popToViewController(tabVC, animated: true)
-                   }
+                    if controller.isKind(of: addnewaddress.self) {
+                        let tabVC = controller as! addnewaddress
+                        tabVC.strstreetaddressfrommap = String(format: "%@", txtsearch.text!)
+                        tabVC.strstreetaddressfrommapLocation = strlocationname
+                        tabVC.strstreetaddressfrommapCity = strcityname
+                        tabVC.strSelectedLATITUDE = String(self.strsearchlat)
+                        tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
+                        tabVC.strSELECTEDPOLYGONDETAILS = self.strSelectedPolygonName
+                        self.navigationController?.popToViewController(tabVC, animated: true)
+                    }
                 }
             }
             else if strFrompageMap == "updatemyaddress"
@@ -1914,16 +1987,16 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 
                 guard let vc = self.navigationController?.viewControllers else { return }
                 for controller in vc {
-                   if controller.isKind(of: updatemyaddress.self) {
-                      let tabVC = controller as! updatemyaddress
-                       tabVC.strstreetaddressfrommap = String(format: "%@", txtsearch.text!)
-                       tabVC.strstreetaddressfrommapLocation = strlocationname
-                       tabVC.strstreetaddressfrommapCity = strcityname
-                       tabVC.strSelectedLATITUDE = String(self.strsearchlat)
-                       tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
-                       tabVC.strSELECTEDPOLYGONDETAILS = self.strSelectedPolygonName
-                      self.navigationController?.popToViewController(tabVC, animated: true)
-                   }
+                    if controller.isKind(of: updatemyaddress.self) {
+                        let tabVC = controller as! updatemyaddress
+                        tabVC.strstreetaddressfrommap = String(format: "%@", txtsearch.text!)
+                        tabVC.strstreetaddressfrommapLocation = strlocationname
+                        tabVC.strstreetaddressfrommapCity = strcityname
+                        tabVC.strSelectedLATITUDE = String(self.strsearchlat)
+                        tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
+                        tabVC.strSELECTEDPOLYGONDETAILS = self.strSelectedPolygonName
+                        self.navigationController?.popToViewController(tabVC, animated: true)
+                    }
                 }
             }
             else if strFrompageMap == "subscriptionorderreview"
@@ -1932,15 +2005,15 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 
                 guard let vc = self.navigationController?.viewControllers else { return }
                 for controller in vc {
-                   if controller.isKind(of: subscriptionorderreview.self) {
-                      let tabVC = controller as! subscriptionorderreview
-                       tabVC.strFulladdress = String(format: "%@", txtsearch.text!)
-                       tabVC.strFulladdressLocationname = strlocationname
-                       tabVC.strFulladdressCityname = strcityname
-                       tabVC.strSelectedLATITUDE = String(self.strsearchlat)
-                       tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
-                      self.navigationController?.popToViewController(tabVC, animated: true)
-                   }
+                    if controller.isKind(of: subscriptionorderreview.self) {
+                        let tabVC = controller as! subscriptionorderreview
+                        tabVC.strFulladdress = String(format: "%@", txtsearch.text!)
+                        tabVC.strFulladdressLocationname = strlocationname
+                        tabVC.strFulladdressCityname = strcityname
+                        tabVC.strSelectedLATITUDE = String(self.strsearchlat)
+                        tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
+                        self.navigationController?.popToViewController(tabVC, animated: true)
+                    }
                 }
             }
             else if strFrompageMap == "orderonceclass"
@@ -1949,15 +2022,15 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 
                 guard let vc = self.navigationController?.viewControllers else { return }
                 for controller in vc {
-                   if controller.isKind(of: orderonceclass.self) {
-                      let tabVC = controller as! orderonceclass
-                       tabVC.strstreetaddressfrommapORDERONCE = String(format: "%@", txtsearch.text!)
-                       tabVC.strstreetaddressfrommapLocationORDERONCE = strlocationname
-                       tabVC.strstreetaddressfrommapCityORDERONCE = strcityname
-                       //tabVC.strSelectedLATITUDE = String(self.strsearchlat)
-                       //tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
-                      self.navigationController?.popToViewController(tabVC, animated: true)
-                   }
+                    if controller.isKind(of: orderonceclass.self) {
+                        let tabVC = controller as! orderonceclass
+                        tabVC.strstreetaddressfrommapORDERONCE = String(format: "%@", txtsearch.text!)
+                        tabVC.strstreetaddressfrommapLocationORDERONCE = strlocationname
+                        tabVC.strstreetaddressfrommapCityORDERONCE = strcityname
+                        //tabVC.strSelectedLATITUDE = String(self.strsearchlat)
+                        //tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
+                        self.navigationController?.popToViewController(tabVC, animated: true)
+                    }
                 }
             }
             else if strFrompageMap == "subsriptionclass"
@@ -1966,15 +2039,15 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                 
                 guard let vc = self.navigationController?.viewControllers else { return }
                 for controller in vc {
-                   if controller.isKind(of: subsriptionclass.self) {
-                      let tabVC = controller as! subsriptionclass
-                       tabVC.strstreetaddressfrommapSUBSCRIPTION = String(format: "%@", txtsearch.text!)
-                       tabVC.strstreetaddressfrommapLocationSUBSCRIPTION = strlocationname
-                       tabVC.strstreetaddressfrommapCitySUBSCRIPTION = strcityname
-                       //tabVC.strSelectedLATITUDE = String(self.strsearchlat)
-                       //tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
-                      self.navigationController?.popToViewController(tabVC, animated: true)
-                   }
+                    if controller.isKind(of: subsriptionclass.self) {
+                        let tabVC = controller as! subsriptionclass
+                        tabVC.strstreetaddressfrommapSUBSCRIPTION = String(format: "%@", txtsearch.text!)
+                        tabVC.strstreetaddressfrommapLocationSUBSCRIPTION = strlocationname
+                        tabVC.strstreetaddressfrommapCitySUBSCRIPTION = strcityname
+                        //tabVC.strSelectedLATITUDE = String(self.strsearchlat)
+                        //tabVC.strSelectedLONGITUDE = String(self.strsearchlng)
+                        self.navigationController?.popToViewController(tabVC, animated: true)
+                    }
                 }
             }
         }
@@ -1999,7 +2072,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         tabvPopupMyAddress.backgroundColor=UIColor.clear
         tabvPopupMyAddress.separatorColor=UIColor.clear
         tabvPopupMyAddress.showsVerticalScrollIndicator = false
-       
+        
         viewPopupAddNewExistingBG2 = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height))
         viewPopupAddNewExistingBG2.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
         let frameSize: CGPoint = CGPoint(x:viewPopupAddNewExistingBG2.bounds.size.width*0.5,y: (viewPopupAddNewExistingBG2.bounds.size.height*0.5) - 20)
@@ -2054,13 +2127,13 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                     
                     let dictemp = json as NSDictionary
                     //print("dictemp --->",dictemp)
-                   
-                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     print("strstatus",strstatus)
-                     print("strsuccess",strsuccess)
-                     print("strmessage",strmessage)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -2136,13 +2209,13 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
                     
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
-                   
-                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     print("strstatus",strstatus)
-                     print("strsuccess",strsuccess)
-                     print("strmessage",strmessage)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
