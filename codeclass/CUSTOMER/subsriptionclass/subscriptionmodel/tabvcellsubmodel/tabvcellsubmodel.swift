@@ -17,6 +17,7 @@ class tabvcellsubmodel: UITableViewCell
     @IBOutlet weak var btnaddplus: UIButton!
     @IBOutlet weak var btneditpencil: UIButton!
     
+    @IBOutlet weak var lbladdproducts: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

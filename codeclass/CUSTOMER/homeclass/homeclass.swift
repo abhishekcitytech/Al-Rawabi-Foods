@@ -1891,6 +1891,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        print("strconnurl",strconnurl)
+        
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
         print("json string = \(jsonString)")
@@ -2474,7 +2476,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     //MARK: - GET Address by Lat Long - Google API
     func getAddressFromLatLong(latitude: Double, longitude : Double)
     {
-        var strconnurl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&key=AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk"
+        var strconnurl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&key=\(Constants.conn.GoogleAPIKey)"
         strconnurl = strconnurl.replacingOccurrences(of: " ", with: "%20")
         print("strconnurl",strconnurl)
         AF.request(strconnurl,method: .get,encoding: JSONEncoding.default).responseJSON {

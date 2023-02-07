@@ -170,7 +170,7 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
         cellA.imgv.contentMode = .scaleAspectFit
        
         cellA.imgv.imageFromURL(urlString: strFinalurl)
-        //cellA.imgv.image = UIImage(named: "productplaceholder.png")
+        //cellA.imgv.image = UIImage(named: "productplaceholder")
         
         cellA.lblname.text = strname
         cellA.lblbrand.text = strbrand

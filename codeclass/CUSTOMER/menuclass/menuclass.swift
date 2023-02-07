@@ -322,84 +322,84 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             
             //Home
             let dic1 = NSMutableDictionary()
-            dic1.setValue("sl1.png", forKey: "image")
+            dic1.setValue("sl1", forKey: "image")
             dic1.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language136")), forKey: "value")
             dic1.setValue("", forKey: "id")
             self.arrMenu.add(dic1)
             
             //Order by Subscription
             let dic2 = NSMutableDictionary()
-            dic2.setValue("sl2.png", forKey: "image")
+            dic2.setValue("sl2", forKey: "image")
             dic2.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language137")), forKey: "value")
             dic2.setValue("", forKey: "id")
             self.arrMenu.add(dic2)
             
             //Order Once
             let dic3 = NSMutableDictionary()
-            dic3.setValue("sl3.png", forKey: "image")
+            dic3.setValue("sl3", forKey: "image")
             dic3.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language104")), forKey: "value")
             dic3.setValue("", forKey: "id")
             self.arrMenu.add(dic3)
             
             //Cart
             let dic4 = NSMutableDictionary()
-            dic4.setValue("sl10.png", forKey: "image")
+            dic4.setValue("sl10", forKey: "image")
             dic4.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language143")), forKey: "value")
             dic4.setValue("", forKey: "id")
             self.arrMenu.add(dic4)
             
             //About Us
             let dic5 = NSMutableDictionary()
-            dic5.setValue("aboutus.png", forKey: "image")
+            dic5.setValue("aboutus", forKey: "image")
             dic5.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language280")), forKey: "value")
             dic5.setValue("", forKey: "id")
             self.arrMenu.add(dic5)
             
             //Contact Us
             let dic6 = NSMutableDictionary()
-            dic6.setValue("sl11.png", forKey: "image")
+            dic6.setValue("sl11", forKey: "image")
             dic6.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language144")), forKey: "value")
             dic6.setValue("", forKey: "id")
             self.arrMenu.add(dic6)
             
             //Privacy Policy
             let dic7 = NSMutableDictionary()
-            dic7.setValue("privacypolicy.png", forKey: "image")
+            dic7.setValue("privacypolicy", forKey: "image")
             dic7.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language281")), forKey: "value")
             dic7.setValue("", forKey: "id")
             self.arrMenu.add(dic7)
             
             //Delivery Policy
             let dic8 = NSMutableDictionary()
-            dic8.setValue("delverypolicy.png", forKey: "image")
+            dic8.setValue("delverypolicy", forKey: "image")
             dic8.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language282")), forKey: "value")
             dic8.setValue("", forKey: "id")
             self.arrMenu.add(dic8)
             
             //Refund/ Return & Cancellation
             let dic9 = NSMutableDictionary()
-            dic9.setValue("refundreturncancel.png", forKey: "image")
+            dic9.setValue("refundreturncancel", forKey: "image")
             dic9.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language283")), forKey: "value")
             dic9.setValue("", forKey: "id")
             self.arrMenu.add(dic9)
             
             //Terms & Conditions
             let dic10 = NSMutableDictionary()
-            dic10.setValue("termsandconditions.png", forKey: "image")
+            dic10.setValue("termsandconditions", forKey: "image")
             dic10.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language284")), forKey: "value")
             dic10.setValue("", forKey: "id")
             self.arrMenu.add(dic10)
             
             //Disclaimer
             let dic11 = NSMutableDictionary()
-            dic11.setValue("disclaimer.png", forKey: "image")
+            dic11.setValue("disclaimer", forKey: "image")
             dic11.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language285")), forKey: "value")
             dic11.setValue("", forKey: "id")
             self.arrMenu.add(dic11)
             
             //Whatsapp
             let dic12 = NSMutableDictionary()
-            dic12.setValue("whatsapp.png", forKey: "image")
+            dic12.setValue("whatsapp", forKey: "image")
             dic12.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language279")), forKey: "value")
             dic12.setValue("", forKey: "id")
             self.arrMenu.add(dic12)
@@ -414,77 +414,77 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             
             //Home
             let dic1 = NSMutableDictionary()
-            dic1.setValue("sl1.png", forKey: "image")
+            dic1.setValue("sl1", forKey: "image")
             dic1.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language136")), forKey: "value")
             dic1.setValue("", forKey: "id")
             self.arrMenu.add(dic1)
             
             //Order by Subscription
             let dic2 = NSMutableDictionary()
-            dic2.setValue("sl2.png", forKey: "image")
+            dic2.setValue("sl2", forKey: "image")
             dic2.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language137")), forKey: "value")
             dic2.setValue("", forKey: "id")
             self.arrMenu.add(dic2)
             
             //Order Once
             let dic3 = NSMutableDictionary()
-            dic3.setValue("sl3.png", forKey: "image")
+            dic3.setValue("sl3", forKey: "image")
             dic3.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language104")), forKey: "value")
             dic3.setValue("", forKey: "id")
             self.arrMenu.add(dic3)
             
             //About Us
             let dic4 = NSMutableDictionary()
-            dic4.setValue("aboutus.png", forKey: "image")
+            dic4.setValue("aboutus", forKey: "image")
             dic4.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language280")), forKey: "value")
             dic4.setValue("", forKey: "id")
             self.arrMenu.add(dic4)
             
             //Contact Us
             let dic5 = NSMutableDictionary()
-            dic5.setValue("sl11.png", forKey: "image")
+            dic5.setValue("sl11", forKey: "image")
             dic5.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language144")), forKey: "value")
             dic5.setValue("", forKey: "id")
             self.arrMenu.add(dic5)
             
             //Privacy Policy
             let dic6 = NSMutableDictionary()
-            dic6.setValue("privacypolicy.png", forKey: "image")
+            dic6.setValue("privacypolicy", forKey: "image")
             dic6.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language281")), forKey: "value")
             dic6.setValue("", forKey: "id")
             self.arrMenu.add(dic6)
             
             //Delivery Policy
             let dic7 = NSMutableDictionary()
-            dic7.setValue("delverypolicy.png", forKey: "image")
+            dic7.setValue("delverypolicy", forKey: "image")
             dic7.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language282")), forKey: "value")
             dic7.setValue("", forKey: "id")
             self.arrMenu.add(dic7)
             
             //Refund/ Return & Cancellation
             let dic8 = NSMutableDictionary()
-            dic8.setValue("refundreturncancel.png", forKey: "image")
+            dic8.setValue("refundreturncancel.", forKey: "image")
             dic8.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language283")), forKey: "value")
             dic8.setValue("", forKey: "id")
             self.arrMenu.add(dic8)
             
             //Terms & Conditions
             let dic9 = NSMutableDictionary()
-            dic9.setValue("termsandconditions.png", forKey: "image")
+            dic9.setValue("termsandconditions", forKey: "image")
             dic9.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language284")), forKey: "value")
             dic9.setValue("", forKey: "id")
             self.arrMenu.add(dic9)
             
             //Disclaimer
             let dic10 = NSMutableDictionary()
-            dic10.setValue("disclaimer.png", forKey: "image")
+            dic10.setValue("disclaimer", forKey: "image")
             dic10.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language285")), forKey: "value")
             dic10.setValue("", forKey: "id")
             self.arrMenu.add(dic10)
             
             //Whatsapp
             let dic11 = NSMutableDictionary()
-            dic11.setValue("whatsapp.png", forKey: "image")
+            dic11.setValue("whatsapp", forKey: "image")
             dic11.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language279")), forKey: "value")
             dic11.setValue("", forKey: "id")
             self.arrMenu.add(dic11)
@@ -514,7 +514,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
                 ,myAppDelegate.changeLanguage(key: "msg_language129"),myAppDelegate.changeLanguage(key: "msg_language131"),myAppDelegate.changeLanguage(key: "msg_language133")
                 ,myAppDelegate.changeLanguage(key: "msg_language134"),myAppDelegate.changeLanguage(key: "msg_language275"),myAppDelegate.changeLanguage(key: "msg_language276")]
         
-        arr2 = ["acc01.png","fav1.png","acc4.png","acc5.png","acc6.png","acc7.png","acc9.png","acc11.png","acc12.png","acc13.png","logout"]
+        arr2 = ["acc01","fav1","acc4","acc5","acc6","acc7","acc9","acc11","acc12","acc13","logout"]
         
         for x in 0 ..< arr1.count
         {

@@ -145,22 +145,22 @@ class maidhomeclass: UIViewController,UICollectionViewDelegate,UICollectionViewD
         
         if strname == myAppDelegate.changeLanguage(key: "msg_language294")
         {
-            cellA.imgvicon.image = UIImage(named: "acc4.png")
+            cellA.imgvicon.image = UIImage(named: "acc4")
             cellA.viewcell.backgroundColor = UIColor(named: "colorviewsubscription")!
         }
         else if strname == myAppDelegate.changeLanguage(key: "msg_language295")
         {
-            cellA.imgvicon.image = UIImage(named: "acc10.png")
+            cellA.imgvicon.image = UIImage(named: "acc10")
             cellA.viewcell.backgroundColor = UIColor(named: "colorpausedsubscription")!
         }
         else if strname == myAppDelegate.changeLanguage(key: "msg_language104")
         {
-            cellA.imgvicon.image = UIImage(named: "sl3.png")
+            cellA.imgvicon.image = UIImage(named: "sl3")
             cellA.viewcell.backgroundColor = UIColor(named: "colormaidorderonce")!
         }
         else if strname == myAppDelegate.changeLanguage(key: "msg_language296")
         {
-            cellA.imgvicon.image = UIImage(named: "acc6.png")
+            cellA.imgvicon.image = UIImage(named: "acc6")
             cellA.viewcell.backgroundColor = UIColor(named: "colormaidwallet")!
         }
         

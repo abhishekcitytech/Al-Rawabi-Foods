@@ -669,13 +669,12 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                         
                         self.viewoverall.isHidden = false
                         
+                        if self.arrMcartItems.count > 0{
+                            self.arrMcartItems.removeAllObjects()
+                        }
+                        
                         if strsuccess == true
                         {
-                            if self.arrMcartItems.count > 0{
-                                self.arrMcartItems.removeAllObjects()
-                            }
-                            
-                            
                             let arrmproducts = json.value(forKey: "cart_items") as? NSArray ?? []
                             self.arrMcartItems = NSMutableArray(array: arrmproducts)
                             print("arrMcartItems --->",self.arrMcartItems)
@@ -756,12 +755,6 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                     self.lbldiscount.textColor = .darkGray
                                 }
                             }
-                            
-                            if self.arrMcartItems.count == 0{
-                                self.msg = myAppDelegate.changeLanguage(key: "msg_language117")
-                            }
-                            
-                            self.tabvcart.reloadData()
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
@@ -770,7 +763,12 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                 print("Click of default button")
                             }))
                         }
+                        
+                        if self.arrMcartItems.count == 0{
+                            self.msg = myAppDelegate.changeLanguage(key: "msg_language117")
+                        }
                         self.tabvcart.reloadData()
+                        
                         self.getAvailbleTimeSlotsAPIMethod()
                     }
                 }

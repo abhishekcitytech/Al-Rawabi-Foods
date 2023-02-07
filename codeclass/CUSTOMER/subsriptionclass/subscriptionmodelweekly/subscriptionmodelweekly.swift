@@ -394,8 +394,8 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
         var strisrenew = String(format: "%@", dict?.value(forKey: "isrenew")as? String ?? "")
         var strsubscriptionid = String(format: "%@", dict?.value(forKey: "subscriptionid")as? String ?? "")
         
-        cell.lblname.text = String(format: "%@\n%@", strdate,strday)
-        
+        cell.lblname.text = String(format: "%@\n\n%@", strdate,strday)
+        cell.lbltotalprice.isHidden = true
        
         if strselected == "0"
         {

@@ -32,6 +32,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
     var strcurrency = ""
     
     
+    var myAppDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -58,8 +59,8 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        // Do any additional setup after loading the view.
-        self.title = "My Maid Accounts"
+        
+        self.title = myAppDelegate.changeLanguage(key: "msg_language405")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -156,8 +157,8 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         cell.lblname.text = String(format: "%@", strname)
         cell.lblemail.text = String(format: "%@",stremail)
-        cell.lblmaxamountlimit.text = String(format: "Monthly Usage Limit: %@ %@",self.strcurrency,strmax_order_amount)
-        cell.lblwalletbalance.text = String(format: "Wallet Balance: %@ %0.2f",self.strcurrency,fltamountwallet)
+        cell.lblmaxamountlimit.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language406"),self.strcurrency,strmax_order_amount)
+        cell.lblwalletbalance.text = String(format: "%@: %@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language217"),self.strcurrency,fltamountwallet)
         
         cell.lblstatus.text = strstatus
         
@@ -184,6 +185,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         cell.btnedit.tag = indexPath.section
         cell.btnedit.addTarget(self, action: #selector(pressEdit), for: .touchUpInside)
         
+        cell.btnwallettransfer.setTitle(String(format:"%@",myAppDelegate.changeLanguage(key: "msg_language407")), for: .normal)
         cell.btnwallettransfer.tag = indexPath.section
         cell.btnwallettransfer.addTarget(self, action: #selector(pressWalletTransfer), for: .touchUpInside)
         
@@ -255,6 +257,8 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         self.lbltransfermaidname.text = strname
         
+        self.txttransferamount.placeholder = myAppDelegate.changeLanguage(key: "msg_language408")
+        self.btnsubmittransferpopup.setTitle(String(format:"%@",myAppDelegate.changeLanguage(key: "msg_language178")), for: .normal)
         
         self.btnsubmittransferpopup.tag = Int(strmaidid)!
         self.btnsubmittransferpopup.layer.cornerRadius = 10.0
@@ -284,17 +288,17 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         if self.txttransferamount.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter minimum wallet amount limit.", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language409"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if fltpurchaselimit! > 200.00 || fltpurchaselimit! <= 0.00
         {
-            let uiAlert = UIAlertController(title: "", message: "Maid purchase limit should be above AED 1 & upto AED 200", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language410"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -302,15 +306,15 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         {
             print("update successfull")
             
-            let refreshAlert = UIAlertController(title: "", message: "Do you want to proceed with this transfer", preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language411"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 self.viewtransferpopup.removeFromSuperview()
                 self.viewPopupAddNewExistingBG1.removeFromSuperview()
                 
                 self.posttransfermaidaccountamountAPIMethod(stramount: self.txttransferamount.text!, strmaidid: String(format: "%d", sender.tag))
             }))
-            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                   print("Handle Cancel Logic here")
                 self.viewtransferpopup.removeFromSuperview()
                 self.viewPopupAddNewExistingBG1.removeFromSuperview()
@@ -363,7 +367,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -404,7 +408,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
                             //print("arrMmaidlist --->",self.arrMmaidlist)
                             
                             if self.arrMmaidlist.count == 0{
-                                self.msg = "No maid record found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language412")
                             }
                             
                             self.tabvmaidlist.reloadData()
@@ -412,7 +416,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -425,7 +429,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()
@@ -477,7 +481,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -512,7 +516,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
                         else{
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -525,7 +529,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()

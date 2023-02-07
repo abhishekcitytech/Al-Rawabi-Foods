@@ -54,8 +54,8 @@ class loyaltypointbalance: UIViewController,UITableViewDelegate,UITableViewDataS
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        // Do any additional setup after loading the view.
-        self.title = "My Reward Points"
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language131")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -243,7 +243,7 @@ class loyaltypointbalance: UIViewController,UITableViewDelegate,UITableViewDataS
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -327,14 +327,14 @@ class loyaltypointbalance: UIViewController,UITableViewDelegate,UITableViewDataS
                             print("arrMalltransactions --->",self.arrMalltransactions)
                             
                             if self.arrMalltransactions.count == 0{
-                                self.msg = "No records found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language403")
                             }
                             self.tabvtransactionlist.reloadData()
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

@@ -47,6 +47,8 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
     
     var arrMmyaddresslist = NSMutableArray()
     
+    var myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -108,8 +110,8 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        // Do any additional setup after loading the view.
-        self.title = "Account Details"
+        
+        self.title = myAppDelegate.changeLanguage(key: "msg_language413")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -143,12 +145,39 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
         tabvallowedaddress.separatorColor=UIColor.clear
         tabvallowedaddress.showsVerticalScrollIndicator = false
         
+        setupRTLLTR()
     }
     
     //MARK: - press back method
     @objc func pressBack()
     {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        txtfirstname.placeholder = myAppDelegate.changeLanguage(key: "msg_language28")
+        txtlastname.placeholder = myAppDelegate.changeLanguage(key: "msg_language29")
+        txtemail.placeholder = myAppDelegate.changeLanguage(key: "msg_language30")
+        txtmobileno.placeholder = myAppDelegate.changeLanguage(key: "msg_language31")
+        txtpurchaseamountlimit.placeholder = myAppDelegate.changeLanguage(key: "msg_language414")
+        
+        lblallowedaddress.text = myAppDelegate.changeLanguage(key: "msg_language415")
+        lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language416")
+        
+        btnupdatesave.setTitle(String(format:"%@",myAppDelegate.changeLanguage(key: "msg_language392")), for: .normal)
+        btnremoveaccount.setTitle(String(format:"%@",myAppDelegate.changeLanguage(key: "msg_language417")), for: .normal)
+        
+         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+         if (strLangCode == "en")
+         {
+        
+         }
+         else
+         {
+
+         }
     }
     
     //MARK: - press segment for ACTIVE or NOACTIVE Method
@@ -165,13 +194,13 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
     //MARK: - press Remove account method
     @IBAction func pressRemoveAccount(_ sender: Any)
     {
-        let refreshAlert = UIAlertController(title: "", message: "Do you want to remove this account?", preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language418"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
             let strrow_id = String(format: "%@", self.dicdetails.value(forKey: "row_id")as? String ?? "")
             self.removemaidaccountAPIMethod(rowid: strrow_id)
         }))
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
@@ -207,41 +236,41 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
         
         if txtfirstname.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your first name", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language6"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtlastname.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your last name", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language239"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtpurchaseamountlimit.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter minimum wallet amount limit.", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language409"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if fltpurchaselimit! > 200.00 || fltpurchaselimit! <= 0.00
         {
-            let uiAlert = UIAlertController(title: "", message: "Maid purchase limit should be above AED 1 & upto AED 200", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language410"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if straddresslist.count == 0
         {
-            let uiAlert = UIAlertController(title: "", message: "please allow one / multiple addresses for your maid", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language419"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -420,7 +449,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -450,9 +479,9 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                         
                         if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: "Your maid account has been updated succsefully.", preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language420"), preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 self.navigationController?.popViewController(animated: true)
                             }))
@@ -460,7 +489,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                         else{
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -473,7 +502,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()
@@ -519,7 +548,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -549,9 +578,9 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                         
                         if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: "Your maid account has been removed succsefully.", preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language421"), preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 self.navigationController?.popViewController(animated: true)
                             }))
@@ -559,7 +588,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -572,7 +601,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()
@@ -720,7 +749,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                             print("self.arrMmyaddresslist",self.arrMmyaddresslist)
                             
                             if self.arrMmyaddresslist.count == 0{
-                                self.msg = "No addresses found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language254")
                             }
                             
                             self.tabvallowedaddress.reloadData()
@@ -730,7 +759,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

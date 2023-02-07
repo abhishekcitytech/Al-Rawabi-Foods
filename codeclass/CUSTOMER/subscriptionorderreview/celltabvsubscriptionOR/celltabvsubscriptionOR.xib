@@ -64,7 +64,7 @@
                                         <rect key="frame" x="5" y="90" width="22" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" backgroundImage="warning.png"/>
+                                        <state key="normal" backgroundImage="warning"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sjop AED 15 or more, for FREE delivery" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drN-Kh-BCx">
                                         <rect key="frame" x="5" y="114" width="103" height="36"/>
@@ -150,7 +150,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="warning.png" width="20.75" height="19.75"/>
+        <image name="warning" width="32" height="30.5"/>
         <namedColor name="darkmostredcolor">
             <color red="0.87099999189376831" green="0.071000002324581146" blue="0.30199998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

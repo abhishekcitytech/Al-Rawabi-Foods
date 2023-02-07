@@ -94,6 +94,9 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
     var viewPopupAddNewExistingBG3 = UIView()
     var msg1 = ""
     var arrMCoupons = NSMutableArray()
+    
+    
+    var myAppDelegate = UIApplication.shared.delegate as! AppDelegate
 
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -152,12 +155,14 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "My Subscription Detail"
+        self.title = myAppDelegate.changeLanguage(key: "msg_language428")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
+        
+        setupRTLLTR()
         
         viewstartdate.layer.cornerRadius = 3.0
         viewstartdate.layer.masksToBounds = true
@@ -198,6 +203,38 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         self.navigationController?.popViewController(animated: true)
     }
     
+    
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        txtstartdate.placeholder = myAppDelegate.changeLanguage(key: "msg_language208")
+        txtenddate.placeholder = myAppDelegate.changeLanguage(key: "msg_language299")
+        lblsubtotal.text = myAppDelegate.changeLanguage(key: "msg_language311")
+        lblshipping.text = myAppDelegate.changeLanguage(key: "msg_language441")
+        //lbltaxtotal.text = myAppDelegate.changeLanguage(key: "")
+        lblgrandtotal.text = myAppDelegate.changeLanguage(key: "msg_language86")
+        lblautorenew.text = myAppDelegate.changeLanguage(key: "msg_language63")
+        
+        lblfullpayment.text = myAppDelegate.changeLanguage(key: "msg_language336")
+        lblfirst3payment.text = myAppDelegate.changeLanguage(key: "msg_language337")
+        btncheckout.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language441")), for: .normal)
+        
+        txtcouponcode.placeholder = myAppDelegate.changeLanguage(key: "msg_language229")
+        btnapplycouponcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
+        btnremovecouponcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language49")), for: .normal)
+        btnviewcouponcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language113")), for: .normal)
+        
+         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+         if (strLangCode == "en")
+         {
+        
+         }
+         else
+         {
+
+         }
+    }
+    
     //MARK: - press auto renew method
     @IBAction func pressautorenewclick(_ sender: Any)
     {
@@ -218,9 +255,9 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         
         if strSelectedpaymentoption.count == 0
         {
-            let uiAlert = UIAlertController(title: "", message: "Please select preferred payment condition Full or First 3 Days.", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language442"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -626,7 +663,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         let arrmorder_product = dic.value(forKey: "order_product")as? NSArray ?? []
         
         cell.lbldateday.text = String(format: "%@", strorder_date)
-        cell.lbltotal.text = String(format: "SubTotal: %@ %@",strcurrency_code,strorder_subtotal)
+        cell.lbltotal.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language304"),strcurrency_code,strorder_subtotal)
          
         if strshipping_amount != ""
         {
@@ -634,12 +671,12 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             if fltshipping! == 0.00
             {
                 cell.lblwarningmessage.textColor = UIColor(named: "darkgreencolor")!
-                cell.lblwarningmessage.text = "FREE delivery"
+                cell.lblwarningmessage.text = myAppDelegate.changeLanguage(key: "msg_language435")
                 cell.viewshippingwarning.isHidden = false
             }
             else{
                 cell.lblwarningmessage.textColor = UIColor(named: "darkmostredcolor")!
-                cell.lblwarningmessage.text = "Shop AED 15 or more, for FREE delivery"
+                cell.lblwarningmessage.text = myAppDelegate.changeLanguage(key: "msg_language90")
                 cell.viewshippingwarning.isHidden = false
             }
         }
@@ -660,6 +697,8 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         cell.viewcell.layer.cornerRadius = 8.0
         cell.viewcell.layer.masksToBounds = true
         
+        
+        cell.btndetail.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language91")), for: .normal)
         cell.btndetail.layer.cornerRadius = 16.0
         cell.btndetail.layer.masksToBounds = true
         
@@ -736,6 +775,10 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         self.viewpopupedititems.layer.masksToBounds = true
         
         let appDel = UIApplication.shared.delegate as! AppDelegate
+        
+        lbleditpopupnotes.text = myAppDelegate.changeLanguage(key: "msg_language69")
+        lblsubtotaleditpopup.text = myAppDelegate.changeLanguage(key: "msg_language108")
+        
      
         self.lbleditpopupDateDay.text = String(format: "%@ (%@)", strdate,strday)
         self.lblsubtotaleditpopupvalue.text = String(format: "%@ %@", strcurrency,strsubtotal)
@@ -845,7 +888,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             
             self.strGRANDTOTAL = String(format: "%0.2f",fltupdated)
             
-            self.lblgrandtotal.text = "Grand Total:"
+            self.lblgrandtotal.text = String(format: "%@:", myAppDelegate.changeLanguage(key: "msg_language86"))
             self.lblgrandtotalvalue.text = String(format: "AED %0.2f", fltupdated)
             
             //RESET UI DESIGN COUPON VIEW
@@ -855,7 +898,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             self.txtcouponcode.isUserInteractionEnabled = true
             self.txtcouponcode.text = ""
             self.btnapplycouponcode.isUserInteractionEnabled = true
-            self.btnapplycouponcode.setTitle("Apply", for: .normal)
+            self.btnapplycouponcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
             self.btnremovecouponcode.isHidden = true
         }))
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
@@ -964,7 +1007,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
                             //print("arrMCoupons --->",self.arrMCoupons)
                             
                             if self.arrMCoupons.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
                             }
                             
                             self.createCOUPONLIST()
@@ -1027,7 +1070,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1064,12 +1107,12 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
                             self.strDISCOUNTAMOUNT = strdiscount_amount
                             self.strDISCOUNTCODE = strcoupon_code
                             
-                            self.lblgrandtotal.text = String(format: "Grand Total: (Discounted AED %@)", self.strDISCOUNTAMOUNT)
+                            self.lblgrandtotal.text = String(format: "%@: (%@ AED %@)",myAppDelegate.changeLanguage(key: "msg_language86"),myAppDelegate.changeLanguage(key: "msg_language443"), self.strDISCOUNTAMOUNT)
                             
                             
                             self.txtcouponcode.isUserInteractionEnabled = false
                             self.btnapplycouponcode.isUserInteractionEnabled = false
-                            self.btnapplycouponcode.setTitle("Applied", for: .normal)
+                            self.btnapplycouponcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language361")), for: .normal)
                             self.btnremovecouponcode.isHidden = false
 
                             var fltTotal3 = 0.00
@@ -1105,7 +1148,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()

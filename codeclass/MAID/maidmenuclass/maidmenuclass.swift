@@ -67,7 +67,7 @@ class maidmenuclass: BaseViewController,UITableViewDelegate,UITableViewDataSourc
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         arrMenu = [myAppDelegate.changeLanguage(key: "msg_language294"),myAppDelegate.changeLanguage(key: "msg_language295"),myAppDelegate.changeLanguage(key: "msg_language104"),myAppDelegate.changeLanguage(key: "msg_language296"),myAppDelegate.changeLanguage(key: "msg_language297"),myAppDelegate.changeLanguage(key: "msg_language298"),myAppDelegate.changeLanguage(key: "msg_language204"),myAppDelegate.changeLanguage(key: "msg_language276")]
-        arrMenuimages = ["acc4.png","acc10.png","sl3.png","acc6.png","acc01.png","acc12.png","acc7.png","logout"]
+        arrMenuimages = ["acc4","acc10","sl3","acc6","acc01","acc12","acc7","logout"]
         
         tabvmenu.register(UINib(nibName: "tabvcelllist", bundle: nil), forCellReuseIdentifier: reuseIdentifier1)
         tabvmenu.separatorStyle = .none

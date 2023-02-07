@@ -394,6 +394,8 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         
         cell.lblname.text = String(format: "%@\n%@", strdate,strday)
         
+        cell.lbltotalprice.isHidden = true
+        
         if strselected == "0"
         {
             cell.imgvcheckuncheck.image = UIImage(named: "uncheckbox")

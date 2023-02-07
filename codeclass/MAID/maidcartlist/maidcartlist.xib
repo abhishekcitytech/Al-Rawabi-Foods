@@ -146,31 +146,31 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="og1-ZM-Ecb">
-                                    <rect key="frame" x="12" y="66" width="20" height="22"/>
+                                    <rect key="frame" x="6" y="61" width="32" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="radio1.png"/>
-                                    <state key="selected" image="radio2.png"/>
+                                    <state key="normal" image="radio1"/>
+                                    <state key="selected" image="radio2"/>
                                     <connections>
                                         <action selector="pressmorning:" destination="-1" eventType="touchUpInside" id="LHm-3n-UUm"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqt-3s-1Ta">
-                                    <rect key="frame" x="134" y="66" width="20" height="22"/>
+                                    <rect key="frame" x="128" y="61" width="32" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="radio1.png"/>
-                                    <state key="selected" image="radio2.png"/>
+                                    <state key="normal" image="radio1"/>
+                                    <state key="selected" image="radio2"/>
                                     <connections>
                                         <action selector="pressafternoon:" destination="-1" eventType="touchUpInside" id="pdu-n0-rJI"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X5A-vJ-pOb">
-                                    <rect key="frame" x="254" y="66" width="20" height="22"/>
+                                    <rect key="frame" x="248" y="61" width="32" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="radio1.png"/>
-                                    <state key="selected" image="radio2.png"/>
+                                    <state key="normal" image="radio1"/>
+                                    <state key="selected" image="radio2"/>
                                     <connections>
                                         <action selector="pressevening:" destination="-1" eventType="touchUpInside" id="I6R-YY-XRf"/>
                                     </connections>
@@ -340,8 +340,8 @@
     </objects>
     <resources>
         <image name="calendar" width="28" height="28"/>
-        <image name="radio1.png" width="20" height="20"/>
-        <image name="radio2.png" width="20" height="20"/>
+        <image name="radio1" width="32" height="32"/>
+        <image name="radio2" width="32" height="32"/>
         <namedColor name="darkmostredcolor">
             <color red="0.87099999189376831" green="0.071000002324581146" blue="0.30199998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

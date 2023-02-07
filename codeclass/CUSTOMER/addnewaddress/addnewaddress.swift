@@ -31,6 +31,8 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
     @IBOutlet weak var btncurrentlocation: UIButton!
     
     @IBOutlet weak var switchmakedefault: UISwitch!
+    @IBOutlet weak var lblsetasdefault: UILabel!
+    
     @IBOutlet weak var switchformaid: UISwitch!
     
     @IBOutlet weak var btnsaveaddresspopup: UIButton!
@@ -88,7 +90,9 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Add Address"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language236")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -128,6 +132,18 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
         
         lblpreciselocationdetails.text = myAppDelegate.changeLanguage(key: "msg_language387")
         btncurrentlocation.setTitle(String(format: "   %@", myAppDelegate.changeLanguage(key: "msg_language388")), for: .normal)
+        
+        txtfirstname.placeholder = myAppDelegate.changeLanguage(key: "msg_language28")
+        txtlastname.placeholder = myAppDelegate.changeLanguage(key: "msg_language29")
+        txtmobileno.placeholder = myAppDelegate.changeLanguage(key: "msg_language31")
+        txtlocation.placeholder = myAppDelegate.changeLanguage(key: "msg_language389")
+        txtcountry.placeholder = myAppDelegate.changeLanguage(key: "msg_language248")
+        txtcity.placeholder = myAppDelegate.changeLanguage(key: "msg_language247")
+        
+        lblsetasdefault.text = myAppDelegate.changeLanguage(key: "msg_language120")
+        
+        btnsaveaddresspopup.setTitle(String(format: "   %@", myAppDelegate.changeLanguage(key: "msg_language250")), for: .normal)
+        
 
          let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
          if (strLangCode == "en")
@@ -143,6 +159,8 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
     //MARK: - create curve border setup method
     @objc func createbordersetup()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         viewfirstname.layer.borderWidth = 1.0
         viewfirstname.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
         viewfirstname.layer.cornerRadius = 6.0
@@ -186,7 +204,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
         txtmobileno.inputAccessoryView = toolbarDone
         
         txtstreetaddress.isUserInteractionEnabled = false
-        txtstreetaddress.text = "Street Address"
+        txtstreetaddress.text = myAppDelegate.changeLanguage(key: "msg_language237")
         txtstreetaddress.textColor = UIColor.lightGray
         txtstreetaddress.centerVertically()
       
@@ -207,59 +225,61 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
     //MARK: - press add new address method
     @IBAction func pressaddnewaddress(_ sender: Any)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if txtfirstname.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your first name", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language6"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtlastname.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your last name", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language239"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtmobileno.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your mobile number", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language9"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
-        else if txtstreetaddress.text == "" || txtstreetaddress.text == "Street Address"
+        else if txtstreetaddress.text == "" || txtstreetaddress.text == myAppDelegate.changeLanguage(key: "msg_language237")
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your Street address", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language241"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtlocation.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please select region , state or province", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language393"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtcity.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your city", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language243"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if txtcountry.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: "Please enter your country", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language244"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -351,10 +371,11 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
             txtstreetaddress.textColor = UIColor.black
         }
     }
-    func textViewDidEndEditing(_ textView: UITextView)
+    func textViewDidEndEditing(_ textVi5ew: UITextView)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         if txtstreetaddress.text.isEmpty {
-            txtstreetaddress.text = "Street Address"
+            txtstreetaddress.text = myAppDelegate.changeLanguage(key: "msg_language237")
             txtstreetaddress.textColor = UIColor.lightGray
             }
     }
@@ -524,7 +545,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -565,7 +586,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -578,7 +599,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -648,7 +669,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -678,9 +699,9 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
                         
                         if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: "Your address has been added succesfully." , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language394") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 self.navigationController?.popViewController(animated: true)
                             }))
@@ -689,7 +710,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -702,7 +723,7 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     

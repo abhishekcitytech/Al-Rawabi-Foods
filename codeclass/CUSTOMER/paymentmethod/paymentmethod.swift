@@ -369,11 +369,11 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         }
         else if strcode.containsIgnoreCase("walletpayment") || strcode.containsIgnoreCase("walletsystem")
         {
-            cellA.imgvicon.image = UIImage(named: "wallet.png")
+            cellA.imgvicon.image = UIImage(named: "wallet")
         }
         else if strcode.containsIgnoreCase("cashondelivery")
         {
-            cellA.imgvicon.image = UIImage(named: "cash.png")
+            cellA.imgvicon.image = UIImage(named: "cash")
         }
         
         if strselectedpaymentmethodID == strcode
@@ -1234,7 +1234,21 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
-        let parameters = ["paymentMethod": strpaymentmethodcode] as [String : Any]
+        
+        var parameters = NSDictionary()
+        
+        if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
+        {
+            print("CardReference >> ",CardReference)
+            print("CardOutletId >>",CardOutletId)
+            
+            parameters = ["orderReference":CardReference,"outletId":CardOutletId,"paymentMethod": strpaymentmethodcode]
+        }
+        else{
+            parameters = ["orderReference":"","outletId":"","paymentMethod": strpaymentmethodcode]
+        }
+        print("parameters",parameters)
+        
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod42)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

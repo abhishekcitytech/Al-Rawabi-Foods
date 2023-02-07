@@ -62,7 +62,7 @@
                                 <color key="textColor" name="darkmostredcolor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sidearrowgreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Fw-h8-F7V">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sidearrowgreen" translatesAutoresizingMaskIntoConstraints="NO" id="3Fw-h8-F7V">
                                 <rect key="frame" x="327" y="68" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             </imageView>
@@ -84,7 +84,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="sidearrowgreen.png" width="24" height="24"/>
+        <image name="sidearrowgreen" width="32" height="32"/>
         <namedColor name="darkmostredcolor">
             <color red="0.87099999189376831" green="0.071000002324581146" blue="0.30199998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

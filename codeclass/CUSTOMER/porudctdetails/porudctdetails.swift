@@ -739,7 +739,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
             cell.viewrating.isHidden = false
         }
         
-        cell.imgvuser.image = UIImage(named: "graycircle.png")
+        cell.imgvuser.image = UIImage(named: "graycircle")
         cell.lblname.text = strnickname
         cell.lbltime.text = strtitle
         if strrating.contains("20"){

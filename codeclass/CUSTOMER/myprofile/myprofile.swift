@@ -83,8 +83,7 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
         
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        // Do any additional setup after loading the view.
-        self.title = "Profile Details"
+        self.title = myAppDelegate.changeLanguage(key: "msg_language310")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -112,12 +111,36 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
         toolbarDone.items = [barBtnDone]
         txtmobile.inputAccessoryView = toolbarDone
         
+        setupRTLLTR()
     }
     
     //MARK: - press back method
     @objc func pressBack()
     {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        txtfirstname.placeholder = myAppDelegate.changeLanguage(key: "msg_language28")
+        txtlastname.placeholder = myAppDelegate.changeLanguage(key: "msg_language29")
+        txtemail.placeholder = myAppDelegate.changeLanguage(key: "msg_language30")
+        txtmobile.placeholder = myAppDelegate.changeLanguage(key: "msg_language31")
+        
+        btnupdatesave.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language392")), for: .normal)
+        
+         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+         if (strLangCode == "en")
+         {
+        
+         }
+         else
+         {
+
+         }
     }
     
     // MARK: - Done Mobile Number method
@@ -243,6 +266,8 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
     }
     func textFieldDidEndEditing(_ textField: UITextField)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if textField == txtemail
         {
             //verify email
@@ -250,9 +275,9 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
             {
                 if self.isValidEmail(emailStr: txtemail.text!) == false
                 {
-                    let uiAlert = UIAlertController(title: "", message: "please enter valid email address", preferredStyle: UIAlertController.Style.alert)
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language13"), preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                 }
@@ -371,7 +396,7 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

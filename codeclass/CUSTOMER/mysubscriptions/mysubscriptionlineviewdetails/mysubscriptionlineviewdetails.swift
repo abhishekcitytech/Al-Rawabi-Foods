@@ -30,6 +30,8 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
     var dicMSubscriptionDetails =  NSMutableDictionary()
     var arrMsubscription_order = NSMutableArray()
     
+    var myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -64,8 +66,8 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         //let strsubscription_renewal_status = String(format: "%@", diclistvalue.value(forKey: "subscription_renewal_status")as? String ?? "")
         
         self.lblsubscriptionid.text = String(format: "# %@", strsubscription_increment_id)
-        self.lblstartdate.text = String(format: "Start Date: %@", strsubscription_start_date)
-        self.lblenddate.text = String(format: "End Date: %@", strsubscription_end_date)
+        self.lblstartdate.text = String(format: "%@: %@", myAppDelegate.changeLanguage(key: "msg_language208"),strsubscription_start_date)
+        self.lblenddate.text = String(format: "%@: %@", myAppDelegate.changeLanguage(key: "msg_language299"),strsubscription_end_date)
         
         self.lblstatus.text = strsubscription_status
         self.lblstatus.textColor = .white
@@ -87,7 +89,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
             
             btnpause.backgroundColor = UIColor(named: "greencolor")!
             btnpause.tag = 200
-            btnpause.setTitle("PAUSE", for: .normal)
+            btnpause.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language430")), for: .normal)
         }
         else if strsubscription_status_code == "2"{
             //Paused
@@ -97,7 +99,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
             
             btnpause.backgroundColor = .blue
             btnpause.tag = 100
-            btnpause.setTitle("RESUME", for: .normal)
+            btnpause.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language431")), for: .normal)
         }
         else if strsubscription_status_code == "3"{
             //Expired
@@ -107,7 +109,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
             
             btnpause.backgroundColor = .red
             btnpause.tag = 300
-            btnpause.setTitle("RENEW", for: .normal)
+            btnpause.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language432")), for: .normal)
         }
         else if strsubscription_status_code == "4"{
             //Canceled
@@ -126,7 +128,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "My Subscription Detail"
+        self.title = myAppDelegate.changeLanguage(key: "msg_language428")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -162,11 +164,11 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         if sender.tag == 100{
             //RESUME
             
-            let refreshAlert = UIAlertController(title: "", message: "Do you want to Resume this subscription?", preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language303"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 self.postPAUSERESUMEAPIMethod()
             }))
-            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                   print("Handle Cancel Logic here")
             }))
             self.present(refreshAlert, animated: true, completion: nil)
@@ -175,11 +177,11 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         else if sender.tag == 200
         {
             //PAUSE
-            let refreshAlert = UIAlertController(title: "", message: "Do you want to Pause this subscription?", preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language302"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 self.postPAUSERESUMEAPIMethod()
             }))
-            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                   print("Handle Cancel Logic here")
             }))
             self.present(refreshAlert, animated: true, completion: nil)
@@ -187,11 +189,11 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         }
         else if sender.tag == 300
         {
-            let refreshAlert = UIAlertController(title: "", message: "Do you want to Renew this subscription?", preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language427"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
 
             }))
-            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                   print("Handle Cancel Logic here")
             }))
             self.present(refreshAlert, animated: true, completion: nil)
@@ -201,11 +203,11 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
     //MARK: - press CANCEL method
     @IBAction func pressCANCEL(_ sender: Any)
     {
-        let refreshAlert = UIAlertController(title: "", message: "Do you want to Cancel this subscription?", preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language434"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             self.postCANCELAPIMethod()
         }))
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
@@ -274,16 +276,16 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         
         let strisedit = dic.value(forKey: "is_edit")as? Bool ?? false
         
-        cell.lblorderdateday.text = String(format: "Order Date: %@", strsubscription_order_date)
-        cell.lblstatus.text = String(format: "Status: %@",strorder_status)
-        cell.lblsubtotal.text = String(format: "SubTotal: %@ %@",strcurrency,strsubtotal)
+        cell.lblorderdateday.text = String(format: "%@: %@", myAppDelegate.changeLanguage(key: "msg_language438"),strsubscription_order_date)
+        cell.lblstatus.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language439"),strorder_status)
+        cell.lblsubtotal.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language304"),strcurrency,strsubtotal)
         
         if strshipping_amount == "0" || strshipping_amount == "0.00"
         {
-            cell.lblshipping.text = "Shipping Free"
+            cell.lblshipping.text = myAppDelegate.changeLanguage(key: "msg_language435")
         }
         else{
-            cell.lblshipping.text = String(format: "Shipping: %@ %@",strcurrency,strshipping_amount)
+            cell.lblshipping.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language305"),strcurrency,strshipping_amount)
         }
         
         cell.btnedit.tag = indexPath.section
@@ -298,6 +300,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
             cell.btnedit.isHidden = true
         }
         
+        cell.btnedit.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language73")), for: .normal)
         cell.btnedit.layer.cornerRadius = 14.0
         cell.btnedit.layer.masksToBounds = true
        
@@ -382,7 +385,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -414,7 +417,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                         {
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 self.navigationController?.popViewController(animated: true)
                             }))
@@ -423,7 +426,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -436,7 +439,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -481,7 +484,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -513,7 +516,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                         {
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 self.navigationController?.popViewController(animated: true)
                             }))
@@ -522,7 +525,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -535,7 +538,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -623,7 +626,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

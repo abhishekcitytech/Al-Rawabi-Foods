@@ -12,6 +12,10 @@ class cellmyorders: UITableViewCell
 
     @IBOutlet weak var viewcell: UIView!
     
+    @IBOutlet weak var lblorderno: UILabel!
+    @IBOutlet weak var lblstartdate: UILabel!
+    @IBOutlet weak var lblqty: UILabel!
+    @IBOutlet weak var lbltotalamont: UILabel!
     
     
     @IBOutlet weak var lblordernovalue: UILabel!

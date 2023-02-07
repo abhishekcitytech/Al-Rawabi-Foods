@@ -25,6 +25,9 @@ struct Constants {
         //MARK: - Web Service API URL - UAT
         static let ConnUrl = "https://staging1.alrawabifoods.com/index.php/rest/default/V1/"
         
+        //MARK: - GOOGLE PLACE API KEY
+        static let GoogleAPIKey = "AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk"
+        
     }
     
     struct methodname {

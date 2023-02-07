@@ -35,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rR7-zP-lo2">
-                                <rect key="frame" x="0.0" y="25" width="130" height="53"/>
+                                <rect key="frame" x="0.0" y="25" width="130" height="90"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
                                 <nil key="textColor"/>
@@ -78,7 +78,7 @@
                 <outlet property="lbltotalprice" destination="X29-kJ-oqf" id="BJC-jN-wM8"/>
                 <outlet property="viewcell" destination="yGF-7s-LOA" id="ag4-kt-ukw"/>
             </connections>
-            <point key="canvasLocation" x="-125" y="153"/>
+            <point key="canvasLocation" x="-126.08695652173914" y="152.67857142857142"/>
         </collectionViewCell>
     </objects>
     <resources>

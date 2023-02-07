@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -132,17 +132,21 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btndetails" destination="0F1-BB-3LX" id="USQ-WS-ABt"/>
+                <outlet property="lblorderno" destination="ScJ-xQ-HQl" id="L1I-TK-dEJ"/>
                 <outlet property="lblordernovalue" destination="UKL-f9-Bgw" id="u0N-Zp-c17"/>
                 <outlet property="lblpauseresume" destination="giS-6G-CR5" id="3ly-re-UWP"/>
+                <outlet property="lblqty" destination="uYG-d3-dX9" id="PHl-mz-8Z6"/>
                 <outlet property="lblquantityvalue" destination="QNf-jd-JdF" id="pA9-xR-zLN"/>
+                <outlet property="lblstartdate" destination="vs7-QS-8xQ" id="9Sh-Ny-7BX"/>
                 <outlet property="lblstartdatevalue" destination="XOk-xn-UUj" id="ilR-gv-xsq"/>
                 <outlet property="lblstatus" destination="Pvd-rC-QyE" id="uGk-gh-bqm"/>
                 <outlet property="lblsubscriptionplanname" destination="ejy-SU-vvY" id="Dvq-JT-RQn"/>
+                <outlet property="lbltotalamont" destination="P1G-ji-eCy" id="Kx9-oW-HTk"/>
                 <outlet property="lbltotalamountvalue" destination="sbB-y8-MfQ" id="AGt-BY-ioS"/>
                 <outlet property="switchpauseresume" destination="fbu-5b-5nI" id="Boc-j3-WDH"/>
                 <outlet property="viewcell" destination="nnb-a6-5YF" id="SxV-OT-I5G"/>
             </connections>
-            <point key="canvasLocation" x="131.15942028985509" y="163.72767857142856"/>
+            <point key="canvasLocation" x="354" y="110"/>
         </tableViewCell>
     </objects>
     <resources>

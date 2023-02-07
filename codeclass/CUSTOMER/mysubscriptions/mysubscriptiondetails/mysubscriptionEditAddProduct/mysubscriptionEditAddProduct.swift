@@ -194,7 +194,7 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
         }
         else{
             cellA.imgvproduct.contentMode = .scaleAspectFit
-            cellA.imgvproduct.image = UIImage(named: "productplaceholder.png")
+            cellA.imgvproduct.image = UIImage(named: "productplaceholder")
         }
         
         
@@ -308,7 +308,7 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
                             //print("arrMCategorywiseProductlist --->",self.arrMCategorywiseProductlist)
                             
                             if self.arrMCategorywiseProductlist.count == 0{
-                                self.msg = "No products found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language150")
                             }
                             self.colproductlist.reloadData()
                             
@@ -316,7 +316,7 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -377,7 +377,7 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -412,7 +412,7 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -425,7 +425,7 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()

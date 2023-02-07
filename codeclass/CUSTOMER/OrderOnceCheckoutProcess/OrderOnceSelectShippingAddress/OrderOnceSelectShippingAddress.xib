@@ -97,7 +97,7 @@
                             <rect key="frame" x="178" y="426" width="20" height="11"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" backgroundImage="downarrow.png"/>
+                            <state key="normal" backgroundImage="downarrow"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -116,7 +116,7 @@
         </view>
     </objects>
     <resources>
-        <image name="downarrow.png" width="11.5" height="7.5"/>
+        <image name="downarrow" width="32" height="21"/>
         <namedColor name="darkgreencolor">
             <color red="0.14499999582767487" green="0.54100000858306885" blue="0.29399999976158142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

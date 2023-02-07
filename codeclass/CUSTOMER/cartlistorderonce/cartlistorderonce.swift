@@ -663,13 +663,12 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                         
                         self.viewoverall.isHidden = false
                         
+                        if self.arrMcartItems.count > 0{
+                            self.arrMcartItems.removeAllObjects()
+                        }
+                        
                         if strsuccess == true
                         {
-                            if self.arrMcartItems.count > 0{
-                                self.arrMcartItems.removeAllObjects()
-                            }
-                            
-                            
                             let arrmproducts = json.value(forKey: "cart_items") as? NSArray ?? []
                             self.arrMcartItems = NSMutableArray(array: arrmproducts)
                             //print("arrMcartItems --->",self.arrMcartItems)
@@ -720,13 +719,27 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                                 let intstr2 = Float(str2)
                                 let intstr3 = Float(str3)
                                 let intstr4 = Float(str5)
-                                
                                 let intstr5 = Float(strtax)
                                 
-                                self.lblsubtotalvalue.text = String(format: "%@ %.2f",str4,intstr1!)
-                                self.lblshippingchargesvalue.text = String(format: "%@ %.2f",str4,intstr2!)
-                                self.lblordertotalvalue.text = String(format: "%@ %.2f",str4,intstr3!)
-                                self.lbltaxvalue.text = String(format: "%@ %.2f",str4,intstr5!)
+                                if intstr1 != nil{
+                                    self.lblsubtotalvalue.text = String(format: "%@ %.2f",str4,intstr1!)
+                                }
+                                
+                                if intstr2 != nil{
+                                    self.lblshippingchargesvalue.text = String(format: "%@ %.2f",str4,intstr2!)
+                                }
+                                
+                                if intstr3 != nil{
+                                    self.lblordertotalvalue.text = String(format: "%@ %.2f",str4,intstr3!)
+                                }
+                                
+                                if intstr5 != nil{
+                                    self.lbltaxvalue.text = String(format: "%@ %.2f",str4,intstr5!)
+                                }
+                                
+                                
+                                
+                                
                                 
                                 //FIXME
                                 if str5 != "0" || str6 != ""
@@ -758,12 +771,23 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                                     
                                     self.lbldiscount.textColor = .darkGray
                                 }
+                                
+                                
+                                //IF NULL VALUE THEN ALERT WILL SHOW
+                                if intstr1 == nil || intstr2 == nil || intstr3 == nil || intstr5 == nil
+                                {
+                                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                                    self.present(uiAlert, animated: true, completion: nil)
+                                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                        print("Click of default button")
+                                    }))
+                                    self.viewtop.isHidden = true
+                                    self.viewbottom.isHidden = true
+                                    self.btnpaycheckout.isHidden = true
+                                    self.btnkeepshopping.isHidden = true
+                                }
+                                
                             }
-                            
-                            if self.arrMcartItems.count == 0{
-                                self.msg = myAppDelegate.changeLanguage(key: "msg_language117")
-                            }
-                            self.tabvcart.reloadData()
                         }
                         else
                         {
@@ -784,6 +808,11 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                                 print("Click of default button")
                             }))
                         }
+                        
+                        if self.arrMcartItems.count == 0{
+                            self.msg = myAppDelegate.changeLanguage(key: "msg_language117")
+                        }
+                        self.tabvcart.reloadData()
                         
                         self.getAvailbleTimeSlotsAPIMethod()
                     }

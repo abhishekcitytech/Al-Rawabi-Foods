@@ -430,7 +430,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
             }
             else{
                 cellA.imgv.contentMode = .scaleAspectFit
-                cellA.imgv.image = UIImage(named: "productplaceholder.png")
+                cellA.imgv.image = UIImage(named: "productplaceholder")
             }
             
             

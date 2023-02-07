@@ -168,15 +168,15 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         
         if strpageidentifier == "100"{
             lblmessageminimumorder.text = myAppDelegate.changeLanguage(key: "msg_language64")
-            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_daily.png")
+            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_daily")
         }
         else if strpageidentifier == "200"{
             lblmessageminimumorder.text = myAppDelegate.changeLanguage(key: "msg_language65")
-            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_weekly.png")
+            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_weekly")
         }
         else if strpageidentifier == "300"{
             lblmessageminimumorder.text = myAppDelegate.changeLanguage(key: "msg_language66")
-            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_monthly.png")
+            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_monthly")
         }
         
         if arrMordereview.count == 0{

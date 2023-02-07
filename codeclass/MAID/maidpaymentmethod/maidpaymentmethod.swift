@@ -230,11 +230,11 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
         }
         else if strcode.containsIgnoreCase("walletpayment") || strcode.containsIgnoreCase("walletsystem")
         {
-            cellA.imgvicon.image = UIImage(named: "wallet.png")
+            cellA.imgvicon.image = UIImage(named: "wallet")
         }
         else if strcode.containsIgnoreCase("cashondelivery")
         {
-            cellA.imgvicon.image = UIImage(named: "cash.png")
+            cellA.imgvicon.image = UIImage(named: "cash")
         }
         
         if strselectedpaymentmethodID == strcode

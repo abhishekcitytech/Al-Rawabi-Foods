@@ -49,8 +49,8 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        // Do any additional setup after loading the view.
-        self.title = "Return Orders"
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language404")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -119,6 +119,8 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if tableView == tabveditpopupitems{
             
             let headerView = UIView()
@@ -142,7 +144,7 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
         title1.backgroundColor = .clear
         title1.numberOfLines = 10
         title1.font = UIFont (name: "NunitoSans-Regular", size: 14)
-        title1.text = String(format: "%@", "Order#")
+        title1.text = String(format: "%@%@",myAppDelegate.changeLanguage(key: "msg_language308") ,"#")
         headerView.addSubview(title1)
         
         let title2 = UILabel(frame: CGRect(x: 8, y: title1.frame.maxY, width:headerView.frame.self.width - 16, height: 30))
@@ -193,6 +195,7 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         if tableView == tabveditpopupitems
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier2, for: indexPath) as! cellproductitemrefunded
@@ -209,7 +212,7 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
             
           
             cell.lblname.text = String(format: "%@", strproduct_name)
-            cell.lblqty.text = String(format: "Ordered Quantity: %@", strproduct_qty)
+            cell.lblqty.text = String(format: "%@: %@", myAppDelegate.changeLanguage(key: "msg_language214"),strproduct_qty)
             
             /*cell.viewcell.tag = indexPath.section
             cell.viewcell.backgroundColor = UIColor(named: "plate7")!
@@ -301,7 +304,7 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
         
         let appDel = UIApplication.shared.delegate as! AppDelegate
         
-        self.lbleditpopupDateDay.text = "Products"
+        self.lbleditpopupDateDay.text = appDel.changeLanguage(key: "msg_language147")
         
         tabveditpopupitems.register(UINib(nibName: "cellproductitemrefunded", bundle: nil), forCellReuseIdentifier: reuseIdentifier2)
         tabveditpopupitems.separatorStyle = .none
@@ -382,14 +385,14 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
                             print("arrMmyorders --->",self.arrMmyorders)
                             
                             if self.arrMmyorders.count == 0{
-                                self.msg = "No products found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language150")
                             }
                             self.tabvmyorders.reloadData()
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

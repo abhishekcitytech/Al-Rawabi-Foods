@@ -30,7 +30,10 @@
                 <outlet property="colpaymentmethods" destination="bra-TE-Vyz" id="3tE-hG-Lde"/>
                 <outlet property="lblCardPaymentOrderAmount" destination="ltP-e6-LIj" id="4XS-E9-B0M"/>
                 <outlet property="lblmaximumrewardpointsused" destination="ed4-GM-YaR" id="8pJ-Bl-LXi"/>
+                <outlet property="lblpaymentamount" destination="fMe-BP-X1W" id="RJu-W2-tPX"/>
+                <outlet property="lblremainingbalance" destination="Nwa-af-6Oc" id="hT6-jh-8Ri"/>
                 <outlet property="lblrewardpoints" destination="Zig-1v-uaI" id="WbL-qE-XtA"/>
+                <outlet property="lblwalletbalance" destination="Moa-Yt-M5W" id="6BZ-3L-3je"/>
                 <outlet property="scrolloverall" destination="tXa-Nz-Jhv" id="7fL-dL-Gtk"/>
                 <outlet property="txtCardPaymentOrderAmount" destination="ibA-Iz-LW2" id="Jjz-xt-IGj"/>
                 <outlet property="txtpaymentamount" destination="09e-Wg-oTE" id="7ys-uO-xLF"/>
@@ -224,18 +227,18 @@
                                             <color key="textColor" name="orangecolor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wallet Remaining Balance Amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwa-af-6Oc">
-                                            <rect key="frame" x="8" y="182" width="343" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="16"/>
-                                            <color key="textColor" name="themecolor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ordered Amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMe-BP-X1W">
                                             <rect key="frame" x="8" y="99" width="343" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="16"/>
                                             <color key="textColor" name="darkgreencolor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wallet Remaining Balance Amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwa-af-6Oc">
+                                            <rect key="frame" x="8" y="182" width="343" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="16"/>
+                                            <color key="textColor" name="themecolor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BEg-qm-sJa">
@@ -294,7 +297,7 @@
             <color red="1" green="0.66699999570846558" blue="0.019999999552965164" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themecolor">
-            <color red="0.0" green="0.18823529411764706" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.18799999356269836" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

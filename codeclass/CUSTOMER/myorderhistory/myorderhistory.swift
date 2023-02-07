@@ -50,7 +50,9 @@ class myorderhistory: UIViewController,UITableViewDelegate,UITableViewDataSource
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "My Orders"
+        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language204")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -128,6 +130,8 @@ class myorderhistory: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! cellmyorders
         cell.selectionStyle=UITableViewCell.SelectionStyle.none
         cell.accessoryType = UITableViewCell.AccessoryType.none
@@ -144,6 +148,11 @@ class myorderhistory: UIViewController,UITableViewDelegate,UITableViewDataSource
         let strcreated_at = String(format: "%@", dic.value(forKey: "created_at")as? String ?? "")
         let strordered_qty = String(format: "%@", dic.value(forKey: "ordered_qty")as? String ?? "")
         
+        
+        cell.lblorderno.text = myAppDelegate.changeLanguage(key: "msg_language207")
+        cell.lblstartdate.text = myAppDelegate.changeLanguage(key: "msg_language208")
+        cell.lblqty.text = myAppDelegate.changeLanguage(key: "msg_language209")
+        cell.lbltotalamont.text = myAppDelegate.changeLanguage(key: "msg_language210")
       
         cell.lblordernovalue.text = String(format: "# %@", strorder_id)
         cell.lblstartdatevalue.text = strcreated_at
@@ -199,6 +208,7 @@ class myorderhistory: UIViewController,UITableViewDelegate,UITableViewDataSource
         cell.viewcell.layer.shadowOpacity = 1.0
         cell.viewcell.layer.shadowRadius = 6.0
         
+        cell.btndetails.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language91")), for: .normal)
         cell.btndetails.tag = indexPath.section
         cell.btndetails.addTarget(self, action: #selector(pressDetails), for: .touchUpInside)
         
@@ -382,7 +392,7 @@ class myorderhistory: UIViewController,UITableViewDelegate,UITableViewDataSource
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -460,7 +470,7 @@ class myorderhistory: UIViewController,UITableViewDelegate,UITableViewDataSource
                             print("arrMmyorders --->",self.arrMmyorders)
                             
                             if self.arrMmyorders.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
                             }
                             
                             self.tabvmyorders.reloadData()
@@ -470,7 +480,7 @@ class myorderhistory: UIViewController,UITableViewDelegate,UITableViewDataSource
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

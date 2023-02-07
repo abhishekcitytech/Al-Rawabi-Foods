@@ -41,7 +41,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
     var strautorenew = ""
     var dicDetails = NSDictionary()
     
-    
+    var myAppDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -69,7 +69,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Shipping Process"
+        self.title = myAppDelegate.changeLanguage(key: "msg_language95")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -98,7 +98,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
         coltimeslots.showsVerticalScrollIndicator=false
         coltimeslots.backgroundColor = .clear
         
-        
+        setupRTLLTR()
         
     }
     
@@ -108,23 +108,41 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
         self.navigationController?.popViewController(animated: true)
     }
     
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        lbldeliveryslotpopupHeader.text = myAppDelegate.changeLanguage(key: "msg_language444")
+        btnaddnewaddress.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language236")), for: .normal)
+        btnpaycheckout.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language441")), for: .normal)
+        
+         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+         if (strLangCode == "en")
+         {
+        
+         }
+         else
+         {
+
+         }
+    }
+    
     
     //MARK: - press Pay&Checkout method
     @IBAction func presspaycheckout(_ sender: Any)
     {
         if strselectedslotid.count == 0
         {
-            let uiAlert = UIAlertController(title: "", message: "Please select delivery time slot.", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language317"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
         else if strSelectedaddressID.count == 0
         {
-            let uiAlert = UIAlertController(title: "", message: "Please select preferred delivery address.", preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language445"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
         }
@@ -513,7 +531,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
                             print("arrMmyaddresslist --->",self.arrMmyaddresslist)
                             
                             if self.arrMmyaddresslist.count == 0{
-                                self.msg = "No address found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language446")
                             }
                             
                             if self.arrMmyaddresslist.count > 0{
@@ -529,7 +547,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -583,7 +601,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -618,7 +636,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -631,7 +649,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()
@@ -672,7 +690,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -713,7 +731,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -728,7 +746,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()

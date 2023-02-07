@@ -71,11 +71,11 @@
 "msg_language62" = "Select End date ";
 "msg_language63" = "Auto Renew";
 "msg_language64" = "You have to select 'Minimum 10 days orders OR more orders' for Daily subscription plan.";
-"msg_language65" = "You have to select 'Minimum 3 orders a week OR full week i.e. 7 days' for Weekly subscription plan.";
-"msg_language66" = "You have to select 'Minimum 8 orders a month OR full month i.e. no. of days in a month' for Monthly subscription plan.";
+"msg_language65" = "You have to select 'Minimum 3 days orders a week OR full week i.e. 7 days' for Weekly subscription plan.";
+"msg_language66" = "You have to select 'Minimum 8 days orders a month OR full month i.e. no. of days in a month' for Monthly subscription plan.";
 "msg_language67" = "Review & Place Order";
 "msg_language68" = "Sub Total:";
-"msg_language69" = "Note:  To add more product items for this date, you can go to product caatlogue  & add more.";
+"msg_language69" = "Note:  To add more product items for this date, you can go to product category  & add more.";
 "msg_language70" = "ADD TO ALL";
 "msg_language71" = "ADD ONCE";
 "msg_language72" = "Choose Products";
@@ -135,7 +135,7 @@
 "msg_language126" = "Pause/restart recurring orders";
 "msg_language127" = "Add/edit/delete sub-accounts";
 "msg_language128" = "Top up/view balance";
-"msg_language129" = "Re-order from old orders";
+"msg_language129" = "Re-Order & Order Once List";
 "msg_language130" = "Vacation/time-off settings";
 "msg_language131" = "My Reward Points";
 "msg_language132" = "Upgrade/downgrade/cancel membership";
@@ -452,5 +452,102 @@
 
 "msg_language387" = "Choose Your Precise Location";
 "msg_language388" = "Update Location";
+
+"msg_language389" = "Emirates";
+
+"msg_language390" = "Name";
+"msg_language391" = "What’s on your mind?  *";
+
+"msg_language392" = "Update & Save";
+
+"msg_language393" = "Please select region , state or province";
+
+"msg_language394" = "Your address has been added succesfully.";
+
+"msg_language395" = "Do you want to delete this address from your address book?";
+
+"msg_language396" = "Your address has been deleted succesfully from your address book.";
+
+"msg_language397" = "Please enter your name";
+
+"msg_language398" = "Please enter your valuable comments";
+
+"msg_language399" = "Re-Order";
+
+"msg_language400" = "Delivery Date:";
+
+"msg_language401" = "You have succesfully re-order your items, kindly check in your cart.";
+
+"msg_language402" = "Payment Mode";
+
+"msg_language403" = "No records found!";
+
+"msg_language404" = "Return Orders";
+
+"msg_language405" = "My Maid Accounts";
+"msg_language406" = "Monthly Usage Limit";
+"msg_language407" = "Transfer Wallet Amount";
+"msg_language408" = "Transfer Amount (AED)";
+
+"msg_language409" = "Please enter minimum wallet amount limit.";
+"msg_language410" = "Maid purchase limit should be above AED 1 & upto AED 200";
+"msg_language411" = "Do you want to proceed with this transfer?";
+"msg_language412" = "No maid record found!";
+
+"msg_language413" = "Account Details";
+
+"msg_language414" = "Purchase Amount Limit (AED)";
+"msg_language415" = "Allowed Addresses:";
+"msg_language416" = "Account Status:";
+"msg_language417" = "Remove Account";
+"msg_language418" = "Do you want to remove this account?";
+"msg_language419" = "please allow one / multiple addresses for your maid";
+
+"msg_language420" = "Your maid account has been updated succsefully.";
+"msg_language421" = "Your maid account has been removed succsefully.";
+"msg_language422" = "Create Maid";
+
+"msg_language423" = "Maid purchase limit should be below AED 200";
+"msg_language424" = "Your maid account has been created succsefully.";
+
+"msg_language425" = "View";
+"msg_language426" = "Renew";
+
+"msg_language427" = "Do you want to Renew this subscription?";
+"msg_language428" = "My Subscription Details";
+
+"msg_language429" = "UPDATE";
+
+"msg_language430" = "PAUSE";
+"msg_language431" = "RESUME";
+"msg_language432" = "RENEW";
+
+"msg_language433" = "Do you want to update your subscription plan date?";
+
+"msg_language434" = "Do you want to Cancel this subscription?";
+
+"msg_language435" = "FREE delivery";
+
+"msg_language436" = "Add TimeSlot";
+
+"msg_language437" = "Update Delivery Time Slot";
+"msg_language438" = "Order Date";
+"msg_language439" = "Status";
+
+"msg_language440" = "Please select preferred delivery time slot";
+
+"msg_language441" = "Shipping:";
+
+"msg_language441" = "CONTINUE TO CHECKOUT";
+
+"msg_language442" = "Please select preferred payment condition Full or First 3 Days.";
+
+"msg_language443" = "Discounted";
+
+"msg_language444" = "Update Delivery Time Slot";
+
+"msg_language445" = "Please select preferred delivery address.";
+
+"msg_language446" = "No address found!";
 
 

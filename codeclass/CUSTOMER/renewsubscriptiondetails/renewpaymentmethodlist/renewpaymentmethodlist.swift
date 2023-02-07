@@ -31,6 +31,11 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
     @IBOutlet weak var txtpaymentamount: UITextField!
     @IBOutlet weak var txtremainingbalance: UITextField!
     @IBOutlet weak var btnpaymentwallet: UIButton!
+    
+    @IBOutlet weak var lblwalletbalance: UILabel!
+    @IBOutlet weak var lblpaymentamount: UILabel!
+    @IBOutlet weak var lblremainingbalance: UILabel!
+    
   
     @IBOutlet weak var viewrewardpoints: UIView!
     @IBOutlet weak var lblrewardpoints: UILabel!
@@ -73,6 +78,9 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
     var strAppliedRewardAmount = ""
     var strAppliedRewardAmountPoint = ""
     
+    
+    var myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -98,7 +106,9 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
-        self.title = "Payment Method"
+        self.title = myAppDelegate.changeLanguage(key: "msg_language185")
+        
+        setupRTLLTR()
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -154,15 +164,47 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         createmethodsview()
     }
     
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+        txtrewardpoints.placeholder = myAppDelegate.changeLanguage(key: "msg_language353")
+         
+        btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
+        btnremoverewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language49")), for: .normal)
+
+        lblCardPaymentOrderAmount.text = myAppDelegate.changeLanguage(key: "msg_language312")
+        txtCardPaymentOrderAmount.placeholder = myAppDelegate.changeLanguage(key: "msg_language313")
+        btnpayment.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
+        
+        txtwalletbalance.placeholder = myAppDelegate.changeLanguage(key: "msg_language314")
+        txtpaymentamount.placeholder = myAppDelegate.changeLanguage(key: "msg_language312")
+        txtremainingbalance.placeholder = myAppDelegate.changeLanguage(key: "msg_language315")
+        btnpaymentwallet.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
+        
+        lblwalletbalance.text = myAppDelegate.changeLanguage(key: "msg_language314")
+        lblpaymentamount.text = myAppDelegate.changeLanguage(key: "msg_language312")
+        lblremainingbalance.text = myAppDelegate.changeLanguage(key: "msg_language315")
+
+         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+         if (strLangCode == "en")
+         {
+        
+         }
+         else
+         {
+
+         }
+    }
+    
     //MARK: - press back method
     @objc func pressBack()
     {
-        let refreshAlert = UIAlertController(title: "", message: "Do you want to cancel your payment process?", preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language344"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
             self.navigationController?.popViewController(animated: true)
         }))
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
@@ -427,7 +469,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         }
         else if strcode.containsIgnoreCase("walletsystem") || strcode.containsIgnoreCase("walletpayment")
         {
-            cellA.imgvicon.image = UIImage(named: "wallet.png")
+            cellA.imgvicon.image = UIImage(named: "wallet")
         }
         
         if strselectedpaymentmethodID == strcode
@@ -622,7 +664,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -704,7 +746,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1113,7 +1155,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -1167,7 +1209,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -1180,7 +1222,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()
@@ -1343,7 +1385,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }

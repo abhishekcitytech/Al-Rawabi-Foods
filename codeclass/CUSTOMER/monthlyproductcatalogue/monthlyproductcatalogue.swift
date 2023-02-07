@@ -641,7 +641,7 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
             cellA.imgv.imageFromURL(urlString: strFinalurl)
         }else{
             cellA.imgv.contentMode = .scaleAspectFit
-            cellA.imgv.image = UIImage(named: "productplaceholder.png")
+            cellA.imgv.image = UIImage(named: "productplaceholder")
         }
         
         

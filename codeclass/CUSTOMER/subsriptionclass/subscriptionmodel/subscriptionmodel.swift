@@ -454,6 +454,10 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         cell.lbldate.text = strdate
         cell.lblday.text = strday
         
+        cell.lblprice.isHidden = true
+        
+        cell.lbladdproducts.text = appDel.changeLanguage(key: "msg_language92")
+        
         var flttotalprice = 0.00
         //----------------- ADD ALL SUBTOTAL PRICE From Dailyproduct TABLE As per ROW DATE -------------//
         let appDelegate2 = UIApplication.shared.delegate as! AppDelegate
@@ -567,6 +571,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
             cell.viewcell.layer.borderWidth = 2.0
             cell.viewcell.layer.masksToBounds = true
         }
+        
 
         cell.btnaddplus.tag = indexPath.section
         cell.btneditpencil.tag = indexPath.section

@@ -96,6 +96,7 @@ class CreateOrderViewControllerOO: UIViewController
 
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod45)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL,cachePolicy: .useProtocolCachePolicy,timeoutInterval: 100.0)
+        print("strconnurl")
 
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = headers

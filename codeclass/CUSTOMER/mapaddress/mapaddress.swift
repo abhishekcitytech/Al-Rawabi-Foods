@@ -558,7 +558,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         
         //25.0709434,55.1287182 - JLT DUBAI
         
-        let urlString = NSString(format: "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment|geocode&location=%@,%@&radius=20000&language=en&key=AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk",input,"\(25.0709434)","\(55.1287182)")
+        let urlString = NSString(format: "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment|geocode&location=%@,%@&radius=20000&language=en&key=%@",input,"\(25.0709434)","\(55.1287182)",Constants.conn.GoogleAPIKey)
         print(urlString)
         
         let url = NSURL(string: urlString.addingPercentEscapes(using: String.Encoding.utf8.rawValue)!)
@@ -1572,9 +1572,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     //MARK: - GET PLACEID from LATITUDE LONGITUDE - Google API
     func performPlaceidFromLatLong(strlat:String,strlong:String)
     {
-        //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=50000&key=AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk
-        
-        var strconnurl = String(format: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%@,%@&radius=50000&key=AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk", strlat,strlong)
+        var strconnurl = String(format: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%@,%@&radius=50000&key=%@", strlat,strlong,Constants.conn.GoogleAPIKey)
         strconnurl = strconnurl.replacingOccurrences(of: " ", with: "%20")
         print("strconnurl",strconnurl)
         AF.request(strconnurl,method: .get,encoding: JSONEncoding.default).responseJSON {
@@ -1615,9 +1613,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     //MARK: -  GET Lat Long by PlaceID - Google API
     func  performGoogleSearchPlaceID(strplaceid:String)
     {
-        //https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJ5Rw5v9dCXz4R3SUtcL5ZLMk&key=AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk
-        
-        var strconnurl = String(format: "https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk", strplaceid)
+         var strconnurl = String(format: "https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@", strplaceid,Constants.conn.GoogleAPIKey)
         strconnurl = strconnurl.replacingOccurrences(of: " ", with: "%20")
         print("strconnurl",strconnurl)
         AF.request(strconnurl,method: .get,encoding: JSONEncoding.default).responseJSON {
@@ -1789,7 +1785,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     //MARK: - GET Address by Lat Long - Google API
     func getAddressFromLatLong(latitude: Double, longitude : Double)
     {
-        var strconnurl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&key=AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk"
+        var strconnurl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&key=\(Constants.conn.GoogleAPIKey)"
         strconnurl = strconnurl.replacingOccurrences(of: " ", with: "%20")
         print("strconnurl",strconnurl)
         AF.request(strconnurl,method: .get,encoding: JSONEncoding.default).responseJSON {
@@ -1892,7 +1888,7 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
     func performGoogleSearch(for string: String)
     {
         var components = URLComponents(string: "https://maps.googleapis.com/maps/api/geocode/json")!
-        let key = URLQueryItem(name: "key", value: "AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk") // use your key
+        let key = URLQueryItem(name: "key", value: Constants.conn.GoogleAPIKey) // use your key
         let address = URLQueryItem(name: "address", value: string)
         components.queryItems = [key, address]
         

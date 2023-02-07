@@ -28,7 +28,7 @@
                 <outlet property="lblemail" destination="oI3-N7-QeV" id="7H7-m2-ctc"/>
                 <outlet property="lblmobilecountrycode" destination="YOI-jm-j5f" id="njb-BN-9eA"/>
                 <outlet property="lblphoneno" destination="B20-Gk-ByC" id="SN3-CX-TVz"/>
-                <outlet property="lblwhatsinyourmind" destination="mrd-nX-bRG" id="WV0-gc-SH6"/>
+                <outlet property="lblwhatsinyourmind" destination="mrd-nX-bRG" id="XQZ-Vb-N26"/>
                 <outlet property="scrolloverall" destination="59G-Hp-d4z" id="XBS-Fb-dY1"/>
                 <outlet property="txtemail" destination="Yp7-0J-Q4g" id="gbz-d0-DMo"/>
                 <outlet property="txtmobile" destination="7p7-Si-Vql" id="5KB-fH-f73"/>
@@ -247,7 +247,7 @@
             <color red="0.1289999932050705" green="0.58799999952316284" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themecolor">
-            <color red="0.0" green="0.18823529411764706" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.18799999356269836" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

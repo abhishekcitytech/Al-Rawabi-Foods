@@ -613,7 +613,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         }
         else{
             cellA.imgv.contentMode = .scaleAspectFit
-            cellA.imgv.image = UIImage(named: "productplaceholder.png")
+            cellA.imgv.image = UIImage(named: "productplaceholder")
         }
         
         cellA.lblname.text = strname

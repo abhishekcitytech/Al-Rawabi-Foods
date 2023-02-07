@@ -32,7 +32,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
     @IBOutlet weak var txtremainingbalance: UITextField!
     @IBOutlet weak var btnpaymentwallet: UIButton!
     @IBOutlet weak var btnrechargewallet: UIButton!
-    
+
     @IBOutlet weak var lblrechargewallet1: UILabel!
     @IBOutlet weak var lblrechargewallet2: UILabel!
     @IBOutlet weak var lblrechargewallet3: UILabel!
@@ -150,6 +150,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         btnpaymentwallet.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
         btnrechargewallet.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language218")), for: .normal)
         
+      
         lblrechargewallet1.text = myAppDelegate.changeLanguage(key: "msg_language314")
         lblrechargewallet2.text = myAppDelegate.changeLanguage(key: "msg_language312")
         lblrechargewallet3.text = myAppDelegate.changeLanguage(key: "msg_language315")
@@ -809,7 +810,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         }
         else if strcode.containsIgnoreCase("walletsystem") || strcode.containsIgnoreCase("walletpayment")
         {
-            cellA.imgvicon.image = UIImage(named: "wallet.png")
+            cellA.imgvicon.image = UIImage(named: "wallet")
         }
         
         if strselectedpaymentmethodID == strcode

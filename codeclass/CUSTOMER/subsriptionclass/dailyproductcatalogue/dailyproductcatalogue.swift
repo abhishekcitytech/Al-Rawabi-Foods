@@ -650,7 +650,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             cellA.imgv.imageFromURL(urlString: strFinalurl)
         }else{
             cellA.imgv.contentMode = .scaleAspectFit
-            cellA.imgv.image = UIImage(named: "productplaceholder.png")
+            cellA.imgv.image = UIImage(named: "productplaceholder")
         }
         
         

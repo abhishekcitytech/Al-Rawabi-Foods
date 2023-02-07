@@ -26,6 +26,8 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
     var strsubscription_id = ""
     var strsubscription_order_id = ""
     
+    var myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -54,7 +56,7 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
         
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         self.title = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language265"))
         
         let backicon = UIImage(named: "back")
@@ -233,7 +235,7 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
         }
         else{
             cellA.imgvproduct.contentMode = .scaleAspectFit
-            cellA.imgvproduct.image = UIImage(named: "productplaceholder.png")
+            cellA.imgvproduct.image = UIImage(named: "productplaceholder")
         }
         
         
@@ -343,7 +345,7 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
                             //print("arrMCategorywiseProductlist --->",self.arrMCategorywiseProductlist)
                             
                             if self.arrMCategorywiseProductlist.count == 0{
-                                self.msg = "No products found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language150")
                             }
                             self.colproductlist.reloadData()
                             
@@ -351,7 +353,7 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -412,7 +414,7 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -447,7 +449,7 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -460,7 +462,7 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()

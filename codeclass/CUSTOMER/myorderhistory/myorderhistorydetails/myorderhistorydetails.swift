@@ -60,8 +60,8 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        // Do any additional setup after loading the view.
-        self.title = "Order Details"
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.title = myAppDelegate.changeLanguage(key: "msg_language212")
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -128,6 +128,7 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! cellorderhistoryitems
         cell.selectionStyle=UITableViewCell.SelectionStyle.none
         cell.accessoryType = UITableViewCell.AccessoryType.none
@@ -144,8 +145,8 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
         let fltqty = Float(strqty)
         
         cell.lblname.text = String(format: "%@", strname)
-        cell.lblprice.text = String(format: "Product Price: %@ %0.2f", self.strciurrency,fltprice!)
-        cell.lblqty.text = String(format: "Ordered Quantity: %0.0f", fltqty!)
+        cell.lblprice.text = String(format: "%@ %@ %0.2f", myAppDelegate.changeLanguage(key: "msg_language213"),self.strciurrency,fltprice!)
+        cell.lblqty.text = String(format: "%@ %0.0f", myAppDelegate.changeLanguage(key: "msg_language214"),fltqty!)
        
         let lblSeparator = UILabel(frame: CGRect(x: 0, y: 89.5, width: tableView.frame.size.width, height: 0.5))
         lblSeparator.backgroundColor = UIColor.lightGray
@@ -202,7 +203,7 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
@@ -239,7 +240,7 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                             self.dicMOrderDetails = dic.mutableCopy() as! NSMutableDictionary
                             print("dicMOrderDetails --->",self.dicMOrderDetails)
                             
-                            let strorderno = String(format: "Order #%@", self.dicMOrderDetails.value(forKey: "order_id")as? String ?? "")
+                            let strorderno = String(format: "%@ #%@", myAppDelegate.changeLanguage(key: "msg_language308"),self.dicMOrderDetails.value(forKey: "order_id")as? String ?? "")
                             self.lblorderno.text = strorderno
                             
                             let strorderstatus = String(format: "%@", self.dicMOrderDetails.value(forKey: "status")as? String ?? "")
@@ -277,22 +278,22 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                             let strgrandtotal = String(format: "%@", self.dicMOrderDetails.value(forKey: "grand_total")as? String ?? "")
                             let floatgrandtotal = Float(strgrandtotal)
                             let strgrandtotalcurrency = String(format: "%@", self.dicMOrderDetails.value(forKey: "currence_code")as? String ?? "")
-                            self.lblordergrandtotal.text = String(format: "Grand Total: %@ %0.2f ", strgrandtotalcurrency,floatgrandtotal!)
+                            self.lblordergrandtotal.text = String(format: "%@: %@ %0.2f ", myAppDelegate.changeLanguage(key: "msg_language86"),strgrandtotalcurrency,floatgrandtotal!)
                             self.strciurrency = strgrandtotalcurrency
                             
-                            let strpaymentmethod = String(format: "Payment Mode: %@", self.dicMOrderDetails.value(forKey: "payment_method")as? String ?? "")
+                            let strpaymentmethod = String(format: "%@: %@", myAppDelegate.changeLanguage(key: "msg_language402"),self.dicMOrderDetails.value(forKey: "payment_method")as? String ?? "")
                             self.lblorderpaymentmethod.text = strpaymentmethod
                             
                             let strcustomername = String(format: "%@ %@", self.dicMOrderDetails.value(forKey: "customer_firstname")as? String ?? "",self.dicMOrderDetails.value(forKey: "customer_lastname")as? String ?? "")
                             self.lblcustomername.text = strcustomername
                             
-                            let strcustomeremail = String(format: "Email: %@", self.dicMOrderDetails.value(forKey: "customer_email")as? String ?? "")
+                            let strcustomeremail = String(format: "%@: %@", myAppDelegate.changeLanguage(key: "msg_language30"),self.dicMOrderDetails.value(forKey: "customer_email")as? String ?? "")
                             self.lblcustomeremail.text = strcustomeremail
                             
                             let arritem = self.dicMOrderDetails.value(forKey: "products")as? NSArray ?? []
                             self.arrmitemlist = NSMutableArray(array: arritem)
                             if self.arrmitemlist.count == 0 {
-                                self.msg = "No products found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language150")
                             }
                             self.tabvitemlist.reloadData()
                         }
@@ -300,7 +301,7 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                         {
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
                         }
@@ -313,7 +314,7 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                     
                     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                     self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
                     }))
                     
