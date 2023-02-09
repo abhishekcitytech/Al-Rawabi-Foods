@@ -26,7 +26,10 @@ struct Constants {
         static let ConnUrl = "https://staging1.alrawabifoods.com/index.php/rest/default/V1/"
         
         //MARK: - GOOGLE PLACE API KEY
-        static let GoogleAPIKey = "AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk"
+        static let GoogleAPIKey = "AIzaSyB0HROT7zT3VgKKv7oAEbvkyD_J0ErZ6RQ"
+        
+        //AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk - Paylite app
+        //AIzaSyB0HROT7zT3VgKKv7oAEbvkyD_J0ErZ6RQ - AlRawabi
         
     }
     
@@ -124,34 +127,23 @@ struct Constants {
         static let apimethod89 = "countryinfo/countryinfo-api"
         static let apimethod90 = "rewardpoints/rewardpoints-api"
         static let apimethod91 = "rewardtransactions/rewardtransactions-api"
-        
         static let apimethod92 = "aboutuspage/aboutuspage-api"
         static let apimethod93 = "privacypolicypage/privacypolicypage-api"
         static let apimethod94 = "deliverypolicypage/deliverypolicypage-api"
         static let apimethod95 = "refundandcancellationpage/refundandcancellationpage-api"
         static let apimethod96 = "termsandconditionpage/termsandconditionpage-api"
         static let apimethod97 = "disclaimerpage/disclaimerpage-api"
-        
         static let apimethod98 = "homepageHealtySuhoorBanner/homepageHealtySuhoorBanner-api"
         static let apimethod99 = "homepageJuiceBanner/homepageJuiceBanner-api"
         static let apimethod100 = "homepageNewinstoreBanner/homepageNewinstoreBanner-api"
-        
         static let apimethod101 = "rewardpointapply/rewardpointapply-api"
-        
         static let apimethod102 = "contactus/contactus-api"
-        
         static let apimethod103 = "creditmemolist/creditmemolist-api"
-        
         static let apimethod104 = "cancelcoupon/cancelcoupon-api"
-        
         static let apimethod105 = "cancelrewardpoint/cancelrewardpoint-api"
-        
         static let apimethod106 = "customerProfileUpdate/customerProfileUpdate-api"
-        
         static let apimethod107 = "subscriptionRewardPointApply/subscriptionRewardPointApply-api"
-        
         static let apimethod108 = "mobileOtpRequestExist/mobileOtpRequestExist-api"
-        
         static let apimethod109 = "locationcoordinates/locationcoordinates-api"
         
         

@@ -828,6 +828,18 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                         print("Click of default button")
                     }))
                     self.viewoverall.isHidden = false
+                    
+                    self.lblsubtotalvalue.text = ""
+                    self.lblshippingchargesvalue.text = ""
+                    self.lblordertotalvalue.text = ""
+                    self.lbltaxvalue.text = ""
+                    self.lbldiscountvalue.text = ""
+                    
+                    self.viewtop.isHidden = true
+                    self.viewbottom.isHidden = true
+                    self.btnpaycheckout.isHidden = true
+                    self.btnkeepshopping.isHidden = true
+                    
                     self.view.activityStopAnimating()
                     
                     self.getAvailbleTimeSlotsAPIMethod()

@@ -682,7 +682,8 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                             self.strcart_id = String (format: "%@", json.value(forKey: "cart_id")as! CVarArg)
                             print("self.strcart_id",self.strcart_id)
                             
-                            if self.arrMcartItems.count == 0{
+                            if self.arrMcartItems.count == 0
+                            {
                                 
                                 self.lblsubtotalvalue.text = ""
                                 self.lblshippingchargesvalue.text = ""
@@ -695,7 +696,8 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                 self.btnpaycheckout.isHidden = true
                                 self.btnkeepshopping.isHidden = true
                             }
-                            else{
+                            else
+                            {
                                 self.viewbottom.isHidden = false
                                 self.btnpaycheckout.isHidden = false
                                 self.btnkeepshopping.isHidden = false
@@ -718,9 +720,20 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                 let intstr3 = Float(str3)
                                 let intstr4 = Float(str5)
                                 
-                                self.lblsubtotalvalue.text = String(format: "%@ %.2f",str4,intstr1!)
-                                self.lblshippingchargesvalue.text = String(format: "%@ %.2f",str4,intstr2!)
-                                self.lblordertotalvalue.text = String(format: "%@ %.2f",str4,intstr3!)
+                                
+                                if intstr1 != nil{
+                                    self.lblsubtotalvalue.text = String(format: "%@ %.2f",str4,intstr1!)
+                                }
+                                
+                                if intstr2 != nil{
+                                    self.lblshippingchargesvalue.text = String(format: "%@ %.2f",str4,intstr2!)
+                                }
+                                
+                                if intstr3 != nil{
+                                    self.lblordertotalvalue.text = String(format: "%@ %.2f",str4,intstr3!)
+                                }
+                                
+                                
                                 self.lbltaxvalue.text = ""
                                 
                                 let strearn_point = String (format: "%@", dictemp.value(forKey: "earn_point")as? String ?? "")
@@ -754,9 +767,36 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                     
                                     self.lbldiscount.textColor = .darkGray
                                 }
+                                
+                                //IF NULL VALUE THEN ALERT WILL SHOW
+                                if intstr1 == nil || intstr2 == nil || intstr3 == nil
+                                {
+                                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                                    self.present(uiAlert, animated: true, completion: nil)
+                                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                        print("Click of default button")
+                                    }))
+                                    self.viewtop.isHidden = true
+                                    self.viewbottom.isHidden = true
+                                    self.btnpaycheckout.isHidden = true
+                                    self.btnkeepshopping.isHidden = true
+                                }
                             }
                         }
-                        else{
+                        else
+                        {
+                            
+                            self.lblsubtotalvalue.text = ""
+                            self.lblshippingchargesvalue.text = ""
+                            self.lblordertotalvalue.text = ""
+                            self.lbltaxvalue.text = ""
+                            self.lbldiscountvalue.text = ""
+                            
+                            self.viewtop.isHidden = true
+                            self.viewbottom.isHidden = true
+                            self.btnpaycheckout.isHidden = true
+                            self.btnkeepshopping.isHidden = true
+                            
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
@@ -783,6 +823,18 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                         print("Click of default button")
                     }))
                     self.viewoverall.isHidden = false
+                    
+                    self.lblsubtotalvalue.text = ""
+                    self.lblshippingchargesvalue.text = ""
+                    self.lblordertotalvalue.text = ""
+                    self.lbltaxvalue.text = ""
+                    self.lbldiscountvalue.text = ""
+                    
+                    self.viewtop.isHidden = true
+                    self.viewbottom.isHidden = true
+                    self.btnpaycheckout.isHidden = true
+                    self.btnkeepshopping.isHidden = true
+                    
                     self.view.activityStopAnimating()
                     
                     self.getAvailbleTimeSlotsAPIMethod()
