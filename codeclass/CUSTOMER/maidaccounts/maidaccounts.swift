@@ -346,7 +346,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         let parameters = ["name": "",
                           "email": "",
-                          "status": ""] as [String : Any]
+                          "status": "","language":""] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod66)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

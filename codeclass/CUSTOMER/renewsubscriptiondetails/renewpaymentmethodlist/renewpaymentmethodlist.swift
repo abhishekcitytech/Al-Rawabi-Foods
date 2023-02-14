@@ -566,7 +566,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         
         let parameters = ["ordertype": "subscription"] as [String : Any]
         
-        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod40)
+        let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod40,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -948,7 +948,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                             self.txtrewardpoints.isUserInteractionEnabled = false
                             
                             self.btnapplyrewardpoints.isUserInteractionEnabled = false
-                            self.btnapplyrewardpoints.setTitle(myAppDelegate.changeLanguage(key: "msg_language361"), for: .normal)
+                            self.btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language361")), for: .normal)
                             
                             self.btnremoverewardpoints.isHidden = false
                             

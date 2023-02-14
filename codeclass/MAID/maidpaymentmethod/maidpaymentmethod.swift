@@ -81,7 +81,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
         
         lblCardPaymentOrderAmount.text = myAppDelegate.changeLanguage(key: "msg_language312")
         txtCardPaymentOrderAmount.placeholder = myAppDelegate.changeLanguage(key: "msg_language313")
-        btnpayment.setTitle(myAppDelegate.changeLanguage(key: "msg_language94"), for: .normal)
+        btnpayment.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
         
         lblwallet1.text = myAppDelegate.changeLanguage(key: "msg_language314")
         lblwallet2.text = myAppDelegate.changeLanguage(key: "msg_language312")
@@ -90,7 +90,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
         txtwalletbalance.placeholder = myAppDelegate.changeLanguage(key: "msg_language314")
         txtpaymentamount.placeholder = myAppDelegate.changeLanguage(key: "msg_language312")
         txtremainingbalance.placeholder = myAppDelegate.changeLanguage(key: "msg_language315")
-        btnpaymentwallet.setTitle(myAppDelegate.changeLanguage(key: "msg_language94"), for: .normal)
+        btnpaymentwallet.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
         
         self.scrolloverall.backgroundColor = .clear
         self.scrolloverall.showsVerticalScrollIndicator = false
@@ -380,7 +380,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod41)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod41,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -470,7 +470,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
         
         let parameters = ["ordertype": "other"] as [String : Any]
         
-        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod40)
+        let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod40,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

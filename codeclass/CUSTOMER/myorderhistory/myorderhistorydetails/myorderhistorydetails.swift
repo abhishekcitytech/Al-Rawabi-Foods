@@ -181,8 +181,7 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
         }
         
       
-        let parameters = ["orderid": strorder_id
-                          ] as [String : Any]
+        let parameters = ["orderid": strorder_id,"language": ""] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod21)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

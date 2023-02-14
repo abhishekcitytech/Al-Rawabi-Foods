@@ -91,7 +91,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         lblogin.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language288"))
         lblsigntoyouraccount.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language289"))
        
-        btnlogin.setTitle(myAppDelegate.changeLanguage(key: "msg_language20"), for: .normal)
+        btnlogin.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language20")), for: .normal)
         
         self.txtusername.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language9"))
         self.txtpassword.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language23"))
@@ -130,8 +130,8 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             
             self.viewusername1.frame = CGRect(x: self.viewusername.frame.size.width - 53, y: self.viewusername1.frame.origin.y, width: self.viewusername1.frame.size.width, height: self.viewusername1.frame.size.height)
             
-            self.lblmobilecountrycode.frame = CGRect(x: self.txtusername.frame.maxX, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
             self.txtusername.frame = CGRect(x: 1, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
+            self.lblmobilecountrycode.frame = CGRect(x: self.txtusername.frame.maxX, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
             //self.txtusername.frame = CGRect(x: 1, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
             self.txtusername.textAlignment = .right
             

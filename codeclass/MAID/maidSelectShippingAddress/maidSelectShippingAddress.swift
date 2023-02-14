@@ -69,7 +69,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
         btnpaycheckout.layer.cornerRadius = 16.0
         btnpaycheckout.layer.masksToBounds = true
         
-        btnpaycheckout.setTitle(myAppDelegate.changeLanguage(key: "msg_language94"), for: .normal)
+        btnpaycheckout.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
         
         tabvmyaddress.register(UINib(nibName: "cellSelectShippingAddress", bundle: nil), forCellReuseIdentifier: reuseIdentifier1)
         tabvmyaddress.separatorStyle = .none
@@ -460,7 +460,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod34)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod34,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

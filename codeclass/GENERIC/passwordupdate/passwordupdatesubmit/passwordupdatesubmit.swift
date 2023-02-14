@@ -87,7 +87,7 @@ class passwordupdatesubmit: UIViewController,UITextFieldDelegate
         
         lblupdatepassword.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language291"))
         
-        btnsubmit.setTitle(myAppDelegate.changeLanguage(key: "msg_language178"), for: .normal)
+        btnsubmit.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language178")), for: .normal)
         
         self.txtnewpassword.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language32"))
         self.txtconfirmpassword.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language33"))

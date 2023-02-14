@@ -811,9 +811,9 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
         
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
         print("strbearertoken",strbearertoken)
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?productId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod11,strSelectedProductID)
+        strconnurl = String(format: "%@%@?productId=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod11,strSelectedProductID,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{
@@ -967,17 +967,17 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                                 {
                                     self.btnaddtowishlist.tag = 100
                                     self.btnaddtowishlisticon.setImage(UIImage(named: "favselected"), for: .normal)
-                                    self.btnaddtowishlist.setTitle(myAppDelegate.changeLanguage(key: "msg_language153"), for: .normal)
+                                    self.btnaddtowishlist.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language153")), for: .normal)
                                 }
                                 else{
                                     self.btnaddtowishlist.tag = 200
                                     self.btnaddtowishlisticon.setImage(UIImage(named: "fav1"), for: .normal)
-                                    self.btnaddtowishlist.setTitle(myAppDelegate.changeLanguage(key: "msg_language154"), for: .normal)
+                                    self.btnaddtowishlist.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language154")), for: .normal)
                                 }
                             }else{
                                 self.btnaddtowishlist.tag = 200
                                 self.btnaddtowishlisticon.setImage(UIImage(named: "fav1"), for: .normal)
-                                self.btnaddtowishlist.setTitle(myAppDelegate.changeLanguage(key: "msg_language154"), for: .normal)
+                                self.btnaddtowishlist.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language154")), for: .normal)
                             }
                             
                             //SET Remivew LIST

@@ -238,7 +238,7 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
         print("timestring",timestring)
         
         let s1 = timestring
-        let s2 = "15:00:00"
+        let s2 = Constants.conn.CutOffTime //"15:00:00"
         if df.date(from: s1)! > df.date(from: s2)!
         {
             print("Over 15:00:00 - Its over 3 PM")
@@ -481,7 +481,7 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
             cell.viewcell.layer.shadowOpacity = 1.0
             cell.viewcell.layer.shadowRadius = 6.0
         }
-        else if flttotalprice >= 15.00
+        else if flttotalprice >= Constants.conn.CutOffSubscriptionOrderTotal //15.00
         {
             //GREEN
             
@@ -502,7 +502,7 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
             cell.viewcell.layer.shadowOpacity = 1.0
             cell.viewcell.layer.shadowRadius = 6.0
         }
-        else if flttotalprice < 15.00
+        else if flttotalprice < Constants.conn.CutOffSubscriptionOrderTotal //15.00
         {
             //RED
             cell.lblname.backgroundColor = .clear

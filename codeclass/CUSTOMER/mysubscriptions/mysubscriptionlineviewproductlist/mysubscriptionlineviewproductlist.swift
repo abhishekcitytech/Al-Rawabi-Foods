@@ -281,6 +281,8 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
     //MARK: - get Product Listing From Category ID API method
     func getProductListingFromCategoryIDAPIMethod(strkeywrod:String)
     {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        
         if self.arrMCategorywiseProductlist.count > 0{
             self.arrMCategorywiseProductlist.removeAllObjects()
         }
@@ -296,7 +298,7 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
         let strkeywrodfinal = strkeywrod.replacingOccurrences(of: " ", with: "%20")
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,"",strkeywrodfinal,"")
+        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,"",strkeywrodfinal,"",strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{

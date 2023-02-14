@@ -324,7 +324,7 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod46)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod46,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -374,7 +374,7 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
                             {
                                 let dic = arrm.object(at: x)as? NSDictionary
                                 let strattributecode = String(format: "%@", dic?.value(forKey: "attribute_code")as? String ?? "")
-                                if strattributecode.containsIgnoreCase("mobile")
+                                if strattributecode.containsIgnoreCase("mobile") || strattributecode.containsIgnoreCase("phone_number")
                                 {
                                     strfullmobileno = String(format: "%@", dic?.value(forKey: "value")as? String ?? "")
                                 }

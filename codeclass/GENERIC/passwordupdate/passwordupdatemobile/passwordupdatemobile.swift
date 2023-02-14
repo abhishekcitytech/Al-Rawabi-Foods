@@ -74,7 +74,7 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
         
         lblentermobileno.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language240"))
         
-        btncontinue.setTitle(myAppDelegate.changeLanguage(key: "msg_language50"), for: .normal)
+        btncontinue.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language50")), for: .normal)
 
         self.txtmobileno.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language31"))
         

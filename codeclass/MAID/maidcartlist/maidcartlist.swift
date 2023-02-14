@@ -25,6 +25,10 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     @IBOutlet weak var lbltime2: UILabel!
     @IBOutlet weak var lbltime3: UILabel!
     
+    @IBOutlet weak var lbltime111: UILabel!
+    @IBOutlet weak var lbltime222: UILabel!
+    @IBOutlet weak var lbltime333: UILabel!
+    
     
     @IBOutlet weak var btnupdatelocation: UIButton!
     
@@ -161,12 +165,12 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         lbltax.text = myAppDelegate.changeLanguage(key: "msg_language111")
         lblordertotal.text = myAppDelegate.changeLanguage(key: "msg_language112")
         
-        btnremovecoupon.setTitle(myAppDelegate.changeLanguage(key: "msg_language328"), for: .normal)
-        btnapplydiscount.setTitle(myAppDelegate.changeLanguage(key: "msg_language113"), for: .normal)
-        btnpaycheckout.setTitle(myAppDelegate.changeLanguage(key: "msg_language94"), for: .normal)
+        btnremovecoupon.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language328")), for: .normal)
+        btnapplydiscount.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language113")), for: .normal)
+        btnpaycheckout.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
         
-        btnkeepshopping.underline()
-        btnkeepshopping.setTitle(myAppDelegate.changeLanguage(key: "msg_language367"), for: .normal)
+        //btnkeepshopping.underline()
+        btnkeepshopping.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language367")), for: .normal)
         
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
@@ -316,7 +320,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         
         var  nextdate = Date()
         let s1 = timestring
-        let s2 = "15:00:00"
+        let s2 = Constants.conn.CutOffTime //"15:00:00"
         if df.date(from: s1)! > df.date(from: s2)!
         {
             print("Over 15:00:00 - Its over 3 PM")
@@ -601,6 +605,8 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     //MARK: - post Cart List OrderOnce API Method
     func postCartlistOrderonceAPIMethod()
     {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -613,9 +619,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         let strbearertoken1 = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
         print("strbearertoken",strbearertoken1)
         
-        /*let parameters = ["customerId": strcustomerid,
-                          "productId": strproductid,
-                          "productQuantity": strqty] as [String : Any]*/
+        let parameters = ["language": strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod17)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -624,10 +628,10 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         print("strconnurl",strconnurl)
         
-        /*let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
         print("json string = \(jsonString)")
-        request.httpBody = jsonData as Data*/
+        request.httpBody = jsonData as Data
         
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             guard error == nil && data != nil else
@@ -1126,12 +1130,15 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                 let strtime2 = String(format: "%@", dictemp?.value(forKey: "to")as? String ?? "")
                                 
                                 if strname.containsIgnoreCase("Morning"){
+                                    self.lbltime111.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language99"))
                                     self.lbltime1.text = String(format: "%@-%@", strtime1,strtime2)
                                 }
                                 else if strname.containsIgnoreCase("Afternoon"){
+                                    self.lbltime222.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language100"))
                                     self.lbltime2.text = String(format: "%@-%@", strtime1,strtime2)
                                 }
                                 else if strname.containsIgnoreCase("Evening"){
+                                    self.lbltime333.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language101"))
                                     self.lbltime3.text = String(format: "%@-%@", strtime1,strtime2)
                                 }
                             }

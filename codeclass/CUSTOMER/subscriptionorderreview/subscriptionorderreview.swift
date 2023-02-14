@@ -68,6 +68,10 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
     @IBOutlet weak var lbltime2: UILabel!
     @IBOutlet weak var lbltime3: UILabel!
     
+    @IBOutlet weak var lbltime111: UILabel!
+    @IBOutlet weak var lbltime222: UILabel!
+    @IBOutlet weak var lbltime333: UILabel!
+    
     @IBOutlet weak var btncrossdateslotspopup: UIButton!
     @IBOutlet weak var btnsavedateslotspopup: UIButton!
     var viewPopupAddNewExistingBG3 = UIView()
@@ -136,7 +140,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         
         btnclearall.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language334")), for: .normal)
         btnproceed.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language98")), for: .normal)
-        lblminimumwarningshippingcost.text = myAppDelegate.changeLanguage(key: "msg_language335")
+        lblminimumwarningshippingcost.text = String(format: "%@ %0.2f %@", myAppDelegate.changeLanguage(key: "msg_language335"),Constants.conn.CutOffSubscriptionOrderTotal,myAppDelegate.changeLanguage(key: "msg_language447"))
         lblfullpayment.text = myAppDelegate.changeLanguage(key: "msg_language336")
         lblfirst3payment.text = myAppDelegate.changeLanguage(key: "msg_language337")
         
@@ -1063,7 +1067,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 cell.btndetail.isHidden = true
             }
             
-            if flttotalprice >= 15.00
+            if flttotalprice >= Constants.conn.CutOffSubscriptionOrderTotal //15.00
             {
                 //HIDE WARNING ICON
                 cell.viewoverall.backgroundColor = .white
@@ -1071,7 +1075,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 cell.btnwarning.isHidden = true
                 cell.lblwarning.isHidden = true
             }
-            else if flttotalprice < 15.00
+            else if flttotalprice < Constants.conn.CutOffSubscriptionOrderTotal //15.00
             {
                 //SHOW WARNING ICON
                 cell.viewoverall.backgroundColor = UIColor(named: "lightred")!
@@ -1146,7 +1150,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 cell.btndetail.isHidden = true
             }
             
-            if flttotalprice >= 15.00
+            if flttotalprice >= Constants.conn.CutOffSubscriptionOrderTotal //15.00
             {
                 //HIDE WARNING ICON
                 cell.viewoverall.backgroundColor = .white
@@ -1154,7 +1158,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 cell.btnwarning.isHidden = true
                 cell.lblwarning.isHidden = true
             }
-            else if flttotalprice < 15.00
+            else if flttotalprice < Constants.conn.CutOffSubscriptionOrderTotal //15.00
             {
                 //SHOW WARNING ICON
                 cell.viewoverall.backgroundColor = UIColor(named: "lightred")!
@@ -1229,7 +1233,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 cell.btndetail.isHidden = true
             }
             
-            if flttotalprice >= 15.00
+            if flttotalprice >= Constants.conn.CutOffSubscriptionOrderTotal //15.00
             {
                 //HIDE WARNING ICON
                 cell.viewoverall.backgroundColor = .white
@@ -1237,7 +1241,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 cell.btnwarning.isHidden = true
                 cell.lblwarning.isHidden = true
             }
-            else if flttotalprice < 15.00
+            else if flttotalprice < Constants.conn.CutOffSubscriptionOrderTotal //15.00
             {
                 //SHOW WARNING ICON
                 cell.viewoverall.backgroundColor = UIColor(named: "lightred")!
@@ -1257,7 +1261,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             }
         }
         
-        cell.lblwarning.text = myAppDelegate.changeLanguage(key: "msg_language343")
+        cell.lblwarning.text = String(format: "%@ %0.2f %@", myAppDelegate.changeLanguage(key: "msg_language335"),Constants.conn.CutOffSubscriptionOrderTotal,myAppDelegate.changeLanguage(key: "msg_language447"))
         cell.btnAddMore.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language92")), for: .normal)
         cell.btndetail.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language91")), for: .normal)
         
@@ -2854,12 +2858,15 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                                 let strtime2 = String(format: "%@", dictemp?.value(forKey: "to")as? String ?? "")
                                 
                                 if strname.containsIgnoreCase("Morning"){
+                                    self.lbltime111.text = myAppDelegate.changeLanguage(key: "msg_language99")
                                     self.lbltime1.text = String(format: "%@-%@", strtime1,strtime2)
                                 }
                                 else if strname.containsIgnoreCase("Afternoon"){
+                                    self.lbltime222.text = myAppDelegate.changeLanguage(key: "msg_language100")
                                     self.lbltime2.text = String(format: "%@-%@", strtime1,strtime2)
                                 }
                                 else if strname.containsIgnoreCase("Evening"){
+                                    self.lbltime333.text = myAppDelegate.changeLanguage(key: "msg_language101")
                                     self.lbltime3.text = String(format: "%@-%@", strtime1,strtime2)
                                 }
                             }

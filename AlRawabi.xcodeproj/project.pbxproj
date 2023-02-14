@@ -3213,7 +3213,7 @@
 				DEVELOPMENT_TEAM = 4V4WQ2YLX8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AlRawabi/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Al Rawabi Foods";
+				INFOPLIST_KEY_CFBundleDisplayName = RawabiFoods;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera to capture photo.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires access to GPS to track delivery location available area.";
@@ -3233,7 +3233,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3259,7 +3259,7 @@
 				DEVELOPMENT_TEAM = 4V4WQ2YLX8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AlRawabi/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Al Rawabi Foods";
+				INFOPLIST_KEY_CFBundleDisplayName = RawabiFoods;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera to capture photo.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires access to GPS to track delivery location available area.";
@@ -3279,7 +3279,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";

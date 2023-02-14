@@ -201,15 +201,15 @@ class loginclass: UIViewController,UITextFieldDelegate
         
         lblogin.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language20"))
         lblsigntoyouraccount.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language21"))
-        btnlogin.setTitle(myAppDelegate.changeLanguage(key: "msg_language20"), for: .normal)
-        btnregisternow.setTitle(myAppDelegate.changeLanguage(key: "msg_language24"), for: .normal)
-        btnmaidlogin.setTitle(myAppDelegate.changeLanguage(key: "msg_language272"), for: .normal)
+        btnlogin.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language20")), for: .normal)
+        btnregisternow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language24")), for: .normal)
+        btnmaidlogin.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language272")), for: .normal)
         lblor.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language19"))
         self.txtusername.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language22"))
         self.txtpassword.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language23"))
         
         lblrememberme.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language26"))
-        btnforgotpassword.setTitle(myAppDelegate.changeLanguage(key: "msg_language27"), for: .normal)
+        btnforgotpassword.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language27")), for: .normal)
         
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")

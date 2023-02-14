@@ -676,7 +676,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             }
             else{
                 cell.lblwarningmessage.textColor = UIColor(named: "darkmostredcolor")!
-                cell.lblwarningmessage.text = myAppDelegate.changeLanguage(key: "msg_language90")
+                cell.lblwarningmessage.text = String(format: "%@ %0.2f %@", myAppDelegate.changeLanguage(key: "msg_language335"),Constants.conn.CutOffSubscriptionOrderTotal,myAppDelegate.changeLanguage(key: "msg_language447"))
                 cell.viewshippingwarning.isHidden = false
             }
         }
@@ -957,7 +957,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod22)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod22,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

@@ -31,6 +31,12 @@ struct Constants {
         //AIzaSyBJAhGdm5k7WgmHUkWX_4w5DY0uA88e4Hk - Paylite app
         //AIzaSyB0HROT7zT3VgKKv7oAEbvkyD_J0ErZ6RQ - AlRawabi
         
+        //MARK: - CUT OFF TIME
+        static let CutOffTime = "15:00:00"
+        
+        //MARK: - CUT OFF SUBSCRIPTION ORDER TOTAL
+        static let CutOffSubscriptionOrderTotal = 15.00
+        
     }
     
     struct methodname {
@@ -145,10 +151,6 @@ struct Constants {
         static let apimethod107 = "subscriptionRewardPointApply/subscriptionRewardPointApply-api"
         static let apimethod108 = "mobileOtpRequestExist/mobileOtpRequestExist-api"
         static let apimethod109 = "locationcoordinates/locationcoordinates-api"
-        
-        
-        
-        
     }
 }
 

@@ -89,7 +89,7 @@
 "msg_language80" = "Search by product name";
 "msg_language81" = "Review Your Order";
 "msg_language82" = "Do you want to clear your selected subscription items?";
-"msg_language83" = "Click to choose your preferred delivery slots";
+"msg_language83" = "Click to choose your preferred delivery slot";
 "msg_language84" = "Cart Subtotal + Tax";
 "msg_language85" = "Shipping Charges";
 "msg_language86" = "Grand Total";
@@ -341,14 +341,14 @@
 "msg_language332" = "Do you want to proceed with full payment?";
 "msg_language333" = "Do you want to proceed with first 3 days payment?";
 "msg_language334" = "CLEAR ALL";
-"msg_language335" = "Shop AED 15.00 or more for FREE delivery";
+"msg_language335" = "Shop AED";
 "msg_language336" = "Pay Full Amount";
 "msg_language337" = "Pay Amount For First 3 Days";
-"msg_language338" = "Delivery date & slots";
+"msg_language338" = "Delivery date & slot";
 "msg_language339" = "Subscription plan";
 "msg_language340" = "Subscription Start Date";
 "msg_language341" = "Subscription End Date";
-"msg_language342" = "Choose delivery time slots";
+"msg_language342" = "Choose delivery time slot";
 "msg_language343" = "Shop AED 15 or more, for FREE delivery";
 "msg_language344" = "Do you want to cancel your payment process?";
 "msg_language345" = "Please enter your reward points to be spend";
@@ -454,5 +454,5 @@
 "msg_language444" = "Update Delivery Time Slot";
 "msg_language445" = "Please select preferred delivery address.";
 "msg_language446" = "No address found!";
-
+"msg_language447" = "or more for FREE delivery";
 

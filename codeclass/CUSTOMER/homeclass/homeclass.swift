@@ -747,7 +747,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         lblchoosesubscriptionplan.text = myAppDelegate.changeLanguage(key: "msg_language36")
         
-        btnBuyoncepopup.setTitle(myAppDelegate.changeLanguage(key: "msg_language44"), for: .normal)
+        btnBuyoncepopup.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language44")), for: .normal)
         
         lbldaily1.text = myAppDelegate.changeLanguage(key: "msg_language37")
         lbldaily2.text = myAppDelegate.changeLanguage(key: "msg_language40")
@@ -1569,7 +1569,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         //print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod7)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod7,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         //request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -1658,7 +1658,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
-                          "categoryId": "none","pageFromId": "2"] as [String : Any]
+                          "categoryId": "none","pageFromId": "2","language": ""] as [String : Any]
         
 
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
@@ -1762,16 +1762,12 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
         }
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
 
-        /*let parameters = ["emailId": txtusername.text!,
-                          "password":txtpassword.text!,
-                          "deviceId":struniquedeviceid,
-                          "deviceToken":strfcmToken,
-                          "deviceType":"I",] as [String : Any]*/
+        let parameters = ["language": strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod8)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -1779,10 +1775,12 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        /*let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
         print("json string = \(jsonString)")
-        request.httpBody = jsonData as Data*/
+        request.httpBody = jsonData as Data
+        
+        print("strconnurl",strconnurl)
         
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             guard error == nil && data != nil else
@@ -1810,7 +1808,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                 
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp topdeals--->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false

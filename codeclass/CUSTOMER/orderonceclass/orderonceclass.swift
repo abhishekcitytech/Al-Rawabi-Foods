@@ -272,6 +272,8 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
+        txtsearchbar.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language80"))
+        
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
         {
@@ -305,7 +307,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         self.btnCheckDeliverylocation.layer.cornerRadius = 10.0
         self.btnCheckDeliverylocation.layer.masksToBounds = true
         
-        self.btnCheckDeliverylocation.setTitle(myAppDelegate.changeLanguage(key: "msg_language102"), for: .normal)
+        self.btnCheckDeliverylocation.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language102")), for: .normal)
         self.lbldeliverylocationmessage.text = myAppDelegate.changeLanguage(key: "msg_language103")
         
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
@@ -813,7 +815,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
-                          "categoryId": "none","pageFromId": "3"] as [String : Any]
+                          "categoryId": "none","pageFromId": "3","language": ""] as [String : Any]
 
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -935,8 +937,10 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,"",strSelectedSubCat)
+        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,"",strSelectedSubCat,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{
@@ -1147,6 +1151,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         //let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         //let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String

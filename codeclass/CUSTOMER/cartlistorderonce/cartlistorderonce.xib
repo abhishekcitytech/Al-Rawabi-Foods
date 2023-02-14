@@ -42,8 +42,11 @@
                 <outlet property="lbltax" destination="say-8t-KO1" id="lFy-Wl-JiV"/>
                 <outlet property="lbltaxvalue" destination="7vv-dv-y1S" id="njZ-fc-RjJ"/>
                 <outlet property="lbltime1" destination="siH-UY-Nnz" id="ktL-vf-JIq"/>
+                <outlet property="lbltime111" destination="a8F-Et-L54" id="k2k-8b-uvq"/>
                 <outlet property="lbltime2" destination="Qck-dn-bQq" id="8px-sJ-g6Z"/>
+                <outlet property="lbltime222" destination="lKu-BX-D1g" id="6Sj-eS-KtA"/>
                 <outlet property="lbltime3" destination="6Wn-PV-VJM" id="Mn9-WA-qRu"/>
+                <outlet property="lbltime333" destination="fja-Xf-7dH" id="aMU-TG-oZ9"/>
                 <outlet property="tabvcart" destination="gF3-cq-kZp" id="ARf-NH-ZMR"/>
                 <outlet property="txtchoosedeliverydate" destination="gMO-Tv-0y3" id="bVO-SK-tuX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -318,12 +321,12 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ol-MB-JEZ">
-                            <rect key="frame" x="8" y="123" width="195" height="38"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                            <rect key="frame" x="8" y="123" width="359" height="38"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Keep Shopping for more">
+                            <state key="normal">
                                 <color key="titleColor" name="themecolor"/>
                             </state>
                             <connections>

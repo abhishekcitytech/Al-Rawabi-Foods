@@ -160,9 +160,7 @@ class viewallreviews: UIViewController,UITableViewDelegate,UITableViewDataSource
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
-        let parameters = ["productId": strproductid
-                          
-         ] as [String : Any]
+        let parameters = ["productId": strproductid,"language": ""] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod15)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

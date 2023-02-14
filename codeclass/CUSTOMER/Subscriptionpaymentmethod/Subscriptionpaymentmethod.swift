@@ -616,7 +616,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
             self.txtcouponcode.isUserInteractionEnabled = true
             self.txtcouponcode.text = ""
             self.btnapplycouponcode.isUserInteractionEnabled = true
-            self.btnapplycouponcode.setTitle("Apply", for: .normal)
+            self.btnapplycouponcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
             self.btnremovecouponcode.isHidden = true
         }))
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
@@ -991,7 +991,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         
         let parameters = ["ordertype": "subscription"] as [String : Any]
         
-        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod40)
+        let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod40,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -1228,7 +1228,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod22)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod22,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -1381,7 +1381,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                             
                             self.txtcouponcode.isUserInteractionEnabled = false
                             self.btnapplycouponcode.isUserInteractionEnabled = false
-                            self.btnapplycouponcode.setTitle("Applied", for: .normal)
+                            self.btnapplycouponcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language361")), for: .normal)
                             
                             self.btnremovecouponcode.isHidden = false
 
@@ -1634,7 +1634,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                             self.txtrewardpoints.isUserInteractionEnabled = false
                             
                             self.btnapplyrewardpoints.isUserInteractionEnabled = false
-                            self.btnapplyrewardpoints.setTitle(myAppDelegate.changeLanguage(key: "msg_language361"), for: .normal)
+                            self.btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language361")), for: .normal)
                             
                             self.btnremoverewardpoints.isHidden = false
                             

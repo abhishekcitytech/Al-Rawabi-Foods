@@ -58,7 +58,7 @@ class maidordersuccess: UIViewController
         lbl1.text = myAppDelegate.changeLanguage(key: "msg_language199")
         lbl2.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language200"),myAppDelegate.changeLanguage(key: "msg_language201"))
         
-        btncontinueshopping.setTitle(myAppDelegate.changeLanguage(key: "msg_language203"), for: .normal)
+        btncontinueshopping.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language203")), for: .normal)
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))

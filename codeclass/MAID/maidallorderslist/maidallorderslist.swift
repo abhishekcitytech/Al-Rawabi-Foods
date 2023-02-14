@@ -194,7 +194,7 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?status=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod84,stratstus)
+        strconnurl = String(format: "%@%@?status=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod84,stratstus,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

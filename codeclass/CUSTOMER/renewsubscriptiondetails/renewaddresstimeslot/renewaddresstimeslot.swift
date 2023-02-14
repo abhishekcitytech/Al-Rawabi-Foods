@@ -405,7 +405,18 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
             cellA.viewcell.layer.masksToBounds = true
         }
         
-        cellA.lblslotname.text = strname
+        
+        if strname.containsIgnoreCase("Morning"){
+            cellA.lblslotname.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language99"))
+        }
+        else if strname.containsIgnoreCase("Afternoon"){
+            cellA.lblslotname.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language100"))
+        }
+        else if strname.containsIgnoreCase("Evening"){
+            cellA.lblslotname.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language101"))
+        }
+        
+        //cellA.lblslotname.text = strname
         cellA.lblslottime.text = String(format: "%@ - %@", strstart_time,strend_time)
         
         cellA.viewcell.layer.cornerRadius = 6.0
@@ -455,7 +466,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod24)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod24,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

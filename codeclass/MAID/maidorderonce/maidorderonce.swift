@@ -82,7 +82,17 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
         back.tintColor = UIColor.black
-        self.navigationItem.leftBarButtonItem = back
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.navigationItem.leftBarButtonItem = back
+        }
+        else
+        {
+            self.navigationItem.rightBarButtonItem = back
+        }
+        
         
         
         self.viewsearchbarbg.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
@@ -212,6 +222,8 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
     func setupRTLLTR()
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        txtsearchbar.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language80"))
         
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
@@ -582,7 +594,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
-                          "categoryId": "none","pageFromId": "3"] as [String : Any]
+                          "categoryId": "none","pageFromId": "3","language": ""] as [String : Any]
 
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -686,6 +698,8 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
     //MARK: - get Product Listing API method
     func getProductListingAPIMethod(strselectedcategoryid:String)
     {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        
         if self.arrMproducts.count > 0{
             self.arrMproducts.removeAllObjects()
         }
@@ -699,7 +713,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,"",strSelectedSubCat)
+        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,"",strSelectedSubCat,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{

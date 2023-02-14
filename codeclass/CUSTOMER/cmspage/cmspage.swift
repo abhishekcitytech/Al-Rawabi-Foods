@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDelegate
+class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDelegate, UIScrollViewDelegate
 {
 
     @IBOutlet weak var viewoverall: UIView!
@@ -81,8 +81,13 @@ class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDele
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
         
+        
+        
         webcontent.uiDelegate = self
         webcontent.navigationDelegate = self
+        
+        
+        
         
         //strPageUrl = "https://alrawabidairy.com/contact-us/"
         //let url = URL.init(string: strPageUrl) //URL (string: TNC)
@@ -111,12 +116,21 @@ class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDele
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation)
     {
-        
+        let contentSize:CGSize = self.webcontent.scrollView.contentSize
+        let viewSize:CGSize = self.view.bounds.size
+        let rw:Float = Float(viewSize.width / contentSize.width)
+        print("rw",rw)
+        self.webcontent.scrollView.minimumZoomScale = CGFloat(rw)
+        self.webcontent.scrollView.maximumZoomScale = CGFloat(rw)
+        self.webcontent.scrollView.zoomScale = CGFloat(rw)
     }
+   
     
     //MARK: - get About Us API method
     func getCMSmethod(strmethodname:String)
     {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -126,7 +140,7 @@ class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDele
         //print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, strmethodname)
+        strconnurl = String(format: "%@%@?&language=%@", Constants.conn.ConnUrl, strmethodname,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         //request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -166,7 +180,9 @@ class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDele
                         if strsuccess == true
                         {
                             let strpage_content = dictemp.value(forKey: "page_content")as? String ?? ""
+                            print("strpage_content",strpage_content)
                             self.loadHTMLStringImage(strpagecontent: strpage_content)
+                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)

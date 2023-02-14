@@ -567,7 +567,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?subscriptionid=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod49,strsubscriptionid)
+        strconnurl = String(format: "%@%@?subscriptionid=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod49,strsubscriptionid,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

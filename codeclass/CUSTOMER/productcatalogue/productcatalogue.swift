@@ -619,8 +619,9 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         strsearchkeyword = strsearchkeyword.replacingOccurrences(of: " ", with: "%20")
         print("strsearchkeyword",strsearchkeyword)
         
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strFromCategoryID,strsearchkeyword,strSelectedSubCat)
+        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strFromCategoryID,strsearchkeyword,strSelectedSubCat,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{

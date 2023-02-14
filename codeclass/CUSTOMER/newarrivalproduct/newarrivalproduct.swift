@@ -236,7 +236,7 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
         /*let parameters = ["productid": strSelectedProductID
          ] as [String : Any]*/
         
-        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod26)
+        let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod26,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         //request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

@@ -183,8 +183,8 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         lblregister.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language15"))
         lblquicklycreateaccount.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language16"))
        
-        btnlogin.setTitle(myAppDelegate.changeLanguage(key: "msg_language278"), for: .normal)
-        btnregister.setTitle(myAppDelegate.changeLanguage(key: "msg_language24"), for: .normal)
+        btnlogin.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language278")), for: .normal)
+        btnregister.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language24")), for: .normal)
         
         self.txtfirstname.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language28"))
         self.txtlastname.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language29"))

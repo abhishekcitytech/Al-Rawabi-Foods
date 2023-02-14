@@ -68,6 +68,15 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
     {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.isHidden = true
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en"){
+            NISdk.sharedInstance.setSDKLanguage(language: "en")
+        }else{
+            NISdk.sharedInstance.setSDKLanguage(language: "ar")
+        }
+        
+        
     }
     
     // MARK: - viewDidAppear Method
@@ -517,7 +526,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod41)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod41,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -608,7 +617,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                                 
                                 self.txtrewardpoints.isUserInteractionEnabled = false
                                 
-                                self.btnapplyrewardpoints.setTitle(myAppDelegate.changeLanguage(key: "msg_language361"), for: .normal)
+                                self.btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language361")), for: .normal)
                                 self.txtrewardpoints.text = strspend_points
                                 
                                 self.txtrewardpoints.backgroundColor = UIColor(named: "greenlighter")!
@@ -652,7 +661,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         
         let parameters = ["ordertype": "other"] as [String : Any]
         
-        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod40)
+        let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod40,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -1103,7 +1112,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                             self.txtrewardpoints.isUserInteractionEnabled = false
                             
                             self.btnapplyrewardpoints.isUserInteractionEnabled = false
-                            self.btnapplyrewardpoints.setTitle(myAppDelegate.changeLanguage(key: "msg_language361"), for: .normal)
+                            self.btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language361")), for: .normal)
                             
                             self.btnremoverewardpoints.isHidden = false
                             

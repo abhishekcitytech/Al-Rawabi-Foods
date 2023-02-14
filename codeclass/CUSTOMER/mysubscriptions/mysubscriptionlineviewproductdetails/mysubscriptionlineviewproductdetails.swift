@@ -219,7 +219,17 @@ class mysubscriptionlineviewproductdetails: UIViewController,UITableViewDelegate
             let strstart_time = String(format: "%@", dictemp.value(forKey: "from")as? String ?? "")
             let strend_time = String(format: "%@", dictemp.value(forKey: "to")as? String ?? "")
             
-            title1.text = String(format: "%@ (%@ - %@)",strname,strstart_time,strend_time) as String
+            if strname.containsIgnoreCase("Morning"){
+                title1.text = String(format: "%@ (%@ - %@)",myAppDelegate.changeLanguage(key: "msg_language99"),strstart_time,strend_time) as String
+            }
+            else if strname.containsIgnoreCase("Afternoon"){
+                title1.text = String(format: "%@ (%@ - %@)",myAppDelegate.changeLanguage(key: "msg_language100"),strstart_time,strend_time) as String
+            }
+            else if strname.containsIgnoreCase("Evening"){
+                title1.text = String(format: "%@ (%@ - %@)",myAppDelegate.changeLanguage(key: "msg_language101"),strstart_time,strend_time) as String
+            }
+            
+            
             
             let lblSeparator = UILabel(frame: CGRect(x: 0, y: 39, width: tableView.frame.size.width, height: 1))
             lblSeparator.backgroundColor = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1.0)
@@ -494,7 +504,7 @@ class mysubscriptionlineviewproductdetails: UIViewController,UITableViewDelegate
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?subscriptionid=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod49,strsubscriptionid)
+        strconnurl = String(format: "%@%@?subscriptionid=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod49,strsubscriptionid,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

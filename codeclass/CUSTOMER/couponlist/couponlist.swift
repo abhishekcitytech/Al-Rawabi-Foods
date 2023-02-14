@@ -56,7 +56,7 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
         self.title = myAppDelegate.changeLanguage(key: "msg_language228")
         
         txtcouponcode.placeholder = myAppDelegate.changeLanguage(key: "msg_language229")
-        btnapply.setTitle(myAppDelegate.changeLanguage(key: "msg_language234"), for: .normal)
+        btnapply.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
@@ -244,7 +244,7 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod22)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod22,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

@@ -45,8 +45,11 @@
                 <outlet property="lblpopupdeliveryslot44" destination="pv4-SZ-83J" id="7HZ-MY-uuO"/>
                 <outlet property="lblsubtotaleditpopup" destination="1Wb-5s-rhc" id="uap-0Y-SXf"/>
                 <outlet property="lbltime1" destination="rJM-tn-NhJ" id="bMh-vB-zNI"/>
+                <outlet property="lbltime111" destination="OFh-su-Bs4" id="pjn-qc-wXO"/>
                 <outlet property="lbltime2" destination="fPO-Cl-7M4" id="r7h-Wi-AHG"/>
+                <outlet property="lbltime222" destination="OWs-4p-7xD" id="mWm-qF-Sqm"/>
                 <outlet property="lbltime3" destination="Xsz-K6-v6i" id="vxg-ch-DPa"/>
+                <outlet property="lbltime333" destination="Ual-XI-ddG" id="cdp-pn-o01"/>
                 <outlet property="scrollviewdeliveryslotpopup" destination="u57-qW-VkW" id="EIG-uB-Y3A"/>
                 <outlet property="tabveditpopupitems" destination="vj5-Nt-PMx" id="iZP-Fv-bCM"/>
                 <outlet property="tabvordereview" destination="wSx-5k-F8V" id="eRk-JY-BzM"/>
@@ -146,7 +149,7 @@
                                 <action selector="pressproceed:" destination="-1" eventType="touchUpInside" id="7Un-Hd-Hme"/>
                             </connections>
                         </button>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shop AED 15.00 or more for FREE delivery" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDN-Ja-qVt">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDN-Ja-qVt">
                             <rect key="frame" x="198" y="575" width="160" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
                             <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="12"/>

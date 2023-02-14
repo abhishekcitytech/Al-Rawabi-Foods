@@ -473,7 +473,8 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                 
                 cellA.viewcell.backgroundColor = .white
             }
-            else if flttotalprice >= 15.00{
+            else if flttotalprice >= Constants.conn.CutOffSubscriptionOrderTotal //15.00
+            {
                 
                 //GREEN
                 cellA.lblseparator.backgroundColor = .white
@@ -488,7 +489,8 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                 
                 cellA.viewcell.backgroundColor = UIColor(named: "greencolor")!
             }
-            else if flttotalprice < 15.00{
+            else if flttotalprice < Constants.conn.CutOffSubscriptionOrderTotal //15.00
+            {
                 
                 //RED
                 
@@ -1452,7 +1454,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
-                          "categoryId": "none","pageFromId": "3"] as [String : Any]
+                          "categoryId": "none","pageFromId": "3","language": ""] as [String : Any]
 
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -1573,9 +1575,9 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         print("strselectedcategoryid",strselectedcategoryid)
         strsearchkeyword = strsearchkeyword.replacingOccurrences(of: " ", with: "%20")
         print("strsearchkeyword",strsearchkeyword)
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,strsearchkeyword,strSelectedSubCat)
+        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,strsearchkeyword,strSelectedSubCat,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{
