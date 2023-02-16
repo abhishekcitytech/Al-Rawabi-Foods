@@ -1666,6 +1666,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         request.httpMethod = "POST"
         //request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -1774,6 +1775,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -1888,8 +1890,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
         print("strconnurl",strconnurl)
+        
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -1996,6 +1998,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         //let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         //let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -2123,6 +2126,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             guard error == nil && data != nil else
@@ -2216,6 +2220,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             guard error == nil && data != nil else
@@ -2307,6 +2312,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             guard error == nil && data != nil else
@@ -2396,6 +2402,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             guard error == nil && data != nil else
@@ -2569,6 +2576,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -2670,6 +2678,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String

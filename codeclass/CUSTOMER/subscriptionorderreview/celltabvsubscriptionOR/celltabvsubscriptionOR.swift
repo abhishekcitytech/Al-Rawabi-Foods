@@ -18,17 +18,12 @@ class celltabvsubscriptionOR: UITableViewCell {
     @IBOutlet weak var lblsubscriptiondate: UILabel!
     @IBOutlet weak var lblsubscriptionday: UILabel!
     
-    
     @IBOutlet weak var lbltotalproducts: UILabel!
     @IBOutlet weak var lblsubtotal: UILabel!
     
-    @IBOutlet weak var lbldeliverydate: UILabel!
-    @IBOutlet weak var lbldeliverydate1: UILabel!
-    
     @IBOutlet weak var btnAddMore: UIButton!
-    
-    
     @IBOutlet weak var btndetail: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

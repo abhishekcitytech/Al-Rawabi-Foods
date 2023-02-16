@@ -564,72 +564,96 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                         
                         if strsuccess == true
                         {
-                            let strsubtotal1 = String(format: "%@", dictemp.value(forKey: "subtotal")as? String ?? "0.00")
-                            let strshippingAmount = String(format: "%@", dictemp.value(forKey: "shippingAmount")as? String ?? "0.00")
-                            let strgrandtotal = String(format: "%@", dictemp.value(forKey: "grandtotal")as? String ?? "0.00")
-                            let strcurrency_code = String(format: "%@", dictemp.value(forKey: "currency_code")as? String ?? "")
+                            let cartid = String(format: "%@", dictemp.value(forKey: "cart_id")as? String ?? "")
+                            let arrcartitem = dictemp.value(forKey: "cart_items")as? NSArray ?? []
                             
-                            self.strsubtotal = strsubtotal1
-                            self.strshipping = strshippingAmount
-                            self.strgrandtotal = strgrandtotal
-                            self.strcurrency = strcurrency_code
-                            print("self.strsubtotal",self.strsubtotal)
-                            print("self.strshipping",self.strshipping)
-                            print("self.strgrandtotal",self.strgrandtotal)
-                            print("self.strcurrency",self.strcurrency)
+                            print("cartid",cartid)
+                            print("arrcartitem",arrcartitem)
                             
-                            
-                            let stravailable_points = String(format: "%@", dictemp.value(forKey: "available_points")as! CVarArg)
-                            let strspend_max_points = String(format: "%@", dictemp.value(forKey: "spend_max_points")as! CVarArg)
-                            let strspend_min_points = String(format: "%@", dictemp.value(forKey: "spend_min_points")as! CVarArg)
-                            
-                            let strspend_points = String(format: "%@", dictemp.value(forKey: "spend_points")as! CVarArg)
-                            
-                            if stravailable_points == "0" || stravailable_points == "0.0"
+                            if arrcartitem.count == 0
                             {
-                                //YOU CAN NOT APPLY REWARD POINT
-                                self.lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language355")
-                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkmostredcolor")!
+                                //CART ALREADY EMPTY - BACK TO ORDER ONCE CART PAGE
+                                
+                                let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language448") , preferredStyle: UIAlertController.Style.alert)
+                                self.present(uiAlert, animated: true, completion: nil)
+                                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                    print("Click of default button")
+                                    self.poptoBackPageforCartEmpty()
+                                }))
                             }
                             else
                             {
-                                //YOU CAN APPLY
-                                self.lblmaximumrewardpointsused.text = String(format: "%@ %@ %@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language356"),strspend_min_points,myAppDelegate.changeLanguage(key: "msg_language357"),strspend_max_points,myAppDelegate.changeLanguage(key: "msg_language358"))
-                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkgreencolor")!
-                            }
-                            
-                            
-                            if strspend_points == "0" || strspend_points == "0.0"
-                            {
-                                //No SPEND POINTS MEAN - APPLY CAN, REMOVE HIDE
-                                self.btnapplyrewardpoints.isUserInteractionEnabled = true
-                                self.btnremoverewardpoints.isHidden = true
+                                //CART NOT EMPTY
                                 
-                                self.txtrewardpoints.isUserInteractionEnabled = true
+                                let strsubtotal1 = String(format: "%@", dictemp.value(forKey: "subtotal")as? String ?? "0.00")
+                                let strshippingAmount = String(format: "%@", dictemp.value(forKey: "shippingAmount")as? String ?? "0.00")
+                                let strgrandtotal = String(format: "%@", dictemp.value(forKey: "grandtotal")as? String ?? "0.00")
+                                let strcurrency_code = String(format: "%@", dictemp.value(forKey: "currency_code")as? String ?? "")
                                 
-                                self.txtrewardpoints.backgroundColor = .white
-                            }
-                            else
-                            {
-                                //Spend points exist means- apply CANT , Remove Can
-                                self.btnapplyrewardpoints.isUserInteractionEnabled = false
-                                self.btnremoverewardpoints.isHidden = false
-                                
-                                self.txtrewardpoints.isUserInteractionEnabled = false
-                                
-                                self.btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language361")), for: .normal)
-                                self.txtrewardpoints.text = strspend_points
-                                
-                                self.txtrewardpoints.backgroundColor = UIColor(named: "greenlighter")!
+                                self.strsubtotal = strsubtotal1
+                                self.strshipping = strshippingAmount
+                                self.strgrandtotal = strgrandtotal
+                                self.strcurrency = strcurrency_code
+                                print("self.strsubtotal",self.strsubtotal)
+                                print("self.strshipping",self.strshipping)
+                                print("self.strgrandtotal",self.strgrandtotal)
+                                print("self.strcurrency",self.strcurrency)
                                 
                                 
+                                let stravailable_points = String(format: "%@", dictemp.value(forKey: "available_points")as! CVarArg)
+                                let strspend_max_points = String(format: "%@", dictemp.value(forKey: "spend_max_points")as! CVarArg)
+                                let strspend_min_points = String(format: "%@", dictemp.value(forKey: "spend_min_points")as! CVarArg)
+                                
+                                let strspend_points = String(format: "%@", dictemp.value(forKey: "spend_points")as! CVarArg)
+                                
+                                if stravailable_points == "0" || stravailable_points == "0.0"
+                                {
+                                    //YOU CAN NOT APPLY REWARD POINT
+                                    self.lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language355")
+                                    self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkmostredcolor")!
+                                }
+                                else
+                                {
+                                    //YOU CAN APPLY
+                                    self.lblmaximumrewardpointsused.text = String(format: "%@ %@ %@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language356"),strspend_min_points,myAppDelegate.changeLanguage(key: "msg_language357"),strspend_max_points,myAppDelegate.changeLanguage(key: "msg_language358"))
+                                    self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkgreencolor")!
+                                }
+                                
+                                
+                                if strspend_points == "0" || strspend_points == "0.0"
+                                {
+                                    //No SPEND POINTS MEAN - APPLY CAN, REMOVE HIDE
+                                    self.btnapplyrewardpoints.isUserInteractionEnabled = true
+                                    self.btnremoverewardpoints.isHidden = true
+                                    
+                                    self.txtrewardpoints.isUserInteractionEnabled = true
+                                    
+                                    self.txtrewardpoints.backgroundColor = .white
+                                }
+                                else
+                                {
+                                    //Spend points exist means- apply CANT , Remove Can
+                                    self.btnapplyrewardpoints.isUserInteractionEnabled = false
+                                    self.btnremoverewardpoints.isHidden = false
+                                    
+                                    self.txtrewardpoints.isUserInteractionEnabled = false
+                                    
+                                    self.btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language361")), for: .normal)
+                                    self.txtrewardpoints.text = strspend_points
+                                    
+                                    self.txtrewardpoints.backgroundColor = UIColor(named: "greenlighter")!
+                                    
+                                    
+                                }
                             }
                         }
-                        else{
+                        else
+                        {
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
+                                self.poptoBackPageforCartEmpty()
                             }))
                         }
                         self.getorderoncepaymentmethodlist()
@@ -666,6 +690,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -1264,6 +1289,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         request.httpMethod = "PUT"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -1409,4 +1435,25 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                                               overParent: self,
                                               for: orderResponse)
       }*/
+    
+    
+    //MARK: - POP to BACK PAGE fro CART EMPTY SCENARIO
+    func poptoBackPageforCartEmpty()
+    {
+        guard let vc = self.navigationController?.viewControllers else { return }
+        for controller in vc {
+            if controller.isKind(of: homeclass.self) {
+                let tabVC = controller as! homeclass
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }
+            else if controller.isKind(of: orderonceclass.self) {
+                let tabVC = controller as! orderonceclass
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }
+            else if controller.isKind(of: cartlistorderonce.self) {
+                let tabVC = controller as! cartlistorderonce
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }
+        }
+    }
 }

@@ -93,7 +93,7 @@
 "msg_language84" = "Cart Subtotal + Tax";
 "msg_language85" = "Shipping Charges";
 "msg_language86" = "Grand Total";
-"msg_language87" = "Total Product Items:";
+"msg_language87" = "Total Product Items";
 "msg_language88" = "Sub Total:";
 "msg_language89" = "Delivery on";
 "msg_language90" = "Shop AED 15 or more, for FREE delivery";
@@ -101,7 +101,7 @@
 "msg_language92" = "Add Products";
 "msg_language93" = "+ Add New Address";
 "msg_language94" = "Pay & Checkout";
-"msg_language95" = "Shipping Process";
+"msg_language95" = "Shipping Addresses";
 "msg_language96" = "Choose Your Expected Delivery Date";
 "msg_language97" = "Current Location";
 "msg_language98" = "PROCEED";
@@ -455,4 +455,4 @@
 "msg_language445" = "Please select preferred delivery address.";
 "msg_language446" = "No address found!";
 "msg_language447" = "or more for FREE delivery";
-
+"msg_language448" = "It seems your cart is empty. Return to product selection.";

@@ -1448,6 +1448,7 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
         request.httpMethod = "POST"
         //request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String

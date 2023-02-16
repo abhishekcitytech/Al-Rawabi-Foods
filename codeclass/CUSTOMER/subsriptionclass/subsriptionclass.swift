@@ -917,6 +917,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             guard error == nil && data != nil else

@@ -810,6 +810,13 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                         
                         if self.arrMcartItems.count == 0{
                             self.msg = myAppDelegate.changeLanguage(key: "msg_language117")
+                            self.btnkeepshopping.isHidden = false
+                            self.btnkeepshopping.frame = CGRect(x: self.btnkeepshopping.frame.origin.x, y: self.viewtop.frame.minY, width: self.btnkeepshopping.frame.size.width, height: self.btnkeepshopping.frame.size.height)
+                        }
+                        else
+                        {
+                            self.btnkeepshopping.isHidden = false
+                            self.btnkeepshopping.frame = CGRect(x: self.btnkeepshopping.frame.origin.x, y: self.viewtop.frame.maxY, width: self.btnkeepshopping.frame.size.width, height: self.btnkeepshopping.frame.size.height)
                         }
                         self.tabvcart.reloadData()
                         
@@ -872,6 +879,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -974,6 +982,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -1071,6 +1080,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         //let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         //let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -1196,6 +1206,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -1292,6 +1303,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         //let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         //let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String

@@ -78,12 +78,8 @@
                             <color key="textColor" name="themecolor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ribbon" translatesAutoresizingMaskIntoConstraints="NO" id="W9r-cO-tqU">
-                            <rect key="frame" x="0.0" y="0.0" width="82" height="77"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                        </imageView>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wSx-5k-F8V">
-                            <rect key="frame" x="8" y="85" width="359" height="396"/>
+                            <rect key="frame" x="8" y="8" width="359" height="473"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <connections>
@@ -91,6 +87,23 @@
                                 <outlet property="delegate" destination="-1" id="GBt-U4-l9h"/>
                             </connections>
                         </tableView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ribbonlinedaily" translatesAutoresizingMaskIntoConstraints="NO" id="W9r-cO-tqU">
+                            <rect key="frame" x="0.0" y="0.0" width="18" height="78"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTS-3r-kHT">
+                            <rect key="frame" x="266" y="484" width="101" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                            <color key="backgroundColor" name="darkredcolor"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="CLEAR ALL">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="pressClearAll:" destination="-1" eventType="touchUpInside" id="CdI-q2-rFR"/>
+                            </connections>
+                        </button>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjF-Mp-Rv8">
                             <rect key="frame" x="8" y="523" width="359" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -156,21 +169,8 @@
                             <color key="textColor" name="darkredcolor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTS-3r-kHT">
-                            <rect key="frame" x="266" y="484" width="101" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
-                            <color key="backgroundColor" name="darkredcolor"/>
-                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="CLEAR ALL">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="pressClearAll:" destination="-1" eventType="touchUpInside" id="CdI-q2-rFR"/>
-                            </connections>
-                        </button>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -457,7 +457,7 @@
         <image name="crossblack" width="24" height="24"/>
         <image name="radio1" width="32" height="32"/>
         <image name="radio2" width="32" height="32"/>
-        <image name="ribbon" width="125" height="125"/>
+        <image name="ribbonlinedaily" width="101" height="161"/>
         <namedColor name="darkgreencolor">
             <color red="0.14499999582767487" green="0.54100000858306885" blue="0.29399999976158142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

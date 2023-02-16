@@ -172,15 +172,15 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         
         if strpageidentifier == "100"{
             lblmessageminimumorder.text = myAppDelegate.changeLanguage(key: "msg_language64")
-            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_daily")
+            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbonlinedaily")
         }
         else if strpageidentifier == "200"{
             lblmessageminimumorder.text = myAppDelegate.changeLanguage(key: "msg_language65")
-            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_weekly")
+            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbonlineweekly")
         }
         else if strpageidentifier == "300"{
             lblmessageminimumorder.text = myAppDelegate.changeLanguage(key: "msg_language66")
-            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbon_monthly")
+            self.imgvribbonsubscriptionplan.image = UIImage(named: "ribbonlinemonthly")
         }
         
         if arrMordereview.count == 0{
@@ -585,7 +585,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         if tableView == tabveditpopupitems{
             return 155
         }
-        return 150
+        return 115
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
@@ -1057,8 +1057,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             cell.lbltotalproducts.text = String(format: "%@ :%0.0f",myAppDelegate.changeLanguage(key: "msg_language87"),flttotalproductcount)
             cell.lblsubtotal.text = String(format: "%@ AED %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),flttotalprice)
             
-            cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
-            cell.lbldeliverydate1.text = String(format: "%@",strdate)
+            //cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
+            //cell.lbldeliverydate1.text = String(format: "%@",strdate)
             
             
             if flttotalproductcount > 0.00{
@@ -1140,8 +1140,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             cell.lbltotalproducts.text = String(format: "%@ :%0.0f",myAppDelegate.changeLanguage(key: "msg_language87"),flttotalproductcount)
             cell.lblsubtotal.text = String(format: "%@ AED %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),flttotalprice)
             
-            cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
-            cell.lbldeliverydate1.text = String(format: "%@",strdate)
+            //cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
+            //cell.lbldeliverydate1.text = String(format: "%@",strdate)
             
             
             if flttotalproductcount > 0.00{
@@ -1223,8 +1223,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             cell.lbltotalproducts.text = String(format: "%@ :%0.0f",myAppDelegate.changeLanguage(key: "msg_language87"),flttotalproductcount)
             cell.lblsubtotal.text = String(format: "%@ AED %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),flttotalprice)
             
-            cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
-            cell.lbldeliverydate1.text = String(format: "%@",strdate)
+            //cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
+            //cell.lbldeliverydate1.text = String(format: "%@",strdate)
             
             
             if flttotalproductcount > 0.00{
@@ -1263,7 +1263,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         
         cell.lblwarning.text = String(format: "%@ %0.2f %@", myAppDelegate.changeLanguage(key: "msg_language335"),Constants.conn.CutOffSubscriptionOrderTotal,myAppDelegate.changeLanguage(key: "msg_language447"))
         cell.btnAddMore.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language92")), for: .normal)
-        cell.btndetail.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language91")), for: .normal)
+        cell.btndetail.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language73")), for: .normal)
         
         
         let lblSeparator = UILabel(frame: CGRect(x: 0, y: 149.5, width: tableView.frame.size.width, height: 0.5))
@@ -2799,6 +2799,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         //let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         //let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -3028,6 +3029,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String

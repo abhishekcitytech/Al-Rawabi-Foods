@@ -20,7 +20,7 @@ class maidordersuccess: UIViewController
     @IBOutlet weak var btntrackorder: UIButton!
     @IBOutlet weak var btncontinueshopping: UIButton!
     
-
+    
     var strorderid = ""
     
     // MARK: - viewWillAppear Method
@@ -99,19 +99,31 @@ class maidordersuccess: UIViewController
         //FIXME
         let strpayfromOrderonce = UserDefaults.standard.value(forKey: "payfromOrderonce")as? String ?? ""
         print("strpayfromOrderonce",strpayfromOrderonce)
-
+        
         //ORDER ONCE
         guard let vc = self.navigationController?.viewControllers else { return }
         for controller in vc {
-           if controller.isKind(of: maidhomeclass.self) {
-              let tabVC = controller as! maidhomeclass
-              self.navigationController?.popToViewController(tabVC, animated: true)
-           }
-            else if controller.isKind(of: maidproductdetails.self) {
+            if controller.isKind(of: maidhomeclass.self) {
                 let tabVC = controller as! maidhomeclass
                 self.navigationController?.popToViewController(tabVC, animated: true)
-             }
+            }
+            else if controller.isKind(of: maidproductdetails.self) {
+                let tabVC = controller as! maidproductdetails
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }
+            else if controller.isKind(of: maidcartlist.self) {
+                let tabVC = controller as! maidcartlist
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }
+            else if controller.isKind(of: maidmenuclass.self) {
+                let tabVC = controller as! maidmenuclass
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }
+            else if controller.isKind(of: maidsearchproductlist.self) {
+                let tabVC = controller as! maidsearchproductlist
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }
         }
     }
-
+    
 }

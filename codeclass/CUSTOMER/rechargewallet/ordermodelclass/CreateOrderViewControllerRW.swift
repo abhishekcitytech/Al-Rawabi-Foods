@@ -98,6 +98,7 @@ class CreateOrderViewControllerRW: UIViewController
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = headers
         request.httpBody = orderRequestData
+        print("strconnurl",strconnurl)
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data, response, error) in

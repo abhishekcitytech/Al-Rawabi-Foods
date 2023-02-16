@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,34 +23,20 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="KGk-i7-Jjw" customClass="celltabvsubscriptionOR" customModule="AlRawabi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="367" height="150"/>
+            <rect key="frame" x="0.0" y="0.0" width="367" height="115"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="367" height="150"/>
+                <rect key="frame" x="0.0" y="0.0" width="367" height="115"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AZ8-4b-fHQ">
-                        <rect key="frame" x="0.0" y="0.0" width="367" height="150"/>
+                        <rect key="frame" x="0.0" y="0.0" width="367" height="115"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O0F-ZG-jln">
-                                <rect key="frame" x="0.0" y="0.0" width="116" height="150"/>
+                                <rect key="frame" x="0.0" y="0.0" width="116" height="115"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3u-Fu-W92">
-                                        <rect key="frame" x="5" y="12" width="103" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                        <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Zp-3A-q5u">
-                                        <rect key="frame" x="5" y="41" width="103" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                        <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-Iz-psl">
                                         <rect key="frame" x="115" y="0.0" width="1" height="150"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
@@ -61,45 +46,40 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neT-Xe-4LA">
-                                        <rect key="frame" x="5" y="90" width="22" height="22"/>
+                                        <rect key="frame" x="4" y="64" width="22" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" backgroundImage="warning"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drN-Kh-BCx">
-                                        <rect key="frame" x="5" y="114" width="103" height="36"/>
+                                        <rect key="frame" x="4" y="85" width="103" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                        <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="10"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="9"/>
                                         <color key="textColor" name="darkmostredcolor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3u-Fu-W92">
+                                        <rect key="frame" x="3" y="19" width="103" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Zp-3A-q5u">
+                                        <rect key="frame" x="3" y="41" width="104" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                                        <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kxk-6s-Hx6">
-                                <rect key="frame" x="121" y="9" width="238" height="21"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKF-vq-gr2">
-                                <rect key="frame" x="121" y="44" width="238" height="21"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
-                                <color key="textColor" name="orangecolor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t90-Em-eMF">
-                                <rect key="frame" x="121" y="73" width="136" height="21"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="12"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5U-Kv-FD3">
-                                <rect key="frame" x="265" y="84" width="94" height="31"/>
+                                <rect key="frame" x="268" y="26" width="94" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <color key="backgroundColor" name="themecolor"/>
                                 <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
@@ -108,25 +88,34 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dg8-EE-LsC">
-                                <rect key="frame" x="252" y="123" width="107" height="24"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dg8-EE-LsC">
+                                <rect key="frame" x="268" y="65" width="94" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="12"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="+Add Products">
                                     <color key="titleColor" name="greencolor"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqx-UU-7w9">
-                                <rect key="frame" x="121" y="102" width="136" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kxk-6s-Hx6">
+                                <rect key="frame" x="121" y="26" width="139" height="31"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="12"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKF-vq-gr2">
+                                <rect key="frame" x="121" y="56" width="139" height="51"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
+                                <color key="textColor" name="orangecolor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </subviews>
             </tableViewCellContentView>
@@ -135,8 +124,6 @@
                 <outlet property="btnAddMore" destination="Dg8-EE-LsC" id="ztJ-SI-Ixa"/>
                 <outlet property="btndetail" destination="g5U-Kv-FD3" id="mAD-cJ-0dh"/>
                 <outlet property="btnwarning" destination="neT-Xe-4LA" id="zLU-G1-IKf"/>
-                <outlet property="lbldeliverydate" destination="t90-Em-eMF" id="BeB-n9-rV5"/>
-                <outlet property="lbldeliverydate1" destination="Tqx-UU-7w9" id="k2c-VW-n2z"/>
                 <outlet property="lblseparator" destination="pDs-Iz-psl" id="432-4F-bBK"/>
                 <outlet property="lblsubscriptiondate" destination="X3u-Fu-W92" id="afh-1l-HR7"/>
                 <outlet property="lblsubscriptionday" destination="9Zp-3A-q5u" id="39b-mb-0WM"/>
@@ -146,7 +133,7 @@
                 <outlet property="viewleft" destination="O0F-ZG-jln" id="CXh-np-ylx"/>
                 <outlet property="viewoverall" destination="AZ8-4b-fHQ" id="jMA-AS-4jR"/>
             </connections>
-            <point key="canvasLocation" x="126.81159420289856" y="-4.0178571428571423"/>
+            <point key="canvasLocation" x="126.81159420289856" y="-4.3526785714285712"/>
         </tableViewCell>
     </objects>
     <resources>
@@ -166,8 +153,5 @@
         <namedColor name="themecolor">
             <color red="0.0" green="0.18799999356269836" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

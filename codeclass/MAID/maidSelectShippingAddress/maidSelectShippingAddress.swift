@@ -69,6 +69,8 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
         btnpaycheckout.layer.cornerRadius = 16.0
         btnpaycheckout.layer.masksToBounds = true
         
+        lbladdresses.text = myAppDelegate.changeLanguage(key: "msg_language119")
+        lblshippingmethod.text = myAppDelegate.changeLanguage(key: "msg_language350")
         btnpaycheckout.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
         
         tabvmyaddress.register(UINib(nibName: "cellSelectShippingAddress", bundle: nil), forCellReuseIdentifier: reuseIdentifier1)
@@ -331,7 +333,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
         print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod85)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod85,"")
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -573,6 +575,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         print("strconnurl",strconnurl)
+        
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String

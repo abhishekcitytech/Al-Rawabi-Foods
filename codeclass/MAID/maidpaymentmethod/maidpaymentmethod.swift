@@ -418,27 +418,48 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
                         
                         if strsuccess == true
                         {
-                            let strsubtotal1 = String(format: "%@", dictemp.value(forKey: "subtotal")as? String ?? "0.00")
-                            let strshippingAmount = String(format: "%@", dictemp.value(forKey: "shippingAmount")as? String ?? "0.00")
-                            let strgrandtotal = String(format: "%@", dictemp.value(forKey: "grandtotal")as? String ?? "0.00")
-                            let strcurrency_code = String(format: "%@", dictemp.value(forKey: "currency_code")as? String ?? "")
+                            let cartid = String(format: "%@", dictemp.value(forKey: "cart_id")as? String ?? "")
+                            let arrcartitem = dictemp.value(forKey: "cart_items")as? NSArray ?? []
                             
-                            self.strsubtotal = strsubtotal1
-                            self.strshipping = strshippingAmount
-                            self.strgrandtotal = strgrandtotal
-                            self.strcurrency = strcurrency_code
-                            print("self.strsubtotal",self.strsubtotal)
-                            print("self.strshipping",self.strshipping)
-                            print("self.strgrandtotal",self.strgrandtotal)
-                            print("self.strcurrency",self.strcurrency)
+                            print("cartid",cartid)
+                            print("arrcartitem",arrcartitem)
                             
-
+                            if arrcartitem.count == 0
+                            {
+                                //CART ALREADY EMPTY - BACK TO ORDER ONCE CART PAGE
+                                
+                                let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language448") , preferredStyle: UIAlertController.Style.alert)
+                                self.present(uiAlert, animated: true, completion: nil)
+                                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                    print("Click of default button")
+                                    self.poptoBackPageforCartEmpty()
+                                }))
+                            }
+                            else
+                            {
+                                //CART NOT EMPTY
+                                
+                                let strsubtotal1 = String(format: "%@", dictemp.value(forKey: "subtotal")as? String ?? "0.00")
+                                let strshippingAmount = String(format: "%@", dictemp.value(forKey: "shippingAmount")as? String ?? "0.00")
+                                let strgrandtotal = String(format: "%@", dictemp.value(forKey: "grandtotal")as? String ?? "0.00")
+                                let strcurrency_code = String(format: "%@", dictemp.value(forKey: "currency_code")as? String ?? "")
+                                
+                                self.strsubtotal = strsubtotal1
+                                self.strshipping = strshippingAmount
+                                self.strgrandtotal = strgrandtotal
+                                self.strcurrency = strcurrency_code
+                                print("self.strsubtotal",self.strsubtotal)
+                                print("self.strshipping",self.strshipping)
+                                print("self.strgrandtotal",self.strgrandtotal)
+                                print("self.strcurrency",self.strcurrency)
+                            }
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
+                                self.poptoBackPageforCartEmpty()
                             }))
                         }
                         self.getorderoncepaymentmethodlist()
@@ -449,6 +470,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
                 //check for internal server data error
                 DispatchQueue.main.async {
                     self.view.activityStopAnimating()
+                    self.poptoBackPageforCartEmpty()
                     self.getorderoncepaymentmethodlist()
                 }
                 print("Error -> \(error)")
@@ -475,6 +497,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -726,6 +749,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
         request.httpMethod = "PUT"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
         
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -788,6 +812,35 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
             }
         }
         task.resume()
+    }
+    
+    
+    //MARK: - POP to BACK PAGE fro CART EMPTY SCENARIO
+    func poptoBackPageforCartEmpty()
+    {
+        guard let vc = self.navigationController?.viewControllers else { return }
+        for controller in vc {
+            if controller.isKind(of: maidhomeclass.self) {
+                let tabVC = controller as! maidhomeclass
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }
+            else if controller.isKind(of: maidproductdetails.self) {
+                let tabVC = controller as! maidproductdetails
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }
+            /*else if controller.isKind(of: maidcartlist.self) {
+                let tabVC = controller as! maidcartlist
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }
+            else if controller.isKind(of: maidmenuclass.self) {
+                let tabVC = controller as! maidmenuclass
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }
+            else if controller.isKind(of: maidsearchproductlist.self) {
+                let tabVC = controller as! maidsearchproductlist
+                self.navigationController?.popToViewController(tabVC, animated: true)
+            }*/
+        }
     }
 
 }

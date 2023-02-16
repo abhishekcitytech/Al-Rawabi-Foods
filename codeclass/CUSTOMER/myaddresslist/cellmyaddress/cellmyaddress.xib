@@ -52,7 +52,7 @@ P.O. Box 50368, Dubai | Al Khawaneej | UAE</string>
                                 <color key="textColor" name="greencolor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sidearrowgreen" translatesAutoresizingMaskIntoConstraints="NO" id="zGH-ao-B0l">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pencilgreen" translatesAutoresizingMaskIntoConstraints="NO" id="zGH-ao-B0l">
                                 <rect key="frame" x="319" y="140" width="32" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             </imageView>
@@ -102,7 +102,7 @@ P.O. Box 50368, Dubai | Al Khawaneej | UAE</string>
     </objects>
     <resources>
         <image name="myaddressloc" width="44" height="44"/>
-        <image name="sidearrowgreen" width="32" height="32"/>
+        <image name="pencilgreen" width="28" height="28.5"/>
         <namedColor name="greencolor">
             <color red="0.1289999932050705" green="0.58799999952316284" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
