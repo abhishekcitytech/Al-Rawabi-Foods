@@ -59,7 +59,7 @@
 "msg_language50" = "Continue";
 "msg_language51" = "You have already made a Weekly Subscription under pre-order, kindly complete that order first.";
 "msg_language52" = "You have already made a Monthly Subscription under pre-order, kindly complete that order first.";
-"msg_language53" = "Choose your location";
+"msg_language53" = "Choose your delivery location";
 "msg_language54" = "Please Select Your Subscription";
 "msg_language55" = "From Below Listing";
 "msg_language56" = "Select";
@@ -456,3 +456,8 @@
 "msg_language446" = "No address found!";
 "msg_language447" = "or more for FREE delivery";
 "msg_language448" = "It seems your cart is empty. Return to product selection.";
+"msg_language449" = "How often do you want us to deliver?";
+"msg_language450" = "Place daily orders for 10 days or more";
+"msg_language451" = "Place orders for 3 days a week or more";
+"msg_language452" = "Place orders for 8 days a month or more";
+

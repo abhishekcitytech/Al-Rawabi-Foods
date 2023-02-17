@@ -192,9 +192,9 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
         print("strbearertoken",strbearertoken)
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?status=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod84,stratstus,"")
+        strconnurl = String(format: "%@%@?status=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod84,stratstus,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

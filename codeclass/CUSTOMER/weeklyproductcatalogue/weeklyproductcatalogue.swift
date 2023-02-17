@@ -1438,11 +1438,11 @@ class weeklyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionV
         //print("strbearertoken",strbearertoken)
         
         //$pageFromId = 1 (all), $pageFromId = 2 (main + offer + newarrival), $pageFromId = 3 (main)
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
-                          "categoryId": "none","pageFromId": "3","language": ""] as [String : Any]
+                          "categoryId": "none","pageFromId": "3","language": strLangCode] as [String : Any]
 
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

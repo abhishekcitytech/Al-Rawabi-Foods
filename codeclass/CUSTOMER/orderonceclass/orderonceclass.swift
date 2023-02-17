@@ -806,7 +806,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
         }
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         //let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         //print("strbearertoken",strbearertoken)
         
@@ -815,7 +815,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
-                          "categoryId": "none","pageFromId": "3","language": ""] as [String : Any]
+                          "categoryId": "none","pageFromId": "3","language": strLangCode] as [String : Any]
 
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

@@ -1537,9 +1537,9 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?subscriptionid=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod59,strsubscriptionid,"")
+        strconnurl = String(format: "%@%@?subscriptionid=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod59,strsubscriptionid,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

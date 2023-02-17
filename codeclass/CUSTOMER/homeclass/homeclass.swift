@@ -620,9 +620,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)*/
                 
-                self.lblalertmessagelocationchecking.backgroundColor = UIColor(named: "lightgreencolor")!
+                self.lblalertmessagelocationchecking.backgroundColor = .clear
                 self.lblalertmessagelocationchecking.text = myAppDelegate.changeLanguage(key: "msg_language262")
-                self.lblalertmessagelocationchecking.textColor = .black
+                self.lblalertmessagelocationchecking.textColor = UIColor(named: "darkgreencolor")!
                 self.lblalertmessagelocationchecking.layer.cornerRadius = 0.0
                 self.lblalertmessagelocationchecking.layer.masksToBounds = true
                 self.boolcheck = false
@@ -665,9 +665,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)*/
                 
-                self.lblalertmessagelocationchecking.backgroundColor = UIColor(named: "lightred")!
+                self.lblalertmessagelocationchecking.backgroundColor = .clear
                 self.lblalertmessagelocationchecking.text = myAppDelegate.changeLanguage(key: "msg_language323")
-                self.lblalertmessagelocationchecking.textColor = .black
+                self.lblalertmessagelocationchecking.textColor = UIColor(named: "darkmostredcolor")!
                 self.lblalertmessagelocationchecking.layer.cornerRadius = 0.0
                 self.lblalertmessagelocationchecking.layer.masksToBounds = true
                 self.boolcheck = false
@@ -745,19 +745,20 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         self.txtlocationselect.placeholder = myAppDelegate.changeLanguage(key: "msg_language53")
         
-        lblchoosesubscriptionplan.text = myAppDelegate.changeLanguage(key: "msg_language36")
+        lblchoosesubscriptionplan.text = myAppDelegate.changeLanguage(key: "msg_language449")
         
         btnBuyoncepopup.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language44")), for: .normal)
         
         lbldaily1.text = myAppDelegate.changeLanguage(key: "msg_language37")
-        lbldaily2.text = myAppDelegate.changeLanguage(key: "msg_language40")
+        lbldaily2.text = myAppDelegate.changeLanguage(key: "msg_language450")
         
         lblweekly1.text = myAppDelegate.changeLanguage(key: "msg_language38")
-        lblweekly2.text = myAppDelegate.changeLanguage(key: "msg_language41")
+        lblweekly2.text = myAppDelegate.changeLanguage(key: "msg_language451")
         
         lblmonthly1.text = myAppDelegate.changeLanguage(key: "msg_language39")
-        lblmonthly2.text = myAppDelegate.changeLanguage(key: "msg_language42")
+        lblmonthly2.text = myAppDelegate.changeLanguage(key: "msg_language452")
         
+        lblgetyourdelivery.isHidden = true
         lblgetyourdelivery.text = myAppDelegate.changeLanguage(key: "msg_language43")
         
 
@@ -1567,9 +1568,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         //let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         //print("strbearertoken",strbearertoken)
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod7,"")
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod7,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         //request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -1654,11 +1655,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         //print("strbearertoken",strbearertoken)
         
         //$pageFromId = 1 (all), $pageFromId = 2 (main + offer + newarrival), $pageFromId = 3 (main)
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         let parameters = ["categoryCount": "none",
                           "categoryImage": "all",
                           "categoryName": "none",
-                          "categoryId": "none","pageFromId": "2","language": ""] as [String : Any]
+                          "categoryId": "none","pageFromId": "2","language": strLangCode] as [String : Any]
         
 
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)

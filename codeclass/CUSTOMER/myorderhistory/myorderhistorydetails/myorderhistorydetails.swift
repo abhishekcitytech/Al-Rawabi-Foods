@@ -180,8 +180,8 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
             print("strbearertoken",strbearertoken)
         }
         
-      
-        let parameters = ["orderid": strorder_id,"language": ""] as [String : Any]
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        let parameters = ["orderid": strorder_id,"language": strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod21)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

@@ -89,6 +89,8 @@ class pausesubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         
         self.lblstatus.text = strsubscription_status
         
+        btnresume.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language431")), for: .normal)
+        
         if strsubscription_status_code == "0"{
             //Pending
             lblstatus.backgroundColor =  UIColor(named: "orangecolor")!
@@ -285,9 +287,9 @@ class pausesubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
         print("strbearertoken",strbearertoken)
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?subscriptionid=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod82,strsubscriptionid,"")
+        strconnurl = String(format: "%@%@?subscriptionid=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod82,strsubscriptionid,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

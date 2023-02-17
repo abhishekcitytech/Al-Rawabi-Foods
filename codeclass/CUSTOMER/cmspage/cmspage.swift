@@ -140,7 +140,7 @@ class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDele
         //print("strbearertoken",strbearertoken)
         
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?&language=%@", Constants.conn.ConnUrl, strmethodname,"")
+        strconnurl = String(format: "%@%@?&language=%@", Constants.conn.ConnUrl, strmethodname,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         //request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
