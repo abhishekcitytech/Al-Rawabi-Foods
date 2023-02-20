@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import MessageUI
 
-class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UITextViewDelegate
+class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UITextViewDelegate,MFMailComposeViewControllerDelegate
 {
-
+    
     @IBOutlet weak var viewoverall: UIView!
     @IBOutlet weak var scrolloverall: UIScrollView!
     
@@ -20,7 +21,7 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
     @IBOutlet weak var viewemil: UIView!
     @IBOutlet weak var viewemil1: UIView!
     @IBOutlet weak var txtemail: UITextField!
-
+    
     @IBOutlet weak var viewmobile: UIView!
     @IBOutlet weak var viewmobile1: UIView!
     @IBOutlet weak var lblmobilecountrycode: UILabel!
@@ -35,9 +36,11 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
     @IBOutlet weak var lblemail: UILabel!
     
     @IBOutlet weak var btnsubmit: UIButton!
+    @IBOutlet weak var btncallfunction: UIButton!
+    @IBOutlet weak var btnemailfunction: UIButton!
     
     var strPagename = String()
-     
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -68,6 +71,10 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
+        
+        
+        lblphoneno.text = String(format: "%@", Constants.conn.STATISCALLNO)
+        lblemail.text = String(format: "%@", Constants.conn.STATISEMAILID)
         
         
         self.scrolloverall.backgroundColor = .white
@@ -109,26 +116,78 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
     //MARK: - setup RTL LTR method
     func setupRTLLTR()
     {
-         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         txtname.placeholder = myAppDelegate.changeLanguage(key: "msg_language390")
         txtemail.placeholder = myAppDelegate.changeLanguage(key: "msg_language30")
         txtmobile.placeholder = myAppDelegate.changeLanguage(key: "msg_language31")
         lblwhatsinyourmind.text = myAppDelegate.changeLanguage(key: "msg_language391")
         
         btnsubmit.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language178")), for: .normal)
-
-         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-         if (strLangCode == "en")
-         {
         
-         }
-         else
-         {
-
-         }
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            
+        }
+        else
+        {
+            
+        }
     }
-
+    
+    //MARK: - press Call / Email Function Method
+    @IBAction func presscallfunction(_ sender: Any)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language456"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+            print("Handle Continue Logic here")
+            
+            let phoneNumberVariable = Constants.conn.STATISCALLNO
+            let formattedNumber = phoneNumberVariable.components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
+            if let url = NSURL(string: ("tel:" + (formattedNumber))) {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url as URL)
+                }
+            }
+        }))
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
+        
+    }
+    @IBAction func pressemailfunction(_ sender: Any)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language457"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+            print("Handle Continue Logic here")
+            
+            if !MFMailComposeViewController.canSendMail() {
+                print("Mail services are not available")
+                return
+            }
+            let composeVC = MFMailComposeViewController()
+            composeVC.mailComposeDelegate = self
+            
+            composeVC.setToRecipients([String(format: "%@", lblemail.text!)])
+            composeVC.setSubject(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language454")))
+            self.parent?.present(composeVC, animated: true, completion: nil)
+        }))
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
+    }
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    
     //MARK: - press Submit Method
     @IBAction func pressSubmit(_ sender: Any)
     {
@@ -295,7 +354,7 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -320,7 +379,7 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                             }))
-
+                            
                         }
                         else
                         {

@@ -213,7 +213,7 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 print("Click of default button")
             }))
         }
-        else if txtmobileno.text?.count != 10
+        else if txtmobileno.text?.count != 9
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language14"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
@@ -437,8 +437,10 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                                 
                                 let strid = String(format: "%@", dictemp!.value(forKey: "address_id")as! CVarArg)
                                 //let strcity = String(format: "%@", dictemp!.value(forKey: "city")as? String ?? "")
+                                
                                 let dicregion = dictemp!.value(forKey: "region")as! NSDictionary
                                 let strregionname = String(format: "%@", dicregion.value(forKey: "region")as? String ?? "")
+                                
                                 let strcountry_id = String(format: "%@", dictemp!.value(forKey: "country_id")as? String ?? "")
                                 let arrstreet = (dictemp!.value(forKey: "street")as! NSArray)
                                 var strfullstreet = ""

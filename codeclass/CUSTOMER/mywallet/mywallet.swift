@@ -93,6 +93,7 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
         btnrecharge.layer.cornerRadius = 20.0
         btnrecharge.layer.masksToBounds = true
         
+        setupRTLLTR()
     }
     
     //MARK: - press back method
@@ -258,8 +259,18 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
         let myFloat1 = height1 + height2
         print(myFloat1)
         
+        lbltransactiondetailsheader.text = myAppDelegate.changeLanguage(key: "msg_language461")
+        
         self.viewtransactiondetails.layer.cornerRadius = 6.0
         self.viewtransactiondetails.layer.masksToBounds = true
+        
+        lblTDamount.text = myAppDelegate.changeLanguage(key: "msg_language466")
+        lblTDaction.text = myAppDelegate.changeLanguage(key: "msg_language467")
+        lblTDtype.text = myAppDelegate.changeLanguage(key: "msg_language468")
+        lblTDrefrence.text = myAppDelegate.changeLanguage(key: "msg_language469")
+        lblTDtransactionat.text = myAppDelegate.changeLanguage(key: "msg_language470")
+        lblTDtransactionnote.text = myAppDelegate.changeLanguage(key: "msg_language471")
+        lblTDtransactionstatus.text = myAppDelegate.changeLanguage(key: "msg_language472")
         
         lblTDamountvalue.text = strlblTDamountvalue
         lblTDactionvalue.text = strlblTDactionvalue

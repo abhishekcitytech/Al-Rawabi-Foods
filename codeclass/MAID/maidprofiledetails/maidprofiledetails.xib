@@ -180,7 +180,7 @@
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <nil key="simulatedBottomBarMetrics"/>
-            <point key="canvasLocation" x="132" y="-11"/>
+            <point key="canvasLocation" x="132" y="-11.244377811094454"/>
         </view>
     </objects>
     <resources>

@@ -144,6 +144,30 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
         
         btnsaveaddresspopup.setTitle(String(format: "   %@", myAppDelegate.changeLanguage(key: "msg_language250")), for: .normal)
         
+        
+        //-----PRE POPULATE -------
+        let dict = UserDefaults.standard.value(forKey: "customerdetails")as! NSDictionary
+        print("dict",dict)
+        
+        var strfullmobileno = ""
+        let arrm = dict.value(forKey: "custom_attributes") as? NSArray ?? []
+        for x in 0 ..< arrm.count
+        {
+            let dic = arrm.object(at: x)as? NSDictionary
+            let strattributecode = String(format: "%@", dic?.value(forKey: "attribute_code")as? String ?? "")
+            if strattributecode.containsIgnoreCase("mobile") || strattributecode.containsIgnoreCase("phone_number")
+            {
+                strfullmobileno = String(format: "%@", dic?.value(forKey: "value")as? String ?? "")
+            }
+        }
+        let strfirstname = String(format: "%@", dict.value(forKey: "firstname")as? String ?? "")
+        let strlastname = String(format: "%@", dict.value(forKey: "lastname")as? String ?? "")
+        let stremail = String(format: "%@", dict.value(forKey: "email")as? String ?? "")
+        txtfirstname.text = strfirstname
+        txtlastname.text = strlastname
+        txtmobileno.text = strfullmobileno
+        //-----PRE POPULATE ------
+        
 
          let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
          if (strLangCode == "en")

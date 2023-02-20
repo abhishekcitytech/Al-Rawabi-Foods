@@ -1330,46 +1330,20 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             let strcategoryImage = String(format: "%@", dict.value(forKey: "categoryImage") as? String ?? "")
             let strFinalurl = strcategoryImage.replacingOccurrences(of: " ", with: "%20")
             print("strFinalurl",strFinalurl)
-            
             print("strtext",strtext)
-            
             
             cellA.viewcell.layer.cornerRadius = 6.0
             cellA.viewcell.layer.masksToBounds = true
             
-            
-            if strtext.containsIgnoreCase("Dairy"){
-                cellA.viewtop.backgroundColor = UIColor(named: "plate1")!
+            let strcolorCode = String(format: "%@", dict.value(forKey: "colorCode") as? String ?? "")
+            if strcolorCode != ""{
+                cellA.viewtop.backgroundColor = UIColor(hexString: String(format: "#%@", strcolorCode))
                 cellA.imgvbg.isHidden = true
-                //cellA.imgv.image = UIImage(named: "cathome1.png")
                 cellA.imgv.imageFromURL(urlString: strFinalurl)
             }
-            else if strtext.containsIgnoreCase("Juice"){
-                cellA.viewtop.backgroundColor = UIColor(named: "plate2")!
-                cellA.imgvbg.isHidden = true
-                //cellA.imgv.image = UIImage(named: "cathome2.png")
-                cellA.imgv.imageFromURL(urlString: strFinalurl)
-            }
-            else if strtext.containsIgnoreCase("Bakery"){
-                cellA.viewtop.backgroundColor = UIColor(named: "plate3")!
-                cellA.imgvbg.isHidden = true
-                //cellA.imgv.image = UIImage(named: "cathome3.png")
-                cellA.imgv.imageFromURL(urlString: strFinalurl)
-            }
-            else if strtext.containsIgnoreCase("Meat"){
-                cellA.viewtop.backgroundColor = UIColor(named: "plate4")!
-                cellA.imgvbg.isHidden = true
-                //cellA.imgv.image = UIImage(named: "cathome4.png")
-                cellA.imgv.imageFromURL(urlString: strFinalurl)
-            }
-            else if strtext.containsIgnoreCase("Gift"){
-                cellA.contentView.isHidden = true
-            }
-            else
-            {
+            else{
                 cellA.viewtop.backgroundColor = UIColor(named: "plate7")!
                 cellA.imgvbg.isHidden = true
-
                 cellA.imgv.imageFromURL(urlString: strFinalurl)
             }
             
@@ -2955,5 +2929,24 @@ extension String {
 extension String {
     func containsIgnoreCase(_ string: String) -> Bool {
         return self.lowercased().contains(string.lowercased())
+    }
+}
+extension UIColor {
+    convenience init(hexString: String) {
+        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int = UInt64()
+        Scanner(string: hex).scanHexInt64(&int)
+        let a, r, g, b: UInt64
+        switch hex.count {
+        case 3: // RGB (12-bit)
+            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+        case 6: // RGB (24-bit)
+            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+        case 8: // ARGB (32-bit)
+            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+        default:
+            (a, r, g, b) = (255, 0, 0, 0)
+        }
+        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
 }

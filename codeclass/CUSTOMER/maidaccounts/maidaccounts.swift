@@ -74,6 +74,8 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         tabvmaidlist.separatorColor=UIColor.clear
         tabvmaidlist.showsVerticalScrollIndicator = false
         
+        btncreatemaid.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language462")), for: .normal)
+        
         btncreatemaid.layer.cornerRadius = 16.0
         btncreatemaid.layer.masksToBounds = true
         

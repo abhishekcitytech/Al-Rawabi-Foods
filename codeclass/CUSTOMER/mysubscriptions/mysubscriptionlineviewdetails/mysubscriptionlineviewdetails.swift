@@ -117,7 +117,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
             btncancel.isHidden = true
             self.lblstatus.backgroundColor =  UIColor(named: "darkredcolor")!
         }
-        
+        btncancel.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language77")), for: .normal)
         self.getallmysubscriptionDetail(strsubscriptionid: strsubscription_id)
         
     }

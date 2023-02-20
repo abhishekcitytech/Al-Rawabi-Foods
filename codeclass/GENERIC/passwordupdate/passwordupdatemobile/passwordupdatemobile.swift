@@ -120,7 +120,7 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
                 print("Click of default button")
             }))
         }
-        else if txtmobileno.text?.count != 10
+        else if txtmobileno.text?.count != 9
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language14"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)

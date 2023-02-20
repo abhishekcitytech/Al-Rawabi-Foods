@@ -156,6 +156,14 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.viewcell.layer.shadowOpacity = 1.0
         cell.viewcell.layer.shadowRadius = 6.0
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        cell.lblorderno.text = myAppDelegate.changeLanguage(key: "msg_language207")
+        cell.lbldeliverydate.text = myAppDelegate.changeLanguage(key: "msg_language208")
+        cell.lblquantity.text = myAppDelegate.changeLanguage(key: "msg_language209")
+        cell.lbltotalamount.text = myAppDelegate.changeLanguage(key: "msg_language210")
+        
+        cell.btndetails.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language91")), for: .normal)
+        
         cell.btnreorder.isHidden = true
         cell.btndetails.isHidden = false
         cell.btndetails.tag = indexPath.section

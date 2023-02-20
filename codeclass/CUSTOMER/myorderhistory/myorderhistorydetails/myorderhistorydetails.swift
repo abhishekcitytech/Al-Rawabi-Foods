@@ -78,6 +78,8 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
         self.viewtop.isHidden = true
         self.lbltotalorderitems.isHidden = true
         
+        lbltotalorderitems.text = myAppDelegate.changeLanguage(key: "msg_language211")
+        
     }
     
     //MARK: - press back method

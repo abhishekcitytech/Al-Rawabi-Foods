@@ -169,10 +169,14 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
         btnupdatesave.setTitle(String(format:"%@",myAppDelegate.changeLanguage(key: "msg_language392")), for: .normal)
         btnremoveaccount.setTitle(String(format:"%@",myAppDelegate.changeLanguage(key: "msg_language417")), for: .normal)
         
+        
+        segmentstatus.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language463")), forSegmentAt: 0)
+        segmentstatus.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language464")), forSegmentAt: 1)
+        
          let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
          if (strLangCode == "en")
          {
-        
+             
          }
          else
          {
@@ -678,8 +682,10 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                                 
                                 let strid = String(format: "%@", dictemp!.value(forKey: "address_id")as! CVarArg)
                                 let strcity = String(format: "%@", dictemp!.value(forKey: "city")as? String ?? "")
+                                
                                 let dicregion = dictemp!.value(forKey: "region")as! NSDictionary
                                 let strregionname = String(format: "%@", dicregion.value(forKey: "region")as? String ?? "")
+                                
                                 let strcountry_id = String(format: "%@", dictemp!.value(forKey: "country_id")as? String ?? "")
                                 let arrstreet = (dictemp!.value(forKey: "street")as! NSArray)
                                 var strfullstreet = ""

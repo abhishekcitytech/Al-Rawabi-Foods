@@ -305,7 +305,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        if txtmobile.text?.count == 10{
+        if txtmobile.text?.count == 9{
             
             print("countrycode",lblmobilecountrycode.text!)
             print("mobile",txtmobile.text!)
@@ -403,7 +403,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 print("Click of default button")
             }))
         }
-        else if txtmobile.text?.count != 10
+        else if txtmobile.text?.count != 9
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language14"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)

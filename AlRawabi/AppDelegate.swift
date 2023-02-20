@@ -37,6 +37,12 @@ struct Constants {
         //MARK: - CUT OFF SUBSCRIPTION ORDER TOTAL
         static let CutOffSubscriptionOrderTotal = 15.00
         
+        //MARK: - STATIC CALL NO
+        static let STATISCALLNO = "+97147043000"
+        
+        //MARK: - STATIC EMAIL
+        static let STATISEMAILID = "sales@alrawabi.ae"
+        
     }
     
     struct methodname {

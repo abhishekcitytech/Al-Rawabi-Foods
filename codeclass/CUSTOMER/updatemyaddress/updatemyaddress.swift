@@ -577,7 +577,7 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
       
         let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
         let strcountry_id = String(format: "%@", dictemp.value(forKey: "country_id")as? String ?? "")
-        let strregion_id = String(format: "%@", dictemp.value(forKey: "region_id")as? String ?? "")
+        //let strregion_id = String(format: "%@", dictemp.value(forKey: "region_id")as? String ?? "")
         let strregion_name = String(format: "%@", dictemp.value(forKey: "region_name")as? String ?? "")
        
         title1.text = strregion_name
@@ -592,7 +592,7 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
     {
         let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
         let strcountry_id = String(format: "%@", dictemp.value(forKey: "country_id")as? String ?? "")
-        let strregion_id = String(format: "%@", dictemp.value(forKey: "region_id")as? String ?? "")
+        //let strregion_id = String(format: "%@", dictemp.value(forKey: "region_id")as? String ?? "")
         let strregion_name = String(format: "%@", dictemp.value(forKey: "region_name")as? String ?? "")
         
         self.txtlocation.text = strregion_name

@@ -1045,17 +1045,17 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         }
         else if(status == .PaymentFailed)
         {
-            let uiAlert = UIAlertController(title: "", message: "Payment failed" , preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language348") , preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 self.navigationController?.popToRootViewController(animated: true)
             }))
         }
         else if(status == .PaymentCancelled)
         {
-            let uiAlert = UIAlertController(title: "", message: "Payment cancelled" , preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language349") , preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 self.navigationController?.popToRootViewController(animated: true)
             }))
         }

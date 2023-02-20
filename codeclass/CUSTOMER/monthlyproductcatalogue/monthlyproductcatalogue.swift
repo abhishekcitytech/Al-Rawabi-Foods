@@ -524,20 +524,14 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
             cellA.viewcell.layer.cornerRadius = 6.0
             cellA.viewcell.layer.masksToBounds = true
             
-            if strtext.containsIgnoreCase("Dairy"){
-                cellA.viewcell.backgroundColor = UIColor(named: "plate1")!
-            }
-            else if strtext.containsIgnoreCase("Juice"){
-                cellA.viewcell.backgroundColor = UIColor(named: "plate2")!
-            }
-            else if strtext.containsIgnoreCase("Bakery"){
-                cellA.viewcell.backgroundColor = UIColor(named: "plate3")!
-            }
-            else if strtext.containsIgnoreCase("Meat"){
-                cellA.viewcell.backgroundColor = UIColor(named: "plate4")!
+            let strcolorCode = String(format: "%@", dict.value(forKey: "colorCode") as? String ?? "")
+            if strcolorCode != ""{
+                cellA.viewcell.backgroundColor = UIColor(hexString: String(format: "#%@", strcolorCode))
+               
             }
             else{
-                cellA.viewcell.backgroundColor = .white
+                cellA.viewcell.backgroundColor = UIColor(named: "plate7")!
+                
             }
             
             cellA.lblcell.text =  strtext

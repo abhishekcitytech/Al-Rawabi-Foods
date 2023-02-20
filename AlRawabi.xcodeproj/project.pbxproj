@@ -338,6 +338,7 @@
 		CBF12CBB28C5FCC700F0325D /* couponlist.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBF12CB928C5FCC700F0325D /* couponlist.xib */; };
 		CBF12CBF28C6046100F0325D /* cellcoupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF12CBD28C6046100F0325D /* cellcoupon.swift */; };
 		CBF12CC028C6046100F0325D /* cellcoupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBF12CBE28C6046100F0325D /* cellcoupon.xib */; };
+		CBF731B5299FD44A00A202D2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBF731B4299FD44A00A202D2 /* MessageUI.framework */; };
 		CBF7F743291B5E5C00199DE7 /* mysubscriptiondetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF7F741291B5E5C00199DE7 /* mysubscriptiondetails.swift */; };
 		CBF7F744291B5E5C00199DE7 /* mysubscriptiondetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBF7F742291B5E5C00199DE7 /* mysubscriptiondetails.xib */; };
 		CBF7F748291B8BDC00199DE7 /* celltabvsubscriptionorderview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF7F746291B8BDC00199DE7 /* celltabvsubscriptionorderview.swift */; };
@@ -741,6 +742,7 @@
 		CBF12CB928C5FCC700F0325D /* couponlist.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = couponlist.xib; sourceTree = "<group>"; };
 		CBF12CBD28C6046100F0325D /* cellcoupon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cellcoupon.swift; sourceTree = "<group>"; };
 		CBF12CBE28C6046100F0325D /* cellcoupon.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellcoupon.xib; sourceTree = "<group>"; };
+		CBF731B4299FD44A00A202D2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CBF7F741291B5E5C00199DE7 /* mysubscriptiondetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mysubscriptiondetails.swift; sourceTree = "<group>"; };
 		CBF7F742291B5E5C00199DE7 /* mysubscriptiondetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = mysubscriptiondetails.xib; sourceTree = "<group>"; };
 		CBF7F746291B8BDC00199DE7 /* celltabvsubscriptionorderview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = celltabvsubscriptionorderview.swift; sourceTree = "<group>"; };
@@ -790,6 +792,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBF731B5299FD44A00A202D2 /* MessageUI.framework in Frameworks */,
 				CBC5C3CD28FFC9DB009B10FD /* NISdk.framework in Frameworks */,
 				CBC6D0F628FD414300F1E1A4 /* PassKit.framework in Frameworks */,
 				CBC6D0F428FD40E300F1E1A4 /* WebKit.framework in Frameworks */,
@@ -820,6 +823,7 @@
 		7F0126B9643CA564CE003BDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CBF731B4299FD44A00A202D2 /* MessageUI.framework */,
 				CBC5C3CC28FFC9DB009B10FD /* NISdk.framework */,
 				CBC6D0F528FD414300F1E1A4 /* PassKit.framework */,
 				CBC6D0F328FD40E300F1E1A4 /* WebKit.framework */,
@@ -3214,7 +3218,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AlRawabi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RawabiFoods;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera to capture photo.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires access to GPS to track delivery location available area.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This app requires access to GPS to track delivery location available area.";
@@ -3233,7 +3237,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3260,7 +3264,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AlRawabi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RawabiFoods;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera to capture photo.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires access to GPS to track delivery location available area.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This app requires access to GPS to track delivery location available area.";
@@ -3279,7 +3283,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";

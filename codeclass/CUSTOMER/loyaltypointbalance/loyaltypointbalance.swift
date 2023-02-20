@@ -74,6 +74,11 @@ class loyaltypointbalance: UIViewController,UITableViewDelegate,UITableViewDataS
         lbltransactionlist.isHidden = true
         tabvtransactionlist.isHidden = true
         
+        lblcurrentbalance.text = myAppDelegate.changeLanguage(key: "msg_language458")
+        lblmsg1.text = myAppDelegate.changeLanguage(key: "msg_language459")
+        lblmsg2.text = myAppDelegate.changeLanguage(key: "msg_language460")
+        lbltransactionlist.text = myAppDelegate.changeLanguage(key: "msg_language461")
+        
     }
     
     //MARK: - press back method

@@ -20,7 +20,7 @@
 "msg_language11" = "Please enter your confirm password";
 "msg_language12" = "Confirm password does not match with your password";
 "msg_language13" = "please enter valid email address";
-"msg_language14" = "please enter 10 digit valid mobile number";
+"msg_language14" = "please enter 9 digit valid mobile number";
 "msg_language15" = "Register";
 "msg_language16" = "Quickly create account";
 "msg_language17" = "Verify";
@@ -283,13 +283,13 @@
 "msg_language274" = "Maid Accounts";
 "msg_language275" = "Change Password";
 "msg_language276" = "Logout";
-"msg_language277" = "Do you want to logout?";
+"msg_language277" = "Are you sure you want to logout?";
 "msg_language278" = "Back to Login";
 "msg_language279" = "+97147043000";
 "msg_language280" = "About Us";
 "msg_language281" = "Privacy Policy";
 "msg_language282" = "Delivery Policy";
-"msg_language283" = "Refund/ Return & Cancellation";
+"msg_language283" = "Refund/Return & Cancellation Policy";
 "msg_language284" = "Terms & Conditions";
 "msg_language285" = "Disclaimer";
 "msg_language286" = "Please check your SMS app for OTP";
@@ -354,8 +354,8 @@
 "msg_language345" = "Please enter your reward points to be spend";
 "msg_language346" = "Please enter coupon voucher code";
 "msg_language347" = "Do you want to remove this coupon discount from your cart?";
-"msg_language348" = "Payment failed";
-"msg_language349" = "Payment cancelled";
+"msg_language348" = "Your payment failed, please try after some time or check if sufficient balance available";
+"msg_language349" = "Your payment cancelled, please try after some time or check if sufficient balance available";
 "msg_language350" = "Shipping Rate";
 "msg_language351" = "Please create an shipping address for delivery.";
 "msg_language352" = "Please select an shipping method for delivery.";
@@ -424,8 +424,8 @@
 "msg_language415" = "Allowed Addresses:";
 "msg_language416" = "Account Status:";
 "msg_language417" = "Remove Account";
-"msg_language418" = "Do you want to remove this account?";
-"msg_language419" = "please allow one / multiple addresses for your maid";
+"msg_language418" = "Are you sure you want to delete this account?";
+"msg_language419" = "Please allow one / multiple addresses for your maid";
 "msg_language420" = "Your maid account has been updated succsefully.";
 "msg_language421" = "Your maid account has been removed succsefully.";
 "msg_language422" = "Create Maid";
@@ -460,4 +460,31 @@
 "msg_language450" = "Place daily orders for 10 days or more";
 "msg_language451" = "Place orders for 3 days a week or more";
 "msg_language452" = "Place orders for 8 days a month or more";
+"msg_language453" = "Recharge amount should not be above 10000";
+"msg_language454" = "Your Enquiry Subject";
+"msg_language455" = "Do you want to remove this product?";
+"msg_language456" = "Do you want to call us?";
+"msg_language457" = "Do you want to mail us?";
+"msg_language458" = "Current Point Balance";
+"msg_language459" = "How to earn points";
+"msg_language460" = "Spend points and receive discounts";
+"msg_language461" = "Transaction History";
+"msg_language462" = "Create New Maid Account";
+"msg_language463" = "Active";
+"msg_language464" = "Inactive";
+"msg_language465" = "Time slot has been updated successfully";
+"msg_language466" = "Amount";
+"msg_language467" = "Action";
+"msg_language468" = "Type";
+"msg_language469" = "Reference";
+"msg_language470" = "Transaction At";
+"msg_language471" = "Transaction note";
+"msg_language472" = "Transaction Status";
+
+
+
+
+
+
+
 

@@ -103,6 +103,8 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
          '4' = 'Cancel'
          */
         
+        print("diclistvalue",diclistvalue)
+        
         let strsubscription_id = String(format: "%@", diclistvalue.value(forKey: "subscription_id")as? String ?? "")
         let strsubscription_increment_id = String(format: "%@", diclistvalue.value(forKey: "subscription_increment_id")as? String ?? "")
         let strsubscription_plan = String(format: "%@", diclistvalue.value(forKey: "subscription_plan")as? String ?? "")
@@ -180,6 +182,8 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
             btnpause.isHidden = true
             btncancel.isHidden = true
         }
+        
+        btncancel.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language77")), for: .normal)
         
         self.getallmysubscriptionDetail(strsubscriptionid: strsubscription_id)
         
@@ -730,12 +734,15 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
             cell.btnupdatetimeslot.isUserInteractionEnabled = false
         }
         
+        cell.btnedit.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language73")), for: .normal)
         cell.btnedit.tag = indexPath.section
         cell.btnedit.addTarget(self, action: #selector(pressEdit), for: .touchUpInside)
         
+        cell.btndetail.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language91")), for: .normal)
         cell.btndetail.tag = indexPath.section
         cell.btndetail.addTarget(self, action: #selector(pressDetail), for: .touchUpInside)
         
+        cell.btnAddMore.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language92")), for: .normal)
         cell.btnAddMore.tag = indexPath.section
         cell.btnAddMore.addTarget(self, action: #selector(pressAddMoreProducts), for: .touchUpInside)
         

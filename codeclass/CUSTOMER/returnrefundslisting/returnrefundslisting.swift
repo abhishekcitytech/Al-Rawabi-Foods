@@ -339,7 +339,7 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
         
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
         strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod103)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

@@ -160,7 +160,9 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
     //MARK: - press make payment method
     @IBAction func pressmakepayment(_ sender: Any)
     {
+        //let intvalue = Float(txtamount.text)
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let fltTotal  = (txtamount.text! as NSString).floatValue
         
         if txtamount.text == ""
         {
@@ -173,6 +175,14 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
         else if txtamount.text == "0"
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language373"), preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else if fltTotal > 10000
+        {
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language453"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")

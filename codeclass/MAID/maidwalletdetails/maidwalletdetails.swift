@@ -86,6 +86,26 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
         tabvmyrecharges.separatorColor=UIColor.clear
         tabvmyrecharges.showsVerticalScrollIndicator = false
       
+        setupRTLLTR()
+    }
+    
+    //MARK: - setup RTL LTR method
+    func setupRTLLTR()
+    {
+         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        lblwalletbalance.text = myAppDelegate.changeLanguage(key: "msg_language217")
+        lblrecentpayments.text = myAppDelegate.changeLanguage(key: "msg_language219")
+        
+         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+         if (strLangCode == "en")
+         {
+        
+         }
+         else
+         {
+
+         }
     }
     
     //MARK: - press back method
@@ -206,8 +226,18 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
         let myFloat1 = height1 + height2
         print(myFloat1)
         
+        lbltransactiondetailsheader.text = myAppDelegate.changeLanguage(key: "msg_language461")
+        
         self.viewtransactiondetails.layer.cornerRadius = 6.0
         self.viewtransactiondetails.layer.masksToBounds = true
+        
+        lblTDamount.text = myAppDelegate.changeLanguage(key: "msg_language466")
+        lblTDaction.text = myAppDelegate.changeLanguage(key: "msg_language467")
+        lblTDtype.text = myAppDelegate.changeLanguage(key: "msg_language468")
+        lblTDrefrence.text = myAppDelegate.changeLanguage(key: "msg_language469")
+        lblTDtransactionat.text = myAppDelegate.changeLanguage(key: "msg_language470")
+        lblTDtransactionnote.text = myAppDelegate.changeLanguage(key: "msg_language471")
+        lblTDtransactionstatus.text = myAppDelegate.changeLanguage(key: "msg_language472")
         
         lblTDamountvalue.text = strlblTDamountvalue
         lblTDactionvalue.text = strlblTDactionvalue

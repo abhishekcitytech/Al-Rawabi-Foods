@@ -327,14 +327,14 @@ class mysubscriptionlineviewproductdetails: UIViewController,UITableViewDelegate
         let strproduct_id = String(format: "%@", dic.value(forKey: "product_id")as? String ?? "")
         
         
-        let refreshAlert = UIAlertController(title: "", message: "Do you want to remove this product?", preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { [self] (action: UIAlertAction!) in
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language455"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
             
             let strsubscription_order_id = String(format: "%@", diclistvalue.value(forKey: "subscription_order_id")as? String ?? "")
             self.postRemoveProductApiMethod(strsubscription_order_id: strsubscription_order_id, strproductid: strproduct_id)
         }))
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
@@ -778,7 +778,7 @@ class mysubscriptionlineviewproductdetails: UIViewController,UITableViewDelegate
                         
                         if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: "Time slot has been updated successfully.", preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language465"), preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")

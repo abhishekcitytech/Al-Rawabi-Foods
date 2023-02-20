@@ -593,10 +593,12 @@ class loginclass: UIViewController,UITextFieldDelegate
                         
                         if strstatus == 200
                         {
+                            
                             let diccustomerDetails = dictemp.value(forKey: "customerDetails")as? NSDictionary
+                            
                             let strcustomerid = String(format: "%@", diccustomerDetails!.value(forKey: "id")as! CVarArg)
                             print("diccustomerDetails",diccustomerDetails as Any)
-                            print("strcustomerid",strcustomerid)
+                            //print("strcustomerid",strcustomerid)
                             
                             UserDefaults.standard.set(strcustomerid, forKey: "customerid")
                             UserDefaults.standard.set(diccustomerDetails, forKey: "customerdetails")

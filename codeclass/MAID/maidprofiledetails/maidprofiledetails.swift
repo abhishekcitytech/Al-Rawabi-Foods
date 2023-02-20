@@ -83,12 +83,12 @@ class maidprofiledetails: BaseViewController,UIScrollViewDelegate,UITextFieldDel
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
         {
-            txtfirstname.textAlignment = .left
+            /*txtfirstname.textAlignment = .left
             txtlastname.textAlignment = .left
             txtemail.textAlignment = .left
-            txtmobile.textAlignment = .left
+            txtmobile.textAlignment = .left*/
             
-            self.viewfirstname1.frame = CGRect(x: 1, y: self.viewfirstname1.frame.origin.y, width: self.viewfirstname1.frame.size.width, height: self.viewfirstname1.frame.size.height)
+           /* self.viewfirstname1.frame = CGRect(x: 1, y: self.viewfirstname1.frame.origin.y, width: self.viewfirstname1.frame.size.width, height: self.viewfirstname1.frame.size.height)
             self.txtfirstname.frame = CGRect(x: 54, y: self.txtfirstname.frame.origin.y, width: self.txtfirstname.frame.size.width, height: self.txtfirstname.frame.size.height)
             
             self.viewlastname1.frame = CGRect(x: 1, y: self.viewlastname1.frame.origin.y, width: self.viewlastname1.frame.size.width, height: self.viewlastname1.frame.size.height)
@@ -98,28 +98,30 @@ class maidprofiledetails: BaseViewController,UIScrollViewDelegate,UITextFieldDel
             self.txtemail.frame = CGRect(x: 54, y: self.txtemail.frame.origin.y, width: self.txtemail.frame.size.width, height: self.txtemail.frame.size.height)
             
             self.viewmobile1.frame = CGRect(x: 1, y: self.viewmobile1.frame.origin.y, width: self.viewmobile1.frame.size.width, height: self.viewmobile1.frame.size.height)
-            self.txtmobile.frame = CGRect(x: 54, y: self.txtmobile.frame.origin.y, width: self.txtmobile.frame.size.width, height: self.txtmobile.frame.size.height)
+            self.txtmobile.frame = CGRect(x: 54, y: self.txtmobile.frame.origin.y, width: self.txtmobile.frame.size.width, height: self.txtmobile.frame.size.height)*/
             
         }
         else
         {
-            txtfirstname.textAlignment = .right
+            /*txtfirstname.textAlignment = .right
             txtlastname.textAlignment = .right
             txtemail.textAlignment = .right
-            txtmobile.textAlignment = .right
+            txtmobile.textAlignment = .right*/
             
-            self.viewfirstname1.frame = CGRect(x: self.viewfirstname.frame.size.width - 53, y: self.viewfirstname1.frame.origin.y, width: self.viewfirstname1.frame.size.width, height: self.viewfirstname1.frame.size.height)
-            self.txtfirstname.frame = CGRect(x: 1, y: self.txtfirstname.frame.origin.y, width: self.txtfirstname.frame.size.width, height: self.txtfirstname.frame.size.height)
             
-            self.viewlastname1.frame = CGRect(x: self.viewlastname.frame.size.width - 53, y: self.viewlastname1.frame.origin.y, width: self.viewlastname1.frame.size.width, height: self.viewlastname1.frame.size.height)
+            
+           /* self.txtfirstname.frame = CGRect(x: 1, y: self.txtfirstname.frame.origin.y, width: self.txtfirstname.frame.size.width, height: self.txtfirstname.frame.size.height)
+            self.viewfirstname1.frame = CGRect(x: self.txtfirstname.frame.maxX, y: self.viewfirstname1.frame.origin.y, width: self.viewfirstname1.frame.size.width, height: self.viewfirstname1.frame.size.height)
+            
             self.txtlastname.frame = CGRect(x: 1, y: self.txtlastname.frame.origin.y, width: self.txtlastname.frame.size.width, height: self.txtlastname.frame.size.height)
+            self.viewlastname1.frame = CGRect(x: self.txtfirstname.frame.maxX, y: self.viewlastname1.frame.origin.y, width: self.viewlastname1.frame.size.width, height: self.viewlastname1.frame.size.height)
             
-            self.viewemail1.frame = CGRect(x: self.viewemail.frame.size.width - 53, y: self.viewemail1.frame.origin.y, width: self.viewemail1.frame.size.width, height: self.viewemail1.frame.size.height)
             self.txtemail.frame = CGRect(x: 1, y: self.txtemail.frame.origin.y, width: self.txtemail.frame.size.width, height: self.txtemail.frame.size.height)
+            self.viewemail1.frame = CGRect(x: self.txtfirstname.frame.maxX, y: self.viewemail1.frame.origin.y, width: self.viewemail1.frame.size.width, height: self.viewemail1.frame.size.height)
             
-            self.viewmobile1.frame = CGRect(x: self.viewmobile.frame.size.width - 53, y: self.viewmobile1.frame.origin.y, width: self.viewmobile1.frame.size.width, height: self.viewmobile1.frame.size.height)
             self.txtmobile.frame = CGRect(x: 1, y: self.txtmobile.frame.origin.y, width: self.txtmobile.frame.size.width, height: self.txtmobile.frame.size.height)
-            
+            self.viewmobile1.frame = CGRect(x: self.txtfirstname.frame.maxX, y: self.viewmobile1.frame.origin.y, width: self.viewmobile1.frame.size.width, height: self.viewmobile1.frame.size.height)
+            */
 
         }
        

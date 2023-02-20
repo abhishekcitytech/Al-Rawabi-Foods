@@ -162,13 +162,24 @@ class maidmenuclass: BaseViewController,UITableViewDelegate,UITableViewDataSourc
         }
         else if strname == myAppDelegate.changeLanguage(key: "msg_language276")
         {
-            UserDefaults.standard.removeObject(forKey: "bearertokenmaid")
-            UserDefaults.standard.synchronize()
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language277"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Delete Logic here")
+                
+                UserDefaults.standard.removeObject(forKey: "bearertokenmaid")
+                UserDefaults.standard.synchronize()
+                
+                let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
+                print("strbearertoken",strbearertoken)
+                
+                self.navigationController?.popToRootViewController(animated: false)
+                
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
             
-            let strbearertoken = UserDefaults.standard.value(forKey: "bearertokenmaid")as? String ?? ""
-            print("strbearertoken",strbearertoken)
-            
-            self.navigationController?.popToRootViewController(animated: false)
         }
         else if strname == myAppDelegate.changeLanguage(key: "msg_language104")
         {
