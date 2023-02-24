@@ -607,7 +607,11 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
     //MARK: - press Current Location Method
     @IBAction func pressCurrentlocationmethod(_ sender: Any)
     {
-        let ctrl = mapaddress(nibName: "mapaddress", bundle: nil)
+        /*let ctrl = mapaddress(nibName: "mapaddress", bundle: nil)
+        ctrl.strFrompageMap = "updatemyaddress"
+        self.navigationController?.pushViewController(ctrl, animated: true)*/
+        
+        let ctrl = mapaddressgoogle(nibName: "mapaddressgoogle", bundle: nil)
         ctrl.strFrompageMap = "updatemyaddress"
         self.navigationController?.pushViewController(ctrl, animated: true)
     }

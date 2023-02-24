@@ -17,6 +17,9 @@
 		CB05343429152ACC00D3BCFC /* reordermyorderoncelist.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB05343229152ACC00D3BCFC /* reordermyorderoncelist.xib */; };
 		CB05343829152B7700D3BCFC /* cellmyorderReorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB05343629152B7700D3BCFC /* cellmyorderReorder.swift */; };
 		CB05343929152B7700D3BCFC /* cellmyorderReorder.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB05343729152B7700D3BCFC /* cellmyorderReorder.xib */; };
+		CB0D588729A61D450036C99B /* mapaddressgoogle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0D588529A61D450036C99B /* mapaddressgoogle.swift */; };
+		CB0D588829A61D450036C99B /* mapaddressgoogle.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB0D588629A61D450036C99B /* mapaddressgoogle.xib */; };
+		CB0D588A29A6204B0036C99B /* GoogleMapsUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB0D588929A6204B0036C99B /* GoogleMapsUtils.framework */; };
 		CB14B85A290BA7D700AF904C /* SubscriptionShippingAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB14B858290BA7D700AF904C /* SubscriptionShippingAddress.swift */; };
 		CB14B85B290BA7D700AF904C /* SubscriptionShippingAddress.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB14B859290BA7D700AF904C /* SubscriptionShippingAddress.xib */; };
 		CB1891962865D35800312E46 /* colcellselectsize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1891942865D35800312E46 /* colcellselectsize.swift */; };
@@ -412,6 +415,9 @@
 		CB05343229152ACC00D3BCFC /* reordermyorderoncelist.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = reordermyorderoncelist.xib; sourceTree = "<group>"; };
 		CB05343629152B7700D3BCFC /* cellmyorderReorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cellmyorderReorder.swift; sourceTree = "<group>"; };
 		CB05343729152B7700D3BCFC /* cellmyorderReorder.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellmyorderReorder.xib; sourceTree = "<group>"; };
+		CB0D588529A61D450036C99B /* mapaddressgoogle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapaddressgoogle.swift; sourceTree = "<group>"; };
+		CB0D588629A61D450036C99B /* mapaddressgoogle.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = mapaddressgoogle.xib; sourceTree = "<group>"; };
+		CB0D588929A6204B0036C99B /* GoogleMapsUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleMapsUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB14B858290BA7D700AF904C /* SubscriptionShippingAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionShippingAddress.swift; sourceTree = "<group>"; };
 		CB14B859290BA7D700AF904C /* SubscriptionShippingAddress.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubscriptionShippingAddress.xib; sourceTree = "<group>"; };
 		CB1891942865D35800312E46 /* colcellselectsize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colcellselectsize.swift; sourceTree = "<group>"; };
@@ -792,6 +798,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB0D588A29A6204B0036C99B /* GoogleMapsUtils.framework in Frameworks */,
 				CBF731B5299FD44A00A202D2 /* MessageUI.framework in Frameworks */,
 				CBC5C3CD28FFC9DB009B10FD /* NISdk.framework in Frameworks */,
 				CBC6D0F628FD414300F1E1A4 /* PassKit.framework in Frameworks */,
@@ -823,6 +830,7 @@
 		7F0126B9643CA564CE003BDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB0D588929A6204B0036C99B /* GoogleMapsUtils.framework */,
 				CBF731B4299FD44A00A202D2 /* MessageUI.framework */,
 				CBC5C3CC28FFC9DB009B10FD /* NISdk.framework */,
 				CBC6D0F528FD414300F1E1A4 /* PassKit.framework */,
@@ -1906,6 +1914,8 @@
 				CBA1E69628CF379F0043DB4D /* celltabvmyaddresschoose */,
 				CBCA39C928C70E4200DE1702 /* mapaddress.swift */,
 				CBCA39CA28C70E4200DE1702 /* mapaddress.xib */,
+				CB0D588529A61D450036C99B /* mapaddressgoogle.swift */,
+				CB0D588629A61D450036C99B /* mapaddressgoogle.xib */,
 			);
 			path = mapaddress;
 			sourceTree = "<group>";
@@ -2783,6 +2793,7 @@
 				CBE42FDF2832447D00B761F3 /* otpverifyclass.xib in Resources */,
 				CB27BB032914F8500024F07F /* celltabvmaidlist.xib in Resources */,
 				CB05343929152B7700D3BCFC /* cellmyorderReorder.xib in Resources */,
+				CB0D588829A61D450036C99B /* mapaddressgoogle.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2895,6 +2906,7 @@
 				CBC8B25D2872F94C008A68A8 /* cellwallettransaction.swift in Sources */,
 				CBCD5FFE28758A050029A684 /* cellcolbuyonce.swift in Sources */,
 				CBF12CB528C5F91200F0325D /* cellorderhistoryitems.swift in Sources */,
+				CB0D588729A61D450036C99B /* mapaddressgoogle.swift in Sources */,
 				CB05343329152ACC00D3BCFC /* reordermyorderoncelist.swift in Sources */,
 				CB1D7EDE292F51B6001CFA09 /* createmaidaccount.swift in Sources */,
 				CBD0CC5729110F4000DCCA29 /* CreateOrderViewController.swift in Sources */,
@@ -3237,7 +3249,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 1.8;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3283,7 +3295,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 1.8;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";

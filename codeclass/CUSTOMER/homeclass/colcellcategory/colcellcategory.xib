@@ -30,21 +30,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="145" height="145"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IOf-3f-ogZ">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5vv-n1-qBa">
                                         <rect key="frame" x="0.0" y="0.0" width="145" height="145"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dairy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3Z-Ft-diE">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3Z-Ft-diE">
                                         <rect key="frame" x="0.0" y="111" width="145" height="34"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5vv-n1-qBa">
-                                        <rect key="frame" x="28" y="28" width="89" height="89"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.70588235294117641" green="0.85882352941176465" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -57,7 +53,6 @@
             <size key="customSize" width="180" height="126"/>
             <connections>
                 <outlet property="imgv" destination="5vv-n1-qBa" id="9qj-wE-uWB"/>
-                <outlet property="imgvbg" destination="IOf-3f-ogZ" id="XFB-IC-Ixn"/>
                 <outlet property="lblname" destination="i3Z-Ft-diE" id="2Pb-91-1dh"/>
                 <outlet property="viewcell" destination="QMW-cv-1gJ" id="Jss-nj-XjU"/>
                 <outlet property="viewtop" destination="08Y-Kr-a7p" id="cBk-WN-hB5"/>

@@ -11,10 +11,8 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
 {
     
     @IBOutlet weak var viewoverall: UIView!
-    @IBOutlet weak var viewscroll: UIView!
     @IBOutlet weak var scrolloverall: UIScrollView!
-    
-    @IBOutlet weak var btnBack: UIButton!
+
     @IBOutlet weak var imgvregbanner: UIImageView!
     @IBOutlet weak var lblregister: UILabel!
     @IBOutlet weak var lblquicklycreateaccount: UILabel!
@@ -68,14 +66,14 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.isHidden = true
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     // MARK: - viewDidAppear Method
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(true)
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
         
         self.setupRTLLTR()
     }
@@ -84,16 +82,21 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
         
         //FIXMESANDIPAN
         //self.txtpassword.text = "123456"
         //self.txtconfirmpassword.text = "123456"
         
+        //Create Back Button
+        let yourBackImage = UIImage(named: "back")
+        let Back = UIBarButtonItem(image: yourBackImage, style: .plain, target: self, action: #selector(pressBack))
+        Back.tintColor = UIColor.black
+        self.navigationItem.leftBarButtonItem = Back
    
         self.scrolloverall.backgroundColor = .white
         self.scrolloverall.showsVerticalScrollIndicator = false
-        self.scrolloverall.contentSize=CGSize(width: self.scrolloverall.frame.size.width, height: self.viewscroll.frame.size.height - 235)
+        self.scrolloverall.contentSize=CGSize(width: self.viewoverall.frame.size.width, height: self.viewoverall.frame.size.height)
         
         viewfirstname.layer.cornerRadius = 3.0
         viewfirstname.layer.masksToBounds = true
@@ -142,7 +145,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     }
     
     //MARK: -  press Back method
-    @IBAction func pressBack(_ sender: Any) {
+    @objc func pressBack() {
         self.navigationController?.popViewController(animated: true)
     }
     

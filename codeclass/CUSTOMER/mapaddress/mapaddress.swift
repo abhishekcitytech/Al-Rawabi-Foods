@@ -10,12 +10,10 @@ import UIKit
 import Alamofire
 import MapKit
 import CoreLocation
-
 import GoogleMaps
 import GooglePlaces
 import GoogleMapsCore
 import GoogleMapsUtils
-
 import Nominatim
 
 
@@ -184,7 +182,6 @@ class mapaddress: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,U
         self.locationManager.requestAlwaysAuthorization()
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
-        
         //locationManager.allowsBackgroundLocationUpdates = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.distanceFilter = kCLDistanceFilterNone

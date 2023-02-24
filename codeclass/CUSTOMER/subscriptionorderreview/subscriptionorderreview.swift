@@ -1386,6 +1386,10 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
      let ctrl = mapaddress(nibName: "mapaddress", bundle: nil)
      ctrl.strFrompageMap = "subscriptionorderreview"
      self.navigationController?.pushViewController(ctrl, animated: true)
+     
+     let ctrl = mapaddressgoogle(nibName: "mapaddressgoogle", bundle: nil)
+     ctrl.strFrompageMap = "subscriptionorderreview"
+     self.navigationController?.pushViewController(ctrl, animated: true)
      }*/
     
     //MARK: - press ADDONCE && ADDTOALL method

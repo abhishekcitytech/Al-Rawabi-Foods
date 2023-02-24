@@ -15,6 +15,8 @@ import UserNotifications
 
 import NISdk
 
+
+
 struct Constants {
     struct conn {
         
@@ -160,6 +162,10 @@ struct Constants {
     }
 }
 
+import GoogleMaps
+import GooglePlaces
+import GoogleUtilities
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate, MessagingDelegate,UITabBarControllerDelegate
 {
@@ -177,6 +183,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         // Override point for customization after application launch.
+        
+        GMSServices.provideAPIKey("AIzaSyB0HROT7zT3VgKKv7oAEbvkyD_J0ErZ6RQ")
+        
         
         NISdk.sharedInstance.setSDKLanguage(language: "en")
         

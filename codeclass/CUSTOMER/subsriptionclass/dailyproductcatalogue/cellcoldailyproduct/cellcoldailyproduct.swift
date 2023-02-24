@@ -17,6 +17,8 @@ class cellcoldailyproduct: UICollectionViewCell {
     @IBOutlet weak var lblqty: UILabel!
     @IBOutlet weak var lblprice: UILabel!
     
+    @IBOutlet weak var includetax: UILabel!
+    
     @IBOutlet weak var btnfav: UIButton!
     
     @IBOutlet weak var btnaddonce: UIButton!

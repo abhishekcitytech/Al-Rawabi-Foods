@@ -342,9 +342,15 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             viewPopupAddNewExistingBG1.removeFromSuperview()
         }
         
-        let ctrl = mapaddress(nibName: "mapaddress", bundle: nil)
+        /*let ctrl = mapaddress(nibName: "mapaddress", bundle: nil)
+        ctrl.strFrompageMap = "orderonceclass"
+        self.navigationController?.pushViewController(ctrl, animated: true)*/
+        
+        let ctrl = mapaddressgoogle(nibName: "mapaddressgoogle", bundle: nil)
         ctrl.strFrompageMap = "orderonceclass"
         self.navigationController?.pushViewController(ctrl, animated: true)
+        
+        
     }
     
     
@@ -385,10 +391,13 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
     //MARK: -  press update location method
     @IBAction func pressupdatelocation(_ sender: Any) {
         
-        let ctrl = mapaddress(nibName: "mapaddress", bundle: nil)
+        /*let ctrl = mapaddress(nibName: "mapaddress", bundle: nil)
+        ctrl.strFrompageMap = "orderonceclass"
+        self.navigationController?.pushViewController(ctrl, animated: true)*/
+        
+        let ctrl = mapaddressgoogle(nibName: "mapaddressgoogle", bundle: nil)
         ctrl.strFrompageMap = "orderonceclass"
         self.navigationController?.pushViewController(ctrl, animated: true)
-        
     }
     
     
@@ -468,6 +477,8 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if collectionView == self.colcategory
         {
             
@@ -638,6 +649,8 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             cellA.btnfav.isHidden = false
         }
         
+        cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
+        
         cellA.viewcell.layer.cornerRadius = 8.0
         cellA.viewcell.layer.masksToBounds = true
         
@@ -647,7 +660,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         cellA.btnaddtocart.layer.cornerRadius = 16.0
         cellA.btnaddtocart.layer.masksToBounds = true
         
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         cellA.btnaddtocart.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language47")), for: .normal)
         
         cellA.btnaddtocart.tag = indexPath.row

@@ -289,6 +289,14 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         //self.addPolygonZoneArea()
         //self.createMultiPolygon()
         
+        
+        viewpromobox1.layer.cornerRadius = 8.0
+        viewpromobox1.layer.masksToBounds = true
+        viewpromobox2.layer.cornerRadius = 8.0
+        viewpromobox2.layer.masksToBounds = true
+        viewpromobox3.layer.cornerRadius = 8.0
+        viewpromobox3.layer.masksToBounds = true
+        
     }
     
     //MARK: - press FLOAT CART METHOD
@@ -1313,6 +1321,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if collectionView == self.colcategory
         {
             
@@ -1337,23 +1347,26 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             
             let strcolorCode = String(format: "%@", dict.value(forKey: "colorCode") as? String ?? "")
             if strcolorCode != ""{
-                cellA.viewtop.backgroundColor = UIColor(hexString: String(format: "#%@", strcolorCode))
-                cellA.imgvbg.isHidden = true
+                //cellA.viewtop.backgroundColor = UIColor(hexString: String(format: "#%@", strcolorCode)) //FIXMESANDIPAN
                 cellA.imgv.imageFromURL(urlString: strFinalurl)
+                
+                cellA.lblname.isHidden = false
             }
-            else{
-                cellA.viewtop.backgroundColor = UIColor(named: "plate7")!
-                cellA.imgvbg.isHidden = true
+            else
+            {
+                cellA.viewtop.backgroundColor = UIColor(named: "plate7")! //FIXMESANDIPAN
                 cellA.imgv.imageFromURL(urlString: strFinalurl)
+                
+                cellA.lblname.isHidden = false
             }
             
             cellA.lblname.bringSubviewToFront(cellA.viewtop)
             //cellA.lblname.attributedText = strtext.htmlToAttributedString
             cellA.lblname.text =  strtext
             
+            cellA.imgv.contentMode = .scaleToFill
             cellA.viewtop.layer.cornerRadius = 6.0
             cellA.viewtop.layer.masksToBounds = true
-            
             
             // Set up cell
             return cellA
@@ -1399,9 +1412,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         cellA.lblqty.text = strsize
         
         let fltprice = Float(strprice)
-        cellA.lblprice.text = String(format: "%.2f", fltprice!)
+        cellA.lblprice.text = String(format: "AED %.2f", fltprice!)
+        cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
         
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         cellA.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language47")), for: .normal)
         
         cellA.btnaddonce.layer.borderWidth = 1.0

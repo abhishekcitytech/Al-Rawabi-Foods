@@ -302,6 +302,8 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if collectionView == self.colcategory
         {
             
@@ -444,6 +446,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         cellA.lblbrand.text = strbrand
         cellA.lblqty.text = strsize
         
+        
         print("strprice",strprice)
         if strprice != ""{
             let fltprice = Float(strprice)
@@ -467,6 +470,8 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             cellA.btnfav.isHidden = false
         }
         
+        cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
+        
         cellA.viewcell.layer.cornerRadius = 8.0
         cellA.viewcell.layer.masksToBounds = true
         
@@ -476,7 +481,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         cellA.btnaddtocart.layer.cornerRadius = 16.0
         cellA.btnaddtocart.layer.masksToBounds = true
         
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         cellA.btnaddtocart.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language47")), for: .normal)
         
         cellA.btnaddtocart.tag = indexPath.row

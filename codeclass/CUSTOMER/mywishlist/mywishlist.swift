@@ -131,6 +131,8 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier1, for: indexPath as IndexPath) as! colcelltopdeals
         cellA.contentView.backgroundColor = .white
         cellA.contentView.layer.borderWidth = 8.0
@@ -192,12 +194,13 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
             cellA.btnright.isHidden = true
         }
         
+        cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
+        
         cellA.btnaddonce.layer.borderWidth = 1.0
         cellA.btnaddonce.layer.borderColor = UIColor(named: "themecolor")!.cgColor
         cellA.btnaddonce.layer.cornerRadius = 16.0
         cellA.btnaddonce.layer.masksToBounds = true
         
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         cellA.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language47")), for: .normal)
         
         cellA.btnaddonce.tag = indexPath.row

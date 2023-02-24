@@ -210,6 +210,11 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             let ctrl = mapaddress(nibName: "mapaddress", bundle: nil)
             ctrl.strFrompageMap = "subsriptionclass"
             self.navigationController?.pushViewController(ctrl, animated: true)
+             
+             let ctrl = mapaddressgoogle(nibName: "mapaddressgoogle", bundle: nil)
+             ctrl.strFrompageMap = "subsriptionclass"
+             self.navigationController?.pushViewController(ctrl, animated: true)
+             
             return false*/
             
             self.view.endEditing(true)

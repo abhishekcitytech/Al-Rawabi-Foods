@@ -16,6 +16,9 @@
         <array key="NunitoSans-ExtraBold.ttf">
             <string>NunitoSans-ExtraBold</string>
         </array>
+        <array key="NunitoSans-Regular.ttf">
+            <string>NunitoSans-Regular</string>
+        </array>
         <array key="NunitoSans-SemiBold.ttf">
             <string>NunitoSans-SemiBold</string>
         </array>
@@ -63,8 +66,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGp-tB-nTa">
-                                <rect key="frame" x="8" y="207" width="184" height="20"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <rect key="frame" x="8" y="207" width="127" height="20"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
                                 <color key="textColor" name="orangecolor"/>
@@ -86,6 +89,14 @@
                                     <color key="titleColor" name="themecolor"/>
                                 </state>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KeI-Kf-fFf">
+                                <rect key="frame" x="134" y="207" width="58" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="10"/>
+                                <color key="textColor" name="themecolor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -98,6 +109,7 @@
                 <outlet property="btnfav" destination="1Vk-bt-x9Z" id="RaA-t1-KEA"/>
                 <outlet property="imgv" destination="WM4-Es-xHf" id="lKq-8h-RMS"/>
                 <outlet property="lblbrand" destination="Xkf-6S-pEa" id="GbV-iV-LhN"/>
+                <outlet property="lblincludetax" destination="KeI-Kf-fFf" id="smS-Tw-kML"/>
                 <outlet property="lblname" destination="ZZu-yZ-D7U" id="APw-e4-4O0"/>
                 <outlet property="lblprice" destination="rGp-tB-nTa" id="7EB-F8-HDv"/>
                 <outlet property="lblqty" destination="FYX-1V-uQY" id="tA0-b8-8W0"/>

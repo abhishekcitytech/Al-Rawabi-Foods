@@ -132,13 +132,13 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
                 
             }
             floatDevider = 5.0
-            floatcellheight = 120.0
+            floatcellheight = 110.0
         }
         else
         {
             // not iPad (iPhone, mac, tv, carPlay, unspecified)
             floatDevider = 3.0
-            floatcellheight = 90.0
+            floatcellheight = 100.0
         }
         
         colmonthlycalendar.backgroundColor = .clear
@@ -466,18 +466,17 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
             cell.lblname.textColor = .black
             cell.lbltotalprice.textColor = UIColor(named: "orangecolor")!
             
-            cell.btnedit.isHidden = true
             
             //Red Border for Empty BOX
             cell.viewcell.backgroundColor = UIColor.white
             cell.viewcell.layer.masksToBounds = false
-            cell.viewcell.layer.cornerRadius = 6.0
+            cell.viewcell.layer.cornerRadius = 3.0
             cell.viewcell.layer.borderColor = UIColor(named: "darkredcolor")!.cgColor
             cell.viewcell.layer.borderWidth = 1.0
             cell.viewcell.layer.shadowColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0).cgColor
             cell.viewcell.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
             cell.viewcell.layer.shadowOpacity = 1.0
-            cell.viewcell.layer.shadowRadius = 6.0
+            cell.viewcell.layer.shadowRadius = 3.0
         }
         else if flttotalprice >= Constants.conn.CutOffSubscriptionOrderTotal //15.00
         {
@@ -485,19 +484,16 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
             cell.lblname.backgroundColor = .clear
             cell.lblname.textColor = .black
             cell.lbltotalprice.textColor = UIColor(named: "orangecolor")!
-            
-            cell.btnedit.isHidden = true
-
-            
+    
             cell.viewcell.backgroundColor = UIColor.white
             cell.viewcell.layer.masksToBounds = false
-            cell.viewcell.layer.cornerRadius = 6.0
+            cell.viewcell.layer.cornerRadius = 3.0
             cell.viewcell.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
             cell.viewcell.layer.borderWidth = 2.0
             cell.viewcell.layer.shadowColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0).cgColor
             cell.viewcell.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
             cell.viewcell.layer.shadowOpacity = 1.0
-            cell.viewcell.layer.shadowRadius = 6.0
+            cell.viewcell.layer.shadowRadius = 3.0
         }
         else if flttotalprice < Constants.conn.CutOffSubscriptionOrderTotal //15.00
         {
@@ -506,23 +502,19 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
             cell.lblname.textColor = .black
             cell.lbltotalprice.textColor = .black
             
-            cell.btnedit.isHidden = true
             
             cell.viewcell.backgroundColor = UIColor(named: "plate4")!
             cell.viewcell.layer.masksToBounds = false
-            cell.viewcell.layer.cornerRadius = 6.0
+            cell.viewcell.layer.cornerRadius = 3.0
             cell.viewcell.layer.borderColor = UIColor(named: "darkmostredcolor")!.cgColor
             cell.viewcell.layer.borderWidth = 2.0
             cell.viewcell.layer.shadowColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1.0).cgColor
             cell.viewcell.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
             cell.viewcell.layer.shadowOpacity = 1.0
-            cell.viewcell.layer.shadowRadius = 6.0
+            cell.viewcell.layer.shadowRadius = 3.0
         }
 
-        cell.btnedit.tag = indexPath.section
-        cell.btnedit.addTarget(self, action: #selector(pressEdit), for: .touchUpInside)
-        
-        cell.viewcell.layer.cornerRadius = 14.0
+        cell.viewcell.layer.cornerRadius = 8.0
         cell.viewcell.layer.masksToBounds = true
         
         // Set up cell

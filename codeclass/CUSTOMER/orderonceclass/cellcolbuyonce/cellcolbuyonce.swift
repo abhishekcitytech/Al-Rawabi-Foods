@@ -16,6 +16,7 @@ class cellcolbuyonce: UICollectionViewCell {
     @IBOutlet weak var lblbrand: UILabel!
     @IBOutlet weak var lblqty: UILabel!
     @IBOutlet weak var lblprice: UILabel!
+    @IBOutlet weak var lblincludetax: UILabel!
     
     @IBOutlet weak var btnfav: UIButton!
 

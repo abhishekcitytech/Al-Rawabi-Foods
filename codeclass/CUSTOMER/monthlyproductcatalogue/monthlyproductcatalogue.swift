@@ -178,7 +178,7 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
         let layout1: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout1.scrollDirection = .horizontal
         layout1.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout1.itemSize = CGSize(width: colorderon.frame.size.width / 3 - 10, height: 100)
+        layout1.itemSize = CGSize(width: colorderon.frame.size.width / 3 - 10, height: 76)
         layout1.minimumInteritemSpacing = 10
         layout1.minimumLineSpacing = 10
         colorderon.collectionViewLayout = layout1
@@ -669,6 +669,8 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
             
             cellA.btnfav.isHidden = true
         }
+        
+        cellA.includetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
         
         cellA.viewcell.layer.cornerRadius = 8.0
         cellA.viewcell.layer.masksToBounds = true
