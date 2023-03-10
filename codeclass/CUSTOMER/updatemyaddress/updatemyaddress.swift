@@ -437,7 +437,7 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         if textField.isEqual(txtmobileno) {
-            let maxLength = 9 //FIXMESANDIPAN
+            let maxLength = Constants.conn.STATICTELECPHONENUMBERLENGTH
             let currentString: NSString = txtmobileno.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength

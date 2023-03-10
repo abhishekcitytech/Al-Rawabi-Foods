@@ -197,7 +197,15 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 print("Click of default button")
             }))
         }
-        else if fltpurchaselimit! > 200.00
+        else if txtpurchaseamountlimit.text == ""
+        {
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language409"), preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else if fltpurchaselimit! > 200.00 || fltpurchaselimit! <= 0.00
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language423"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
@@ -213,7 +221,7 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 print("Click of default button")
             }))
         }
-        else if txtmobileno.text?.count != 9
+        else if txtmobileno.text?.count != Constants.conn.STATICTELECPHONENUMBERLENGTH
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language14"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
@@ -272,7 +280,7 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     {
         if textField.isEqual(txtmobileno)
         {
-            let maxLength = 9 //FIXMESANDIPAN
+            let maxLength = Constants.conn.STATICTELECPHONENUMBERLENGTH
             let currentString: NSString = txtmobileno.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
@@ -513,7 +521,7 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                           "status": "1",
                           "maxorderamount": txtpurchaseamountlimit.text!,
                           "mobilenumber":txtmobileno.text!,
-                          "countryCode":"971", //FIXMESANDIPAN
+                          "countryCode":Constants.conn.STATICTELECPHONECODE,
                           "allowedaddress":straddresslist] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod67)

@@ -26,9 +26,9 @@
                 <outlet property="btnSeemorenutritionfacts" destination="c3U-lG-kXT" id="0De-P6-QXZ"/>
                 <outlet property="btnSeemoreshortdescription" destination="KEK-nd-H69" id="6or-zB-TIc"/>
                 <outlet property="btnaddonce" destination="aSz-Wy-2zr" id="KCN-mh-9ke"/>
-                <outlet property="btnaddtowishlist" destination="NhY-Sb-uDJ" id="6Nj-0U-1Uh"/>
-                <outlet property="btnaddtowishlisticon" destination="gzJ-0Y-8PO" id="Lh9-vI-tbm"/>
+                <outlet property="btnaddtowishlisticon" destination="Ftp-Si-mOX" id="ZVp-44-IkF"/>
                 <outlet property="btnhowcalculaterating" destination="mPH-oN-e8C" id="6TF-Xf-t5y"/>
+                <outlet property="btnshareoption" destination="T5A-Gs-Z6N" id="TXA-jN-3aF"/>
                 <outlet property="btnviewallreveiw" destination="Qcr-7C-wGZ" id="TRT-aC-ec5"/>
                 <outlet property="btnwriteyourreview" destination="hST-ox-JnB" id="3yC-Yo-LZf"/>
                 <outlet property="colrelatedProducts" destination="jmg-NP-TQg" id="foD-UZ-AUC"/>
@@ -74,27 +74,26 @@
                 <outlet property="viewreviewratings" destination="Efu-K7-WVu" id="7Zg-mO-YPn"/>
                 <outlet property="viewshortdescription" destination="ycZ-tX-Eda" id="yTA-wH-wDN"/>
                 <outlet property="viewsize" destination="bnw-xp-xBN" id="URM-zV-uhh"/>
-                <outlet property="viewwishlist" destination="a7v-H2-Et8" id="izo-WE-uZw"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="2179"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="2361"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sop-64-L0V">
-                    <rect key="frame" x="0.0" y="44" width="375" height="2135"/>
+                    <rect key="frame" x="0.0" y="44" width="375" height="2317"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ixz-Mq-BCb">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="2135"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="2317"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WMa-qo-r15">
-                                    <rect key="frame" x="8" y="0.0" width="359" height="326"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="478"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i5V-YA-hTB" customClass="ImageSlideshow" customModule="ImageSlideshow">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="326"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="478"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
@@ -102,7 +101,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bnw-xp-xBN">
-                                    <rect key="frame" x="8" y="326" width="359" height="140"/>
+                                    <rect key="frame" x="8" y="483" width="359" height="140"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select Size" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4a-y2-nXa">
@@ -139,7 +138,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIu-OB-j51">
-                                    <rect key="frame" x="8" y="466" width="359" height="185"/>
+                                    <rect key="frame" x="8" y="623" width="359" height="185"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NiS-C6-4la">
@@ -184,31 +183,8 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="OR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaS-i5-bgP">
-                                            <rect key="frame" x="140" y="88" width="78" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="16"/>
-                                            <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncA-lf-pLq">
-                                            <rect key="frame" x="12" y="97" width="120" height="1"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
-                                            <color key="backgroundColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDG-zT-J7K">
-                                            <rect key="frame" x="226" y="97" width="120" height="1"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
-                                            <color key="backgroundColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSz-Wy-2zr">
-                                            <rect key="frame" x="196" y="22" width="155" height="40"/>
+                                            <rect key="frame" x="12" y="22" width="339" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
                                             <color key="backgroundColor" name="greencolor"/>
                                             <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
@@ -220,39 +196,52 @@
                                                 <action selector="pressaddonce:" destination="-1" eventType="touchUpInside" id="xAI-Af-IQ4"/>
                                             </connections>
                                         </button>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a7v-H2-Et8">
-                                            <rect key="frame" x="69" y="113" width="220" height="48"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncA-lf-pLq">
+                                            <rect key="frame" x="12" y="97" width="120" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                                            <color key="backgroundColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="OR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaS-i5-bgP">
+                                            <rect key="frame" x="140" y="88" width="78" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gzJ-0Y-8PO">
-                                                    <rect key="frame" x="22" y="14" width="20" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" backgroundImage="fav1"/>
-                                                    <connections>
-                                                        <action selector="pressAddtoWishlist:" destination="-1" eventType="touchUpInside" id="qul-B4-3dM"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhY-Sb-uDJ">
-                                                    <rect key="frame" x="8" y="0.0" width="204" height="48"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                                    <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Add To Wishlist">
-                                                        <color key="titleColor" systemColor="labelColor"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="pressAddtoWishlist:" destination="-1" eventType="touchUpInside" id="jO6-0l-4Xn"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="16"/>
+                                            <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDG-zT-J7K">
+                                            <rect key="frame" x="226" y="97" width="120" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                            <color key="backgroundColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ftp-Si-mOX">
+                                            <rect key="frame" x="270" y="121" width="32" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" backgroundImage="fav1"/>
+                                            <connections>
+                                                <action selector="pressAddtoWishlist:" destination="-1" eventType="touchUpInside" id="Uh7-AQ-050"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T5A-Gs-Z6N">
+                                            <rect key="frame" x="319" y="121" width="32" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" backgroundImage="shareoption"/>
+                                            <connections>
+                                                <action selector="pressShareOption:" destination="-1" eventType="touchUpInside" id="bPr-EG-oiZ"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ycZ-tX-Eda">
-                                    <rect key="frame" x="8" y="651" width="359" height="100"/>
+                                    <rect key="frame" x="8" y="808" width="359" height="100"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Short Descriptions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPb-cv-PCX">
@@ -294,7 +283,7 @@
                                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c1o-xg-pru">
-                                    <rect key="frame" x="8" y="751" width="359" height="102"/>
+                                    <rect key="frame" x="8" y="908" width="359" height="102"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Benifits" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8b-2j-yQ3">
@@ -336,7 +325,7 @@
                                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24M-h9-tfQ">
-                                    <rect key="frame" x="8" y="853" width="359" height="262"/>
+                                    <rect key="frame" x="8" y="1010" width="359" height="262"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nutrition Facts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTt-OE-y6N">
@@ -378,7 +367,7 @@
                                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Efu-K7-WVu">
-                                    <rect key="frame" x="8" y="1115" width="359" height="632"/>
+                                    <rect key="frame" x="8" y="1272" width="359" height="632"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RcL-3G-Q96" customClass="CosmosView" customModule="Cosmos">
@@ -545,7 +534,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rYm-Ze-W6p">
-                                    <rect key="frame" x="8" y="1747" width="359" height="375"/>
+                                    <rect key="frame" x="8" y="1904" width="359" height="375"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Related Products" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sac-du-3NT">
@@ -605,16 +594,12 @@
             <point key="canvasLocation" x="132" y="-11.244377811094454"/>
         </view>
     </objects>
-    <designables>
-        <designable name="RcL-3G-Q96">
-            <size key="intrinsicContentSize" width="120" height="20"/>
-        </designable>
-    </designables>
     <resources>
         <image name="circleminus" width="32" height="32"/>
         <image name="circleplus" width="32" height="32"/>
-        <image name="fav1" width="24" height="22"/>
+        <image name="fav1" width="32" height="32"/>
         <image name="next" width="24" height="38.5"/>
+        <image name="shareoption" width="32" height="32"/>
         <image name="starempty.png" width="17.5" height="16.5"/>
         <image name="starfill.png" width="17.5" height="16.5"/>
         <namedColor name="greencolor">
@@ -626,9 +611,6 @@
         <namedColor name="themecolor">
             <color red="0.0" green="0.18799999356269836" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -109,7 +109,6 @@
 		CB4ECBB92865CE5F003C72E1 /* porudctdetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB4ECBB72865CE5F003C72E1 /* porudctdetails.xib */; };
 		CB512C512976C53200BF0ECB /* icon-20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB512C442976C52700BF0ECB /* icon-20@2x.png */; };
 		CB512C522976C53200BF0ECB /* icon-20.png in Resources */ = {isa = PBXBuildFile; fileRef = CB512C452976C52800BF0ECB /* icon-20.png */; };
-		CB512C532976C53200BF0ECB /* icon-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = CB512C462976C52900BF0ECB /* icon-1024.png */; };
 		CB512C542976C53200BF0ECB /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = CB512C472976C52900BF0ECB /* icon-40.png */; };
 		CB512C552976C53200BF0ECB /* icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB512C482976C52A00BF0ECB /* icon-60@3x.png */; };
 		CB512C562976C53200BF0ECB /* icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB512C492976C52B00BF0ECB /* icon-60@2x.png */; };
@@ -167,6 +166,7 @@
 		CB8EEE1728C21CF700EAC020 /* colcellsubmodelweekly.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8EEE1528C21CF700EAC020 /* colcellsubmodelweekly.xib */; };
 		CB8EEE1A28C21FF300EAC020 /* colcellsubmodelmonthly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8EEE1828C21FF300EAC020 /* colcellsubmodelmonthly.swift */; };
 		CB8EEE1B28C21FF300EAC020 /* colcellsubmodelmonthly.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8EEE1928C21FF300EAC020 /* colcellsubmodelmonthly.xib */; };
+		CB9640F229AF2CB600A8E3D0 /* icon-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9640F129AF2CB600A8E3D0 /* icon-1024.png */; };
 		CB9DE8812915008800475B39 /* maidaccountsdetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DE87F2915008800475B39 /* maidaccountsdetails.swift */; };
 		CB9DE8822915008800475B39 /* maidaccountsdetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE8802915008800475B39 /* maidaccountsdetails.xib */; };
 		CBA1E69928CF37BC0043DB4D /* celltabvmyaddresschoose.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA1E69728CF37BC0043DB4D /* celltabvmyaddresschoose.swift */; };
@@ -222,6 +222,7 @@
 		CBB143842860A83000D30A38 /* menuclass.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB143822860A83000D30A38 /* menuclass.xib */; };
 		CBB258C82962C704001058FC /* cellproductitemrefunded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB258C62962C704001058FC /* cellproductitemrefunded.swift */; };
 		CBB258C92962C704001058FC /* cellproductitemrefunded.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB258C72962C704001058FC /* cellproductitemrefunded.xib */; };
+		CBBA602F29AE33C500A504FB /* dairy_400x400_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CBBA602E29AE33C500A504FB /* dairy_400x400_1.jpg */; };
 		CBBE801A2955DBD000A161CF /* cmspage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE80182955DBD000A161CF /* cmspage.swift */; };
 		CBBE801B2955DBD000A161CF /* cmspage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBBE80192955DBD000A161CF /* cmspage.xib */; };
 		CBBE9E542923A9D500970344 /* mysubscriptionlineviewdetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE9E522923A9D500970344 /* mysubscriptionlineviewdetails.swift */; };
@@ -508,7 +509,6 @@
 		CB4ECBB72865CE5F003C72E1 /* porudctdetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = porudctdetails.xib; sourceTree = "<group>"; };
 		CB512C442976C52700BF0ECB /* icon-20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-20@2x.png"; sourceTree = "<group>"; };
 		CB512C452976C52800BF0ECB /* icon-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-20.png"; sourceTree = "<group>"; };
-		CB512C462976C52900BF0ECB /* icon-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-1024.png"; sourceTree = "<group>"; };
 		CB512C472976C52900BF0ECB /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		CB512C482976C52A00BF0ECB /* icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-60@3x.png"; sourceTree = "<group>"; };
 		CB512C492976C52B00BF0ECB /* icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-60@2x.png"; sourceTree = "<group>"; };
@@ -566,6 +566,7 @@
 		CB8EEE1528C21CF700EAC020 /* colcellsubmodelweekly.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = colcellsubmodelweekly.xib; sourceTree = "<group>"; };
 		CB8EEE1828C21FF300EAC020 /* colcellsubmodelmonthly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colcellsubmodelmonthly.swift; sourceTree = "<group>"; };
 		CB8EEE1928C21FF300EAC020 /* colcellsubmodelmonthly.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = colcellsubmodelmonthly.xib; sourceTree = "<group>"; };
+		CB9640F129AF2CB600A8E3D0 /* icon-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-1024.png"; sourceTree = "<group>"; };
 		CB9DE87F2915008800475B39 /* maidaccountsdetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = maidaccountsdetails.swift; sourceTree = "<group>"; };
 		CB9DE8802915008800475B39 /* maidaccountsdetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = maidaccountsdetails.xib; sourceTree = "<group>"; };
 		CBA1E69728CF37BC0043DB4D /* celltabvmyaddresschoose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = celltabvmyaddresschoose.swift; sourceTree = "<group>"; };
@@ -621,6 +622,7 @@
 		CBB143822860A83000D30A38 /* menuclass.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = menuclass.xib; sourceTree = "<group>"; };
 		CBB258C62962C704001058FC /* cellproductitemrefunded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cellproductitemrefunded.swift; sourceTree = "<group>"; };
 		CBB258C72962C704001058FC /* cellproductitemrefunded.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellproductitemrefunded.xib; sourceTree = "<group>"; };
+		CBBA602E29AE33C500A504FB /* dairy_400x400_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dairy_400x400_1.jpg; sourceTree = "<group>"; };
 		CBBE80182955DBD000A161CF /* cmspage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cmspage.swift; sourceTree = "<group>"; };
 		CBBE80192955DBD000A161CF /* cmspage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cmspage.xib; sourceTree = "<group>"; };
 		CBBE9E522923A9D500970344 /* mysubscriptionlineviewdetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mysubscriptionlineviewdetails.swift; sourceTree = "<group>"; };
@@ -930,6 +932,7 @@
 		CB1C1F30283F5B530046CEBD /* extras */ = {
 			isa = PBXGroup;
 			children = (
+				CBBA602E29AE33C500A504FB /* dairy_400x400_1.jpg */,
 				CB25B2B42939FF0400B8D15F /* splashgroup */,
 				CBA2B473286DBBB80062609C /* tabbarbg.png */,
 			);
@@ -2185,6 +2188,7 @@
 		CBE42FA828323A3B00B761F3 /* appicon */ = {
 			isa = PBXGroup;
 			children = (
+				CB9640F129AF2CB600A8E3D0 /* icon-1024.png */,
 				CB512C452976C52800BF0ECB /* icon-20.png */,
 				CB512C442976C52700BF0ECB /* icon-20@2x.png */,
 				CB512C4A2976C52C00BF0ECB /* icon-20@3x.png */,
@@ -2197,7 +2201,6 @@
 				CB512C4C2976C52E00BF0ECB /* icon-60.png */,
 				CB512C492976C52B00BF0ECB /* icon-60@2x.png */,
 				CB512C482976C52A00BF0ECB /* icon-60@3x.png */,
-				CB512C462976C52900BF0ECB /* icon-1024.png */,
 			);
 			path = appicon;
 			sourceTree = "<group>";
@@ -2676,7 +2679,6 @@
 				CBA1E69F28CF54890043DB4D /* updatemyaddress.xib in Resources */,
 				CBF7F74E291D01E100199DE7 /* colcellrechargeamount.xib in Resources */,
 				CB27BAF92914EC550024F07F /* celltabvpopupreason.xib in Resources */,
-				CB512C532976C53200BF0ECB /* icon-1024.png in Resources */,
 				CBB143802860A82200D30A38 /* orderonceclass.xib in Resources */,
 				CBCCC36E28BDCCB0009767D5 /* GoogleService-Info.plist in Resources */,
 				CBBE9E5F29240A6C00970344 /* mysubscriptionlineviewproductdetails.xib in Resources */,
@@ -2701,6 +2703,7 @@
 				CBC2365028D877CB000DBC93 /* cellcolweeklyproduct.xib in Resources */,
 				CBF12CA528C5B0A200F0325D /* TestLocation2.gpx in Resources */,
 				CB1C20342943448900966CAE /* maidaddresslist.xib in Resources */,
+				CB9640F229AF2CB600A8E3D0 /* icon-1024.png in Resources */,
 				CBFBFBBD29224AB5008332FF /* loader17.png in Resources */,
 				CB27BAFE2914F7740024F07F /* maidaccounts.xib in Resources */,
 				CB558E132872CC210071939A /* myorderhistory.xib in Resources */,
@@ -2785,6 +2788,7 @@
 				CB1D7EDF292F51B6001CFA09 /* createmaidaccount.xib in Resources */,
 				CB558E182872CE4F0071939A /* cellmyorders.xib in Resources */,
 				CBFBFBBA29224AB5008332FF /* loader18.png in Resources */,
+				CBBA602F29AE33C500A504FB /* dairy_400x400_1.jpg in Resources */,
 				CBAD49AB286043480091EA2F /* NunitoSans-Light.ttf in Resources */,
 				CBFBFBA229224AB5008332FF /* loader12.png in Resources */,
 				CBCC3DA528643E0800C0F7C3 /* colcellpromotions.xib in Resources */,
@@ -3099,6 +3103,7 @@
 		CBE42F932832391000B761F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3132,6 +3137,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -3163,6 +3169,7 @@
 		CBE42F942832391000B761F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3196,6 +3203,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -3226,6 +3234,7 @@
 				CODE_SIGN_ENTITLEMENTS = AlRawabi/AlRawabi.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4V4WQ2YLX8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AlRawabi/Info.plist;
@@ -3249,7 +3258,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.5;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3258,7 +3267,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
@@ -3272,6 +3281,7 @@
 				CODE_SIGN_ENTITLEMENTS = AlRawabi/AlRawabi.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4V4WQ2YLX8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AlRawabi/Info.plist;
@@ -3295,7 +3305,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.5;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3304,7 +3314,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

@@ -22,6 +22,11 @@ class cellcolbuyonce: UICollectionViewCell {
 
     @IBOutlet weak var btnaddtocart: UIButton!
     
+    @IBOutlet weak var viewPlusMinus: UIView!
+    @IBOutlet weak var btnMinusCart: UIButton!
+    @IBOutlet weak var btnPlusCart: UIButton!
+    @IBOutlet weak var txtMinusPlusCart: UITextField!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

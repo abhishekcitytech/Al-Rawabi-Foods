@@ -430,7 +430,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                           "status": status,
                           "maxorderamount": txtpurchaseamountlimit.text!,
                           "mobilenumber":txtmobileno.text!,
-                          "countryCode":"971",
+                          "countryCode":Constants.conn.STATICTELECPHONECODE,
                           "allowedaddress":straddresslist] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod67)

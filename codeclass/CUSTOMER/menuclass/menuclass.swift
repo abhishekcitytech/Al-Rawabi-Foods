@@ -220,7 +220,20 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
         
         setupRTLLTR()
         
+        //NotificationCenter.default.addObserver(self, selector: #selector(menuclass.timeChangedNotification), name: NSNotification.Name.NSSystemClockDidChange, object: nil)
+        
     }
+    
+    // Method get called user changed the system time manually.
+    /*@objc func timeChangedNotification(notification:NSNotification)
+    {
+            print("Device time has been changed...")
+            let uiAlert = UIAlertController(title: "", message: "Device time has been changed..." , preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                print("Click of default button")
+            }))
+    }*/
     
     //MARK: - setup RTL LTR method
     func setupRTLLTR()
@@ -908,6 +921,10 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
                     
                     let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
                     print("strbearertoken",strbearertoken)
+                    
+                    
+                    UserDefaults.standard.set(0, forKey: "subscribebyoncepopupshown")
+                    UserDefaults.standard.synchronize()
                     
                     self.dismiss(animated: true, completion: nil)
                     

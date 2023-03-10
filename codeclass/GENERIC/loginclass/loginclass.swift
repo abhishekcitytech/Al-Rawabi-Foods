@@ -13,6 +13,10 @@ class loginclass: UIViewController,UITextFieldDelegate
     
     @IBOutlet weak var scrollviewoverall: UIScrollView!
     
+    
+    @IBOutlet weak var viewoverall11: UIView!
+    @IBOutlet weak var viewoverall22: UIView!
+    
     @IBOutlet weak var imgvbanner: UIImageView!
     @IBOutlet weak var lblogin: UILabel!
     @IBOutlet weak var lblsigntoyouraccount: UILabel!
@@ -57,7 +61,7 @@ class loginclass: UIViewController,UITextFieldDelegate
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(true)
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
         
         self.setupRTLLTR()
         
@@ -96,7 +100,7 @@ class loginclass: UIViewController,UITextFieldDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
         
         self.scrollviewoverall.backgroundColor = .clear
         self.scrollviewoverall.showsVerticalScrollIndicator = false
@@ -602,6 +606,10 @@ class loginclass: UIViewController,UITextFieldDelegate
                             
                             UserDefaults.standard.set(strcustomerid, forKey: "customerid")
                             UserDefaults.standard.set(diccustomerDetails, forKey: "customerdetails")
+                            UserDefaults.standard.synchronize()
+                            
+                            //BY DEFAULT ALWAYS POPUP HOME WILL SHOW
+                            UserDefaults.standard.set(0, forKey: "subscribebyoncepopupshown")
                             UserDefaults.standard.synchronize()
 
                             let appDel = UIApplication.shared.delegate as! AppDelegate

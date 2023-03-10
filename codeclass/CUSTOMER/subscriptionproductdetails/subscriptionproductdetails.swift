@@ -47,10 +47,8 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
     @IBOutlet weak var lblsep1: UILabel!
     @IBOutlet weak var lblsep2: UILabel!
     
-    @IBOutlet weak var viewwishlist: UIView!
-    @IBOutlet weak var btnaddtowishlist: UIButton!
     @IBOutlet weak var btnaddtowishlisticon: UIButton!
-    
+    @IBOutlet weak var btnshareoption: UIButton!
     
     @IBOutlet weak var viewshortdescription: UIView!
     @IBOutlet weak var lblshortdescriptionHeader: UILabel!
@@ -124,6 +122,10 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
     
     
     var arrmorderon = NSMutableArray()
+    
+    
+    
+    var strShareableProductUrl = ""
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -209,6 +211,62 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         super.viewDidLayoutSubviews()
     }
     
+    
+    //MARK: - press Share Social Share Method
+    @IBAction func pressShareOption(_ sender: Any)
+    {
+        print("dicMProductDetails --->",self.dicMProductDetails)
+        let strname = String(format: "%@", self.dicMProductDetails.value(forKey: "productName")as? String ?? "")
+        let arrmbanners = self.dicMProductDetails.value(forKey: "media") as? NSArray ?? []
+        let strimage1 = String(format: "%@", arrmbanners.object(at: 0) as? String ?? "")
+        print("strname",strname)
+        print("strimage1",strimage1)
+        
+        self.createSocialShare(strimagelink: strimage1, strproductname: strname)
+    }
+    
+    func createSocialShare(strimagelink:String,strproductname:String)
+    {
+        // Setting description
+        let firstActivityItem = "Rawabi Foods"
+        
+        // Setting url
+        let secondActivityItem : NSURL = NSURL(string: self.strShareableProductUrl)!
+        
+        // If you want to use an image
+        //let image : UIImage = UIImage(named: strproductname)!
+        let activityViewController : UIActivityViewController = UIActivityViewController(
+            activityItems: [firstActivityItem, secondActivityItem], applicationActivities: nil)
+        
+        // This lines is for the popover you need to show in iPad
+        activityViewController.popoverPresentationController?.sourceView = (btnshareoption!)
+        
+        // This line remove the arrow of the popover to show in iPad
+        activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.down
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
+        
+        // Pre-configuring activity items
+        activityViewController.activityItemsConfiguration = [
+            UIActivity.ActivityType.message
+        ] as? UIActivityItemsConfigurationReading
+        
+        // Anything you want to exclude
+        activityViewController.excludedActivityTypes = [
+            UIActivity.ActivityType.postToWeibo,
+            UIActivity.ActivityType.print,
+            UIActivity.ActivityType.assignToContact,
+            UIActivity.ActivityType.saveToCameraRoll,
+            UIActivity.ActivityType.addToReadingList,
+            UIActivity.ActivityType.postToFlickr,
+            UIActivity.ActivityType.postToVimeo,
+            UIActivity.ActivityType.postToTencentWeibo,
+            UIActivity.ActivityType.postToFacebook
+        ]
+        
+        activityViewController.isModalInPresentation = true
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
     //MARK: - press back method
     @objc func pressBack()
     {
@@ -226,9 +284,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         btnaddtoall.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language70")), for: .normal)
         lbladdonce.text = myAppDelegate.changeLanguage(key: "msg_language71")
         lbladdtoall.text = myAppDelegate.changeLanguage(key: "msg_language70")
-        
-        btnaddtowishlist.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language154")), for: .normal)
-        
+         
         lblshortdescriptionHeader.text = myAppDelegate.changeLanguage(key: "msg_language158")
         btnSeemoreshortdescription.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language161")), for: .normal)
         
@@ -281,7 +337,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        if btnaddtowishlist.tag == 200
+        if btnaddtowishlisticon.tag == 200
         {
             //Add To Wishlist
             let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language149"), preferredStyle: UIAlertController.Style.alert)
@@ -457,6 +513,8 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if collectionView == colrelatedProducts
         {
             let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier5, for: indexPath as IndexPath) as! colcellrelatedproduct
@@ -497,7 +555,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
             cellA.lblqty.text = strsize
             
             let fltprice = Float(strprice)
-            cellA.lblprice.text = String(format: "%.2f", fltprice!)
+            cellA.lblprice.text = String(format: "AED %.2f", fltprice!)
             
             cellA.btnaddonce.isHidden = true
             cellA.btnaddonce.tag = indexPath.row
@@ -539,8 +597,8 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         cellA.lblsize.text = strsize
         
         let fltprice = Float(strprice)
-        cellA.lblrpcie.text = String(format: "%.2f", fltprice!)
-        
+        cellA.lblrpcie.text = String(format: "AED %.2f\n%@", fltprice!,myAppDelegate.changeLanguage(key: "msg_language474"))
+        cellA.lblrpcie.textColor = UIColor(named: "darkgreencolor")!
         
         cellA.viewcell.layer.cornerRadius = 6.0
         cellA.viewcell.layer.borderWidth = 2.0
@@ -801,19 +859,19 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 print("stris_addedwishlist",stris_addedwishlist)
                                 if stris_addedwishlist == "True"
                                 {
-                                    self.btnaddtowishlist.tag = 100
+                                    self.btnaddtowishlisticon.tag = 100
                                     self.btnaddtowishlisticon.setImage(UIImage(named: "favselected"), for: .normal)
-                                    self.btnaddtowishlist.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language153")), for: .normal)
+                                    
                                 }
                                 else{
-                                    self.btnaddtowishlist.tag = 200
+                                    self.btnaddtowishlisticon.tag = 200
                                     self.btnaddtowishlisticon.setImage(UIImage(named: "fav1"), for: .normal)
-                                    self.btnaddtowishlist.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language154")), for: .normal)
+                                    
                                 }
                             }else{
-                                self.btnaddtowishlist.tag = 200
+                                self.btnaddtowishlisticon.tag = 200
                                 self.btnaddtowishlisticon.setImage(UIImage(named: "fav1"), for: .normal)
-                                self.btnaddtowishlist.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language154")), for: .normal)
+                                
                             }
                             
                             //SET Remivew LIST
@@ -943,7 +1001,29 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                             
                             //SET FULL DESCRIPTION DESCRIPTION
                             let strdescription = String(format: "%@", self.dicMProductDetails.value(forKey: "description")as? String ?? "")
+                            print("strdescription>>>>>>>>>>",strdescription)
                             
+                            
+                            print("strbenefits>>>>>>>>>>",strbenefits)
+                            if strbenefits.count == 0
+                            {
+                                //BENIFIT SECTION WILL HIDE
+                                self.viewbenifits.isHidden = true
+                                self.viewnutritionfacts.frame = CGRect(x: self.viewnutritionfacts.frame.origin.x, y: self.viewbenifits.frame.origin.y, width: self.viewnutritionfacts.frame.size.width, height: self.viewnutritionfacts.frame.size.height)
+                                self.viewreviewratings.frame = CGRect(x: self.viewreviewratings.frame.origin.x, y: self.viewnutritionfacts.frame.maxY, width: self.viewreviewratings.frame.size.width, height: self.viewreviewratings.frame.size.height)
+                                self.viewrelatedproducts.frame = CGRect(x: self.viewrelatedproducts.frame.origin.x, y: self.viewreviewratings.frame.maxY, width: self.viewrelatedproducts.frame.size.width, height: self.viewrelatedproducts.frame.size.height)
+                               
+                            }
+                            else
+                            {
+                                //BENIFIT SECTION WILL SHOW
+                                self.viewbenifits.isHidden = false
+                                self.viewbenifits.frame = CGRect(x: self.viewbenifits.frame.origin.x, y: self.viewshortdescription.frame.maxY, width: self.viewbenifits.frame.size.width, height: self.viewbenifits.frame.size.height)
+                                self.viewnutritionfacts.frame = CGRect(x: self.viewnutritionfacts.frame.origin.x, y: self.viewbenifits.frame.maxY, width: self.viewnutritionfacts.frame.size.width, height: self.viewnutritionfacts.frame.size.height)
+                                self.viewreviewratings.frame = CGRect(x: self.viewreviewratings.frame.origin.x, y: self.viewnutritionfacts.frame.maxY, width: self.viewreviewratings.frame.size.width, height: self.viewreviewratings.frame.size.height)
+                                self.viewrelatedproducts.frame = CGRect(x: self.viewrelatedproducts.frame.origin.x, y: self.viewreviewratings.frame.maxY, width: self.viewrelatedproducts.frame.size.width, height: self.viewrelatedproducts.frame.size.height)
+                                
+                            }
                             
                         }
                         else{
@@ -1358,6 +1438,13 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                 print("err")
             }
         }
+        
+        
+        //FIXMESANDIPAN
+        btnaddonce.isHidden = true
+        btnaddtoall.isHidden = true
+        viewplusminus.isHidden = true
+        viewplusminusATA.isHidden = true
     }
     
     //MARK: - press ADDONCE method

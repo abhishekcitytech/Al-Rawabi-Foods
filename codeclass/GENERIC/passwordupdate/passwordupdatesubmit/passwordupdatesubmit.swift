@@ -277,7 +277,8 @@ class passwordupdatesubmit: UIViewController,UITextFieldDelegate
                         self.view.activityStopAnimating()
                     }
                     let dictemp = json as NSDictionary
-
+                    print("dictemp",dictemp)
+                    
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
@@ -288,19 +289,31 @@ class passwordupdatesubmit: UIViewController,UITextFieldDelegate
                         if strsuccess == true
                         {
                             //Go Back
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language323") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 
                                 if self.strpageidentifier == "100"
                                 {
-                                    //Go To Login Screen
+                                    //Go To CUSTOMER Login Screen
                                     
                                     guard let vc = self.navigationController?.viewControllers else { return }
                                     for controller in vc {
                                        if controller.isKind(of: loginclass.self) {
                                           let tabVC = controller as! loginclass
+                                          self.navigationController?.popToViewController(tabVC, animated: true)
+                                       }
+                                    }
+                                }
+                                else if self.strpageidentifier == "3300"
+                                {
+                                    //Go To MAID Login Screen
+                                    
+                                    guard let vc = self.navigationController?.viewControllers else { return }
+                                    for controller in vc {
+                                       if controller.isKind(of: maidloginclass.self) {
+                                          let tabVC = controller as! maidloginclass
                                           self.navigationController?.popToViewController(tabVC, animated: true)
                                        }
                                     }

@@ -13,6 +13,9 @@
         <array key="NunitoSans-Bold.ttf">
             <string>NunitoSans-Bold</string>
         </array>
+        <array key="NunitoSans-ExtraBold.ttf">
+            <string>NunitoSans-ExtraBold</string>
+        </array>
         <array key="NunitoSans-Regular.ttf">
             <string>NunitoSans-Regular</string>
         </array>
@@ -22,6 +25,7 @@
             <connections>
                 <outlet property="btnafternoon" destination="Cum-Ez-H7y" id="zvS-eB-iWE"/>
                 <outlet property="btnapplydiscount" destination="sOH-eB-fBF" id="dFP-mT-Ajb"/>
+                <outlet property="btnclearall" destination="6UB-zc-WhL" id="Wwe-3c-vqo"/>
                 <outlet property="btnevening" destination="4dy-Lj-0C0" id="Til-kC-afw"/>
                 <outlet property="btnkeepshopping" destination="3Ol-MB-JEZ" id="GbV-Yy-lFL"/>
                 <outlet property="btnmorning" destination="JBc-gm-yrR" id="iUs-fj-MvE"/>
@@ -182,7 +186,7 @@
                             <color key="backgroundColor" name="greenlighter"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ol-MB-JEZ">
-                            <rect key="frame" x="8" y="123" width="359" height="38"/>
+                            <rect key="frame" x="8" y="123" width="359" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
@@ -194,15 +198,19 @@
                                 <action selector="pressKeepShopping:" destination="-1" eventType="touchUpInside" id="qeA-to-Oy6"/>
                             </connections>
                         </button>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gF3-cq-kZp">
-                            <rect key="frame" x="8" y="169" width="359" height="174"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6UB-zc-WhL">
+                            <rect key="frame" x="274" y="299" width="93" height="38"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <color key="backgroundColor" name="darkredcolor"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-ExtraBold" family="Nunito Sans" pointSize="13"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Clear All">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
                             <connections>
-                                <outlet property="dataSource" destination="-1" id="gfF-n8-Ldk"/>
-                                <outlet property="delegate" destination="-1" id="Lk1-sh-8By"/>
+                                <action selector="pressClearAllcart:" destination="-1" eventType="touchUpInside" id="nQP-SV-rKX"/>
                             </connections>
-                        </tableView>
+                        </button>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ovk-Ev-qQD">
                             <rect key="frame" x="8" y="341" width="359" height="177"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -333,6 +341,15 @@
                                 <action selector="presspaycheckout:" destination="-1" eventType="touchUpInside" id="tqR-Om-Qcd"/>
                             </connections>
                         </button>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gF3-cq-kZp">
+                            <rect key="frame" x="8" y="154" width="359" height="145"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="gfF-n8-Ldk"/>
+                                <outlet property="delegate" destination="-1" id="Lk1-sh-8By"/>
+                            </connections>
+                        </tableView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
@@ -357,6 +374,9 @@
         <image name="radio2" width="32" height="32"/>
         <namedColor name="darkmostredcolor">
             <color red="0.87099999189376831" green="0.071000002324581146" blue="0.30199998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="darkredcolor">
+            <color red="1" green="0.30199998617172241" blue="0.30199998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="greencolor">
             <color red="0.1289999932050705" green="0.58799999952316284" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

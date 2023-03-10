@@ -307,7 +307,7 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
         
         colproductlist.backgroundColor = .clear
         let layout = colproductlist.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: 356)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: 431)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colproductlist.register(UINib(nibName: "cellcolmonthlyproduct", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)
@@ -855,6 +855,7 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
         {
             let dict = arrmproductlist.object(at: indexPath.row)as? NSDictionary
             let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+            let strproductUrl = String(format: "%@", dict!.value(forKey: "productUrl") as? String ?? "")
             
             let strname = String(format: "%@", dict!.value(forKey: "name") as? String ?? "")
             let strprice = String(format: "%@", dict!.value(forKey: "price") as? String ?? "")
@@ -873,6 +874,7 @@ class monthlyproductcatalogue: UIViewController,UITextFieldDelegate,UICollection
             ctrl.strprdimagefromlist = strFinalurl
             ctrl.strprdsizefromlist = strsize
             ctrl.strprdpricefromlist = strprice
+            ctrl.strShareableProductUrl =  strproductUrl
             self.navigationController?.pushViewController(ctrl, animated: true)
         }
     }

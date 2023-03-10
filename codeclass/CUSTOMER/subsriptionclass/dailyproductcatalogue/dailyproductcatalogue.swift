@@ -311,7 +311,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         
         colproductlist.backgroundColor = .clear
         let layout = colproductlist.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: 356)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: 431)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colproductlist.register(UINib(nibName: "cellcoldailyproduct", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)
@@ -394,6 +394,8 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             var strisrenew = String(format: "%@", dict?.value(forKey: "isrenew")as? String ?? "")
             var strsubscriptionid = String(format: "%@", dict?.value(forKey: "subscriptionid")as? String ?? "")
             print("strselected",strselected)
+            print("strisrenew",strisrenew)
+            print("strsubscriptionid",strsubscriptionid)
             print("strisrenew",strisrenew)
             print("strsubscriptionid",strsubscriptionid)
             
@@ -874,6 +876,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             let arrmedia = dict!.value(forKey: "media")as? NSArray ?? []
             let strimageurl = String(format: "%@", arrmedia.object(at: 0)as? String ?? "")
             let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
+            let strproductUrl = String(format: "%@", dict!.value(forKey: "productUrl") as? String ?? "")
             
             let ctrl = subscriptionproductdetails(nibName: "subscriptionproductdetails", bundle: nil)
             ctrl.strpageidentifier = "100"
@@ -885,6 +888,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             ctrl.strprdimagefromlist = strFinalurl
             ctrl.strprdsizefromlist = strsize
             ctrl.strprdpricefromlist = strprice
+            ctrl.strShareableProductUrl =  strproductUrl
             self.navigationController?.pushViewController(ctrl, animated: true)
         }
     }

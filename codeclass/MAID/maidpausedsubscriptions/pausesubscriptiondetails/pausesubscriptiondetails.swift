@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import DatePickerDialog
 class pausesubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDataSource
 {
 
@@ -165,13 +165,81 @@ class pausesubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language303"), preferredStyle: UIAlertController.Style.alert)
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
-            self.postPAUSERESUMEAPIMethod()
+            self.datePickerTappedStart()
         }))
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
     }
+    
+    
+    //MARK: - show fromdate picker method
+    let datePicker1 = DatePickerDialog()
+    func datePickerTappedStart()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "HH:mm:ss"
+        let timestring = df.string(from: date)
+        print("timestring",timestring)
+        
+        let s1 = timestring
+        let s2 = Constants.conn.CutOffTime //"15:00:00"
+        var strdate = String()
+        if df.date(from: s1)! > df.date(from: s2)!
+        {
+            print("Over 15:00:00 - Its over 3 PM")
+            
+            
+            let today = Date()
+            let nextdate = Calendar.current.date(byAdding: .day, value: +2, to: today)!
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "dd/MM/yyyy"
+            strdate = formatter1.string(from: nextdate)
+            print("strdate date %@",strdate)
+            
+        }
+        else
+        {
+            print("Within 15:00:00 - Its within 3 PM")
+            
+            let today = Date()
+            let nextdate = Calendar.current.date(byAdding: .day, value: +1, to: today)!
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "dd/MM/yyyy"
+            strdate = formatter1.string(from: nextdate)
+            print("strdate date %@",strdate)
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let date111 = dateFormatter.date(from: strdate)
+        
+        var dateComponents1 = DateComponents()
+        dateComponents1.day = 365
+        let next365days = Calendar.current.date(byAdding: dateComponents1, to: date111!)
+        
+        datePicker1.show(myAppDelegate.changeLanguage(key: "msg_language477"),
+                         doneButtonTitle: myAppDelegate.changeLanguage(key: "msg_language106"),
+                         cancelButtonTitle: myAppDelegate.changeLanguage(key: "msg_language107"),
+                         minimumDate: date111,
+                         maximumDate: next365days,
+                         datePickerMode: .date) { (date) in
+            
+            if let dt = date
+            {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                let strSelectedResumeDate = formatter.string(from: dt)
+                print("Selected Resume Date >>>>>>>",strSelectedResumeDate)
+                self.postPAUSERESUMEAPIMethod(strresumedate: strSelectedResumeDate)
+            }
+        }
+    }
+    
     
     // MARK: - tableView delegate & datasource Method
     func numberOfSections(in tableView: UITableView) -> Int
@@ -367,7 +435,7 @@ class pausesubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
     }
     
     //MARK: - post PAUSE / RESUME API Method
-    func postPAUSERESUMEAPIMethod()
+    func postPAUSERESUMEAPIMethod(strresumedate:String)
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
@@ -378,7 +446,7 @@ class pausesubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         print("strbearertoken",strbearertoken)
         
         let strsubscription_id = String(format: "%@", dicsubscriptionlist.value(forKey: "subscription_id")as? String ?? "")
-        let parameters = ["subscription_id": strsubscription_id] as [String : Any]
+        let parameters = ["subscription_id": strsubscription_id,"resumeDate":strresumedate] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod83)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

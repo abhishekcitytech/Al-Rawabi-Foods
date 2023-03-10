@@ -68,6 +68,8 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
     
     var locDRAGG = false
     
+    var boolSIRSTTMEPAGELOAD = false
+    
     // MARK: - viewWillDisappear Method
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -248,7 +250,7 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
         self.strsearchlat = 25.2048
         self.strsearchlng = 55.2708
         
-        let camera = GMSCameraPosition.camera(withLatitude:self.strsearchlat, longitude: self.strsearchlng, zoom: 15)
+        let camera = GMSCameraPosition.camera(withLatitude:self.strsearchlat, longitude: self.strsearchlng, zoom: 25)
         self.mapview.camera = camera
         self.mapview.delegate = self
         self.mapview.mapType = .normal
@@ -289,7 +291,7 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
         let lat = position.target.latitude
         let lng = position.target.longitude
         
-        if position.zoom >= 16
+        /*if position.zoom >= 16
         {
             let camera = GMSCameraPosition.camera(withLatitude:lat, longitude: lng, zoom: position.zoom)
             self.mapview.camera = camera
@@ -311,8 +313,15 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
             self.btnConfirmLocation.titleLabel?.textColor = UIColor.black
             self.btnConfirmLocation.isUserInteractionEnabled = false
             
-            self.showToast(message: myAppDelegate.changeLanguage(key: "msg_language473"), seconds: 3.0)
-        }
+            //self.showToast(message: myAppDelegate.changeLanguage(key: "msg_language473"), seconds: 3.0)
+        }*/
+        
+        let camera = GMSCameraPosition.camera(withLatitude:lat, longitude: lng, zoom: position.zoom)
+        self.mapview.camera = camera
+        
+        //CHECK INSIDE / OUSTSIDE POLYGON AREA METHOD
+        self.checkpolygonPointMultiple(lat: lat, long: lng)
+        self.alertViewFunction()
         
         // Create Location
         let location = CLLocation(latitude: lat, longitude: lng)
@@ -383,7 +392,24 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
         print("self.strcurrentlat",self.strcurrentlat)
         print("self.strcurrentlong",self.strcurrentlong)
         
-        if self.txtsearch.text?.count == 0
+        if boolSIRSTTMEPAGELOAD == false
+        {
+            //FOR FISTIMEPAGE LOAD ONLY
+            self.strsearchlat = latdouble
+            self.strsearchlng = longdouble
+            print("self.strsearchlat",self.strsearchlat)
+            print("self.strsearchlng",self.strsearchlng)
+            
+            //IF FOR FISTIMEPAGE LOAD ONLY THEN IT WILL AUTOMATICALLY CHECK CURRENT DEVICE LATITUDE LONGITUDE AREA WITH POLYGON AREA
+            self.performPlaceidFromLatLong(strlat: String(format: "%0.10f", self.strsearchlat), strlong: String(format: "%0.10f", self.strsearchlng))
+            
+            let camera = GMSCameraPosition.camera(withLatitude:self.strsearchlat, longitude: self.strsearchlng, zoom: 15)
+            self.mapview.camera = camera
+            
+            boolSIRSTTMEPAGELOAD = true
+        }
+        
+        /*if self.txtsearch.text?.count == 0
         {
             self.strsearchlat = latdouble
             self.strsearchlng = longdouble
@@ -406,11 +432,8 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
         }
         
         let camera = GMSCameraPosition.camera(withLatitude:self.strsearchlat, longitude: self.strsearchlng, zoom: 15)
-        self.mapview.camera = camera
+        self.mapview.camera = camera*/
         
-        //let point = CLLocationCoordinate2DMake(latdouble,longdouble)
-        //self.mymarker.position = point
-        //self.createCameraGoogleMap(latvalue: latdouble, longvalue: longdouble)
     }
     
     
@@ -430,7 +453,7 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
         mymarker.position = position
         mymarker.title = "My Location"
         mymarker.snippet = ""
-        mymarker.isDraggable = true // We will not Long press on marker and dragg it anywhere to point the position in GMS Google Map
+        //mymarker.isDraggable = true // We will not Long press on marker and dragg it anywhere to point the position in GMS Google Map
         mymarker.map = self.mapview
     }
     

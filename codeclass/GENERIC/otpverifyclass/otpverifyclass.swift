@@ -257,7 +257,7 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
         
         if self.strpagefrom == "100"{
             //Back to Pop My Edit Profile Page with Verified Tag
-            strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod108)
+            strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod5) //apimethod108
         }else{
             //Back to Pop Registration Page with Verified Tag
             strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod5)
@@ -309,6 +309,15 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
                         
                         if strsuccess == true
                         {
+                            self.txt1.text = ""
+                            self.txt2.text = ""
+                            self.txt3.text = ""
+                            self.txt4.text = ""
+                            self.txt5.text = ""
+                            self.txt6.text = ""
+                            
+                            self.txt1.becomeFirstResponder()
+                            
                             self.lblsmshasbeensent.isHidden = false
                         }
                         else{
@@ -316,6 +325,7 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
+                                self.navigationController?.popViewController(animated: true)
                             }))
                         }
                     }

@@ -99,7 +99,7 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
         txtemail.setLeftPaddingPoints(10)
         txtmobile.setLeftPaddingPoints(10)
         
-        self.btnverifynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language17")), for: .normal)
+        self.btnverifynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language429")), for: .normal)
         btnverifynow.tag = 101
         
         btnupdatesave.layer.cornerRadius = 16.0
@@ -152,7 +152,7 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
     //MARK: - pressverifynow method
     @IBAction func pressverifynow(_ sender: Any)
     {
-        print("pressverifynow")
+        print("self.dicprofiledetails",self.dicprofiledetails)
         
         var strfullmobilenocode = ""
         var strfullmobileno = ""
@@ -160,8 +160,9 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
         for x in 0 ..< arrm.count
         {
             let dic = arrm.object(at: x)as? NSDictionary
+            print("dic",dic)
             let strattributecode = String(format: "%@", dic?.value(forKey: "attribute_code")as? String ?? "")
-            if strattributecode.containsIgnoreCase("mobile")
+            if strattributecode.containsIgnoreCase("mobile") || strattributecode.containsIgnoreCase("phone_number")
             {
                 strfullmobileno = String(format: "%@", dic?.value(forKey: "value")as? String ?? "")
             }
@@ -172,6 +173,9 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
         }
         
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        print("strfullmobileno",strfullmobileno)
+        print("txtmobile.text",txtmobile.text!)
         
         if strfullmobileno == txtmobile.text!
         {
@@ -185,13 +189,13 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
         }
         else
         {
-            if txtmobile.text?.count == 9{
+            if txtmobile.text?.count == Constants.conn.STATICTELECPHONENUMBERLENGTH {
                 
                 print("countrycode",lblmobilecountrycode.text!)
                 print("mobile",txtmobile.text!)
                 
                 let obj = otpverifyclass(nibName: "otpverifyclass", bundle: nil)
-                obj.strcountrycode = "971" //FIXMESANDIPAN
+                obj.strcountrycode = Constants.conn.STATICTELECPHONECODE
                 obj.strmobileno = txtmobile.text!
                 obj.delegate2 = self
                 obj.strpagefrom = "100"
@@ -239,7 +243,7 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
                 print("Click of default button")
             }))
         }
-        else if txtmobile.text?.count != 9
+        else if txtmobile.text?.count != Constants.conn.STATICTELECPHONENUMBERLENGTH
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language14"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
@@ -252,7 +256,7 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
             print("update successfull")
             print("firstname",txtfirstname.text!)
             print("lastname",txtlastname.text!)
-            print("countrycode","971")
+            print("countrycode",Constants.conn.STATICTELECPHONECODE)
             print("txtmobile",txtmobile.text!)
             
             self.postUpdateProfileDetailsAPImethod()
@@ -427,7 +431,7 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
         
         let parameters = ["customerFirstName": txtfirstname.text!,
         "customerLastName": txtlastname.text!,
-        "customerPhoneCountryCode": "971",
+        "customerPhoneCountryCode": Constants.conn.STATICTELECPHONECODE,
         "customerPhoneNumber": txtmobile.text!
         ]
         as [String : Any]

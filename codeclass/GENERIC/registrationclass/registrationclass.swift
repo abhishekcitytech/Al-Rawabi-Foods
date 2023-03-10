@@ -85,8 +85,8 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         self.navigationController?.navigationBar.isHidden = false
         
         //FIXMESANDIPAN
-        //self.txtpassword.text = "123456"
-        //self.txtconfirmpassword.text = "123456"
+        //self.txtpassword.text = "$#Admin2"
+        //self.txtconfirmpassword.text = "$#Admin2"
         
         //Create Back Button
         let yourBackImage = UIImage(named: "back")
@@ -96,7 +96,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
    
         self.scrolloverall.backgroundColor = .white
         self.scrolloverall.showsVerticalScrollIndicator = false
-        self.scrolloverall.contentSize=CGSize(width: self.viewoverall.frame.size.width, height: self.viewoverall.frame.size.height)
+        self.scrolloverall.contentSize=CGSize(width: self.viewoverall.frame.size.width, height: self.viewoverall.frame.size.height + 265)
         
         viewfirstname.layer.cornerRadius = 3.0
         viewfirstname.layer.masksToBounds = true
@@ -308,13 +308,13 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        if txtmobile.text?.count == 9{
+        if txtmobile.text?.count == Constants.conn.STATICTELECPHONENUMBERLENGTH {
             
             print("countrycode",lblmobilecountrycode.text!)
             print("mobile",txtmobile.text!)
             
             let obj = otpverifyclass(nibName: "otpverifyclass", bundle: nil)
-            obj.strcountrycode = "971" //FIXMESANDIPAN
+            obj.strcountrycode = Constants.conn.STATICTELECPHONECODE
             obj.strmobileno = txtmobile.text!
             obj.delegate = self
             self.navigationController?.pushViewController(obj, animated: true)
@@ -406,7 +406,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 print("Click of default button")
             }))
         }
-        else if txtmobile.text?.count != 9
+        else if txtmobile.text?.count != Constants.conn.STATICTELECPHONENUMBERLENGTH
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language14"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
@@ -471,7 +471,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         if textField.isEqual(txtmobile) {
-            let maxLength = 9 //FIXMESANDIPAN
+            let maxLength = Constants.conn.STATICTELECPHONENUMBERLENGTH
             let currentString: NSString = txtmobile.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
@@ -611,7 +611,7 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         let parameters = ["firstName": txtfirstname.text!,
         "lastName": txtlastname.text!,
         "email": txtemail.text!,
-        "countryCode": "971",
+        "countryCode": Constants.conn.STATICTELECPHONECODE,
         "mobileNo": txtmobile.text!,
         "password": txtpassword.text!]
         as [String : Any]
@@ -869,6 +869,10 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                             
                             UserDefaults.standard.set(strcustomerid, forKey: "customerid")
                             UserDefaults.standard.set(diccustomerDetails, forKey: "customerdetails")
+                            UserDefaults.standard.synchronize()
+                            
+                            //BY DEFAULT ALWAYS POPUP HOME WILL SHOW
+                            UserDefaults.standard.set(0, forKey: "subscribebyoncepopupshown")
                             UserDefaults.standard.synchronize()
 
                             let appDel = UIApplication.shared.delegate as! AppDelegate

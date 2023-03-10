@@ -264,7 +264,8 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
             
             let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language303"), preferredStyle: UIAlertController.Style.alert)
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
-                self.postPAUSERESUMEAPIMethod()
+                
+                self.datePickerTappedStart3()
             }))
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                 print("Handle Cancel Logic here")
@@ -277,7 +278,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
             //PAUSE
             let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language302"), preferredStyle: UIAlertController.Style.alert)
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
-                self.postPAUSERESUMEAPIMethod()
+                self.postPAUSERESUMEAPIMethod(strresumedate: "")
             }))
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                 print("Handle Cancel Logic here")
@@ -1329,8 +1330,76 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         viewPopupAddNewExistingBG2.removeFromSuperview()
     }
     
+    
+    //MARK: - show fromdate picker method
+    let datePicker3 = DatePickerDialog()
+    func datePickerTappedStart3()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "HH:mm:ss"
+        let timestring = df.string(from: date)
+        print("timestring",timestring)
+        
+        let s1 = timestring
+        let s2 = Constants.conn.CutOffTime //"15:00:00"
+        var strdate = String()
+        if df.date(from: s1)! > df.date(from: s2)!
+        {
+            print("Over 15:00:00 - Its over 3 PM")
+            
+            
+            let today = Date()
+            let nextdate = Calendar.current.date(byAdding: .day, value: +2, to: today)!
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "dd/MM/yyyy"
+            strdate = formatter1.string(from: nextdate)
+            print("strdate date %@",strdate)
+            
+        }
+        else
+        {
+            print("Within 15:00:00 - Its within 3 PM")
+            
+            let today = Date()
+            let nextdate = Calendar.current.date(byAdding: .day, value: +1, to: today)!
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "dd/MM/yyyy"
+            strdate = formatter1.string(from: nextdate)
+            print("strdate date %@",strdate)
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let date111 = dateFormatter.date(from: strdate)
+        
+        var dateComponents1 = DateComponents()
+        dateComponents1.day = 365
+        let next365days = Calendar.current.date(byAdding: dateComponents1, to: date111!)
+        
+        datePicker3.show(myAppDelegate.changeLanguage(key: "msg_language477"),
+                         doneButtonTitle: myAppDelegate.changeLanguage(key: "msg_language106"),
+                         cancelButtonTitle: myAppDelegate.changeLanguage(key: "msg_language107"),
+                         minimumDate: date111,
+                         maximumDate: next365days,
+                         datePickerMode: .date) { (date) in
+            
+            if let dt = date
+            {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                let strSelectedResumeDate = formatter.string(from: dt)
+                print("Selected Resume Date >>>>>>>",strSelectedResumeDate)
+                self.postPAUSERESUMEAPIMethod(strresumedate: strSelectedResumeDate)
+            }
+            
+        }
+    }
+    
     //MARK: - post PAUSE / RESUME API Method
-    func postPAUSERESUMEAPIMethod()
+    func postPAUSERESUMEAPIMethod(strresumedate:String)
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
@@ -1341,7 +1410,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         print("strbearertoken",strbearertoken)
         
         let strsubscription_id = String(format: "%@", diclistvalue.value(forKey: "subscription_id")as? String ?? "")
-        let parameters = ["subscription_id": strsubscription_id] as [String : Any]
+        let parameters = ["subscription_id": strsubscription_id,"resumeDate":strresumedate] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod47)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -1586,6 +1655,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
                         
                         if strsuccess == true
                         {
+                           
                             self.isEditStartDate = dictemp.value(forKey: "is_edit_start_date")as? Bool ?? false
                             self.isEditEndDate = dictemp.value(forKey: "is_edit_end_date")as? Bool ?? false
                             print("self.isEditStartDate",self.isEditStartDate)
@@ -1632,6 +1702,8 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
                                 self.txtstartdate.backgroundColor = UIColor(named: "plate1")!
                                 self.txtenddate.backgroundColor = UIColor(named: "plate1")!
                             }
+                            
+                            
 
                             let arrm = dictemp.value(forKey: "subscription_detail") as? NSArray ?? []
                             self.arrMsubscription_order = NSMutableArray(array: arrm)

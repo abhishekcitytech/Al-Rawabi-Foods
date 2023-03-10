@@ -14,6 +14,7 @@ class tabvcellcartorderonce: UITableViewCell {
     @IBOutlet weak var lblproductmessage: UILabel!
     @IBOutlet weak var imgvprod: UIImageView!
     @IBOutlet weak var lblprodprice: UILabel!
+    @IBOutlet weak var lblincludetax: UILabel!
     
     @IBOutlet weak var viewplusminus: UIView!
     @IBOutlet weak var btnminus: UIButton!

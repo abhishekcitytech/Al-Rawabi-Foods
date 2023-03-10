@@ -70,7 +70,7 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
         
         colproductlist.backgroundColor = .clear
         let layout = colproductlist.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/2.0 - 15, height: 210)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/2.0 - 15, height: 294)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colproductlist.register(UINib(nibName: "colcellproductonly", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)

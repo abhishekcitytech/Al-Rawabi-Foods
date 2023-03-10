@@ -9,8 +9,9 @@ import UIKit
 
 class maidloginclass: UIViewController,UITextFieldDelegate
 {
-
+    
     @IBOutlet weak var viewoverall: UIView!
+    @IBOutlet weak var scrolloverall: UIScrollView!
     
     @IBOutlet weak var imgvbanner: UIImageView!
     @IBOutlet weak var lblogin: UILabel!
@@ -26,7 +27,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
     @IBOutlet weak var txtpassword: UITextField!
     
     @IBOutlet weak var btnlogin: UIButton!
-    
+    @IBOutlet weak var btnforgotpassword: UIButton!
     @IBOutlet weak var btnhideshowpassword: UIButton!
     
     
@@ -41,17 +42,21 @@ class maidloginclass: UIViewController,UITextFieldDelegate
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(true)
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
         
         self.setupRTLLTR()
-      
+        
     }
     
     // MARK: - viewDidLoad method
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        
+        self.scrolloverall.backgroundColor = .clear
+        self.scrolloverall.showsVerticalScrollIndicator = false
+        self.scrolloverall.contentSize=CGSize(width: self.viewoverall.frame.size.width, height: self.viewoverall.frame.size.height)
         
         txtusername.setLeftPaddingPoints(10)
         txtpassword.setLeftPaddingPoints(10)
@@ -59,14 +64,22 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         btnlogin.layer.cornerRadius = 16.0
         btnlogin.layer.masksToBounds = true
         
-        txtusername.keyboardType = .phonePad
-        let toolbarDone = UIToolbar.init()
-        toolbarDone.sizeToFit()
-        let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.done,target: self, action: #selector(pressDonetxtMobilenumber))
-        toolbarDone.items = [barBtnDone]
-        txtusername.inputAccessoryView = toolbarDone
+        txtusername.keyboardType = .numbersAndPunctuation
         
-       
+        
+        //Create Back Button
+        let yourBackImage = UIImage(named: "back")
+        let Back = UIBarButtonItem(image: yourBackImage, style: .plain, target: self, action: #selector(pressBack))
+        Back.tintColor = UIColor.black
+        self.navigationItem.leftBarButtonItem = Back
+        
+        /*let toolbarDone = UIToolbar.init()
+         toolbarDone.sizeToFit()
+         let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.done,target: self, action: #selector(pressDonetxtMobilenumber))
+         toolbarDone.items = [barBtnDone]
+         txtusername.inputAccessoryView = toolbarDone*/
+        
+        
         let tapGesture = UITapGestureRecognizer(target: self,action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -78,8 +91,8 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         //FIXMESANDIPAN
         //9674777246 Sandi@123 8621812596 9051015017
         
-        txtusername.text = "968125278"
-        txtpassword.text = "maid@123"
+        txtusername.text = "9681252788"
+        txtpassword.text = "Maid@123"
         
     }
     
@@ -90,10 +103,11 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         
         lblogin.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language288"))
         lblsigntoyouraccount.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language289"))
-       
-        btnlogin.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language20")), for: .normal)
         
-        self.txtusername.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language9"))
+        btnlogin.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language20")), for: .normal)
+        btnforgotpassword.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language27")), for: .normal)
+        
+        self.txtusername.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language476"))
         self.txtpassword.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language23"))
         
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
@@ -107,8 +121,8 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             
             self.viewusername1.frame = CGRect(x: 1, y: self.viewusername1.frame.origin.y, width: self.viewusername1.frame.size.width, height: self.viewusername1.frame.size.height)
             
-            self.lblmobilecountrycode.frame = CGRect(x: 54, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
-            self.txtusername.frame = CGRect(x: self.lblmobilecountrycode.frame.maxX, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width - 1, height: self.txtusername.frame.size.height)
+            //self.lblmobilecountrycode.frame = CGRect(x: 54, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
+            self.txtusername.frame = CGRect(x: 54, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width - 1, height: self.txtusername.frame.size.height)
             
             //self.txtusername.frame = CGRect(x: 54, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
             self.txtusername.textAlignment = .left
@@ -119,6 +133,8 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             self.txtpassword.textAlignment = .left
             
             self.btnhideshowpassword.frame = CGRect(x: self.txtpassword.frame.size.width - 5, y: self.btnhideshowpassword.frame.origin.y, width: self.btnhideshowpassword.frame.size.width, height: self.btnhideshowpassword.frame.size.height)
+            
+            self.btnforgotpassword.frame = CGRect(x: self.viewpassword.frame.maxX - self.btnforgotpassword.frame.size.width, y: self.btnforgotpassword.frame.origin.y, width: self.btnforgotpassword.frame.size.width, height: self.btnforgotpassword.frame.size.height)
         }
         else
         {
@@ -131,7 +147,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             self.viewusername1.frame = CGRect(x: self.viewusername.frame.size.width - 53, y: self.viewusername1.frame.origin.y, width: self.viewusername1.frame.size.width, height: self.viewusername1.frame.size.height)
             
             self.txtusername.frame = CGRect(x: 1, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
-            self.lblmobilecountrycode.frame = CGRect(x: self.txtusername.frame.maxX, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
+            //self.lblmobilecountrycode.frame = CGRect(x: self.txtusername.frame.maxX, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
             //self.txtusername.frame = CGRect(x: 1, y: self.txtusername.frame.origin.y, width: self.txtusername.frame.size.width, height: self.txtusername.frame.size.height)
             self.txtusername.textAlignment = .right
             
@@ -141,11 +157,13 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             self.txtpassword.textAlignment = .right
             
             self.btnhideshowpassword.frame = CGRect(x: 10, y: self.btnhideshowpassword.frame.origin.y, width: self.btnhideshowpassword.frame.size.width, height: self.btnhideshowpassword.frame.size.height)
+            
+            self.btnforgotpassword.frame = CGRect(x: self.viewpassword.frame.origin.x, y: self.btnforgotpassword.frame.origin.y, width: self.btnforgotpassword.frame.size.width, height: self.btnforgotpassword.frame.size.height)
         }
     }
     
     //MARK: - press back method
-    @IBAction func pressBack(_ sender: Any)
+    @objc func pressBack(_ sender: Any)
     {
         self.navigationController?.popViewController(animated: true)
     }
@@ -154,6 +172,17 @@ class maidloginclass: UIViewController,UITextFieldDelegate
     @objc func pressDonetxtMobilenumber(sender: UIButton)
     {
         txtusername.resignFirstResponder()
+    }
+    
+    // MARK: - pressforgotpassword Method
+    @IBAction func pressforgotpassword(_ sender: Any)
+    {
+        print("pressforgotpassword")
+        //self.createPopupForgotPassword()
+        
+        let obj = passwordupdatemobile(nibName: "passwordupdatemobile", bundle: nil)
+        obj.strpageidentifier = "3300"
+        self.navigationController?.pushViewController(obj, animated: true)
     }
     
     //MARK: - keyboard show hide on Mobile number Textfield Method
@@ -201,7 +230,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         
         if txtusername.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language240"), preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language476"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
@@ -217,10 +246,21 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         }
         else{
             
-            self.postLoginAPImethod()
+            if txtusername.text!.isValidEmail() || txtusername.text!.isValidPhone()
+            {
+                print("Success")
+                self.postLoginAPImethod()
+            }
+            else{
+                let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language476"), preferredStyle: UIAlertController.Style.alert)
+                self.present(uiAlert, animated: true, completion: nil)
+                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                    print("Click of default button")
+                }))
+            }
         }
     }
-
+    
     // MARK: - Textfield Delegate Method
     func textFieldDidBeginEditing(_ textField: UITextField)
     {
@@ -242,12 +282,6 @@ class maidloginclass: UIViewController,UITextFieldDelegate
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
-        if textField.isEqual(txtusername) {
-            let maxLength = 9 //FIXMESANDIPAN
-            let currentString: NSString = txtusername.text! as NSString
-            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
-            return newString.length <= maxLength
-        }
         return true
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
@@ -273,7 +307,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         let strfcmToken = String(format: "%@",UserDefaults.standard.value(forKey: "fcmToken") as? String ?? "")
         print("strfcmToken",strfcmToken)
         
-
+        
         let parameters = ["mobileNo": txtusername.text!,
                           "password":txtpassword.text!,
                           "deviceId":struniquedeviceid,
@@ -315,7 +349,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -339,7 +373,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                             UserDefaults.standard.synchronize()
                             
                             self.getLoginuserdetailsmenthod()
-
+                            
                         }
                         else
                         {
@@ -408,14 +442,14 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                     
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
-                   
                     
-                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     print("strstatus",strstatus)
-                     print("strsuccess",strsuccess)
-                     print("strmessage",strmessage)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -429,7 +463,7 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                             UserDefaults.standard.set(strcustomerid, forKey: "maidid")
                             UserDefaults.standard.set(diccustomerDetails, forKey: "maiddetails")
                             UserDefaults.standard.synchronize()
-
+                            
                             let obj = maidhomeclass(nibName: "maidhomeclass", bundle: nil)
                             self.navigationController?.pushViewController(obj, animated: true)
                         }
@@ -452,5 +486,23 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             }
         }
         task.resume()
+    }
+}
+extension String {
+    func isValidEmail() -> Bool {
+        // here, `try!` will always succeed because the pattern is valid
+        let regex = try! NSRegularExpression(pattern: "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,3})$", options: .caseInsensitive)
+        let valid = regex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: count)) != nil
+        print("Email validation \(valid)")
+        return valid
+    }
+    
+    // vrify Valid PhoneNumber or Not
+    func isValidPhone() -> Bool {
+        
+        let regex = try! NSRegularExpression(pattern: Constants.conn.STATICTELECPHONENUMBERREGEX, options: .caseInsensitive)
+        let valid = regex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: count)) != nil
+        print("Mobile validation \(valid)")
+        return valid
     }
 }

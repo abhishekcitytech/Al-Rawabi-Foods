@@ -20,7 +20,7 @@ import NISdk
 struct Constants {
     struct conn {
         
-        //FIXMESANDIPAN -Last-Updated-By-20-02-2023
+        //FIXMESANDIPAN -Last-Update
         //MARK: - Web Service API URL - DEV
         //static let ConnUrl = "https://alrawabi.task2bill.com/index.php/rest/default/V1/"
         
@@ -44,6 +44,17 @@ struct Constants {
         
         //MARK: - STATIC EMAIL
         static let STATISEMAILID = "sales@alrawabi.ae"
+        
+        //MARK: - STATIC TELEPHONE CODE
+        static let STATICTELECPHONECODE = "91"
+        
+        //MARK: - STATIC TELEPHONE NUMBER LENGTH
+        static let STATICTELECPHONENUMBERLENGTH = 10
+        
+        //MARK: - STATIC TELEPHONE NUMBER REGEX
+        static let STATICTELECPHONENUMBERREGEX = "^[0-9]{10}$"
+        
+        
         
     }
     
@@ -159,6 +170,9 @@ struct Constants {
         static let apimethod107 = "subscriptionRewardPointApply/subscriptionRewardPointApply-api"
         static let apimethod108 = "mobileOtpRequestExist/mobileOtpRequestExist-api"
         static let apimethod109 = "locationcoordinates/locationcoordinates-api"
+        static let apimethod110 = "cartClear/cartClear-api"
+        
+        
     }
 }
 
@@ -350,7 +364,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        UserDefaults.standard.synchronize()
+        
         self.saveContext()
     }
     

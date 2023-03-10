@@ -104,6 +104,12 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
         txtvcomments.layer.cornerRadius = 4.0
         txtvcomments.layer.masksToBounds = true
         
+        let toolbarDone = UIToolbar.init()
+        toolbarDone.sizeToFit()
+        let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.done,target: self, action: #selector(pressDonetxtMobilenumber))
+        toolbarDone.items = [barBtnDone]
+        txtmobile.inputAccessoryView = toolbarDone
+        
         setupRTLLTR()
     }
     
@@ -111,6 +117,12 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
     @objc func pressBack()
     {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: - Done Mobile Number method
+    @objc func pressDonetxtMobilenumber(sender: UIButton)
+    {
+        txtmobile.resignFirstResponder()
     }
     
     //MARK: - setup RTL LTR method
@@ -271,7 +283,7 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         if textField.isEqual(txtmobile) {
-            let maxLength = 9 //FIXMESANDIPAN
+            let maxLength = Constants.conn.STATICTELECPHONENUMBERLENGTH
             let currentString: NSString = txtmobile.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
@@ -283,7 +295,7 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
         textField.resignFirstResponder();
         return true;
     }
-    @objc func textFieldDidChange(_ textField: UITextField)
+    @objc private func textFieldDidChange(_ textField: UITextField)
     {
     }
     

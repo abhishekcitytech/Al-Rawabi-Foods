@@ -109,7 +109,7 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
         
         colproductlist.backgroundColor = .clear
         let layout = colproductlist.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: 275)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.size.width/floatDevider - 15, height: 350)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         colproductlist.register(UINib(nibName: "colcelltopdeals", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)
@@ -163,6 +163,7 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
         let strbrand = String(format: "%@", dict!.value(forKey: "brand") as? String ?? "")
         let strstatus = String(format: "%@", dict!.value(forKey: "productStatus") as? String ?? "")
         
+        let strin_cart = String(format: "%@", dict!.value(forKey: "in_cart") as! CVarArg)
         
         let arrmedia = dict!.value(forKey: "media")as? NSArray ?? []
         let strimageurl = String(format: "%@", arrmedia.object(at: 0)as? String ?? "")
@@ -203,6 +204,29 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
         cellA.btnaddonce.tag = indexPath.row
         cellA.btnaddonce.addTarget(self, action: #selector(pressaddonce), for: .touchUpInside)
         
+        cellA.viewPlusMinus.layer.borderWidth = 1.0
+        cellA.viewPlusMinus.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+        cellA.viewPlusMinus.layer.cornerRadius = 16.0
+        cellA.viewPlusMinus.layer.masksToBounds = true
+        
+        cellA.btnMinusCart.tag = indexPath.row
+        cellA.btnMinusCart.addTarget(self, action: #selector(pressMinusCart), for: .touchUpInside)
+        cellA.btnPlusCart.tag = indexPath.row
+        cellA.btnPlusCart.addTarget(self, action: #selector(pressPlusCart), for: .touchUpInside)
+        
+        print("strin_cart",strin_cart)
+        if strin_cart == "0"{
+            print("NOT IN CART")
+            cellA.btnaddonce.isHidden = false
+            cellA.viewPlusMinus.isHidden = true
+        }
+        else{
+            print("WITHIN CART")
+            cellA.btnaddonce.isHidden = true
+            cellA.viewPlusMinus.isHidden = false
+            cellA.txtMinusPlusCart.text = strin_cart
+        }
+        
         // Set up cell
         return cellA
         
@@ -218,6 +242,71 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
         //print("Called when the cell is displayed   %ld",indexPath.row)
     }
     
+    //MARK: - press PLUS MINUS BUY ONCE CART QUANTITY METHOD
+    @objc func pressMinusCart(sender:UIButton)
+    {
+        let dict = arrMNewArrivals.object(at: sender.tag) as! NSDictionary
+        let strproductid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
+        let strin_cart = String(format: "%@", dict.value(forKey: "in_cart") as! CVarArg)
+        let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as! CVarArg)
+        let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as! CVarArg)
+        print("strproductid %@ + strin_cart %@",strproductid,strin_cart)
+        
+        var intqty = (strin_cart as NSString).intValue
+        print("intqty",intqty as Any)
+        if intqty >= 0{
+            intqty = intqty - 1
+        }
+        else{
+            //product qunatity item 0 - Add to cart button will show
+        }
+        print("intqty",intqty as Any)
+        
+        if intqty == 0
+        {
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            //product qunatity item 0 - Add to cart button will show
+            
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Continue Logic here")
+                
+                self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
+            
+        }
+        else
+        {
+            self.postCartListUpdateQTYItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id, strproductQty: String(format: "%d", intqty))
+        }
+    }
+    @objc func pressPlusCart(sender:UIButton)
+    {
+        let dict = arrMNewArrivals.object(at: sender.tag) as! NSDictionary
+        let strproductid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
+        let strin_cart = String(format: "%@", dict.value(forKey: "in_cart") as! CVarArg)
+        let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as! CVarArg)
+        let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as! CVarArg)
+        print("strproductid %@ + strin_cart %@",strproductid,strin_cart)
+        
+        var intqty = (strin_cart as NSString).intValue
+        print("intqty",intqty)
+        if intqty >= 0{
+            intqty = intqty + 1
+        }
+        else{
+            //product qunatity item 0 - Add to cart button will show
+        }
+        print("intqty",intqty as Any)
+
+        self.postCartListUpdateQTYItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id, strproductQty: String(format: "%d", intqty))
+    }
+    
     //MARK: - press Add TO CART Method
     @objc func pressaddonce(sender:UIButton)
     {
@@ -229,6 +318,9 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
     //MARK: - post New Arrivals API method
     func postNewArrivalsApIMethod()
     {
+        if self.arrMNewArrivals.count == 0{
+            self.arrMNewArrivals.removeAllObjects()
+        }
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -393,7 +485,7 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             var strupdatedmessg = ""
                             if strmessage.contains("Item added successfully")
@@ -416,6 +508,7 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
                                 print("Click of default button")
                             }))
                         }
+                        self.postNewArrivalsApIMethod()
                     }
                 }
             }
@@ -429,6 +522,209 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
                         print("Click of default button")
                     }))
                     self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - post Cart List Update QTY Item API Method
+    func postCartListUpdateQTYItemAPIMethod(stritemid:String,strquoteid:String,strproductQty:String)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.isUserInteractionEnabled = false
+            //self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strcustomerid = UserDefaults.standard.value(forKey: "customerid")as? String ?? ""
+        print("strcustomerid",strcustomerid)
+        
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        let parameters = ["itemId": stritemid,
+                          "quoteId": strquoteid,
+                          "productQty": strproductQty] as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod19)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.isUserInteractionEnabled = true
+                    //self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.isUserInteractionEnabled = true
+                        //self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            self.postNewArrivalsApIMethod()
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    self.view.isUserInteractionEnabled = true
+                    //self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - post Cart List Remove Item API Method
+    func postCartListRemoveItemAPIMethod(stritemid:String,strquoteid:String)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.isUserInteractionEnabled = false
+            //self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strcustomerid = UserDefaults.standard.value(forKey: "customerid")as? String ?? ""
+        print("strcustomerid",strcustomerid)
+        
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        let parameters = ["itemId": stritemid,
+                          "quoteId": strquoteid] as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod18)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    //self.view.activityStopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        //self.view.activityStopAnimating()
+                        self.view.isUserInteractionEnabled = true
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            self.postNewArrivalsApIMethod()
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    //self.view.activityStopAnimating()
+                    self.view.isUserInteractionEnabled = true
                 }
                 print("Error -> \(error)")
             }

@@ -165,7 +165,7 @@ class viewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewD
         let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language302"), preferredStyle: UIAlertController.Style.alert)
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
-            self.postPAUSERESUMEAPIMethod()
+            self.postPAUSERESUMEAPIMethod(strresumedate: "")
         }))
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
@@ -369,7 +369,7 @@ class viewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewD
     }
     
     //MARK: - post PAUSE / RESUME API Method
-    func postPAUSERESUMEAPIMethod()
+    func postPAUSERESUMEAPIMethod(strresumedate:String)
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
@@ -380,7 +380,7 @@ class viewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewD
         print("strbearertoken",strbearertoken)
         
         let strsubscription_id = String(format: "%@", dicsubscriptionlist.value(forKey: "subscription_id")as? String ?? "")
-        let parameters = ["subscription_id": strsubscription_id] as [String : Any]
+        let parameters = ["subscription_id": strsubscription_id,"resumeDate":strresumedate] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod83)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

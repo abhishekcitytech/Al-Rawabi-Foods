@@ -287,6 +287,15 @@ class passwordupdatemobileOTP: UIViewController,UITextFieldDelegate
                         {
                            
                             self.lblsmshasbeensent.isHidden = false
+                            
+                            self.txt1.text = ""
+                            self.txt2.text = ""
+                            self.txt3.text = ""
+                            self.txt4.text = ""
+                            self.txt5.text = ""
+                            self.txt6.text = ""
+                            self.txt1.becomeFirstResponder()
+                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
@@ -363,6 +372,7 @@ class passwordupdatemobileOTP: UIViewController,UITextFieldDelegate
                         self.view.activityStopAnimating()
                     }
                     let dictemp = json as NSDictionary
+                    print("dictemp",dictemp)
 
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false

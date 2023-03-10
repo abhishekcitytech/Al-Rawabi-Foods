@@ -34,6 +34,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="359" height="116"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sz5-xG-Ubu">
+                                <rect key="frame" x="8" y="21" width="62" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Full Cream Milk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lh5-YP-3XU">
                                 <rect key="frame" x="78" y="21" width="170" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -41,17 +45,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AED 29.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWU-zX-7QH">
+                                <rect key="frame" x="231" y="21" width="120" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
+                                <color key="textColor" name="orangecolor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3 Ltr" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FoR-2t-xeR">
-                                <rect key="frame" x="78" y="47" width="273" height="21"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <rect key="frame" x="78" y="47" width="193" height="21"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                 <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sz5-xG-Ubu">
-                                <rect key="frame" x="8" y="21" width="62" height="75"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                            </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vZ4-Bb-5EX">
                                 <rect key="frame" x="78" y="76" width="184" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -98,12 +106,11 @@
                                     <color key="titleColor" name="greencolor"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AED 29.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWU-zX-7QH">
-                                <rect key="frame" x="231" y="21" width="120" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyC-Ma-sln">
+                                <rect key="frame" x="272" y="48" width="79" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
-                                <color key="textColor" name="orangecolor"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="12"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -117,6 +124,7 @@
                 <outlet property="btnplus" destination="7y6-bp-vbr" id="K0P-Je-1V1"/>
                 <outlet property="btntrash" destination="CfH-0A-CPa" id="nck-kf-Nlq"/>
                 <outlet property="imgvprod" destination="Sz5-xG-Ubu" id="VhD-wM-eED"/>
+                <outlet property="lblincludetax" destination="HyC-Ma-sln" id="lbG-cV-UsY"/>
                 <outlet property="lblprodprice" destination="dWU-zX-7QH" id="Yjn-VZ-cMk"/>
                 <outlet property="lblproductmessage" destination="FoR-2t-xeR" id="Q35-XN-LVl"/>
                 <outlet property="lblproductname" destination="lh5-YP-3XU" id="cu4-7a-tym"/>
