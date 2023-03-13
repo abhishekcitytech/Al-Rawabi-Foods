@@ -592,7 +592,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
             
             //product qunatity item 0 - Add to cart button will show
             
-            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
+            /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 
@@ -601,7 +601,9 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                 print("Handle Cancel Logic here")
             }))
-            self.present(refreshAlert, animated: true, completion: nil)
+            self.present(refreshAlert, animated: true, completion: nil)*/
+            
+            self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
             
         }
         else

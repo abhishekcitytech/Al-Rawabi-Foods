@@ -171,7 +171,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         }else{
             self.tabBarController!.tabBar.items![1].badgeValue = ""
         }
-        
+        self.tabBarController?.repositionBadges()
         
         self.viewfloatcart.backgroundColor = .clear
         self.lblfloatcartcount.layer.cornerRadius = self.lblfloatcartcount.frame.self.width / 2.0
@@ -825,7 +825,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             
             //product qunatity item 0 - Add to cart button will show
             
-            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
+            /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 
@@ -834,7 +834,9 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                 print("Handle Cancel Logic here")
             }))
-            self.present(refreshAlert, animated: true, completion: nil)
+            self.present(refreshAlert, animated: true, completion: nil)*/
+            
+            self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
             
         }
         else
@@ -1327,6 +1329,8 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                                     self.tabBarController!.tabBar.items![1].badgeValue = String(format: "%d", strcount)
                                 }
                                 //self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
+                                
+                                self.tabBarController?.repositionBadges()
                             }
                             else{
                                 print("Not found!")
@@ -1344,6 +1348,8 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                                 }
                                 
                                 //self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                
+                                self.tabBarController?.repositionBadges()
                                 
                             }
                         }

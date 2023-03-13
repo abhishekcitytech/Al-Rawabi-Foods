@@ -591,6 +591,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         if tableView == tblViewDropdownList
         {
             let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
@@ -611,7 +612,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             
             let cell = tabvplan.cellForRow(at: indexPath)as! tabvcellplan
             
-            cell.lblselect.text = "Selected"
+            cell.lblselect.text = myAppDelegate.changeLanguage(key: "msg_language57")
             cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
             cell.lbl1.textColor = .white
             cell.lbl2.textColor = .white

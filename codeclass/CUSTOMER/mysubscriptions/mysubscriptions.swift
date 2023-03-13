@@ -139,10 +139,10 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
         cell.lblsubscriptionno.text = String(format: "# %@", strsubscription_increment_id)
         cell.lblsubscriptionname.text = String(format: "%@",strsubscription_plan)
         
-        cell.lblstartdate.text = String(format: "Start Date: %@",strsubscription_start_date)
-        cell.lblenddate.text = String(format: "End Date: %@",strsubscription_end_date)
+        cell.lblstartdate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language208"),strsubscription_start_date)
+        cell.lblenddate.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language299"),strsubscription_end_date)
         
-        cell.lblautorenew.text = String(format: "Renew Policy: %@",strsubscription_renewal_status)
+        cell.lblautorenew.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language300"),strsubscription_renewal_status)
         
         cell.lblstatus.text = String(format: "%@",strsubscription_status)
         

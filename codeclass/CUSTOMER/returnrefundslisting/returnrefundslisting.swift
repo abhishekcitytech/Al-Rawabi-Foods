@@ -245,7 +245,7 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
         let strgrandTotal = String(format: "%@", dic1.value(forKey: "grandTotal")as? String ?? "")
         let strorderCurrencyCode = String(format: "%@", dic1.value(forKey: "orderCurrencyCode")as? String ?? "")
         
-      
+        cell.lblorderno.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language480"))
         cell.lblordernovalue.text = String(format: "%@", strincrementId)
         cell.lbldatevalue.text = strcreditMemoCreatedDate
         cell.lblamount.text = String(format: "%@ %@", strorderCurrencyCode,strgrandTotal)

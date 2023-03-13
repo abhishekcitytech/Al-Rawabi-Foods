@@ -72,19 +72,6 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     var strcart_id = ""
     
-    
-    
-    func repositionBadge(tabIndex: Int){
-
-        for badgeView in self.tabBarController!.tabBar.subviews[tabIndex].subviews {
-
-            if NSStringFromClass(badgeView.classForCoder) == "_UIBadgeView" {
-                badgeView.layer.transform = CATransform3DIdentity
-                badgeView.layer.transform = CATransform3DMakeTranslation(-17.0, 1.0, 1.0)
-            }
-        }
-    }
-    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -126,8 +113,6 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.title = myAppDelegate.changeLanguage(key: "msg_language114")
         
         self.txtchoosedeliverydate.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language96"))
-        
-        self.repositionBadge(tabIndex: self.tabBarController!.selectedIndex)
         
         lblsubtotal.text = myAppDelegate.changeLanguage(key: "msg_language311")
         lblshippingcharges.text = myAppDelegate.changeLanguage(key: "msg_language109")
@@ -589,7 +574,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         {
             //cart item 0
             
-            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
+            /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
@@ -597,7 +582,9 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                   print("Handle Cancel Logic here")
             }))
-            self.present(refreshAlert, animated: true, completion: nil)
+            self.present(refreshAlert, animated: true, completion: nil)*/
+            
+            self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
         }
         else{
             self.postCartListUpdateQTYItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id, strproductQty: String(format: "%d", intqty))
@@ -614,7 +601,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         let stritem_id = String(format: "%@", dict.value(forKey: "item_id") as? String ?? "")
         let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as? String ?? "")
         
-        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
+        /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
             self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
@@ -622,7 +609,9 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
         }))
-        self.present(refreshAlert, animated: true, completion: nil)
+        self.present(refreshAlert, animated: true, completion: nil)*/
+        
+        self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
     }
     
     
@@ -1522,6 +1511,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                                     self.tabBarController!.tabBar.items![1].badgeValue = String(format: "%d", strcount)
                                 }
                                 
+                                self.tabBarController?.repositionBadges()
                                 //self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
                             }
                             else{
@@ -1538,6 +1528,8 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                                     self.tabBarController!.tabBar.items![1].badgeValue = ""
                                 }
                                 //self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                
+                                self.tabBarController?.repositionBadges()
                                 
                             }
                         }
@@ -1695,5 +1687,27 @@ extension UIButton {
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: self.titleColor(for: .normal)!, range: NSRange(location: 0, length: text.count))
         attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: text.count))
         self.setAttributedTitle(attributedString, for: .normal)
+    }
+}
+extension UITabBarController {
+    func repositionBadgeLayer(_ badgeView: UIView) {
+        if NSStringFromClass(badgeView.classForCoder) == "_UIBadgeView" {
+            badgeView.layer.transform = CATransform3DIdentity
+            badgeView.layer.transform = CATransform3DMakeTranslation(1.0, +10.0, 1.0)
+        }
+    }
+
+    func repositionBadges(tab: Int? = nil) {
+        if let tabIndex = tab {
+            for badgeView in self.tabBar.subviews[tabIndex].subviews {
+                repositionBadgeLayer(badgeView)
+            }
+        } else {
+            for tabBarSubviews in self.tabBar.subviews {
+                for badgeView in tabBarSubviews.subviews {
+                    repositionBadgeLayer(badgeView)
+                }
+            }
+        }
     }
 }

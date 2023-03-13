@@ -212,6 +212,17 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
         btnaccount.backgroundColor =  UIColor.white
         btnaccount.setTitleColor(.black, for: .normal)
         
+        btnmenu.layer.borderWidth = 1.0
+        btnmenu.layer.borderColor = UIColor(named: "yellowboxorder")!.cgColor
+        btnmenu.layer.cornerRadius = 22.0
+        btnmenu.layer.masksToBounds = true
+        
+        btnaccount.layer.borderWidth = 1.0
+        btnaccount.layer.borderColor = UIColor(named: "yellowboxorder")!.cgColor
+        btnaccount.layer.cornerRadius = 22.0
+        btnaccount.layer.masksToBounds = true
+        
+        
         self.tabvlist.isHidden = true
 
         self.createMenuArraylist()

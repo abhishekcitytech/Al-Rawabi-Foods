@@ -267,6 +267,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             self.tabBarController!.tabBar.items![1].badgeValue = ""
         }
         
+        self.tabBarController?.repositionBadges()
+        
         self.createExploreCategory()
         self.createExploreTopDeals()
         
@@ -1569,7 +1571,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             
             //product qunatity item 0 - Add to cart button will show
             
-            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
+            /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 
@@ -1578,7 +1580,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                 print("Handle Cancel Logic here")
             }))
-            self.present(refreshAlert, animated: true, completion: nil)
+            self.present(refreshAlert, animated: true, completion: nil)*/
+            
+            self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
             
         }
         else
@@ -2161,6 +2165,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                                 }
                                 
                                 //self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
+                                self.tabBarController?.repositionBadges()
                             }
                             else{
                                 print("Not found!")
@@ -2176,6 +2181,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                                     self.tabBarController!.tabBar.items![1].badgeValue = ""
                                 }
                                 //self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                self.tabBarController?.repositionBadges()
                                 
                             }
                             

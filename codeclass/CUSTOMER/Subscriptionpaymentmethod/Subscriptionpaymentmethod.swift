@@ -1608,23 +1608,22 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
                      let strmessage = dictemp.value(forKey: "message")as? String ?? ""
                     
-                    //let str_availableRewardPoint = dictemp.value(forKey: "availableRewardPoint")as! CVarArg
-                    let str_appliedRewardPoint = dictemp.value(forKey: "appliedRewardPoint")as! CVarArg
-                    //let str_remainingRewardPoint = dictemp.value(forKey: "remainingRewardPoint")as! CVarArg
-                    let str_amountDeducted = dictemp.value(forKey: "amountDeducted")as! CVarArg
-
                      print("strstatus",strstatus)
                      print("strsuccess",strsuccess)
                      print("strmessage",strmessage)
-                    
-                    self.strAppliedRewardAmountPoint = String(format: "%@", str_appliedRewardPoint)
-                    self.strAppliedRewardAmount = String(format: "%@", str_amountDeducted)
-
                     
                     DispatchQueue.main.async {
                         
                         if strsuccess == true
                         {
+                            //let str_availableRewardPoint = dictemp.value(forKey: "availableRewardPoint")as! CVarArg
+                            let str_appliedRewardPoint = dictemp.value(forKey: "appliedRewardPoint")as! CVarArg
+                            //let str_remainingRewardPoint = dictemp.value(forKey: "remainingRewardPoint")as! CVarArg
+                            let str_amountDeducted = dictemp.value(forKey: "amountDeducted")as! CVarArg
+                            
+                            self.strAppliedRewardAmountPoint = String(format: "%@", str_appliedRewardPoint)
+                            self.strAppliedRewardAmount = String(format: "%@", str_amountDeducted)
+                            
                             let uiAlert = UIAlertController(title: "", message: String(format: "%@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language365"),self.txtrewardpoints.text!,myAppDelegate.changeLanguage(key: "msg_language366")), preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
@@ -1681,7 +1680,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                             
                             self.btnremoverewardpoints.isHidden = true
                             
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
