@@ -50,6 +50,57 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     var arrMALLLOCATIONS = NSMutableArray()
     
     
+    
+    lazy var titleStackView: UIStackView = {
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let titleLabel = UILabel()
+            titleLabel.textAlignment = .center
+        titleLabel.textColor = UIColor(named: "themecolor")
+        titleLabel.font = UIFont(name: "NunitoSans-Bold", size: 17)
+            titleLabel.text = myAppDelegate.changeLanguage(key: "msg_language74")
+            let stackView = UIStackView(arrangedSubviews: [titleLabel])
+            return stackView
+        }()
+
+    
+    /*var shortStringSubscription = ""
+    override func awakeFromNib() {
+        
+        self.tabBarController?.tabBarItem.title = shortStringSubscription
+    }
+    
+    //MARK: - press tab bar controller Did Select Method
+    func tabBarController(_ tabBarController: UITabBarController,shouldSelect viewController: UIViewController) -> Bool
+    {
+        let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController)!
+        print("selectedIndex",selectedIndex as Any)
+        return true
+    }
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController)
+    {
+        let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController)!
+        print("selectedIndex",selectedIndex as Any)
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            if selectedIndex == 1{
+                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                let trimToCharacter = 6
+                shortStringSubscription = String(myAppDelegate.changeLanguage(key: "msg_language74").prefix(trimToCharacter))
+                
+            }
+        }
+        else{
+            if selectedIndex == 3{
+                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                let trimToCharacter = 6
+                shortStringSubscription = String(myAppDelegate.changeLanguage(key: "msg_language74").prefix(trimToCharacter))
+                
+            }
+        }
+    }*/
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -130,6 +181,18 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         
     }
     
+    override func viewWillLayoutSubviews() {
+            super.viewWillLayoutSubviews()
+
+            if view.traitCollection.horizontalSizeClass == .compact {
+                titleStackView.axis = .vertical
+                titleStackView.spacing = UIStackView.spacingUseDefault
+            } else {
+                titleStackView.axis = .horizontal
+                titleStackView.spacing = 20.0
+            }
+}
+    
     // MARK: - viewDidLoad method
     override func viewDidLoad()
     {
@@ -137,7 +200,12 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         self.navigationController?.navigationBar.isHidden = false
         
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.title = myAppDelegate.changeLanguage(key: "msg_language74")
+        //self.title = myAppDelegate.changeLanguage(key: "msg_language478")
+        
+        navigationItem.titleView = titleStackView
+        
+        
+        //tabBarController?.delegate = self
         
         //let searchicon = UIImage(named: "search")
         //let search = UIBarButtonItem(image: searchicon, style: .plain, target: self, action: #selector(pressSearch))

@@ -530,6 +530,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
             
             
             let dictm = self.arrMProductItemsEdit.object(at: indexPath.row)as! NSDictionary
+            print("dictm",dictm)
             
             let strproduct_id = String(format: "%@", dictm.value(forKey: "product_id")as? String ?? "")
             let strproduct_name = String(format: "%@", dictm.value(forKey: "product_name")as? String ?? "")
@@ -549,7 +550,9 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
             cell.lblunitprice.frame = CGRect(x: cell.imgvproduct.frame.minX, y: cell.lblunitprice.frame.origin.y, width: cell.lblunitprice.frame.size.width + cell.imgvproduct.frame.size.width, height: cell.lblunitprice.frame.size.height)
             
             cell.lblname.text = strproduct_name
-            cell.lblspec.text = strsku
+            cell.lblspec.text = "" //strsku
+            
+            cell.lblunitprice.frame = CGRect(x: cell.lblunitprice.frame.origin.x, y: cell.lblname.frame.maxY, width: cell.lblunitprice.frame.size.width, height: cell.lblunitprice.frame.size.height)
             
             let fltamount  = (strproduct_price as NSString).floatValue
             cell.lblunitprice.text = String(format: "AED %0.2f", fltamount)

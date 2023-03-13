@@ -107,12 +107,12 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
             if (strLangCode == "en")
             {
-                imgvmenu.image = UIImage(named: "mn1")
+                imgvmenu.image = UIImage(named: "") //mn1
                 imgvaccount.image = UIImage(named: "acc1")
             }
             else{
                 imgvmenu.image = UIImage(named: "acc1")
-                imgvaccount.image = UIImage(named: "mn1")
+                imgvaccount.image = UIImage(named: "") //mn1
             }
             
             tabvlist.tag = 100
@@ -130,12 +130,12 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
             if (strLangCode == "en")
             {
-                imgvmenu.image = UIImage(named: "mn1")
+                imgvmenu.image = UIImage(named: "") //mn1
                 imgvaccount.image = UIImage(named: "acc1")
             }
             else{
                 imgvmenu.image = UIImage(named: "acc1")
-                imgvaccount.image = UIImage(named: "mn1")
+                imgvaccount.image = UIImage(named: "") //mn1
             }
             
             tabvlist.tag = 100
@@ -155,11 +155,11 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             if (strLangCode == "en")
             {
                 imgvaccount.image = UIImage(named: "acc2")
-                imgvmenu.image = UIImage(named: "mn2")
+                imgvmenu.image = UIImage(named: "") //mn2
             }
             else{
                 imgvmenu.image = UIImage(named: "acc2")
-                imgvaccount.image = UIImage(named: "mn2")
+                imgvaccount.image = UIImage(named: "") //mn2
             }
             
             tabvlist.tag = 200
@@ -177,12 +177,12 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
             if (strLangCode == "en")
             {
-                imgvmenu.image = UIImage(named: "mn1")
+                imgvmenu.image = UIImage(named: "") //mn1
                 imgvaccount.image = UIImage(named: "acc1")
             }
             else{
                 imgvmenu.image = UIImage(named: "acc1")
-                imgvaccount.image = UIImage(named: "mn1")
+                imgvaccount.image = UIImage(named: "") //mn1
             }
             
             tabvlist.tag = 100
@@ -246,7 +246,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
         {
-            imgvmenu.image = UIImage(named: "mn1")
+            imgvmenu.image = UIImage(named: "") //mn1
             imgvaccount.image = UIImage(named: "acc1")
             
             self.btnmenu.frame = CGRect(x:0, y: self.btnmenu.frame.origin.y, width: self.btnmenu.frame.size.width, height: self.btnmenu.frame.size.height)
@@ -255,7 +255,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
         else
         {
             imgvmenu.image = UIImage(named: "acc1")
-            imgvaccount.image = UIImage(named: "mn1")
+            imgvaccount.image = UIImage(named: "") //mn1
             
             self.btnaccount.frame = CGRect(x:0, y: self.btnaccount.frame.origin.y, width: self.btnaccount.frame.size.width, height: self.btnaccount.frame.size.height)
             self.btnmenu.frame = CGRect(x:self.btnaccount.frame.maxX, y: self.btnmenu.frame.origin.y, width: self.btnmenu.frame.size.width, height: self.btnmenu.frame.size.height)
@@ -276,12 +276,12 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
         {
-            imgvmenu.image = UIImage(named: "mn1")
+            imgvmenu.image = UIImage(named: "") //mn1
             imgvaccount.image = UIImage(named: "acc1")
         }
         else{
             imgvmenu.image = UIImage(named: "acc1")
-            imgvaccount.image = UIImage(named: "mn1")
+            imgvaccount.image = UIImage(named: "") //mn1
         }
         
         tabvlist.tag = 100
@@ -302,11 +302,11 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
         if (strLangCode == "en")
         {
             imgvaccount.image = UIImage(named: "acc2")
-            imgvmenu.image = UIImage(named: "mn2")
+            imgvmenu.image = UIImage(named: "") //mn2
         }
         else{
             imgvmenu.image = UIImage(named: "acc2")
-            imgvaccount.image = UIImage(named: "mn2")
+            imgvaccount.image = UIImage(named: "") //mn2
         }
         
         tabvlist.tag = 200

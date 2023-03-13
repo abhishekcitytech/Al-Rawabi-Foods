@@ -305,6 +305,12 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
+        if textField.isEqual(txtmobile) {
+            let maxLength = Constants.conn.STATICTELECPHONENUMBERLENGTH
+            let currentString: NSString = txtmobile.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }
         return true
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool

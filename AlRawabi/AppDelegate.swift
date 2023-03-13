@@ -46,15 +46,13 @@ struct Constants {
         static let STATISEMAILID = "sales@alrawabi.ae"
         
         //MARK: - STATIC TELEPHONE CODE
-        static let STATICTELECPHONECODE = "91"
+        static let STATICTELECPHONECODE = "971"
         
         //MARK: - STATIC TELEPHONE NUMBER LENGTH
-        static let STATICTELECPHONENUMBERLENGTH = 10
+        static let STATICTELECPHONENUMBERLENGTH = 9
         
         //MARK: - STATIC TELEPHONE NUMBER REGEX
-        static let STATICTELECPHONENUMBERREGEX = "^[0-9]{10}$"
-        
-        
+        static let STATICTELECPHONENUMBERREGEX = "^[0-9]{9}$"
         
     }
     
@@ -375,6 +373,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         print("strLangCode ---> ",strLangCode)
         
+        
+        let trimToCharacter = 6
+        let shortStringHome = String(myAppDelegate.changeLanguage(key: "msg_language136").prefix(trimToCharacter))
+        let shortStringSubscription = String(myAppDelegate.changeLanguage(key: "msg_language478").prefix(trimToCharacter)) //msg_language74
+        let shortStringOrderOnce = String(myAppDelegate.changeLanguage(key: "msg_language479").prefix(trimToCharacter)) //msg_language104
+        let shortStringCart = String(myAppDelegate.changeLanguage(key: "msg_language114").prefix(trimToCharacter))
+        let shortStringMenu = String(myAppDelegate.changeLanguage(key: "msg_language145").prefix(trimToCharacter))
+        
         let home:UIViewController
         if type == "login" {
             home = loginclass(nibName: "loginclass", bundle: nil)
@@ -387,35 +393,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             
         }
         
-        home.tabBarItem.title = myAppDelegate.changeLanguage(key: "msg_language136")
+        home.tabBarItem.title = shortStringHome
         home.tabBarItem.image = UIImage(named: "tab11")
         home.tabBarItem.selectedImage = UIImage(named: "tab1")
         let homeNav  = UINavigationController(rootViewController: home)
         
         let subsription = subsriptionclass(nibName: "subsriptionclass", bundle: nil)
-        subsription.tabBarItem.title = myAppDelegate.changeLanguage(key: "msg_language74")
+        subsription.tabBarItem.title = shortStringSubscription
         subsription.tabBarItem.image = UIImage(named: "tab22")
         subsription.tabBarItem.selectedImage = UIImage(named: "tab2")
         let subsriptionNav  = UINavigationController(rootViewController: subsription)
         
         let orderonce = orderonceclass(nibName: "orderonceclass", bundle: nil)
-        orderonce.tabBarItem.title = myAppDelegate.changeLanguage(key: "msg_language104")
+        orderonce.tabBarItem.title = shortStringOrderOnce
         orderonce.tabBarItem.image = UIImage(named: "tab33")
         orderonce.tabBarItem.selectedImage = UIImage(named: "tab3")
         let orderonceNav  = UINavigationController(rootViewController: orderonce)
         
         let cartorderonce = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
-        cartorderonce.tabBarItem.title = myAppDelegate.changeLanguage(key: "msg_language114")
+        cartorderonce.tabBarItem.title = shortStringCart
         cartorderonce.tabBarItem.image = UIImage(named: "tab55")
         cartorderonce.tabBarItem.selectedImage = UIImage(named: "tab5")
         let cartorderonceNav  = UINavigationController(rootViewController: cartorderonce)
         
         let menu = menuclass(nibName: "menuclass", bundle: nil)
-        if (strLangCode == "en"){
-            menu.tabBarItem.title = ""
-        }else{
-            menu.tabBarItem.title = ""
-        }
+        menu.tabBarItem.title = shortStringMenu
         menu.tabBarItem.image = UIImage(named: "tab44")
         menu.tabBarItem.selectedImage = UIImage(named: "tab4")
         let menuNav  = UINavigationController(rootViewController: menu)
@@ -456,9 +458,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
         
     }
-    func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    /*func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return MyTransition(viewControllers: tabBarController.viewControllers)
-    }
+    }*/
     
     // MARK:- set Gradient Background method
     func setGradientBackground(colorOne: UIColor, colorTwo: UIColor)  {

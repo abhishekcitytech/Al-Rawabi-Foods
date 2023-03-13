@@ -67,6 +67,18 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
     
     var arrMAvailbleTimeSlots = NSMutableArray()
 
+    
+    lazy var titleStackView: UIStackView = {
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let titleLabel = UILabel()
+            titleLabel.textAlignment = .center
+        titleLabel.textColor = UIColor(named: "themecolor")
+        titleLabel.font = UIFont(name: "NunitoSans-Bold", size: 17)
+            titleLabel.text = myAppDelegate.changeLanguage(key: "msg_language104")
+            let stackView = UIStackView(arrangedSubviews: [titleLabel])
+            return stackView
+        }()
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -110,6 +122,18 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         postAllCategoryHomepageAPImethod()
     }
     
+    override func viewWillLayoutSubviews() {
+            super.viewWillLayoutSubviews()
+
+            if view.traitCollection.horizontalSizeClass == .compact {
+                titleStackView.axis = .vertical
+                titleStackView.spacing = UIStackView.spacingUseDefault
+            } else {
+                titleStackView.axis = .horizontal
+                titleStackView.spacing = 20.0
+            }
+}
+    
     // MARK: - viewDidLoad method
     override func viewDidLoad()
     {
@@ -117,7 +141,9 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         self.navigationController?.navigationBar.isHidden = false
         
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.title = myAppDelegate.changeLanguage(key: "msg_language104")
+        //self.title = myAppDelegate.changeLanguage(key: "msg_language104")
+
+        navigationItem.titleView = titleStackView
         
         self.viewsearchbarbg.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
         self.viewsearchbarbg.layer.borderWidth = 1.0

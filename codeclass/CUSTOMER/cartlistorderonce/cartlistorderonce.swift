@@ -73,6 +73,18 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     var strcart_id = ""
     
     
+    
+    func repositionBadge(tabIndex: Int){
+
+        for badgeView in self.tabBarController!.tabBar.subviews[tabIndex].subviews {
+
+            if NSStringFromClass(badgeView.classForCoder) == "_UIBadgeView" {
+                badgeView.layer.transform = CATransform3DIdentity
+                badgeView.layer.transform = CATransform3DMakeTranslation(-17.0, 1.0, 1.0)
+            }
+        }
+    }
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -115,7 +127,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         self.txtchoosedeliverydate.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language96"))
         
-        
+        self.repositionBadge(tabIndex: self.tabBarController!.selectedIndex)
         
         lblsubtotal.text = myAppDelegate.changeLanguage(key: "msg_language311")
         lblshippingcharges.text = myAppDelegate.changeLanguage(key: "msg_language109")
