@@ -499,7 +499,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         
         if strprice != ""{
             let fltprice = Float(strprice)
-            cell.lblprodprice.text = String(format: "%@ %.2f","AED",fltprice!)
+            cell.lblprodprice.text = String(format: "%@ %.2f",myAppDelegate.changeLanguage(key: "msg_language481"),fltprice!)
         }
         
         let fltqtyyy  = (strqty as NSString).floatValue
@@ -753,7 +753,10 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                 let str5 = String (format: "%@", dictemp.value(forKey: "discount_value")as! CVarArg)
                                 let str6 = String (format: "%@", dictemp.value(forKey: "coupon_code")as? String ?? "")
                                 
-                                let str4 = String (format: "%@", dictemp.value(forKey: "currency_code")as? String ?? "")
+                                var str4 = String (format: "%@", dictemp.value(forKey: "currency_code")as? String ?? "")
+
+                                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                                str4 = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
                                 
                                 let intstr1 = Float(str1)
                                 let intstr2 = Float(str2)

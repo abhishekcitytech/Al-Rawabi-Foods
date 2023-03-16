@@ -31,6 +31,11 @@ class celltabvprodustitemsedit: UITableViewCell
     @IBOutlet weak var btnplusATA: UIButton!
     @IBOutlet weak var txtplusminusATA: UITextField!
     
+    @IBOutlet weak var lbladdonce: UILabel!
+    @IBOutlet weak var lbladdtoall: UILabel!
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

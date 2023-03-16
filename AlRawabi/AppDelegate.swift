@@ -46,13 +46,13 @@ struct Constants {
         static let STATISEMAILID = "sales@alrawabi.ae"
         
         //MARK: - STATIC TELEPHONE CODE
-        static let STATICTELECPHONECODE = "971"
+        static let STATICTELECPHONECODE = "91"
         
         //MARK: - STATIC TELEPHONE NUMBER LENGTH
-        static let STATICTELECPHONENUMBERLENGTH = 9
+        static let STATICTELECPHONENUMBERLENGTH = 10
         
         //MARK: - STATIC TELEPHONE NUMBER REGEX
-        static let STATICTELECPHONENUMBERREGEX = "^[0-9]{9}$"
+        static let STATICTELECPHONENUMBERREGEX = "^[0-9]{10}$"
         
     }
     
@@ -169,7 +169,7 @@ struct Constants {
         static let apimethod108 = "mobileOtpRequestExist/mobileOtpRequestExist-api"
         static let apimethod109 = "locationcoordinates/locationcoordinates-api"
         static let apimethod110 = "cartClear/cartClear-api"
-        
+        static let apimethod111 = "homepageBottomBanner/homepageBottomBanner-api"
         
     }
 }
@@ -376,7 +376,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         let trimToCharacter = 6
         let shortStringHome = String(myAppDelegate.changeLanguage(key: "msg_language136").prefix(trimToCharacter))
-        let shortStringSubscription = String(myAppDelegate.changeLanguage(key: "msg_language478").prefix(trimToCharacter)) //msg_language74
+        var shortStringSubscription = String(myAppDelegate.changeLanguage(key: "msg_language478").prefix(trimToCharacter)) //msg_language74
         let shortStringOrderOnce = String(myAppDelegate.changeLanguage(key: "msg_language479").prefix(trimToCharacter)) //msg_language104
         let shortStringCart = String(myAppDelegate.changeLanguage(key: "msg_language114").prefix(trimToCharacter))
         let shortStringMenu = String(myAppDelegate.changeLanguage(key: "msg_language145").prefix(trimToCharacter))
@@ -398,6 +398,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         home.tabBarItem.selectedImage = UIImage(named: "tab1")
         let homeNav  = UINavigationController(rootViewController: home)
         
+        shortStringSubscription = myAppDelegate.changeLanguage(key: "msg_language483")
         let subsription = subsriptionclass(nibName: "subsriptionclass", bundle: nil)
         subsription.tabBarItem.title = shortStringSubscription
         subsription.tabBarItem.image = UIImage(named: "tab22")

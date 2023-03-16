@@ -13,6 +13,7 @@ import CoreData
 
 class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate,CardPaymentDelegate
 {
+    var myAppDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBOutlet weak var viewoverall: UIView!
     @IBOutlet weak var scrolloverall: UIScrollView!
@@ -70,7 +71,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
     var CardOutletId = ""
     var refNumber:String?
     
-    var strcurrency = "AED"
+    var strcurrency = ""
     var strwalletremainingbalance = ""
     
     var strloayltypointsavailable = ""
@@ -79,7 +80,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
     var strAppliedRewardAmountPoint = ""
     
     
-    var myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -107,6 +108,8 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         self.navigationController?.navigationBar.isHidden = false
         // Do any additional setup after loading the view.
         self.title = myAppDelegate.changeLanguage(key: "msg_language185")
+        
+        strcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
         
         setupRTLLTR()
         
@@ -136,12 +139,12 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         viewbottom1.layer.cornerRadius = 6.0
         viewbottom1.layer.masksToBounds = true
         
-        viewrewardpoints.layer.borderWidth = 0.0
-        viewrewardpoints.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
-        viewrewardpoints.layer.cornerRadius = 0.0
+        viewrewardpoints.layer.borderWidth = 1.0
+        viewrewardpoints.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+        viewrewardpoints.layer.cornerRadius = 6.0
         viewrewardpoints.layer.masksToBounds = true
         
-        btnapplyrewardpoints.layer.cornerRadius = 18.0
+        btnapplyrewardpoints.layer.cornerRadius = 0.0
         btnapplyrewardpoints.layer.masksToBounds = true
        
         let toolbarDone = UIToolbar.init()
@@ -507,12 +510,16 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
             self.viewbottom1.isHidden = true
             
             if self.strcurrency.count == 0{
-                self.strcurrency = "AED"
+                self.strcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
             }
             var fltTotal = 0.00
-            let fltamount1  = (strsubtotalamount as NSString).floatValue
-            let fltamount2  = (strshippingchargesamount as NSString).floatValue
-            fltTotal = Double(fltamount1 + fltamount2)
+            //let fltamount1  = (strsubtotalamount as NSString).floatValue
+            //let fltamount2  = (strshippingchargesamount as NSString).floatValue
+            //fltTotal = Double(fltamount1 + fltamount2)
+            
+            print(strgrandtotalamount)
+            fltTotal  = Double((strgrandtotalamount as NSString).floatValue)
+            
             self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
         }
         else if strcode.containsIgnoreCase("walletsystem") || strcode.containsIgnoreCase("walletpayment")
@@ -643,12 +650,16 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                                 self.viewbottom1.isHidden = true
                                 
                                 if self.strcurrency.count == 0{
-                                    self.strcurrency = "AED"
+                                    self.strcurrency = self.myAppDelegate.changeLanguage(key: "msg_language481")
                                 }
                                 var fltTotal = 0.00
-                                let fltamount1  = (self.strsubtotalamount as NSString).floatValue
-                                let fltamount2  = (self.strshippingchargesamount as NSString).floatValue
-                                fltTotal = Double(fltamount1 + fltamount2)
+                                
+                                //let fltamount1  = (self.strsubtotalamount as NSString).floatValue
+                                //let fltamount2  = (self.strshippingchargesamount as NSString).floatValue
+                                //fltTotal = Double(fltamount1 + fltamount2)
+                                
+                                print(self.strgrandtotalamount)
+                                fltTotal  = Double((self.strgrandtotalamount as NSString).floatValue)
                                 self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
                             }
                             else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
@@ -737,9 +748,11 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                         
                         if strstatus == 200
                         {
+                            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                            
                             let strwallet_remaining_amount = dictemp.value(forKey: "wallet_remaining_amount")as? String ?? ""
                             let strcurrency = dictemp.value(forKey: "currency")as? String ?? ""
-                            self.strcurrency = strcurrency
+                            self.strcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
                             self.strwalletremainingbalance = strwallet_remaining_amount
                             
                             self.populatewalletviewcalculation()
@@ -987,6 +1000,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                         }
                         else
                         {
+                            self.txtrewardpoints.text = ""
                             self.txtrewardpoints.backgroundColor = .white
                             
                             self.txtrewardpoints.isUserInteractionEnabled = true
@@ -1125,6 +1139,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         print("strselectedslotid",strselectedslotid)
         print("strSelectedaddressID",strSelectedaddressID)
         
+           
         let parameters = ["subscriptionId": strSubscriptionID,
                           "slot": strselectedslotid,
                           "delivery_address_id": strSelectedaddressID,
@@ -1134,7 +1149,9 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                           "shippingAmount": strshippingchargesamount,
                           "discountAmount": strdiscountamount,
                           "paymentcondition": strpaycondition,
-                          "couponCode": strcouponcode] as [String : Any]
+                          "couponCode": strcouponcode,
+                          "appliedRewardAmount": self.strAppliedRewardAmount,
+                          "appliedRewardPoint": self.strAppliedRewardAmountPoint] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod73)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

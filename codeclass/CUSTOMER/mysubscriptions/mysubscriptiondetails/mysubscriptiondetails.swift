@@ -518,6 +518,8 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if tableView == tabveditpopupitems
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier2, for: indexPath) as! celltabvprodustitemsedit
@@ -555,7 +557,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
             cell.lblunitprice.frame = CGRect(x: cell.lblunitprice.frame.origin.x, y: cell.lblname.frame.maxY, width: cell.lblunitprice.frame.size.width, height: cell.lblunitprice.frame.size.height)
             
             let fltamount  = (strproduct_price as NSString).floatValue
-            cell.lblunitprice.text = String(format: "AED %0.2f", fltamount)
+            cell.lblunitprice.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltamount)
             
             cell.btnremove.tag = indexPath.row
             cell.btnremove.addTarget(self, action: #selector(pressEditPopupRemove), for: .touchUpInside)
@@ -607,6 +609,11 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
             cell.btnminusATA.tag = indexPath.row
             cell.btnplusATA.addTarget(self, action: #selector(pressplusATA), for: .touchUpInside)
             cell.btnminusATA.addTarget(self, action: #selector(pressminusATA), for: .touchUpInside)
+            
+            cell.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language71")), for: .normal)
+            cell.btnaddtoall.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language70")), for: .normal)
+            cell.lbladdonce.text = myAppDelegate.changeLanguage(key: "msg_language71")
+            cell.lbladdtoall.text = myAppDelegate.changeLanguage(key: "msg_language70")
             
             var fltpointy = 0.00
             //is Editable Check Popup functions
@@ -691,7 +698,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         let arrsubscription_product = dic.value(forKey: "subscription_product")as? NSArray ?? []
         
         cell.lbldateday.text = String(format: "%@", strsubscription_order_date)
-        cell.lbltotal.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language304"),strcurrency,strsubtotal)
+        cell.lbltotal.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language304"),myAppDelegate.changeLanguage(key: "msg_language481"),strsubtotal)
         cell.lblstatus.text = String(format: "%@",strorder_status)
         
         
@@ -813,7 +820,16 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
                 
                 if strslotid == strtimeslot_id
                 {
-                    cell.lblupdatetimeslot.text = strname
+                    if strname.containsIgnoreCase("Morning"){
+                        cell.lblupdatetimeslot.text = myAppDelegate.changeLanguage(key: "msg_language99")
+                    }
+                    else if strname.containsIgnoreCase("Afternoon"){
+                        cell.lblupdatetimeslot.text = myAppDelegate.changeLanguage(key: "msg_language100")
+                    }
+                    else if strname.containsIgnoreCase("Evening"){
+                        cell.lblupdatetimeslot.text = myAppDelegate.changeLanguage(key: "msg_language101")
+                    }
+                    
                 }
             }
         }
@@ -1303,7 +1319,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         print("arrMProductItemsEdit --->",self.arrMProductItemsEdit)
         
         self.lbleditpopupDateDay.text = String(format: "%@", strsubscription_order_date)
-        self.lblsubtotaleditpopupvalue.text = String(format: "%@ %@", strcurrency,strsubtotal)
+        self.lblsubtotaleditpopupvalue.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language481"),strsubtotal)
         
         lblsubtotaleditpopup.text = myAppDelegate.changeLanguage(key: "msg_language304")
         lbleditpopupnotes.text = myAppDelegate.changeLanguage(key: "msg_language69")

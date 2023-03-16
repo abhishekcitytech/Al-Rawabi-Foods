@@ -618,16 +618,19 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
                             var strupdatedmessg = ""
                             if strmessage.contains("Item added successfully")
                             {
-                                strupdatedmessg = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language386"))
-                            }else{
+                                //strupdatedmessg = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language386"))
+                            }
+                            else
+                            {
                                 strupdatedmessg = strmessage
+                                let uiAlert = UIAlertController(title: "", message: strupdatedmessg , preferredStyle: UIAlertController.Style.alert)
+                                self.present(uiAlert, animated: true, completion: nil)
+                                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                    print("Click of default button")
+                                }))
                             }
                             
-                            let uiAlert = UIAlertController(title: "", message: strupdatedmessg , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                                print("Click of default button")
-                            }))
+                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)

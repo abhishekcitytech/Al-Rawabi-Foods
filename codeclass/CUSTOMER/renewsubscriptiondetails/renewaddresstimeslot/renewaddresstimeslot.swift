@@ -113,7 +113,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
     {
         lbldeliveryslotpopupHeader.text = myAppDelegate.changeLanguage(key: "msg_language444")
         btnaddnewaddress.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language236")), for: .normal)
-        btnpaycheckout.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language441")), for: .normal)
+        btnpaycheckout.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language482")), for: .normal)
         
          let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
          if (strLangCode == "en")

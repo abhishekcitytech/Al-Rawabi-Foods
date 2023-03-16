@@ -555,7 +555,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
             cellA.lblqty.text = strsize
             
             let fltprice = Float(strprice)
-            cellA.lblprice.text = String(format: "AED %.2f", fltprice!)
+            cellA.lblprice.text = String(format: "%@ %.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!)
             
             cellA.btnaddonce.isHidden = true
             cellA.btnaddonce.tag = indexPath.row
@@ -597,7 +597,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         cellA.lblsize.text = strsize
         
         let fltprice = Float(strprice)
-        cellA.lblrpcie.text = String(format: "AED %.2f\n%@", fltprice!,myAppDelegate.changeLanguage(key: "msg_language474"))
+        cellA.lblrpcie.text = String(format: "%@ %.2f\n%@", myAppDelegate.changeLanguage(key: "msg_language481"),fltprice!,myAppDelegate.changeLanguage(key: "msg_language474"))
         cellA.lblrpcie.textColor = UIColor(named: "darkgreencolor")!
         
         cellA.viewcell.layer.cornerRadius = 6.0
@@ -833,7 +833,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                     dictemp.setValue("0", forKey: "selected")
                                     self.arrMsize.add(dictemp)
                                 }
-                                self.colselectsize.reloadData()
+                                //self.colselectsize.reloadData()
                             }
                             else
                             {
@@ -848,7 +848,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 dictemp.setValue("0", forKey: "selected")
                                 self.arrMsize.add(dictemp)
                                 
-                                self.colselectsize.reloadData()
+                                //self.colselectsize.reloadData()
                             }
                             
                             //SET ADD OR ALREADY ADDED INTO WISHLIST

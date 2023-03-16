@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB02D76429C2EC5400693A6A /* colcellbottombannerhome.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB02D76229C2EC5400693A6A /* colcellbottombannerhome.swift */; };
+		CB02D76529C2EC5400693A6A /* colcellbottombannerhome.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB02D76329C2EC5400693A6A /* colcellbottombannerhome.xib */; };
 		CB05342429151FCF00D3BCFC /* contactus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB05342229151FCF00D3BCFC /* contactus.swift */; };
 		CB05342529151FCF00D3BCFC /* contactus.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB05342329151FCF00D3BCFC /* contactus.xib */; };
 		CB05342A2915224800D3BCFC /* myprofile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0534282915224800D3BCFC /* myprofile.swift */; };
@@ -406,6 +408,8 @@
 /* Begin PBXFileReference section */
 		702328EF19CD467752799408 /* Pods_AlRawabi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlRawabi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88E4400AF7111DC53415B85F /* Pods-AlRawabi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlRawabi.release.xcconfig"; path = "Target Support Files/Pods-AlRawabi/Pods-AlRawabi.release.xcconfig"; sourceTree = "<group>"; };
+		CB02D76229C2EC5400693A6A /* colcellbottombannerhome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colcellbottombannerhome.swift; sourceTree = "<group>"; };
+		CB02D76329C2EC5400693A6A /* colcellbottombannerhome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = colcellbottombannerhome.xib; sourceTree = "<group>"; };
 		CB05342229151FCF00D3BCFC /* contactus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactus.swift; sourceTree = "<group>"; };
 		CB05342329151FCF00D3BCFC /* contactus.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = contactus.xib; sourceTree = "<group>"; };
 		CB0534282915224800D3BCFC /* myprofile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myprofile.swift; sourceTree = "<group>"; };
@@ -845,6 +849,15 @@
 				702328EF19CD467752799408 /* Pods_AlRawabi.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB02D76129C2EC3200693A6A /* colcellbottombannerhome */ = {
+			isa = PBXGroup;
+			children = (
+				CB02D76229C2EC5400693A6A /* colcellbottombannerhome.swift */,
+				CB02D76329C2EC5400693A6A /* colcellbottombannerhome.xib */,
+			);
+			path = colcellbottombannerhome;
 			sourceTree = "<group>";
 		};
 		CB05342129151FB800D3BCFC /* contactus */ = {
@@ -2242,6 +2255,7 @@
 		CBE42FCF28323C9D00B761F3 /* homeclass */ = {
 			isa = PBXGroup;
 			children = (
+				CB02D76129C2EC3200693A6A /* colcellbottombannerhome */,
 				CBAF884829647A4B000B2938 /* editchoosemaplocation */,
 				CBCC3DA128643DF500C0F7C3 /* colcellpromotions */,
 				CBCC3D8128642CDD00C0F7C3 /* colcelltopdeals */,
@@ -2614,6 +2628,7 @@
 				CB1C20432944774000966CAE /* maidSelectShippingAddress.xib in Resources */,
 				CBFBFBB029224AB5008332FF /* loader15.png in Resources */,
 				CB05343429152ACC00D3BCFC /* reordermyorderoncelist.xib in Resources */,
+				CB02D76529C2EC5400693A6A /* colcellbottombannerhome.xib in Resources */,
 				CBB1437C2860A81300D30A38 /* subsriptionclass.xib in Resources */,
 				CB4ECBB42865BD31003C72E1 /* cellexpHeader.xib in Resources */,
 				CBF12CC028C6046100F0325D /* cellcoupon.xib in Resources */,
@@ -3013,6 +3028,7 @@
 				CB39D4472913AAB500265A03 /* colcellmaidhome.swift in Sources */,
 				CBF7F748291B8BDC00199DE7 /* celltabvsubscriptionorderview.swift in Sources */,
 				CBCA39CB28C70E4200DE1702 /* mapaddress.swift in Sources */,
+				CB02D76429C2EC5400693A6A /* colcellbottombannerhome.swift in Sources */,
 				CB39D4422913A2D100265A03 /* maidloginclass.swift in Sources */,
 				CBE75F3328C0CB740043DCDD /* cartlistorderonce.swift in Sources */,
 				CBBE9E5E29240A6C00970344 /* mysubscriptionlineviewproductdetails.swift in Sources */,
@@ -3258,7 +3274,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3305,7 +3321,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";

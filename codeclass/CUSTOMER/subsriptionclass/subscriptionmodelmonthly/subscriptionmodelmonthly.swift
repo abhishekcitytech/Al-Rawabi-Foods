@@ -392,7 +392,31 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         var strisrenew = String(format: "%@", dict?.value(forKey: "isrenew")as? String ?? "")
         var strsubscriptionid = String(format: "%@", dict?.value(forKey: "subscriptionid")as? String ?? "")
         
-        cell.lblname.text = String(format: "%@\n%@", strdate,strday)
+        
+        var strdayvalue = ""
+        if strday.containsIgnoreCase("Monday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language489")
+        }
+        else if strday.containsIgnoreCase("Tuesday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language490")
+        }
+        if strday.containsIgnoreCase("Wednesday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language491")
+        }
+        if strday.containsIgnoreCase("Thursday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language492")
+        }
+        if strday.containsIgnoreCase("Friday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language493")
+        }
+        if strday.containsIgnoreCase("Saturday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language494")
+        }
+        if strday.containsIgnoreCase("Sunday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language495")
+        }
+        
+        cell.lblname.text = String(format: "%@\n%@", strdate,strdayvalue)
         
         cell.lbltotalprice.isHidden = true
         
@@ -452,7 +476,7 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         
         if flttotalprice != 0.00{
             cell.lbltotalprice.font = UIFont (name: "NunitoSans-Bold", size: 14)
-            cell.lbltotalprice.text = String(format: "AED %0.2f", flttotalprice)
+            cell.lbltotalprice.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), flttotalprice)
         }
         else{
             cell.lbltotalprice.font = UIFont (name: "NunitoSans-Bold", size: 14)
@@ -661,7 +685,7 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         let appDel = UIApplication.shared.delegate as! AppDelegate
         
         //self.lbleditpopupDateDay.text = String(format: "%@ (%@)", strdate,strday)
-        //self.lblsubtotaleditpopup.text = String(format: "AED %@", strtotalprice)
+        //self.lblsubtotaleditpopup.text = String(format: "%@ %@",appDel.changeLanguage(key: "msg_language481"), strtotalprice)
         
         self.viewpopupedititems.layer.cornerRadius = 6.0
         self.viewpopupedititems.layer.masksToBounds = true
@@ -744,7 +768,7 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         
         //cell.lblname.text = strname
         //cell.lblspec.text = "1.5 ltr"
-        //cell.lblunitprice.text = String(format: "AED %@", strprice)
+        //cell.lblunitprice.text = String(format: "%@ %@",appDel.changeLanguage(key: "msg_language481”), strprice)
         
         //cell.txtplusminus.text = strqty
         

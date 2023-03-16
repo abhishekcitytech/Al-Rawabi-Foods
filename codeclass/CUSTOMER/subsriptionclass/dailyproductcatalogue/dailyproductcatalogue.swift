@@ -358,6 +358,8 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if collectionView == colorderon
         {
             //let appDel = UIApplication.shared.delegate as! AppDelegate
@@ -400,7 +402,32 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             print("strsubscriptionid",strsubscriptionid)
             
             cellA.lbldate.text = strdate
-            cellA.lblday.text = strday
+            
+            
+            var strdayvalue = ""
+            if strday.containsIgnoreCase("Monday"){
+                strdayvalue = myAppDelegate.changeLanguage(key: "msg_language489")
+            }
+            else if strday.containsIgnoreCase("Tuesday"){
+                strdayvalue = myAppDelegate.changeLanguage(key: "msg_language490")
+            }
+            if strday.containsIgnoreCase("Wednesday"){
+                strdayvalue = myAppDelegate.changeLanguage(key: "msg_language491")
+            }
+            if strday.containsIgnoreCase("Thursday"){
+                strdayvalue = myAppDelegate.changeLanguage(key: "msg_language492")
+            }
+            if strday.containsIgnoreCase("Friday"){
+                strdayvalue = myAppDelegate.changeLanguage(key: "msg_language493")
+            }
+            if strday.containsIgnoreCase("Saturday"){
+                strdayvalue = myAppDelegate.changeLanguage(key: "msg_language494")
+            }
+            if strday.containsIgnoreCase("Sunday"){
+                strdayvalue = myAppDelegate.changeLanguage(key: "msg_language495")
+            }
+            
+            cellA.lblday.text = strdayvalue
             
             
             var flttotalprice = 0.00
@@ -452,11 +479,11 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             
             if flttotalprice == 0.00{
                 cellA.lbltotalprice.textColor = UIColor(named: "orangecolor")!
-                cellA.lbltotalprice.text = "+ Add More"
+                cellA.lbltotalprice.text = myAppDelegate.changeLanguage(key: "msg_language148")
             }
             else{
                 cellA.lbltotalprice.textColor = UIColor.darkGray
-                cellA.lbltotalprice.text = String(format: "AED %0.2f", flttotalprice)
+                cellA.lbltotalprice.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), flttotalprice)
             }
             
             //STATUS CHECKING WITH TOTAL PRICE FOR THAT DATE
@@ -617,8 +644,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
             return cellA
         }
         
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        
+         
         let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier1, for: indexPath as IndexPath) as! cellcoldailyproduct
         cellA.contentView.backgroundColor = .white
         cellA.contentView.layer.borderWidth = 8.0
@@ -636,8 +662,8 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         let strbrand = String(format: "%@", dict!.value(forKey: "brand") as? String ?? "")
         //let strstatus = String(format: "%@", dict!.value(forKey: "productStatus") as? String ?? "")
         
-        let strcurrent_currencecode = String(format: "%@", dict!.value(forKey: "current_currencecode") as? String ?? "")
-        
+        var strcurrent_currencecode = String(format: "%@", dict!.value(forKey: "current_currencecode") as? String ?? "")
+        strcurrent_currencecode = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
         
         let arrmedia = dict!.value(forKey: "media")as? NSArray ?? []
         if arrmedia.count > 0 {

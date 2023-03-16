@@ -280,14 +280,14 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         
         cell.lblorderdateday.text = String(format: "%@: %@", myAppDelegate.changeLanguage(key: "msg_language438"),strsubscription_order_date)
         cell.lblstatus.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language439"),strorder_status)
-        cell.lblsubtotal.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language304"),strcurrency,strsubtotal)
+        cell.lblsubtotal.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language304"),myAppDelegate.changeLanguage(key: "msg_language481"),strsubtotal)
         
         if strshipping_amount == "0" || strshipping_amount == "0.00"
         {
             cell.lblshipping.text = myAppDelegate.changeLanguage(key: "msg_language435")
         }
         else{
-            cell.lblshipping.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language305"),strcurrency,strshipping_amount)
+            cell.lblshipping.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language305"),myAppDelegate.changeLanguage(key: "msg_language481"),strshipping_amount)
         }
         
         cell.btnedit.tag = indexPath.section
@@ -676,6 +676,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                         
                         if strsuccess == true
                         {
+                            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
                             
                             let dic = dictemp.value(forKey: "subscription_detail") as? NSDictionary
                             self.dicMSubscriptionDetails = dic?.mutableCopy() as! NSMutableDictionary
@@ -683,7 +684,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                             
                             let strGrandTotalValue = String(format: "%@", self.dicMSubscriptionDetails.value(forKey: "grandtotal")as? String ?? "")
                             let fltTotal  = (strGrandTotalValue as NSString).floatValue
-                            self.lblgrandtotal.text = String(format: "%@: AED %0.2f", myAppDelegate.changeLanguage(key: "msg_language86"),fltTotal)
+                            self.lblgrandtotal.text = String(format: "%@: %@ %0.2f", myAppDelegate.changeLanguage(key: "msg_language86"),myAppDelegate.changeLanguage(key: "msg_language481"),fltTotal)
                             
                             let arrm = dic!.value(forKey: "subscription_order") as? NSArray ?? []
                             self.arrMsubscription_order = NSMutableArray(array: arrm)

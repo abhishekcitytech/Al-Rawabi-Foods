@@ -867,7 +867,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                         self.viewbottom1.isHidden = true
                         
                         if self.strcurrency.count == 0{
-                            self.strcurrency = "AED"
+                            self.strcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
                         }
                         
                         let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
@@ -898,7 +898,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                 self.viewbottom1.isHidden = true
                 
                 if self.strcurrency.count == 0{
-                    self.strcurrency = "AED"
+                    self.strcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
                 }
                 
                 let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
@@ -1035,6 +1035,8 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                         
                         if strstatus == 200
                         {
+                            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                            
                             if self.arrMpaymentmethodlist.count > 0{
                                 self.arrMpaymentmethodlist.removeAllObjects()
                             }
@@ -1080,7 +1082,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                                 self.viewbottom1.isHidden = true
                                 
                                 if self.strcurrency.count == 0{
-                                    self.strcurrency = "AED"
+                                    self.strcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
                                 }
                                 var fltTotal = 0.00
                                 let fltamount1  = (self.strsubtotalamount as NSString).floatValue
@@ -1096,7 +1098,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                                 self.viewbottom1.isHidden = false
                                 
                                 if self.strcurrency.count == 0{
-                                    self.strcurrency = "AED"
+                                    self.strcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
                                 }
                                 var fltTotal = 0.00
                                 let fltamount1  = (self.strsubtotalamount as NSString).floatValue
@@ -1187,9 +1189,12 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                         
                         if strstatus == 200
                         {
+                            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                            
+                            
                             let strwallet_remaining_amount = dictemp.value(forKey: "wallet_remaining_amount")as? String ?? ""
                             let strcurrency = dictemp.value(forKey: "currency")as? String ?? ""
-                            self.strcurrency = strcurrency
+                            self.strcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
                             self.strwalletremainingbalance = strwallet_remaining_amount
                             
                             self.populatewalletviewcalculation()

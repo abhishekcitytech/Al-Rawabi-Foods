@@ -148,6 +148,29 @@ class maidpausedsubscriptions: UIViewController,UITableViewDelegate,UITableViewD
         
         cell.lblautorenew.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language300"),strsubscription_renewal_status)
         
+        /*
+         "msg_language484" = "Pending";
+         "msg_language485" = "Active";
+         "msg_language486" = "Paused";
+         "msg_language487" = "Expired";
+         "msg_language488" = "Canceled";*/
+        
+        if strsubscription_status.containsIgnoreCase("Pending"){
+            cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language484")
+        }
+        else if strsubscription_status.containsIgnoreCase("Active"){
+            cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language485")
+        }
+        else if strsubscription_status.containsIgnoreCase("Paused"){
+            cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language486")
+        }
+        else if strsubscription_status.containsIgnoreCase("Expired"){
+            cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language487")
+        }
+        else if strsubscription_status.containsIgnoreCase("Cancel"){
+            cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language488")
+        }
+        
         cell.lblstatus.text = String(format: "%@",strsubscription_status)
         cell.lblstatus.textColor = .white
         
@@ -163,7 +186,7 @@ class maidpausedsubscriptions: UIViewController,UITableViewDelegate,UITableViewD
             cell.lblstatus.backgroundColor =  UIColor(named: "darkredcolor")!
         }
         
-        cell.lblstatus.layer.cornerRadius = 10.0
+        cell.lblstatus.layer.cornerRadius = 18.0
         cell.lblstatus.layer.masksToBounds = true
         
         cell.viewcell.layer.cornerRadius = 8.0
@@ -240,11 +263,11 @@ class maidpausedsubscriptions: UIViewController,UITableViewDelegate,UITableViewD
                             let arrm = json.value(forKey: "subscription_list") as? NSArray ?? []
                             
                             //SORT ASCENDING FALSE ARRAY LIST BY SUBSCRIPTION ID //
-                            let descriptor: NSSortDescriptor = NSSortDescriptor(key: "subscription_id", ascending: false)
-                            let sortedResults = arrm.sortedArray(using: [descriptor]) as NSArray
-                            let aarrm1 = NSMutableArray(array: sortedResults)
+                            //let descriptor: NSSortDescriptor = NSSortDescriptor(key: "subscription_id", ascending: false)
+                            //let sortedResults = arrm.sortedArray(using: [descriptor]) as NSArray
+                            //let aarrm1 = NSMutableArray(array: sortedResults)
                             
-                            self.arrMmysubscriptions = NSMutableArray(array: aarrm1)
+                            self.arrMmysubscriptions = NSMutableArray(array: arrm)
                             print("arrMmysubscriptions --->",self.arrMmysubscriptions)
                             
                             if self.arrMmysubscriptions.count == 0{

@@ -124,7 +124,11 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let strstatus = String(format: "%@", dic.value(forKey: "orderStatus")as? String ?? "")
         let strtotal_amount = String(format: "%@", dic.value(forKey: "total_amount")as? String ?? "")
-        let strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
+        
+        var strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        strcurrency_code = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
+        
         let strcreated_at = String(format: "%@", dic.value(forKey: "created_at")as? String ?? "")
         let strordered_qty = String(format: "%@", dic.value(forKey: "ordered_qty")as? String ?? "")
         
@@ -156,7 +160,7 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.viewcell.layer.shadowOpacity = 1.0
         cell.viewcell.layer.shadowRadius = 6.0
         
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+
         cell.lblorderno.text = myAppDelegate.changeLanguage(key: "msg_language207")
         cell.lbldeliverydate.text = myAppDelegate.changeLanguage(key: "msg_language208")
         cell.lblquantity.text = myAppDelegate.changeLanguage(key: "msg_language209")

@@ -627,7 +627,8 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         let strbrand = String(format: "%@", dict!.value(forKey: "brand") as? String ?? "")
         let strstatus = String(format: "%@", dict!.value(forKey: "productStatus") as? String ?? "")
         
-        let strcurrent_currencecode = String(format: "%@", dict!.value(forKey: "current_currencecode") as? String ?? "")
+        var strcurrent_currencecode = String(format: "%@", dict!.value(forKey: "current_currencecode") as? String ?? "")
+        strcurrent_currencecode = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
         
         let strin_cart = String(format: "%@", dict!.value(forKey: "in_cart") as! CVarArg)
         
@@ -1207,18 +1208,22 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                             var strupdatedmessg = ""
                             if strmessage.contains("Item added successfully")
                             {
-                                strupdatedmessg = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language386"))
-                            }else{
+                                //strupdatedmessg = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language386"))
+                                self.getProductListingAPIMethod(strselectedcategoryid: self.strSelectedCat)
+                            }
+                            else
+                            {
                                 strupdatedmessg = strmessage
+                                let uiAlert = UIAlertController(title: "", message: strupdatedmessg , preferredStyle: UIAlertController.Style.alert)
+                                self.present(uiAlert, animated: true, completion: nil)
+                                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                    print("Click of default button")
+                                    
+                                    self.getProductListingAPIMethod(strselectedcategoryid: self.strSelectedCat)
+                                }))
                             }
                             
-                            let uiAlert = UIAlertController(title: "", message: strupdatedmessg , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                                print("Click of default button")
-                                
-                                self.getProductListingAPIMethod(strselectedcategoryid: self.strSelectedCat)
-                            }))
+                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)

@@ -217,7 +217,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         
         lblfullpayment.text = myAppDelegate.changeLanguage(key: "msg_language336")
         lblfirst3payment.text = myAppDelegate.changeLanguage(key: "msg_language337")
-        btncheckout.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language441")), for: .normal)
+        btncheckout.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language482")), for: .normal)
         
         txtcouponcode.placeholder = myAppDelegate.changeLanguage(key: "msg_language229")
         btnapplycouponcode.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
@@ -298,6 +298,8 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
     }
     func calculateFullPAY()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         var flttotalSUBTOTAL = Float()
         var flttotalSHIPPING = Float()
         var flttotalTAX = Float()
@@ -342,13 +344,14 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             self.strGRANDTOTAL = String(format: "%0.2f", fltupdated)
         }
         
-        self.lblsubtotalvalue.text = String(format: "AED %@", strSUBTOTAL)
-        self.lblshippingvalue.text = String(format: "AED %@", strSHIPPING)
-        self.lbltaxtotalvalue.text = String(format: "AED %@", strTAX)
-        self.lblgrandtotalvalue.text = String(format: "AED %@", strGRANDTOTAL)
+        self.lblsubtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481") ,strSUBTOTAL)
+        self.lblshippingvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481") , strSHIPPING)
+        self.lbltaxtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481") , strTAX)
+        self.lblgrandtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481") , strGRANDTOTAL)
     }
     func calculate3DAYSPAY()
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         //var intcount = 0
         
         var flttotalSUBTOTAL = Float()
@@ -396,10 +399,10 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             self.strGRANDTOTAL = String(format: "%0.2f", fltupdated)
         }
         
-        self.lblsubtotalvalue.text = String(format: "AED %@", strSUBTOTAL)
-        self.lblshippingvalue.text = String(format: "AED %@", strSHIPPING)
-        self.lbltaxtotalvalue.text = String(format: "AED %@", strTAX)
-        self.lblgrandtotalvalue.text = String(format: "AED %@", strGRANDTOTAL)
+        self.lblsubtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strSUBTOTAL)
+        self.lblshippingvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strSHIPPING)
+        self.lbltaxtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strTAX)
+        self.lblgrandtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strGRANDTOTAL)
     }
     
     
@@ -511,6 +514,8 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if tableView == tabveditpopupitems
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier2, for: indexPath) as! celltabvprodustitemsedit
@@ -542,7 +547,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             cell.lblspec.isHidden = true
             
             let fltamount  = (strproduct_price as NSString).floatValue
-            cell.lblunitprice.text = String(format: "AED %0.2f", fltamount)
+            cell.lblunitprice.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltamount)
             
             cell.btnremove.isHidden = true
             
@@ -577,6 +582,11 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             cell.txtplusminusATA.layer.borderWidth = 1.0
             cell.txtplusminusATA.layer.borderColor = UIColor(named: "orangecolor")!.cgColor
             cell.txtplusminusATA.layer.masksToBounds = true
+            
+            cell.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language71")), for: .normal)
+            cell.btnaddtoall.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language70")), for: .normal)
+            cell.lbladdonce.text = myAppDelegate.changeLanguage(key: "msg_language71")
+            cell.lbladdtoall.text = myAppDelegate.changeLanguage(key: "msg_language70")
             
             
             //--- ADD ONCE --- //
@@ -656,7 +666,10 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         let strorder_date = String(format: "%@", dic.value(forKey: "order_date")as? String ?? "")
         let strday = String(format: "%@", dic.value(forKey: "day")as? String ?? "")
         let strdayname = String(format: "%@", dic.value(forKey: "day_name")as? String ?? "")
-        let strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
+        
+        var strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
+        strcurrency_code = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
+        
         let strshipping_amount = String(format: "%@", dic.value(forKey: "shipping_amount")as! CVarArg)
         let strorder_subtotal = String(format: "%@", dic.value(forKey: "order_subtotal")as! CVarArg)
         let strpayment_status = String(format: "%@", dic.value(forKey: "payment_status")as! CVarArg)
@@ -747,7 +760,11 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         let strorder_date = String(format: "%@", dic.value(forKey: "order_date")as? String ?? "")
         let strday = String(format: "%@", dic.value(forKey: "day")as? String ?? "")
         let strdayname = String(format: "%@", dic.value(forKey: "day_name")as? String ?? "")
-        let strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
+        
+        var strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        strcurrency_code = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
+        
         let strshipping_amount = String(format: "%@", dic.value(forKey: "shipping_amount")as! CVarArg)
         let strorder_subtotal = String(format: "%@", dic.value(forKey: "order_subtotal")as! CVarArg)
         let strpayment_status = String(format: "%@", dic.value(forKey: "payment_status")as! CVarArg)
@@ -889,7 +906,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             self.strGRANDTOTAL = String(format: "%0.2f",fltupdated)
             
             self.lblgrandtotal.text = String(format: "%@:", myAppDelegate.changeLanguage(key: "msg_language86"))
-            self.lblgrandtotalvalue.text = String(format: "AED %0.2f", fltupdated)
+            self.lblgrandtotalvalue.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltupdated)
             
             //RESET UI DESIGN COUPON VIEW
             self.strDISCOUNTAMOUNT = ""
@@ -1108,7 +1125,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
                             self.strDISCOUNTAMOUNT = strdiscount_amount
                             self.strDISCOUNTCODE = strcoupon_code
                             
-                            self.lblgrandtotal.text = String(format: "%@: (%@ AED %@)",myAppDelegate.changeLanguage(key: "msg_language86"),myAppDelegate.changeLanguage(key: "msg_language443"), self.strDISCOUNTAMOUNT)
+                            self.lblgrandtotal.text = String(format: "%@: (%@ %@ %@)",myAppDelegate.changeLanguage(key: "msg_language86"),myAppDelegate.changeLanguage(key: "msg_language443"),myAppDelegate.changeLanguage(key: "msg_language481"), self.strDISCOUNTAMOUNT)
                             
                             
                             self.txtcouponcode.isUserInteractionEnabled = false
@@ -1122,7 +1139,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
                             fltTotal3 = Double(fltamount1 - fltamount2)
                             
                             self.strGRANDTOTAL = String(format: "%0.2f",fltTotal3)
-                            self.lblgrandtotalvalue.text = String(format: "AED %0.2f", fltTotal3)
+                            self.lblgrandtotalvalue.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltTotal3)
                             
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language232"), preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)

@@ -31,11 +31,6 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
     @IBOutlet weak var btnPLUS: UIButton!
     @IBOutlet weak var txtqty: UITextField!
     @IBOutlet weak var btnaddonce: UIButton!
-    
-    @IBOutlet weak var lblor: UILabel!
-    @IBOutlet weak var lblsep1: UILabel!
-    @IBOutlet weak var lblsep2: UILabel!
-    
 
     @IBOutlet weak var btnaddtowishlisticon: UIButton!
     @IBOutlet weak var btnshareoption: UIButton!
@@ -657,7 +652,7 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
             cellA.lblqty.text = strsize
             
             let fltprice = Float(strprice)
-            cellA.lblprice.text = String(format: "AED %.2f", fltprice!)
+            cellA.lblprice.text = String(format: "%@ %.2f", myAppDelegate.changeLanguage(key: "msg_language481"),fltprice!)
             
             cellA.btnaddonce.isHidden = true
             
@@ -700,7 +695,7 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
         cellA.lblsize.text = strsize
         
         let fltprice = Float(strprice)
-        cellA.lblrpcie.text = String(format: "AED %.2f\n%@", fltprice!,myAppDelegate.changeLanguage(key: "msg_language474"))
+        cellA.lblrpcie.text = String(format: "%@ %.2f\n%@",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!,myAppDelegate.changeLanguage(key: "msg_language474"))
         cellA.lblrpcie.textColor = UIColor(named: "darkgreencolor")!
         
         if self.strSelectedSizeId == strid
@@ -994,7 +989,7 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                                 self.strSelectedSizeId = strid111111
                                 print("self.strSelectedSizeId",self.strSelectedSizeId)
                                 
-                                self.colselectsize.reloadData()
+                                //self.colselectsize.reloadData()
                             }
                             else
                             {
@@ -1015,7 +1010,8 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                                 let strid111111 = String(format: "%@", dic111111?.value(forKey: "id")as! CVarArg)
                                 self.strSelectedSizeId = strid111111
                                 print("self.strSelectedSizeId",self.strSelectedSizeId)
-                                self.colselectsize.reloadData()
+                                
+                                //self.colselectsize.reloadData()
                             }
                             
                             //SET ADD OR ALREADY ADDED INTO WISHLIST
@@ -1387,17 +1383,21 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                             var strupdatedmessg = ""
                             if strmessage.contains("Item added successfully")
                             {
-                                strupdatedmessg = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language386"))
-                            }else{
+                                //strupdatedmessg = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language386"))
+                                self.getProductDetailsAPIMethod()
+                            }
+                            else
+                            {
                                 strupdatedmessg = strmessage
+                                let uiAlert = UIAlertController(title: "", message: strupdatedmessg , preferredStyle: UIAlertController.Style.alert)
+                                self.present(uiAlert, animated: true, completion: nil)
+                                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                    print("Click of default button")
+                                    self.getProductDetailsAPIMethod()
+                                }))
                             }
                             
-                            let uiAlert = UIAlertController(title: "", message: strupdatedmessg , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                                print("Click of default button")
-                                self.getProductDetailsAPIMethod()
-                            }))
+                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)

@@ -127,14 +127,19 @@ class reordermyorderoncelist: UIViewController,UITableViewDelegate,UITableViewDa
         
         let strstatus = String(format: "%@", dic.value(forKey: "orderStatus")as? String ?? "")
         let strtotal_amount = String(format: "%@", dic.value(forKey: "total_amount")as? String ?? "")
-        let strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
+        
+        var strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
+        strcurrency_code = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
+        
         let strcreated_at = String(format: "%@", dic.value(forKey: "created_at")as? String ?? "")
         let strordered_qty = String(format: "%@", dic.value(forKey: "ordered_qty")as? String ?? "")
         
         cell.lblordernovalue.text = String(format: "# %@", strorder_increment_id)
         cell.lbldeliverydatevalue.text = strcreated_at
         cell.lblquantityvalue.text = strordered_qty
-        cell.lbltotalamountvalue.text = String(format: "%@ %@",strcurrency_code, strtotal_amount)
+        
+        let flttotalprice = Float(strtotal_amount)
+        cell.lbltotalamountvalue.text = String(format: "%@ %0.2f",strcurrency_code, flttotalprice!)
         
        
         cell.btndetails.layer.borderWidth = 1.0

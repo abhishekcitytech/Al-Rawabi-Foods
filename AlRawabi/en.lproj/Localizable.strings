@@ -89,7 +89,7 @@
 "msg_language80" = "Search by product name";
 "msg_language81" = "Review Your Order";
 "msg_language82" = "Do you want to clear your selected subscription items?";
-"msg_language83" = "Click to choose your preferred delivery slot";
+"msg_language83" = "Click to choose preferred delivery slot"; 
 "msg_language84" = "Cart Subtotal + Tax";
 "msg_language85" = "Shipping Charges";
 "msg_language86" = "Grand Total";
@@ -104,7 +104,7 @@
 "msg_language95" = "Shipping Addresses";
 "msg_language96" = "Choose Your Expected Delivery Date";
 "msg_language97" = "Current Location";
-"msg_language98" = "PROCEED";
+"msg_language98" = "Proceed";
 "msg_language99" = "Morning";
 "msg_language100" = "Afternoon";
 "msg_language101" = "Evening";
@@ -126,21 +126,21 @@
 "msg_language117" = "No cart products found!";
 "msg_language118" = "No shipping method found!";
 "msg_language119" = "Addresses";
-"msg_language120" = "Set As Default";
+"msg_language120" = "Set as a default";
 "msg_language121" = "Default";
-"msg_language122" = "View edit profile";
-"msg_language123" = "My Wish List";
-"msg_language124" = "View order history";
+"msg_language122" = "View / Edit Profile";
+"msg_language123" = "My Wishlist";
+"msg_language124" = "View Order History";
 "msg_language125" = "View up-coming deliveries";
-"msg_language126" = "Pause/restart recurring orders";
-"msg_language127" = "Add/edit/delete sub-accounts";
-"msg_language128" = "Top up/view balance";
+"msg_language126" = "Pause / restart recurring orders";
+"msg_language127" = "Add / edit / delete sub-accounts";
+"msg_language128" = "Top up / view balance";
 "msg_language129" = "Re-Order & Order Once List";
-"msg_language130" = "Vacation/time-off settings";
+"msg_language130" = "Vacation / time-off settings";
 "msg_language131" = "My Reward Points";
-"msg_language132" = "Upgrade/downgrade/cancel membership";
+"msg_language132" = "Upgrade / downgrade / cancel membership";
 "msg_language133" = "Returns / Refunds";
-"msg_language134" = "Manage multiple shipping address";
+"msg_language134" = "Manage Shipping Addresses";
 "msg_language135" = "Change Password";
 "msg_language136" = "Home";
 "msg_language137" = "Order by Subscription";
@@ -200,7 +200,7 @@
 "msg_language191" = "Save";
 "msg_language192" = "Name on the card";
 "msg_language193" = "Card number";
-"msg_language194" = "Month/ Year";
+"msg_language194" = "Month / Year";
 "msg_language195" = "CVV";
 "msg_language196" = "CARD HOLDER";
 "msg_language197" = "EXPIRE ON";
@@ -241,7 +241,7 @@
 "msg_language232" = "You have applied coupon code succesfully.";
 "msg_language233" = "Select & Copy";
 "msg_language234" = "Apply";
-"msg_language235" = "New Arrivals";
+"msg_language235" = "New Arrival";
 "msg_language236" = "Add Address";
 "msg_language237" = "Street Address";
 "msg_language238" = "Please enter your first name";
@@ -279,7 +279,7 @@
 "msg_language270" = "Server Error! please try after sometime";
 "msg_language271" = "Network Error! please check your network settings";
 "msg_language272" = "Click here for maid login";
-"msg_language273" = "My Subscriptions";
+"msg_language273" = "My Subscription";
 "msg_language274" = "Maid Accounts";
 "msg_language275" = "Change Password";
 "msg_language276" = "Logout";
@@ -289,7 +289,7 @@
 "msg_language280" = "About Us";
 "msg_language281" = "Privacy Policy";
 "msg_language282" = "Delivery Policy";
-"msg_language283" = "Refund/Return & Cancellation Policy";
+"msg_language283" = "Refund / Return & Cancellation Policy";
 "msg_language284" = "Terms & Conditions";
 "msg_language285" = "Disclaimer";
 "msg_language286" = "Please check your SMS app for OTP";
@@ -300,7 +300,7 @@
 "msg_language291" = "Please update with your new password";
 "msg_language292" = "Reset Password";
 "msg_language293" = "Maid Home";
-"msg_language294" = "View Subscriptions";
+"msg_language294" = "View Subscription";
 "msg_language295" = "Paused Subscriptions";
 "msg_language296" = "Wallet Balance";
 "msg_language297" = "My Profile";
@@ -435,10 +435,10 @@
 "msg_language426" = "Renew";
 "msg_language427" = "Do you want to Renew this subscription?";
 "msg_language428" = "My Subscription Details";
-"msg_language429" = "UPDATE";
-"msg_language430" = "PAUSE";
-"msg_language431" = "RESUME";
-"msg_language432" = "RENEW";
+"msg_language429" = "Update";
+"msg_language430" = "Pause";
+"msg_language431" = "Resume";
+"msg_language432" = "Renew";
 "msg_language433" = "Do you want to update your subscription plan date?";
 "msg_language434" = "Do you want to Cancel this subscription?";
 "msg_language435" = "FREE delivery";
@@ -448,7 +448,6 @@
 "msg_language439" = "Status";
 "msg_language440" = "Please select preferred delivery time slot";
 "msg_language441" = "Shipping:";
-"msg_language441" = "CONTINUE TO CHECKOUT";
 "msg_language442" = "Please select preferred payment condition Full or First 3 Days.";
 "msg_language443" = "Discounted";
 "msg_language444" = "Update Delivery Time Slot";
@@ -488,7 +487,19 @@
 "msg_language478" = "Subscr";
 "msg_language479" = "Order";
 "msg_language480" = "Shippment#";
+"msg_language481" = "AED";
+"msg_language482" = "CONTINUE TO CHECKOUT";
+"msg_language483" = "Subscribe";
+"msg_language484" = "Pending";
+"msg_language485" = "Active";
+"msg_language486" = "Paused";
+"msg_language487" = "Expired";
+"msg_language488" = "Canceled";
 
-
-
-
+"msg_language489" = "Monday";
+"msg_language490" = "Tuesday";
+"msg_language491" = "Wednesday";
+"msg_language492" = "Thursday";
+"msg_language493" = "Friday";
+"msg_language494" = "Saturday";
+"msg_language495" = "Sunday";

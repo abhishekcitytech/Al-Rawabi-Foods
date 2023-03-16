@@ -90,7 +90,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKu-U0-RFa">
-                                <rect key="frame" x="8" y="67" width="152" height="20"/>
+                                <rect key="frame" x="8" y="46" width="152" height="41"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
@@ -123,7 +123,7 @@
                 <outlet property="viewcell" destination="e7c-5M-JxQ" id="pjo-BL-dsn"/>
                 <outlet property="viewplusminus" destination="htD-xm-WG6" id="KQ4-6a-ga1"/>
             </connections>
-            <point key="canvasLocation" x="130.53435114503816" y="7.394366197183099"/>
+            <point key="canvasLocation" x="130.53435114503816" y="7.042253521126761"/>
         </tableViewCell>
     </objects>
     <resources>

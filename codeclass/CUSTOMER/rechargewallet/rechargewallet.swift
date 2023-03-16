@@ -71,6 +71,7 @@ class rechargewallet: UIViewController,UICollectionViewDelegate,UICollectionView
         btnpayment.layer.cornerRadius = 18.0
         btnpayment.layer.masksToBounds = true
         
+        lblcurrency.text = myAppDelegate.changeLanguage(key: "msg_language481")
         lblcurrency.layer.borderWidth = 1.0
         lblcurrency.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
         lblcurrency.layer.cornerRadius = 4.0

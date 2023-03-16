@@ -144,9 +144,30 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
         
         cell.lblautorenew.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language300"),strsubscription_renewal_status)
         
+        /*
+         "msg_language484" = "Pending";
+         "msg_language485" = "Active";
+         "msg_language486" = "Paused";
+         "msg_language487" = "Expired";
+         "msg_language488" = "Canceled";*/
+        
+        if strsubscription_status.containsIgnoreCase("Pending"){
+            cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language484")
+        }
+        else if strsubscription_status.containsIgnoreCase("Active"){
+            cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language485")
+        }
+        else if strsubscription_status.containsIgnoreCase("Paused"){
+            cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language486")
+        }
+        else if strsubscription_status.containsIgnoreCase("Expired"){
+            cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language487")
+        }
+        else if strsubscription_status.containsIgnoreCase("Cancel"){
+            cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language488")
+        }
+        
         cell.lblstatus.text = String(format: "%@",strsubscription_status)
-        
-        
         cell.lblstatus.textColor = .white
         
         if strsubscription_status_code == "0"{
@@ -182,16 +203,16 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
         }
         
         
-        cell.lblstatus.layer.cornerRadius = 8.0
+        cell.lblstatus.layer.cornerRadius = 18.0
         cell.lblstatus.layer.masksToBounds = true
         
-        cell.btnview.layer.cornerRadius = 14.0
+        cell.btnview.layer.cornerRadius = 18.0
         cell.btnview.layer.masksToBounds = true
         
-        cell.btnedit.layer.cornerRadius = 14.0
+        cell.btnedit.layer.cornerRadius = 18.0
         cell.btnedit.layer.masksToBounds = true
         
-        cell.btnrenew.layer.cornerRadius = 14.0
+        cell.btnrenew.layer.cornerRadius = 18.0
         cell.btnrenew.layer.masksToBounds = true
         
         cell.viewcell.layer.cornerRadius = 8.0

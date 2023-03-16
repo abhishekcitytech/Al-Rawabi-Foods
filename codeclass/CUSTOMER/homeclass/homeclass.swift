@@ -25,14 +25,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     
     @IBOutlet weak var viewoverall: UIView!
     @IBOutlet weak var scrolloverall: UIScrollView!
-    
-    @IBOutlet weak var viewfloatcart: UIView!
-    @IBOutlet weak var imgvfloatcart: UIImageView!
-    @IBOutlet weak var lblfloatcartcount: UILabel!
-    @IBOutlet weak var btnfloatcart: UIButton!
-    
-    
-    
+ 
     
     @IBOutlet weak var viewsearchbar: UIView!
     @IBOutlet weak var viewsearchbarbg: UIView!
@@ -57,12 +50,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     var reuseIdentifier2 = "colcelltopdeals"
     
     @IBOutlet weak var viewfour: UIView!
-    @IBOutlet weak var viewpromobox1: UIView!
-    @IBOutlet weak var viewpromobox2: UIView!
-    @IBOutlet weak var viewpromobox3: UIView!
-    @IBOutlet weak var imgvpromobox1: UIImageView!
-    @IBOutlet weak var imgvpromobox2: UIImageView!
-    @IBOutlet weak var imgvpromobox3: UIImageView!
+    @IBOutlet weak var colhomepagebottombanner: UICollectionView!
+    var reuseIdentifier3 = "colcellbottombannerhome"
     
     
     
@@ -136,6 +125,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     var strPOPUPstreetaddressfrommapCity = ""
     var strPOPUPSelectedLATITUDE = ""
     var strPOPUPSelectedLONGITUDE = ""
+    
+    var arrMHomePageBottomBanner = NSMutableArray()
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -228,10 +219,6 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         setupNavLogo()
         
-        self.viewfloatcart.backgroundColor = .clear
-        self.lblfloatcartcount.layer.cornerRadius = self.lblfloatcartcount.frame.self.width / 2.0
-        self.lblfloatcartcount.layer.masksToBounds = true
-        
         self.viewsearchbarbg.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
         self.viewsearchbarbg.layer.borderWidth = 1.0
         self.viewsearchbarbg.layer.cornerRadius = 18.0
@@ -271,6 +258,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         self.createExploreCategory()
         self.createExploreTopDeals()
+        self.createExploreBottomBanner()
         
 
         //--- Updating --- Location - Latitude - Longitude ----//
@@ -290,14 +278,6 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.getPolygonApiList()
         //self.addPolygonZoneArea()
         //self.createMultiPolygon()
-        
-        
-        viewpromobox1.layer.cornerRadius = 8.0
-        viewpromobox1.layer.masksToBounds = true
-        viewpromobox2.layer.cornerRadius = 8.0
-        viewpromobox2.layer.masksToBounds = true
-        viewpromobox3.layer.cornerRadius = 8.0
-        viewpromobox3.layer.masksToBounds = true
         
     }
     
@@ -359,9 +339,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         {
             let dictemp = self.arrMcategory.object(at: x)as! NSDictionary
             let strname = String(format: "%@", dictemp.value(forKey: "text")as? String ?? "")
+            let strcategoryImage = String(format: "%@", dictemp.value(forKey: "categoryImage")as? String ?? "")
+            
             arrm1 = dictemp.value(forKey: "children") as? NSArray ?? []
             
-            if strname.containsIgnoreCase("offers")
+            if strcategoryImage.containsIgnoreCase("offer")
             {
                 let strid = String(format: "%@", dictemp.value(forKey: "id") as! CVarArg)
                 strcatid = strid
@@ -428,42 +410,6 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let ctrl = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
         self.navigationController?.pushViewController(ctrl, animated: true)
     }
-    
-    //MARK: - press Bottom Promotion Box Method
-    @IBAction func presspromobox1(_ sender: Any)
-    {
-        print("strBottomBANNER1name",strBottomBANNER1name)
-    }
-    @IBAction func presspromobox2(_ sender: Any)
-    {
-        print("strBottomBANNER1name",strBottomBANNER2name)
-        
-        for x in 0 ..< self.arrMcategory.count
-        {
-            let dict = self.arrMcategory.object(at: x)as? NSDictionary
-            let strtext = String(format: "%@", dict!.value(forKey: "text") as? String ?? "")
-            let strid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
-            let arrm1 = dict!.value(forKey: "children") as? NSArray ?? []
-            
-            if strtext.containsIgnoreCase("Juice")
-            {
-                let ctrl = productcatalogue(nibName: "productcatalogue", bundle: nil)
-                ctrl.strpageidentifier = "1001"
-                ctrl.strFromCategoryID = strid
-                ctrl.strFromCategoryNAME = strtext
-                ctrl.arrmsubcatlist = NSMutableArray(array: arrm1)
-                self.navigationController?.pushViewController(ctrl, animated: true)
-            }
-        }
-    }
-    @IBAction func presspromobox3(_ sender: Any)
-    {
-        print("strBottomBANNER1name",strBottomBANNER3name)
-        
-        let ctrl = newarrivalproduct(nibName: "newarrivalproduct", bundle: nil)
-        self.navigationController?.pushViewController(ctrl, animated: true)
-    }
-    
     
     //MARK: - Polygon Zone Area Method
     func addPolygonZoneArea()
@@ -1318,12 +1264,32 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         coltopdeals.backgroundColor = .clear
     }
     
+    //MARK: - create Explore Bottom Banner method
+    func createExploreBottomBanner()
+    {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: colhomepagebottombanner.frame.size.width / 1.0, height: 144)
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 5
+        colhomepagebottombanner.collectionViewLayout = layout
+        colhomepagebottombanner.register(UINib(nibName: "colcellbottombannerhome", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier3)
+        colhomepagebottombanner.showsHorizontalScrollIndicator = false
+        colhomepagebottombanner.showsVerticalScrollIndicator=false
+        colhomepagebottombanner.backgroundColor = .clear
+    }
+    
     // MARK: - UICollectionView Delegate & DataSource Method
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         if collectionView ==  colcategory
         {
             return arrMcategory.count
+        }
+        else if collectionView ==  colhomepagebottombanner
+        {
+            return arrMHomePageBottomBanner.count
         }
         print("arrMtopdeals.count",arrMtopdeals.count)
         return arrMtopdeals.count
@@ -1382,6 +1348,35 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             // Set up cell
             return cellA
         }
+        else if collectionView == self.colhomepagebottombanner
+        {
+            let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier3, for: indexPath as IndexPath) as! colcellbottombannerhome
+            cellA.contentView.backgroundColor = .white
+            cellA.contentView.layer.borderWidth = 1.0
+            cellA.contentView.layer.cornerRadius = 0.0
+            cellA.contentView.layer.borderColor = UIColor.clear.cgColor
+            cellA.contentView.layer.masksToBounds = true
+            
+            cellA.viewcell.layer.cornerRadius = 4.0
+            cellA.viewcell.layer.borderWidth = 0.0
+            cellA.viewcell.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+            cellA.viewcell.layer.masksToBounds = true
+            
+            let dict = arrMHomePageBottomBanner.object(at: indexPath.row) as! NSDictionary
+            
+            let strcategory_id = String(format: "%@", dict.value(forKey: "category_id") as! CVarArg)
+            let strimage = String(format: "%@", dict.value(forKey: "image") as? String ?? "")
+            let strimageName = String(format: "%@", dict.value(forKey: "imageName") as? String ?? "")
+            
+            let strFinalurl = strimage.replacingOccurrences(of: " ", with: "%20")
+            print("strFinalurl",strFinalurl)
+           
+            cellA.imgvcell.contentMode = .scaleAspectFill
+            cellA.imgvcell.imageFromURL(urlString: strFinalurl)
+            
+            // Set up cell
+            return cellA
+        }
         
         let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier2, for: indexPath as IndexPath) as! colcelltopdeals
         cellA.contentView.backgroundColor = .white
@@ -1426,7 +1421,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         cellA.lblqty.text = strsize
         
         let fltprice = Float(strprice)
-        cellA.lblprice.text = String(format: "AED %.2f", fltprice!)
+        cellA.lblprice.text = String(format: "%@ %.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!)
         cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
         
         cellA.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language47")), for: .normal)
@@ -1487,6 +1482,10 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         {
             return CGSize(width: colcategory.frame.size.width / 3, height: 128)
         }
+        else if collectionView == self.colhomepagebottombanner
+        {
+            return CGSize(width: colhomepagebottombanner.frame.size.width / 1.0 , height: 144)
+        }
         return CGSize(width: coltopdeals.frame.size.width / 2.3 , height: 350)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
@@ -1494,6 +1493,10 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         if collectionView ==  colcategory
         {
             return UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 5)
+        }
+        else if collectionView == self.colhomepagebottombanner
+        {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
         return UIEdgeInsets(top: 0, left: 5, bottom: 10, right: 5)
     }
@@ -1521,6 +1524,34 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 ctrl.strFromCategoryNAME = strtext
                 ctrl.arrmsubcatlist = NSMutableArray(array: arrm1)
                 self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+        }
+        else if collectionView == self.colhomepagebottombanner
+        {
+            let dict = arrMHomePageBottomBanner.object(at: indexPath.row) as! NSDictionary
+            
+            let strcategory_id = String(format: "%@", dict.value(forKey: "category_id") as! CVarArg)
+            let strimage = String(format: "%@", dict.value(forKey: "image") as? String ?? "")
+            let strimageName = String(format: "%@", dict.value(forKey: "imageName") as? String ?? "")
+            
+            print("self.arrMcategory",self.arrMcategory)
+            for x in 0 ..< self.arrMcategory.count
+            {
+                let dict = self.arrMcategory.object(at: x)as? NSDictionary
+                let strtext = String(format: "%@", dict!.value(forKey: "text") as? String ?? "")
+                let strid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+                let strcategoryImage = String(format: "%@", dict!.value(forKey: "categoryImage") as? String ?? "")
+                let arrm1 = dict!.value(forKey: "children") as? NSArray ?? []
+                
+                if strcategory_id == strid
+                {
+                    let ctrl = productcatalogue(nibName: "productcatalogue", bundle: nil)
+                    ctrl.strpageidentifier = "1001"
+                    ctrl.strFromCategoryID = strid
+                    ctrl.strFromCategoryNAME = strtext
+                    ctrl.arrmsubcatlist = NSMutableArray(array: arrm1)
+                    self.navigationController?.pushViewController(ctrl, animated: true)
+                }
             }
         }
         else if collectionView == self.coltopdeals
@@ -2038,19 +2069,22 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             var strupdatedmessg = ""
                             if strmessage.contains("Item added successfully")
                             {
-                                strupdatedmessg = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language386"))
-                            }else{
-                                strupdatedmessg = strmessage
-                            }
-                            
-                            let uiAlert = UIAlertController(title: "", message: strupdatedmessg , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                                print("Click of default button")
-                                
+                                //strupdatedmessg = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language386"))
                                 self.postTopDelasHomepageAPImethod()
                                 self.getOrderOnceCartCountAPIMethod()
-                            }))
+                            }
+                            else
+                            {
+                                strupdatedmessg = strmessage
+                                let uiAlert = UIAlertController(title: "", message: strupdatedmessg , preferredStyle: UIAlertController.Style.alert)
+                                self.present(uiAlert, animated: true, completion: nil)
+                                uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                    print("Click of default button")
+                                    
+                                    self.postTopDelasHomepageAPImethod()
+                                    self.getOrderOnceCartCountAPIMethod()
+                                }))
+                            }
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
@@ -2227,7 +2261,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         
-        let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl,Constants.methodname.apimethod98,strLangCode)
+        let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl,Constants.methodname.apimethod111,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -2246,7 +2280,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }))
                     
                     self.view.activityStopAnimating()
-                    self.getBOTTOMBANNER2APIMethod()
+                    
                 }
                 print("Error=\(String(describing: error))")
                 return
@@ -2272,25 +2306,36 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         
                         if strsuccess == true
                         {
+                            if self.arrMHomePageBottomBanner.count > 0 {
+                                self.arrMHomePageBottomBanner.removeAllObjects()
+                            }
+                            
                             //Banner 1 -- Non Clickable Now
-                            let strimageurl = String(format: "%@", dictemp.value(forKey: "bannerImage") as? String ?? "")
+                            /*let strimageurl = String(format: "%@", dictemp.value(forKey: "bannerImage") as? String ?? "")
                             let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
                             print("strFinalurl",strFinalurl)
                             
                             self.strBottomBANNER1name = strmessage
                             self.strBottomBANNER1image = strFinalurl
-                            self.imgvpromobox1.imageFromURL(urlString: self.strBottomBANNER1image)
+                            self.imgvpromobox1.imageFromURL(urlString: self.strBottomBANNER1image)*/
+                            
+                            let arrMGallery = json.value(forKey: "bannerImage") as? NSArray ?? []
+                            self.arrMHomePageBottomBanner = NSMutableArray(array: arrMGallery)
+                            print("arrMHomePageBottomBanner --->",self.arrMHomePageBottomBanner)
+                            
+                            if self.arrMHomePageBottomBanner.count > 0 {
+                                self.colhomepagebottombanner.reloadData()
+                            }
                         }
                         else
                         {
-                            /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
-                            }))*/
+                            }))
                         }
                         
-                        self.getBOTTOMBANNER2APIMethod()
                     }
                 }
             }
@@ -2305,7 +2350,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }))
                     
                     self.view.activityStopAnimating()
-                    self.getBOTTOMBANNER2APIMethod()
+                    
                 }
                 print("Error -> \(error)")
             }
@@ -2314,7 +2359,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     }
     
     //MARK: - get Bottom Banner 2 API method
-    func getBOTTOMBANNER2APIMethod()
+    /*func getBOTTOMBANNER2APIMethod()
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
@@ -2405,10 +2450,10 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             }
         }
         task.resume()
-    }
+    }*/
     
     //MARK: - get Bottom Banner 3 API method
-    func getBOTTOMBANNER3APIMethod()
+    /*func getBOTTOMBANNER3APIMethod()
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
@@ -2496,7 +2541,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             }
         }
         task.resume()
-    }
+    }*/
     
     
     //MARK: - get Availble LOCATIONS LIST API method

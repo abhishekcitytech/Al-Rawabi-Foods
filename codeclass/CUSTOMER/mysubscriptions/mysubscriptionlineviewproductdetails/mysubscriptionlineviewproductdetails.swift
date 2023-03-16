@@ -68,7 +68,7 @@ class mysubscriptionlineviewproductdetails: UIViewController,UITableViewDelegate
         strfetchedtimeslotID = String(format: "%@", diclistvalue.value(forKey: "timeslot_id")as? String ?? "")
         print("strfetchedtimeslotID",strfetchedtimeslotID)
         
-        lbldate.text = String(format: "Date: %@", strsubscription_order_date)
+        lbldate.text = String(format: "%@", strsubscription_order_date)
         lblstatus.text = String(format: "%@", strorder_status)
         
         self.getAvailbleTimeSlotsAPIMethod()
@@ -195,6 +195,8 @@ class mysubscriptionlineviewproductdetails: UIViewController,UITableViewDelegate
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if tableView == tblViewDropdownList
         {
             let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier:cellReuseIdentifier)
@@ -266,8 +268,8 @@ class mysubscriptionlineviewproductdetails: UIViewController,UITableViewDelegate
         let fltprice = Float(strproduct_price)! as Float
         
         cell.lblproductname.text = String(format: "%@", strproduct_name)
-        cell.lblsku.text = String(format: "SKU: %@",strsku)
-        cell.lblrpice.text = String(format: "AED %0.2f",fltprice)
+        //cell.lblsku.text = String(format: "SKU: %@",strsku)
+        cell.lblrpice.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"),fltprice)
         
         cell.txtplusminus.text = String(format: "%0.0f", intTotal)
         
@@ -305,7 +307,16 @@ class mysubscriptionlineviewproductdetails: UIViewController,UITableViewDelegate
             let strstart_time = String(format: "%@", dictemp.value(forKey: "from")as? String ?? "")
             let strend_time = String(format: "%@", dictemp.value(forKey: "to")as? String ?? "")
             
-            self.txttimeslot.text = String(format: "%@ (%@ - %@)", strname,strstart_time,strend_time)
+            if strname.containsIgnoreCase("Morning"){
+                self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language99"),strstart_time,strend_time)
+            }
+            else if strname.containsIgnoreCase("Afternoon"){
+                self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language100"),strstart_time,strend_time)
+            }
+            else if strname.containsIgnoreCase("Evening"){
+                self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language101"),strstart_time,strend_time)
+            }
+            
             
             self.strfetchedtimeslotID = strslotid
             
@@ -673,7 +684,16 @@ class mysubscriptionlineviewproductdetails: UIViewController,UITableViewDelegate
                             
                                 if strslotid == self.strfetchedtimeslotID
                                 {
-                                    self.txttimeslot.text = String(format: "%@ (%@ - %@)", strname,strstart_time,strend_time)
+                                    if strname.containsIgnoreCase("Morning"){
+                                        self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language99"),strstart_time,strend_time)
+                                    }
+                                    else if strname.containsIgnoreCase("Afternoon"){
+                                        self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language100"),strstart_time,strend_time)
+                                    }
+                                    else if strname.containsIgnoreCase("Evening"){
+                                        self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language101"),strstart_time,strend_time)
+                                    }
+                                    
                                 }
                             }
                             

@@ -300,6 +300,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
             return cell;
         }
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier2, for: indexPath) as! cellSelectShippingMethod
         cell.selectionStyle=UITableViewCell.SelectionStyle.none
         cell.accessoryType = UITableViewCell.AccessoryType.none
@@ -312,7 +313,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
         let strlabel = String(format: "%@", dic.value(forKey: "label")as? String ?? "")
         let strprice = String(format: "%@", dic.value(forKey: "price")as! CVarArg)
         
-        cell.lblprice.text = String(format: "%@ %@", "AED",strprice)
+        cell.lblprice.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language481"),strprice)
         cell.lbltypename.text = String(format: "%@", strlabel)
         
         //Check Shipping Method Rate Selection

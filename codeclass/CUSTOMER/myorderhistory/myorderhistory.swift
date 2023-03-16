@@ -144,7 +144,11 @@ class myorderhistory: UIViewController,UITableViewDelegate,UITableViewDataSource
         let strorder_id = String(format: "%@", dic.value(forKey: "order_id")as! CVarArg)
         let strstatus = String(format: "%@", dic.value(forKey: "status")as? String ?? "")
         let strtotal_amount = String(format: "%@", dic.value(forKey: "total_amount")as? String ?? "")
-        let strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
+        
+        var strcurrency_code = String(format: "%@", dic.value(forKey: "currency_code")as? String ?? "")
+
+        strcurrency_code = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
+        
         let strcreated_at = String(format: "%@", dic.value(forKey: "created_at")as? String ?? "")
         let strordered_qty = String(format: "%@", dic.value(forKey: "ordered_qty")as? String ?? "")
         

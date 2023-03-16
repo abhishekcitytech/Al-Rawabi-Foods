@@ -317,7 +317,7 @@ class pausesubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         
         cell.lblproductname.text = strproduct_name
         cell.lblsize.text = strsku
-        cell.lblprice.text = String(format: "AED %@", strproduct_price)
+        cell.lblprice.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strproduct_price)
         cell.lbladdonce.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language71"), strqty_once)
         cell.lbladdtoall.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language70"), strqty_all)
         
@@ -396,12 +396,14 @@ class pausesubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
                         
                         if strsuccess == true
                         {
+                            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                            
                             let dicdetails = dictemp.value(forKey: "subscription_detail")as? NSDictionary
 
-                            self.lblsubtotalvalue.text = String(format: "AED %@", dicdetails?.value(forKey: "subtotal")as? String ?? "")
-                            self.lblshippingamountvalue.text = String(format: "AED %@", dicdetails?.value(forKey: "shipping_amount")as? String ?? "")
-                            self.lbldiscountamountvalue.text = String(format: "AED %@", dicdetails?.value(forKey: "discount_amount")as? String ?? "")
-                            self.lblgrandtotalvalue.text = String(format: "AED %@", dicdetails?.value(forKey: "grandtotal")as? String ?? "")
+                            self.lblsubtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), dicdetails?.value(forKey: "subtotal")as? String ?? "")
+                            self.lblshippingamountvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), dicdetails?.value(forKey: "shipping_amount")as? String ?? "")
+                            self.lbldiscountamountvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), dicdetails?.value(forKey: "discount_amount")as? String ?? "")
+                            self.lblgrandtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), dicdetails?.value(forKey: "grandtotal")as? String ?? "")
                             
 
                             let arrm = dicdetails!.value(forKey: "subscription_order") as? NSArray ?? []

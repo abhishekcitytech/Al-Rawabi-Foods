@@ -588,7 +588,10 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                                 let strsubtotal1 = String(format: "%@", dictemp.value(forKey: "subtotal")as? String ?? "0.00")
                                 let strshippingAmount = String(format: "%@", dictemp.value(forKey: "shippingAmount")as? String ?? "0.00")
                                 let strgrandtotal = String(format: "%@", dictemp.value(forKey: "grandtotal")as? String ?? "0.00")
-                                let strcurrency_code = String(format: "%@", dictemp.value(forKey: "currency_code")as? String ?? "")
+                                
+                                var strcurrency_code = String(format: "%@", dictemp.value(forKey: "currency_code")as? String ?? "")
+                                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                                strcurrency_code = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
                                 
                                 self.strsubtotal = strsubtotal1
                                 self.strshipping = strshippingAmount
@@ -994,9 +997,12 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                         
                         if strsuccess == true
                         {
+                            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                            
+                            
                             let strwallet_remaining_amount = dictemp.value(forKey: "wallet_remaining_amount")as? String ?? ""
                             let strcurrency = dictemp.value(forKey: "currency")as? String ?? ""
-                            self.strcurrencywallet = strcurrency
+                            self.strcurrencywallet = myAppDelegate.changeLanguage(key: "msg_language481")
                             self.strwalletremainingbalance = strwallet_remaining_amount
                             
                             let fltamount3  = (self.strwalletremainingbalance as NSString).floatValue

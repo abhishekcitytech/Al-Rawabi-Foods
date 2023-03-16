@@ -221,7 +221,8 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
         let strbrand = String(format: "%@", dict!.value(forKey: "brand") as? String ?? "")
         let strstatus = String(format: "%@", dict!.value(forKey: "productStatus") as? String ?? "")
         
-        let strcurrent_currencecode = String(format: "%@", dict!.value(forKey: "current_currencecode") as? String ?? "")
+        var strcurrent_currencecode = String(format: "%@", dict!.value(forKey: "current_currencecode") as? String ?? "")
+        strcurrent_currencecode = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
         
         
         let arrmedia = dict!.value(forKey: "media")as? NSArray ?? []

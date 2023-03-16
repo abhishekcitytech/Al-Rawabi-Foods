@@ -162,6 +162,7 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         let cellA = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier1, for: indexPath as IndexPath) as! colcellproductonly
         cellA.contentView.backgroundColor = .white
         cellA.contentView.layer.borderWidth = 8.0
@@ -180,7 +181,8 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
         let strbrand = String(format: "%@", dict!.value(forKey: "brand") as? String ?? "")
         let strstatus = String(format: "%@", dict!.value(forKey: "productStatus") as? String ?? "")
         
-        let strcurrent_currencecode = String(format: "%@", dict!.value(forKey: "current_currencecode") as? String ?? "")
+        var strcurrent_currencecode = String(format: "%@", dict!.value(forKey: "current_currencecode") as? String ?? "")
+        strcurrent_currencecode = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
         
         
         let arrmedia = dict!.value(forKey: "media")as? NSArray ?? []

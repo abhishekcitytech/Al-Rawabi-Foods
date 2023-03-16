@@ -377,6 +377,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         if tableView == tabveditpopupitems
         {
@@ -393,7 +394,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
             
             //cell.lblname.text = strname
             //cell.lblspec.text = "1.5 ltr"
-            //cell.lblunitprice.text = String(format: "AED %@", strprice)
+            //cell.lblunitprice.text = String(format: "%@ %@",appDel.changeLanguage(key: "msg_language481"), strprice)
             
             //cell.txtplusminus.text = strqty
             
@@ -434,7 +435,9 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         
         let appDel = UIApplication.shared.delegate as! AppDelegate
         
+        print("self.arrMDateBlock",self.arrMDateBlock)
         let dict = self.arrMDateBlock.object(at: indexPath.section)as? NSMutableDictionary
+        
         
         let strdate = String(format: "%@", dict?.value(forKey: "date")as? String ?? "")
         let strday = String(format: "%@", dict?.value(forKey: "day")as? String ?? "")
@@ -443,7 +446,31 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         var strsubscriptionid = String(format: "%@", dict?.value(forKey: "subscriptionid")as? String ?? "")
         
         cell.lbldate.text = strdate
-        cell.lblday.text = strday
+        
+        if strday.containsIgnoreCase("Monday"){
+            cell.lblday.text = myAppDelegate.changeLanguage(key: "msg_language489")
+        }
+        else if strday.containsIgnoreCase("Tuesday"){
+            cell.lblday.text = myAppDelegate.changeLanguage(key: "msg_language490")
+        }
+        if strday.containsIgnoreCase("Wednesday"){
+            cell.lblday.text = myAppDelegate.changeLanguage(key: "msg_language491")
+        }
+        if strday.containsIgnoreCase("Thursday"){
+            cell.lblday.text = myAppDelegate.changeLanguage(key: "msg_language492")
+        }
+        if strday.containsIgnoreCase("Friday"){
+            cell.lblday.text = myAppDelegate.changeLanguage(key: "msg_language493")
+        }
+        if strday.containsIgnoreCase("Saturday"){
+            cell.lblday.text = myAppDelegate.changeLanguage(key: "msg_language494")
+        }
+        if strday.containsIgnoreCase("Sunday"){
+            cell.lblday.text = myAppDelegate.changeLanguage(key: "msg_language495")
+        }
+        
+        
+        
         
         cell.lblprice.isHidden = true
         
@@ -497,7 +524,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         
         if flttotalprice != 0.00{
             cell.lblprice.font = UIFont (name: "NunitoSans-Bold", size: 14)
-            cell.lblprice.text = String(format: "AED %0.2f", flttotalprice)
+            cell.lblprice.text = String(format: "%@ %0.2f",appDel.changeLanguage(key: "msg_language481"), flttotalprice)
         }
         else{
             cell.lblprice.font = UIFont (name: "NunitoSans-Bold", size: 14)
@@ -878,7 +905,7 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         let appDel = UIApplication.shared.delegate as! AppDelegate
         
         //self.lbleditpopupDateDay.text = String(format: "%@ (%@)", strdate,strday)
-        //self.lblsubtotaleditpopup.text = String(format: "AED %@", strtotalprice)
+        //self.lblsubtotaleditpopup.text = String(format: "%@ %@",appDel.changeLanguage(key: "msg_language481"), strtotalprice)
         
         self.viewpopupedititems.layer.cornerRadius = 6.0
         self.viewpopupedititems.layer.masksToBounds = true

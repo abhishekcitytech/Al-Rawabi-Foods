@@ -113,6 +113,10 @@ class ordersuccess: UIViewController
                     let tabVC = controller as! cartlistorderonce
                     self.navigationController?.popToViewController(tabVC, animated: true)
                 }
+                else if controller.isKind(of: mysubscriptions.self) {
+                    let tabVC = controller as! mysubscriptions
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
             }
         }
         else if strpayfromOrderonce == "3"
@@ -126,6 +130,10 @@ class ordersuccess: UIViewController
                 }
                 else if controller.isKind(of: homeclass.self) {
                     let tabVC = controller as! homeclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: mysubscriptions.self) {
+                    let tabVC = controller as! mysubscriptions
                     self.navigationController?.popToViewController(tabVC, animated: true)
                 }
             }

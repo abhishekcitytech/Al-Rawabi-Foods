@@ -415,12 +415,15 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                         
                         if strstatus == 200
                         {
+                            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                            
+                            
                             let strwallet_remaining_amount = dictemp.value(forKey: "wallet_remaining_amount")as? String ?? ""
                             let strcurrency = dictemp.value(forKey: "currency")as? String ?? ""
                             
                             let fltamount1  = (strwallet_remaining_amount as NSString).floatValue
                             
-                            self.lblwalletbalancevalue.text = String(format: "%@ %0.2f", strcurrency,fltamount1)
+                            self.lblwalletbalancevalue.text = String(format: "%@ %0.2f", myAppDelegate.changeLanguage(key: "msg_language481"),fltamount1)
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)

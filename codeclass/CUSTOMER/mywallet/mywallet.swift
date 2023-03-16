@@ -179,19 +179,6 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
         cell.clearsContextBeforeDrawing = true
         cell.contentView.clearsContextBeforeDrawing = true
         
-        /*{action = credit;
-         amount = "100.0000";
-         "bank_detail" = "";
-         "currence_code" = AED;
-         "current_amount" = "100.0000";
-         "entity_id" = 3;
-         "order_id" = 185;
-         "sender_id" = 0;
-         "sender_type" = 0;
-         status = 1;
-         "transaction_at" = "2022-10-07 10:53:32";
-         "transaction_note" = "Money added in wallet";}*/
-        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         let dict = arrMalltransactions.object(at: indexPath.section)as? NSDictionary
@@ -447,12 +434,15 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
                         
                         if strstatus == 200
                         {
+                            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                            
+                            
                             let strwallet_remaining_amount = dictemp.value(forKey: "wallet_remaining_amount")as? String ?? ""
                             let strcurrency = dictemp.value(forKey: "currency")as? String ?? ""
                             
                             let fltamount1  = (strwallet_remaining_amount as NSString).floatValue
                             
-                            self.lblwalletbalancevalue.text = String(format: "%@ %0.2f", strcurrency,fltamount1)
+                            self.lblwalletbalancevalue.text = String(format: "%@ %0.2f", myAppDelegate.changeLanguage(key: "msg_language481"),fltamount1)
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)

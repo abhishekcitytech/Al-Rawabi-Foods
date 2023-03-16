@@ -773,7 +773,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             {
                 //No Yellow Top 3 ROWS
                 
-                title1value.text = String(format: "AED %@", strSubtotalAmount)
+                title1value.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strSubtotalAmount)
                 
                 var flttotalcharges = 0.00
                 for x in 0 ..< self.arrMshippingcalculationOutput.count
@@ -786,14 +786,14 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 }
                 print("flttotalcharges",flttotalcharges)
                 strShippingchargesAmount = String(format: "%0.2f", flttotalcharges)
-                title2value.text = String(format: "AED %0.2f", flttotalcharges)
+                title2value.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), flttotalcharges)
                 
-                //title4value.text = String(format: "( %@ AED %@)", myAppDelegate.changeLanguage(key: "msg_language385"),self.strTotalTaxAmount)
+                //title4value.text = String(format: "( %@ %@ %@)", myAppDelegate.changeLanguage(key: "msg_language385"),myAppDelegate.changeLanguage(key: "msg_language481"),self.strTotalTaxAmount)
                 
                 var fltgrandtotal = 0.00
                 fltgrandtotal = flttotalcharges + Double(strSubtotalAmount)!
                 print("fltgrandtotal",fltgrandtotal)
-                title3value.text = String(format: "AED %0.2f", fltgrandtotal)
+                title3value.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltgrandtotal)
             }
             else
             {
@@ -817,17 +817,17 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 print("Subtotal 3 days",flttotal2)
             
                 strSubtotalAmount = String(format: "%0.2f", flttotal2)
-                title1value.text = String(format: "AED %@", strSubtotalAmount)
+                title1value.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strSubtotalAmount)
                 
                 strShippingchargesAmount = String(format: "%0.2f", flttotal1)
-                title2value.text = String(format: "AED %0.2f", flttotal1)
+                title2value.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), flttotal1)
                 
-                //title4value.text = String(format: "( %@ AED %@)", myAppDelegate.changeLanguage(key: "msg_language385"),self.strTotalTaxAmount)
+                //title4value.text = String(format: "( %@ %@ %@)", myAppDelegate.changeLanguage(key: "msg_language385"),myAppDelegate.changeLanguage(key: "msg_language481"),self.strTotalTaxAmount)
                 
                 var fltgrandtotal = 0.00
                 fltgrandtotal = Double(flttotal1) + Double(strSubtotalAmount)!
                 print("fltgrandtotal",fltgrandtotal)
-                title3value.text = String(format: "AED %0.2f", fltgrandtotal)
+                title3value.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltgrandtotal)
             }
             
             return footerView
@@ -839,7 +839,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         if tableView == tabveditpopupitems
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier2, for: indexPath) as! celltabvprodustitemsedit
@@ -879,7 +879,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             cell.lblspec.text = strproductsize
             
             let fltamount  = (strproductprice as NSString).floatValue
-            cell.lblunitprice.text = String(format: "AED %0.2f", fltamount)
+            cell.lblunitprice.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltamount)
             
             cell.btnremove.tag = indexPath.row
             cell.btnremove.addTarget(self, action: #selector(pressEditPopupRemove), for: .touchUpInside)
@@ -967,8 +967,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             
         }
         
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        
+         
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! celltabvsubscriptionOR
         
         cell.selectionStyle=UITableViewCell.SelectionStyle.none
@@ -983,7 +982,31 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         let strday = String(format: "%@", dictm.value(forKey: "day")as? String ?? "")
         
         cell.lblsubscriptiondate.text = String(format: "%@",strdate)
-        cell.lblsubscriptionday.text = String(format: "%@",strday)
+        
+        
+        var strdayvalue = ""
+        if strday.containsIgnoreCase("Monday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language489")
+        }
+        else if strday.containsIgnoreCase("Tuesday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language490")
+        }
+        if strday.containsIgnoreCase("Wednesday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language491")
+        }
+        if strday.containsIgnoreCase("Thursday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language492")
+        }
+        if strday.containsIgnoreCase("Friday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language493")
+        }
+        if strday.containsIgnoreCase("Saturday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language494")
+        }
+        if strday.containsIgnoreCase("Sunday"){
+            strdayvalue = myAppDelegate.changeLanguage(key: "msg_language495")
+        }
+        cell.lblsubscriptionday.text = String(format: "%@",strdayvalue)
         
         cell.viewoverall.layer.borderWidth = 1.0
         cell.viewoverall.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
@@ -1055,7 +1078,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             print("flttotalprice",flttotalprice as Any)
             
             cell.lbltotalproducts.text = String(format: "%@ :%0.0f",myAppDelegate.changeLanguage(key: "msg_language87"),flttotalproductcount)
-            cell.lblsubtotal.text = String(format: "%@ AED %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),flttotalprice)
+            cell.lblsubtotal.text = String(format: "%@ %@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),myAppDelegate.changeLanguage(key: "msg_language481"),flttotalprice)
             
             //cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
             //cell.lbldeliverydate1.text = String(format: "%@",strdate)
@@ -1138,7 +1161,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             print("flttotalprice",flttotalprice as Any)
             
             cell.lbltotalproducts.text = String(format: "%@ :%0.0f",myAppDelegate.changeLanguage(key: "msg_language87"),flttotalproductcount)
-            cell.lblsubtotal.text = String(format: "%@ AED %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),flttotalprice)
+            cell.lblsubtotal.text = String(format: "%@ %@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),myAppDelegate.changeLanguage(key: "msg_language481"),flttotalprice)
             
             //cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
             //cell.lbldeliverydate1.text = String(format: "%@",strdate)
@@ -1221,7 +1244,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
             print("flttotalprice",flttotalprice as Any)
             
             cell.lbltotalproducts.text = String(format: "%@ :%0.0f",myAppDelegate.changeLanguage(key: "msg_language87"),flttotalproductcount)
-            cell.lblsubtotal.text = String(format: "%@ AED %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),flttotalprice)
+            cell.lblsubtotal.text = String(format: "%@ %@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language88"),myAppDelegate.changeLanguage(key: "msg_language481"),flttotalprice)
             
             //cell.lbldeliverydate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language89"),strday)
             //cell.lbldeliverydate1.text = String(format: "%@",strdate)
@@ -2072,6 +2095,8 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
     //MARK: - press REMOVE Product Item from Date Specfic Method
     @objc func pressEditPopupRemove(sender:UIButton)
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let dictm = self.arrMProductItemsEdit.object(at: sender.tag)as! NSMutableDictionary
         let strdate = String(format: "%@", dictm.value(forKey: "date")as? String ?? "")
         let strproductid = String(format: "%@", dictm.value(forKey: "productid")as? String ?? "")
@@ -2159,7 +2184,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         }
         
         print("flttotal",flttotal)
-        self.lblsubtotaleditpopup.text = String(format: "AED %0.2f", flttotal)
+        self.lblsubtotaleditpopup.text = String(format: "%@ %0.2f", myAppDelegate.changeLanguage(key: "msg_language481"),flttotal)
     }
     
     
@@ -2217,7 +2242,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         lblitembottommessage.text = myAppDelegate.changeLanguage(key: "msg_language69")
         
         self.lbleditpopupDateDay.text = String(format: "%@ (%@)", strdate,strday)
-        self.lblsubtotaleditpopup.text = String(format: "AED %0.2f", flttotal)
+        self.lblsubtotaleditpopup.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), flttotal)
         
         tabveditpopupitems.register(UINib(nibName: "celltabvprodustitemsedit", bundle: nil), forCellReuseIdentifier: reuseIdentifier2)
         tabveditpopupitems.separatorStyle = .none
@@ -2770,6 +2795,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         //Refresh Subtotal in popup if POPUP is OPEN
         if viewPopupAddNewExistingBG2 != nil
         {
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
             var flttotal = Float()
             for x in 0 ..< arrMProductItemsEdit.count
             {
@@ -2780,7 +2806,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                 flttotal = flttotal + fltamount
             }
             print("flttotal",flttotal)
-            self.lblsubtotaleditpopup.text = String(format: "AED %0.2f", flttotal)
+            self.lblsubtotaleditpopup.text = String(format: "%@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language481"), flttotal)
         }
         
         

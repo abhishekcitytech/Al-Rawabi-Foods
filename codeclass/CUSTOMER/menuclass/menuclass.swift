@@ -535,7 +535,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
         
         arr1 = [myAppDelegate.changeLanguage(key: "msg_language122"),myAppDelegate.changeLanguage(key: "msg_language123")
                 ,myAppDelegate.changeLanguage(key: "msg_language273"),myAppDelegate.changeLanguage(key: "msg_language274"),myAppDelegate.changeLanguage(key: "msg_language215")
-                ,myAppDelegate.changeLanguage(key: "msg_language129"),myAppDelegate.changeLanguage(key: "msg_language131"),myAppDelegate.changeLanguage(key: "msg_language133")
+                ,myAppDelegate.changeLanguage(key: "msg_language204"),myAppDelegate.changeLanguage(key: "msg_language131"),myAppDelegate.changeLanguage(key: "msg_language133")
                 ,myAppDelegate.changeLanguage(key: "msg_language134"),myAppDelegate.changeLanguage(key: "msg_language275"),myAppDelegate.changeLanguage(key: "msg_language276")]
         
         arr2 = ["acc01","fav1","acc4","acc5","acc6","acc7","acc9","acc11","acc12","acc13","logout"]
@@ -892,7 +892,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
                 let ctrl = mywallet(nibName: "mywallet", bundle: nil)
                 self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language129")
+            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language204")
             {
                 let ctrl = reordermyorderoncelist(nibName: "reordermyorderoncelist", bundle: nil)
                 self.navigationController?.pushViewController(ctrl, animated: true)
