@@ -197,7 +197,7 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         cell.lblorderno.text = String(format: "%@ #%@",myAppDelegate.changeLanguage(key: "msg_language308"), strorder_id)
         cell.lblorderplacedon.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language309"), str)
-        cell.lblorderamount.text = String(format: "%@ %0.2f", strcurrence_code,fltamount1)
+        cell.lblorderamount.text = String(format: "%@ %0.2f", myAppDelegate.changeLanguage(key: "msg_language481"),fltamount1)
         cell.lblorderstatus.text = String(format: "%@", straction)
         
         if straction.containsIgnoreCase("debit"){

@@ -568,6 +568,11 @@
             <point key="canvasLocation" x="-8.8000000000000007" y="734.48275862068976"/>
         </view>
     </objects>
+    <designables>
+        <designable name="8lU-sf-2XL">
+            <size key="intrinsicContentSize" width="120" height="20"/>
+        </designable>
+    </designables>
     <resources>
         <image name="circleminus" width="32" height="32"/>
         <image name="circleplus" width="32" height="32"/>

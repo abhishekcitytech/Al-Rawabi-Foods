@@ -1270,9 +1270,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: colhomepagebottombanner.frame.size.width / 1.0, height: 144)
-        layout.minimumInteritemSpacing = 5
-        layout.minimumLineSpacing = 5
+        layout.itemSize = CGSize(width: colhomepagebottombanner.frame.size.width + 16 / 1.0, height: 144)
+        layout.minimumInteritemSpacing = 3
+        layout.minimumLineSpacing = 3
         colhomepagebottombanner.collectionViewLayout = layout
         colhomepagebottombanner.register(UINib(nibName: "colcellbottombannerhome", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier3)
         colhomepagebottombanner.showsHorizontalScrollIndicator = false
@@ -1357,7 +1357,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             cellA.contentView.layer.borderColor = UIColor.clear.cgColor
             cellA.contentView.layer.masksToBounds = true
             
-            cellA.viewcell.layer.cornerRadius = 4.0
+            cellA.viewcell.layer.cornerRadius = 8.0
             cellA.viewcell.layer.borderWidth = 0.0
             cellA.viewcell.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
             cellA.viewcell.layer.masksToBounds = true
@@ -1371,7 +1371,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             let strFinalurl = strimage.replacingOccurrences(of: " ", with: "%20")
             print("strFinalurl",strFinalurl)
            
-            cellA.imgvcell.contentMode = .scaleAspectFill
+            cellA.imgvcell.contentMode = .scaleToFill
             cellA.imgvcell.imageFromURL(urlString: strFinalurl)
             
             // Set up cell
@@ -1484,7 +1484,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         }
         else if collectionView == self.colhomepagebottombanner
         {
-            return CGSize(width: colhomepagebottombanner.frame.size.width / 1.0 , height: 144)
+            return CGSize(width: colhomepagebottombanner.frame.size.width + 16 / 1.0 , height: 144)
         }
         return CGSize(width: coltopdeals.frame.size.width / 2.3 , height: 350)
     }
@@ -2776,12 +2776,12 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         if strstatus == 200
                         {
                             
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
+                            /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 
-                            }))
+                            }))*/
 
                         }
                         else{

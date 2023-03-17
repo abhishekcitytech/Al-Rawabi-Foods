@@ -159,8 +159,8 @@ class viewallreviews: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-        
-        let parameters = ["productId": strproductid,"language": ""] as [String : Any]
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        let parameters = ["productId": strproductid,"language": strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod15)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

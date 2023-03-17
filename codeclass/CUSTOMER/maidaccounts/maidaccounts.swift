@@ -155,11 +155,11 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         let strwalletbalance = String(format: "%@", dic.value(forKey: "wallet_amount")as! CVarArg)
         
         let fltamountwallet = (strwalletbalance as NSString).floatValue
-        
+        let fltamountmaxwallet = (strmax_order_amount as NSString).floatValue
         
         cell.lblname.text = String(format: "%@", strname)
         cell.lblemail.text = String(format: "%@",stremail)
-        cell.lblmaxamountlimit.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language406"),myAppDelegate.changeLanguage(key: "msg_language481"),strmax_order_amount)
+        cell.lblmaxamountlimit.text = String(format: "%@: %@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language406"),myAppDelegate.changeLanguage(key: "msg_language481"),fltamountmaxwallet)
         cell.lblwalletbalance.text = String(format: "%@: %@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language217"),myAppDelegate.changeLanguage(key: "msg_language481"),fltamountwallet)
         
         cell.lblstatus.text = strstatus

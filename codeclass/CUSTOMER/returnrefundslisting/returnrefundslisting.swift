@@ -210,9 +210,9 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
             let strproduct_name = String(format: "%@", dic.value(forKey: "product_name")as? String ?? "")
             let strproduct_qty = String(format: "%@", dic.value(forKey: "product_qty")as? String ?? "")
             
-          
+            let flt11 = Float(strproduct_qty)
             cell.lblname.text = String(format: "%@", strproduct_name)
-            cell.lblqty.text = String(format: "%@: %@", myAppDelegate.changeLanguage(key: "msg_language214"),strproduct_qty)
+            cell.lblqty.text = String(format: "%@: %0.0f", myAppDelegate.changeLanguage(key: "msg_language214"),flt11!)
             
             /*cell.viewcell.tag = indexPath.section
             cell.viewcell.backgroundColor = UIColor(named: "plate7")!
@@ -248,7 +248,9 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
         cell.lblorderno.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language480"))
         cell.lblordernovalue.text = String(format: "%@", strincrementId)
         cell.lbldatevalue.text = strcreditMemoCreatedDate
-        cell.lblamount.text = String(format: "%@ %@", strorderCurrencyCode,strgrandTotal)
+        
+        let flt11 = Float(strgrandTotal)
+        cell.lblamount.text = String(format: "%@ %0.2f", myAppDelegate.changeLanguage(key: "msg_language481"),flt11!)
         
         cell.viewcell.tag = indexPath.section
         cell.viewcell.backgroundColor = UIColor(named: "plate7")!

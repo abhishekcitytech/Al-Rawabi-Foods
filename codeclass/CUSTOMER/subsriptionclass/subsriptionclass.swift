@@ -463,17 +463,18 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         
         let strplanname = arrMplan.object(at: indexPath.section) as? String ?? ""
         
-        cell.lbl1.text = strplanname
-        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         if strplanname == "Daily"{
+            cell.lbl1.text = myAppDelegate.changeLanguage(key: "msg_language37")
             cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language40")
         }
         else if strplanname == "Weekly"{
+            cell.lbl1.text = myAppDelegate.changeLanguage(key: "msg_language38")
             cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language41")
         }
         else if strplanname == "Monthly"{
+            cell.lbl1.text = myAppDelegate.changeLanguage(key: "msg_language39")
             cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language384")
         }
         

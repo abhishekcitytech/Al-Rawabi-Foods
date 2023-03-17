@@ -143,7 +143,7 @@
 "msg_language134" = "Manage Shipping Addresses";
 "msg_language135" = "Change Password";
 "msg_language136" = "Home";
-"msg_language137" = "Order by Subscription";
+"msg_language137" = "Order By Subscription";
 "msg_language138" = "Dairy";
 "msg_language139" = "Juice";
 "msg_language140" = "Bakery";
@@ -335,7 +335,7 @@
 "msg_language326" = "Your selected Weekly subscription will be deleted";
 "msg_language327" = "Your selected Monthly subscription will be deleted";
 "msg_language328" = "Remove Coupon";
-"msg_language329" = "out of";
+"msg_language329" = "out of 5";
 "msg_language330" = "Warning!";
 "msg_language331" = "Please add products of your choosen dates";
 "msg_language332" = "Do you want to proceed with full payment?";

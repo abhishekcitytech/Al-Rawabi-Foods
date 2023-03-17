@@ -136,7 +136,10 @@ class reordermyorderoncelist: UIViewController,UITableViewDelegate,UITableViewDa
         
         cell.lblordernovalue.text = String(format: "# %@", strorder_increment_id)
         cell.lbldeliverydatevalue.text = strcreated_at
-        cell.lblquantityvalue.text = strordered_qty
+        
+        
+        let flttotalprice1 = Float(strordered_qty)
+        cell.lblquantityvalue.text = String(format: "%0.0f",flttotalprice1!)
         
         let flttotalprice = Float(strtotal_amount)
         cell.lbltotalamountvalue.text = String(format: "%@ %0.2f",strcurrency_code, flttotalprice!)

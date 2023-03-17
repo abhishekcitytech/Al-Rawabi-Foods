@@ -1090,7 +1090,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                             }
                             else{
                                 self.viewratingstar.rating = 0.0
-                                self.lbltotalratingcount.text = String(format: "%.1f %@", 0.0,myAppDelegate.changeLanguage(key: "msg_language329"))
+                                self.lbltotalratingcount.text = String(format: "%.0f %@", 0.0,myAppDelegate.changeLanguage(key: "msg_language329"))
                                 self.lbltotalcountglobal.text = String(format: "%@ %@", strTotalVotesCount,myAppDelegate.changeLanguage(key: "msg_language156"))
                                 
                                 self.progress1star.progress = 0
@@ -1239,12 +1239,14 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                         
                         if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
+                            /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 self.getProductDetailsAPIMethod()
-                            }))
+                            }))*/
+                            
+                            self.getProductDetailsAPIMethod()
                             
                         }
                         else{

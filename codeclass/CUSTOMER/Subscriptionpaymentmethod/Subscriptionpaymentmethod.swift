@@ -1685,6 +1685,8 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                             
                             self.btnremoverewardpoints.isHidden = true
                             
+                            self.txtrewardpoints.text = ""
+                            
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
@@ -2273,10 +2275,13 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                             if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
                             {
                                 var fltTotal = 0.00
-                                let fltamount1  = (self.strsubtotalamount as NSString).floatValue
-                                let fltamount2  = (self.strshippingchargesamount as NSString).floatValue
-                                fltTotal = Double(fltamount1 + fltamount2)
+                                //let fltamount1  = (self.strsubtotalamount as NSString).floatValue
+                                //let fltamount2  = (self.strshippingchargesamount as NSString).floatValue
+                                //fltTotal = Double(fltamount1 + fltamount2)
                                 
+                                let fltamount1  = (self.strGRANDTOTAL as NSString).floatValue
+                                fltTotal = Double(fltamount1)
+
                                 let orderCreationViewController = CreateOrderViewController(paymentAmount: fltTotal, refNumber: refNumber ?? "", and: self)
                                 orderCreationViewController.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
                                 orderCreationViewController.modalPresentationStyle = .overCurrentContext

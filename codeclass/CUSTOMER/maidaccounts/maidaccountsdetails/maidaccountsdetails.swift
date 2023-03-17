@@ -67,7 +67,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        
+        print("self.dicdetails",self.dicdetails)
         let strrow_id = String(format: "%@", self.dicdetails.value(forKey: "row_id")as? String ?? "")
         let strmaid_id = String(format: "%@", self.dicdetails.value(forKey: "maid_id")as? String ?? "")
         let strname = String(format: "%@", self.dicdetails.value(forKey: "name")as? String ?? "")
@@ -81,9 +81,13 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
         let itemsaddress = strallowed_addresses.components(separatedBy: ",")
         print("itemsaddress",itemsaddress)
         
-        let items = strname.components(separatedBy: " ")
-        let str1 = items[0]
-        let str2 = items[1]
+        print("strname",strname)
+       // let items = strname.components(separatedBy: " ")
+        
+        let splitStringArray = strname.split(separator: " ", maxSplits: 1).map(String.init)
+        print(splitStringArray)
+        let str1 = splitStringArray[0]
+        let str2 = splitStringArray[1]
         
         txtfirstname.text = str1
         txtlastname.text = str2
@@ -705,7 +709,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                                 self.arrMmyaddresslist.add(dictemp1)
                             }
                             
-                            print("self.arrMmyaddresslist",self.arrMmyaddresslist)
+                            //print("self.arrMmyaddresslist",self.arrMmyaddresslist)
                             
                             let strallowed_addresses = String(format: "%@", self.dicdetails.value(forKey: "allowed_addresses")as? String ?? "")
                             
@@ -731,7 +735,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                                             dictemp12121!.setValue("1", forKey: "selected")
                                         }
                                     }
-                                    print("self.arrMmyaddresslist",self.arrMmyaddresslist)
+                                    //print("self.arrMmyaddresslist",self.arrMmyaddresslist)
                                 }
                             }
                             else
@@ -753,7 +757,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                             
                             
                             
-                            print("self.arrMmyaddresslist",self.arrMmyaddresslist)
+                            //print("self.arrMmyaddresslist",self.arrMmyaddresslist)
                             
                             if self.arrMmyaddresslist.count == 0{
                                 self.msg = myAppDelegate.changeLanguage(key: "msg_language254")
