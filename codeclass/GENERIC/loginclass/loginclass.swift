@@ -449,12 +449,15 @@ class loginclass: UIViewController,UITextFieldDelegate
         let strfcmToken = String(format: "%@",UserDefaults.standard.value(forKey: "fcmToken") as? String ?? "")
         print("strfcmToken",strfcmToken)
         
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        print("strLangCode",strLangCode)
 
         let parameters = ["emailId": txtusername.text!,
                           "password":txtpassword.text!,
                           "deviceId":struniquedeviceid,
                           "deviceToken":strfcmToken,
-                          "deviceType":"I",] as [String : Any]
+                          "deviceType":"I",
+                          "language":strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod1)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

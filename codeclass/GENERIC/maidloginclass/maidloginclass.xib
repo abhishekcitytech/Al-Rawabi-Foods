@@ -29,8 +29,10 @@
                 <outlet property="imgvbanner" destination="gcS-1o-lUj" id="dEj-eE-Wfb"/>
                 <outlet property="lblmobilecountrycode" destination="Y4c-94-evm" id="qiO-tQ-la5"/>
                 <outlet property="lblogin" destination="2Jg-5P-L6v" id="su0-uN-rvd"/>
+                <outlet property="lblrememberme" destination="tIK-gg-4Fg" id="sRd-HJ-aF3"/>
                 <outlet property="lblsigntoyouraccount" destination="76o-zn-3pr" id="t4F-NT-SdS"/>
                 <outlet property="scrolloverall" destination="HKU-6a-gSj" id="KTU-Mu-9bX"/>
+                <outlet property="switchrememberme" destination="8zZ-Ly-D1o" id="aaO-52-ztZ"/>
                 <outlet property="txtpassword" destination="zHS-xF-gmG" id="gbE-sB-nn6"/>
                 <outlet property="txtusername" destination="I3c-G2-Leh" id="Ic7-6s-xJ6"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -148,7 +150,7 @@
                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ip-dh-R66">
-                                    <rect key="frame" x="227" y="502" width="126" height="31"/>
+                                    <rect key="frame" x="227" y="505" width="126" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -160,7 +162,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ibg-7z-8aC">
-                                    <rect key="frame" x="19" y="535" width="336" height="46"/>
+                                    <rect key="frame" x="19" y="546" width="336" height="46"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <color key="backgroundColor" name="greencolor"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
@@ -172,6 +174,20 @@
                                         <action selector="presslogin:" destination="-1" eventType="touchUpInside" id="XV2-LD-Q6k"/>
                                     </connections>
                                 </button>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zZ-Ly-D1o">
+                                    <rect key="frame" x="19" y="505" width="49" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                    <connections>
+                                        <action selector="pressswitchrememberme:" destination="-1" eventType="valueChanged" id="18H-E3-KzU"/>
+                                    </connections>
+                                </switch>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Remember Me" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIK-gg-4Fg">
+                                    <rect key="frame" x="74" y="510" width="102" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="l3o-tH-coO"/>

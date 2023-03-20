@@ -910,6 +910,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                             else{
                                 self.lblmaximumrewardpointsused.text = String(format: "%@ %@ %@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language356"),strspend_min_points,myAppDelegate.changeLanguage(key: "msg_language357"),strspend_max_points,myAppDelegate.changeLanguage(key: "msg_language358"))
                                 self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkgreencolor")!
+                                self.btnapplyrewardpoints.isUserInteractionEnabled = true
                             }
                             
                             

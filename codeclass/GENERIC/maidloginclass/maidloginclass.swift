@@ -17,6 +17,9 @@ class maidloginclass: UIViewController,UITextFieldDelegate
     @IBOutlet weak var lblogin: UILabel!
     @IBOutlet weak var lblsigntoyouraccount: UILabel!
     
+    @IBOutlet weak var switchrememberme: UISwitch!
+    @IBOutlet weak var lblrememberme: UILabel!
+    
     @IBOutlet weak var viewusername: UIView!
     @IBOutlet weak var viewusername1: UIView!
     @IBOutlet weak var lblmobilecountrycode: UILabel!
@@ -49,11 +52,13 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         let strrememberme_password = String(format: "%@",UserDefaults.standard.value(forKey: "maidpassword_rememberme") as? String ?? "")
         let is_rememberme = String(format: "%@",UserDefaults.standard.value(forKey: "maidis_rememberme") as? String ?? "")
         if is_rememberme == "1"{
+            switchrememberme.isOn = true
             txtusername.text = strrememberme_username
             txtpassword.text = strrememberme_password
         }else{
-            txtusername.text = ""
-            txtpassword.text = ""
+            switchrememberme.isOn = false
+            //txtusername.text = ""
+            //txtpassword.text = ""
         }
         
         self.setupRTLLTR()
@@ -108,6 +113,27 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         
     }
     
+    
+    // MARK: - pressswitchrememberme Method
+    @IBAction func pressswitchrememberme(_ sender: Any)
+    {
+        print("pressswitchrememberme")
+        if switchrememberme.isOn == true{
+            //Save as Remember Me
+            
+            UserDefaults.standard.set(txtusername.text!, forKey: "maidusername_rememberme")
+            UserDefaults.standard.set(txtpassword.text!, forKey: "maidpassword_rememberme")
+            UserDefaults.standard.set("1", forKey: "maidis_rememberme")
+            UserDefaults.standard.synchronize()
+        }
+        else{
+            //Dont Save as Remember Me
+            UserDefaults.standard.set("0", forKey: "maidis_rememberme")
+            UserDefaults.standard.synchronize()
+        }
+        
+    }
+    
     //MARK: - setup RTL LTR method
     func setupRTLLTR()
     {
@@ -122,6 +148,8 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         self.txtusername.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language476"))
         self.txtpassword.placeholder = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language23"))
         
+        lblrememberme.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language26"))
+        
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
         {
@@ -130,6 +158,8 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             
             txtusername.textAlignment = .left
             txtpassword.textAlignment = .left
+            
+            lblrememberme.textAlignment = .left
             
             self.viewusername1.frame = CGRect(x: 1, y: self.viewusername1.frame.origin.y, width: self.viewusername1.frame.size.width, height: self.viewusername1.frame.size.height)
             
@@ -147,6 +177,9 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             self.btnhideshowpassword.frame = CGRect(x: self.txtpassword.frame.size.width - 5, y: self.btnhideshowpassword.frame.origin.y, width: self.btnhideshowpassword.frame.size.width, height: self.btnhideshowpassword.frame.size.height)
             
             self.btnforgotpassword.frame = CGRect(x: self.viewpassword.frame.maxX - self.btnforgotpassword.frame.size.width, y: self.btnforgotpassword.frame.origin.y, width: self.btnforgotpassword.frame.size.width, height: self.btnforgotpassword.frame.size.height)
+            
+            self.switchrememberme.frame = CGRect(x: self.viewpassword.frame.minX, y: self.switchrememberme.frame.origin.y, width: self.switchrememberme.frame.size.width, height: self.switchrememberme.frame.size.height)
+            self.lblrememberme.frame = CGRect(x: self.switchrememberme.frame.maxX + 2, y: self.lblrememberme.frame.origin.y, width: self.lblrememberme.frame.size.width, height: self.lblrememberme.frame.size.height)
         }
         else
         {
@@ -155,6 +188,8 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             
             txtusername.textAlignment = .right
             txtpassword.textAlignment = .right
+            
+            lblrememberme.textAlignment = .right
             
             self.viewusername1.frame = CGRect(x: self.viewusername.frame.size.width - 53, y: self.viewusername1.frame.origin.y, width: self.viewusername1.frame.size.width, height: self.viewusername1.frame.size.height)
             
@@ -171,6 +206,9 @@ class maidloginclass: UIViewController,UITextFieldDelegate
             self.btnhideshowpassword.frame = CGRect(x: 10, y: self.btnhideshowpassword.frame.origin.y, width: self.btnhideshowpassword.frame.size.width, height: self.btnhideshowpassword.frame.size.height)
             
             self.btnforgotpassword.frame = CGRect(x: self.viewpassword.frame.origin.x, y: self.btnforgotpassword.frame.origin.y, width: self.btnforgotpassword.frame.size.width, height: self.btnforgotpassword.frame.size.height)
+            
+            self.switchrememberme.frame = CGRect(x: self.viewpassword.frame.maxX - self.switchrememberme.frame.size.width, y: self.switchrememberme.frame.origin.y, width: self.switchrememberme.frame.size.width, height: self.switchrememberme.frame.size.height)
+            self.lblrememberme.frame = CGRect(x: self.switchrememberme.frame.minX - self.lblrememberme.frame.size.width, y: self.lblrememberme.frame.origin.y, width: self.lblrememberme.frame.size.width, height: self.lblrememberme.frame.size.height)
         }
     }
     
@@ -319,12 +357,15 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         let strfcmToken = String(format: "%@",UserDefaults.standard.value(forKey: "fcmToken") as? String ?? "")
         print("strfcmToken",strfcmToken)
         
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        print("strLangCode",strLangCode)
         
         let parameters = ["mobileNo": txtusername.text!,
                           "password":txtpassword.text!,
                           "deviceId":struniquedeviceid,
                           "deviceToken":strfcmToken,
-                          "deviceType":"I",] as [String : Any]
+                          "deviceType":"I",
+                          "language":strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod77)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -476,10 +517,6 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                             UserDefaults.standard.set(diccustomerDetails, forKey: "maiddetails")
                             UserDefaults.standard.synchronize()
                             
-                            UserDefaults.standard.set(self.txtusername.text!, forKey: "maidusername_rememberme")
-                            UserDefaults.standard.set(self.txtpassword.text!, forKey: "maidpassword_rememberme")
-                            UserDefaults.standard.set("1", forKey: "maidis_rememberme")
-                            UserDefaults.standard.synchronize()
                             
                             let obj = maidhomeclass(nibName: "maidhomeclass", bundle: nil)
                             self.navigationController?.pushViewController(obj, animated: true)
