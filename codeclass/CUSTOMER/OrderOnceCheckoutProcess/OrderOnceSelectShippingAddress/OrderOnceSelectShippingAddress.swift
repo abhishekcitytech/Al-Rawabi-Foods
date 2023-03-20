@@ -314,6 +314,8 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
         let strprice = String(format: "%@", dic.value(forKey: "price")as! CVarArg)
         
         cell.lblprice.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language481"),strprice)
+        
+        print("strlabel",strlabel)
         cell.lbltypename.text = String(format: "%@", strlabel)
         
         //Check Shipping Method Rate Selection

@@ -26,8 +26,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var lblsubtotalvalue: UILabel!
     @IBOutlet weak var lblshipping: UILabel!
     @IBOutlet weak var lblshippingvalue: UILabel!
-    @IBOutlet weak var lbltaxtotal: UILabel!
-    @IBOutlet weak var lbltaxtotalvalue: UILabel!
+    
     @IBOutlet weak var lblgrandtotal: UILabel!
     @IBOutlet weak var lblgrandtotalvalue: UILabel!
     
@@ -190,6 +189,9 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         btnapplycouponcode.layer.cornerRadius = 0.0
         btnapplycouponcode.layer.masksToBounds = true
         
+        btncheckout.layer.cornerRadius = 18.0
+        btncheckout.layer.masksToBounds = true
+        
         if self.btnapplycouponcode.isUserInteractionEnabled == false{
             btnremovecouponcode.isHidden = false
         }else{
@@ -346,7 +348,6 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         
         self.lblsubtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481") ,strSUBTOTAL)
         self.lblshippingvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481") , strSHIPPING)
-        self.lbltaxtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481") , strTAX)
         self.lblgrandtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481") , strGRANDTOTAL)
     }
     func calculate3DAYSPAY()
@@ -401,7 +402,6 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         
         self.lblsubtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strSUBTOTAL)
         self.lblshippingvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strSHIPPING)
-        self.lbltaxtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strTAX)
         self.lblgrandtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strGRANDTOTAL)
     }
     

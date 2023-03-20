@@ -241,8 +241,8 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                             let dic = dictemp.value(forKey: "details")as! NSDictionary
                             self.dicMOrderDetails = dic.mutableCopy() as! NSMutableDictionary
                             print("dicMOrderDetails --->",self.dicMOrderDetails)
-                            
-                            let strorderno = String(format: "%@ #%@", myAppDelegate.changeLanguage(key: "msg_language308"),self.dicMOrderDetails.value(forKey: "order_id")as? String ?? "")
+                            //order_increment_id //order_id
+                            let strorderno = String(format: "%@ #%@", myAppDelegate.changeLanguage(key: "msg_language308"),self.dicMOrderDetails.value(forKey: "order_increment_id")as? String ?? "")
                             self.lblorderno.text = strorderno
                             
                             let strorderstatus = String(format: "%@", self.dicMOrderDetails.value(forKey: "status")as? String ?? "")

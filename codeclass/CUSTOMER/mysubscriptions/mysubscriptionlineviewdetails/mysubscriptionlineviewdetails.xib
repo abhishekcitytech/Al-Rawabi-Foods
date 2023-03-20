@@ -25,6 +25,7 @@
             <connections>
                 <outlet property="btncancel" destination="FXZ-07-Q1N" id="afW-Ny-4dx"/>
                 <outlet property="btnpause" destination="z74-yS-kfc" id="336-Z2-DPZ"/>
+                <outlet property="imgvplan" destination="dlb-DR-KOH" id="g8l-4z-6tP"/>
                 <outlet property="lblenddate" destination="RmJ-Rx-ztU" id="eXe-ZA-d4v"/>
                 <outlet property="lblgrandtotal" destination="cwt-ai-iII" id="J2w-Jo-Xty"/>
                 <outlet property="lblstartdate" destination="QMl-0g-u5G" id="9RW-zd-ur9"/>
@@ -49,14 +50,14 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHa-RE-Hg3">
-                                    <rect key="frame" x="8" y="8" width="276" height="27"/>
+                                    <rect key="frame" x="44" y="8" width="240" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMl-0g-u5G">
-                                    <rect key="frame" x="8" y="36" width="359" height="27"/>
+                                    <rect key="frame" x="44" y="36" width="323" height="27"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="16"/>
                                     <nil key="textColor"/>
@@ -106,6 +107,10 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dlb-DR-KOH">
+                                    <rect key="frame" x="3" y="8" width="33" height="55"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" name="plate7"/>
                         </view>

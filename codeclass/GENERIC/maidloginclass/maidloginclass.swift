@@ -44,6 +44,18 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = false
         
+        //REMEMBER ME CHECK ON VIEWDIDAPPEAR LOGIN SCREEN
+        let strrememberme_username = String(format: "%@",UserDefaults.standard.value(forKey: "maidusername_rememberme") as? String ?? "")
+        let strrememberme_password = String(format: "%@",UserDefaults.standard.value(forKey: "maidpassword_rememberme") as? String ?? "")
+        let is_rememberme = String(format: "%@",UserDefaults.standard.value(forKey: "maidis_rememberme") as? String ?? "")
+        if is_rememberme == "1"{
+            txtusername.text = strrememberme_username
+            txtpassword.text = strrememberme_password
+        }else{
+            txtusername.text = ""
+            txtpassword.text = ""
+        }
+        
         self.setupRTLLTR()
         
     }
@@ -89,9 +101,9 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         self.txtpassword.isSecureTextEntry = true
         
         //FIXMESANDIPAN
-        //9674777246 Sandi@123 8621812596 9051015017
+        //9674777246 8621812596 9051015017 6291958776
         
-        txtusername.text = "9681252788"
+        txtusername.text = "6291958776"
         txtpassword.text = "Maid@123"
         
     }
@@ -462,6 +474,11 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                             
                             UserDefaults.standard.set(strcustomerid, forKey: "maidid")
                             UserDefaults.standard.set(diccustomerDetails, forKey: "maiddetails")
+                            UserDefaults.standard.synchronize()
+                            
+                            UserDefaults.standard.set(self.txtusername.text!, forKey: "maidusername_rememberme")
+                            UserDefaults.standard.set(self.txtpassword.text!, forKey: "maidpassword_rememberme")
+                            UserDefaults.standard.set("1", forKey: "maidis_rememberme")
                             UserDefaults.standard.synchronize()
                             
                             let obj = maidhomeclass(nibName: "maidhomeclass", bundle: nil)

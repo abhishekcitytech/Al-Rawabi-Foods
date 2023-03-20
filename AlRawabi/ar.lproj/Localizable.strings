@@ -24,7 +24,7 @@
 "msg_language16" = " إنشاء حساب بسرعة";
 "msg_language17" = "تحقق الآن";
 "msg_language18" = "تم التحقق";
-"msg_language19" = "دخول";
+"msg_language19" = "او";
 "msg_language20" = "تسجيل دخول";
 "msg_language21" = "تسجيل الدخول إلى حسابك.";
 "msg_language22" = "أدخل اسم المستخدم الخاص بك";
@@ -127,7 +127,7 @@
 "msg_language119" = "العناويين";
 "msg_language120" = "تعيين كافتراضي";
 "msg_language121" = "افتراضي";
-"msg_language122" = "عرض تحرير الملف الشخصي";
+"msg_language122" = "عرض و تعديل الملف الشخصي";
 "msg_language123" = "قائمة امنياتي";
 "msg_language124" = "عرض سجل الطلبات";
 "msg_language125" = "عرض عمليات التسليم القادمة";
@@ -150,7 +150,7 @@
 "msg_language142" = "عروض";
 "msg_language143" = "سلة التسوق";
 "msg_language144" = "تواصل معنا";
-"msg_language145" = "القائمة ";
+"msg_language145" = "القائمة";
 "msg_language146" = "الحساب";
 "msg_language147" = "المنتجات";
 "msg_language148" = "اضافة المزيد";
@@ -163,7 +163,7 @@
 "msg_language155" = "لا توجد ملاحظات متاحة!";
 "msg_language156" = "التقييمات العالمية";
 "msg_language157" = "حدد حجم المنتج";
-"msg_language158" = "اوصاف موجزة";
+"msg_language158" = "وصف";
 "msg_language159" = "الفوائد";
 "msg_language160" = "الحقائق الغذائية";
 "msg_language161" = "شاهد المزيد";
@@ -304,7 +304,7 @@
 "msg_language296" = "رصيد المحفظة";
 "msg_language297" = "ملفي";
 "msg_language298" = "عناوين الشحن";
-"msg_language299" = "تاريخ بدء الاشتراك";
+"msg_language299" = "تاريخ نهاية الاشتراك";
 "msg_language300" = "تجديد السياسة";
 "msg_language301" = "تفاصيل الاشتراك";
 "msg_language302" = "هل تريد إيقاف هذا الاشتراك مؤقتًا؟";
@@ -323,8 +323,8 @@
 "msg_language315" = "مبلغ الرصيد المتبقي في المحفظة";
 "msg_language316" = "الرجاء تحديد تاريخ التسليم المتوقع";
 "msg_language317" = "الرجاء تحديد وقت التسليم المفضل.";
-"msg_language318" = "يكسب";
-"msg_language319" = "لهذا الطلب";
+"msg_language318" = "تم كسب";
+"msg_language319" = "نقاط مكافأة";
 "msg_language320" = "لم يتم العثور على طرق دفع!";
 "msg_language321" = "الرجاء إدخال اسم المستخدم";
 "msg_language322" = "من فضلك أدخل رقمك السري";
@@ -359,7 +359,7 @@
 "msg_language354" = "هل تريد إزالة نقطة المكافأة المطبقة؟";
 "msg_language355" = "لا يمكنك استخدام نقاط المكافأة الآن.";
 "msg_language356" = "يمكنك استخدام الحد الأدنى";
-"msg_language357" = "& أقصى";
+"msg_language357" = "و أقصى";
 "msg_language358" = "نقاط";
 "msg_language359" = "لديك";
 "msg_language360" = "نقاط المكافأة المتاحة.";
@@ -383,7 +383,7 @@
 "msg_language378" = "لم يتم التحقق من هاتفك المحمول بالفعل ، يرجى التحديث برقم الهاتف المحمول الجديد.";
 "msg_language380" = "أيام";
 "msg_language381" = "اطلب وادفع";
-"msg_language382" = "حدد المنتجات";
+"msg_language382" = "حدد الايام";
 "msg_language383" = "تم تحديث المعلومات الخاصة بك بنجاح";
 "msg_language384" = "يجب عليك تحديد 8 أيام كحد أدنى للطلب";
 "msg_language386" = "تمت إضافة العنصر بنجاح إلى سلة التسوق";
@@ -430,7 +430,7 @@
 "msg_language427" = "هل تريد تجديد هذا الاشتراك؟";
 "msg_language428" = "تفاصيل اشتراكي";
 "msg_language429" = "تحديث";
-"msg_language430" = "يوقف";
+"msg_language430" = "ايقاف مؤقت";
 "msg_language431" = "استئناف";
 "msg_language432" = "تجديد";
 "msg_language433" = "هل تريد تحديث تاريخ خطة اشتراكك؟";
@@ -483,7 +483,7 @@
 "msg_language480" = "شحنة#";
 "msg_language481" = "د.إ.";
 "msg_language482" = "الاستمرار في الخروج";
-"msg_language483" = "يشترك";
+"msg_language483" = "اشترك";
 "msg_language484" = "ريثما";
 "msg_language485" = "فعال";
 "msg_language486" = "متوقف مؤقتا";
@@ -492,9 +492,10 @@
 
 
 "msg_language489" = "الاثنين";
-"msg_language490" = "يوم الثلاثاء";
+"msg_language490" = "الثلاثاء";
 "msg_language491" = "الأربعاء";
-"msg_language492" = "يوم الخميس";
+"msg_language492" = "الخميس";
 "msg_language493" = "جمعة";
 "msg_language494" = "السبت";
 "msg_language495" = "الأحد";
+"msg_language496" = "البحث عن طريق رقم الاشتراك";

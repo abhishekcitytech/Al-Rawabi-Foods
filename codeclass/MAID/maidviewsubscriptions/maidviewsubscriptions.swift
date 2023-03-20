@@ -184,7 +184,7 @@ class maidviewsubscriptions: UIViewController,UITableViewDelegate,UITableViewDat
             cell.lblstatus.backgroundColor =  UIColor(named: "darkredcolor")!
         }
         
-        cell.lblstatus.layer.cornerRadius = 18.0
+        cell.lblstatus.layer.cornerRadius = 16.0
         cell.lblstatus.layer.masksToBounds = true
 
         

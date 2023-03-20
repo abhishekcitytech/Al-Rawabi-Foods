@@ -497,6 +497,8 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        var strpreviouslyselectedcode = self.strselectedpaymentmethodID
+        
         let dictemp = arrMpaymentmethodlist.object(at: indexPath.row)as? NSDictionary
         let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
         let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
@@ -504,31 +506,87 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         self.strselectedpaymentmethodID = strcode
         self.colpaymentmethods.reloadData()
         
-        if strcode.containsIgnoreCase("ngeniusonline")
+        
+        print("strpreviouslyselectedcode",strpreviouslyselectedcode)
+        print("self.strselectedpaymentmethodID",self.strselectedpaymentmethodID)
+        
+        if strpreviouslyselectedcode.count > 0
         {
-            self.viewbottom.isHidden = false
-            self.viewbottom1.isHidden = true
+            //ALREADY PRE SELECTED PAYMENT METHOD
             
-            if self.strcurrency.count == 0{
-                self.strcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
+            if strpreviouslyselectedcode != self.strselectedpaymentmethodID
+            {
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language363"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                    print("Handle Continue Logic here")
+                    
+                    self.colpaymentmethods.reloadData()
+                    strpreviouslyselectedcode = ""
+                    
+                    if strcode.containsIgnoreCase("ngeniusonline")
+                    {
+                        self.viewbottom.isHidden = false
+                        self.viewbottom1.isHidden = true
+                        
+                        if self.strcurrency.count == 0{
+                            self.strcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
+                        }
+                        var fltTotal = 0.00
+                        //let fltamount1  = (strsubtotalamount as NSString).floatValue
+                        //let fltamount2  = (strshippingchargesamount as NSString).floatValue
+                        //fltTotal = Double(fltamount1 + fltamount2)
+                        
+                        print(strgrandtotalamount)
+                        fltTotal  = Double((strgrandtotalamount as NSString).floatValue)
+                        
+                        self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+                    }
+                    else if strcode.containsIgnoreCase("walletsystem") || strcode.containsIgnoreCase("walletpayment")
+                    {
+                        self.viewbottom.isHidden = true
+                        self.viewbottom1.isHidden = false
+                        
+                        self.getwalletremainingbalancelist()
+                    }
+                }))
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                      print("Handle Cancel Logic here")
+                }))
+                self.present(refreshAlert, animated: true, completion: nil)
             }
-            var fltTotal = 0.00
-            //let fltamount1  = (strsubtotalamount as NSString).floatValue
-            //let fltamount2  = (strshippingchargesamount as NSString).floatValue
-            //fltTotal = Double(fltamount1 + fltamount2)
-            
-            print(strgrandtotalamount)
-            fltTotal  = Double((strgrandtotalamount as NSString).floatValue)
-            
-            self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
         }
-        else if strcode.containsIgnoreCase("walletsystem") || strcode.containsIgnoreCase("walletpayment")
+        else
         {
-            self.viewbottom.isHidden = true
-            self.viewbottom1.isHidden = false
+            //ALREADY NO PRE SELECTED PAYMENT METHOD
             
-            self.getwalletremainingbalancelist()
+            if strcode.containsIgnoreCase("ngeniusonline")
+            {
+                self.viewbottom.isHidden = false
+                self.viewbottom1.isHidden = true
+                
+                if self.strcurrency.count == 0{
+                    self.strcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
+                }
+                var fltTotal = 0.00
+                //let fltamount1  = (strsubtotalamount as NSString).floatValue
+                //let fltamount2  = (strshippingchargesamount as NSString).floatValue
+                //fltTotal = Double(fltamount1 + fltamount2)
+                
+                print(strgrandtotalamount)
+                fltTotal  = Double((strgrandtotalamount as NSString).floatValue)
+                
+                self.txtCardPaymentOrderAmount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
+            }
+            else if strcode.containsIgnoreCase("walletsystem") || strcode.containsIgnoreCase("walletpayment")
+            {
+                self.viewbottom.isHidden = true
+                self.viewbottom1.isHidden = false
+                
+                self.getwalletremainingbalancelist()
+            }
         }
+        
+        
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
     {
@@ -833,7 +891,10 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                         if strsuccess == true
                         {
                             let strpoints = dictemp.value(forKey: "points")as? String ?? ""
-                    
+                            
+                            let strspend_max_points = String(format: "%@", dictemp.value(forKey: "max_spend")as! CVarArg)
+                            let strspend_min_points = String(format: "%@", dictemp.value(forKey: "min_spend")as! CVarArg)
+                            
                             self.strloayltypointsavailable =  strpoints
                             print("self.strloayltypointsavailable",self.strloayltypointsavailable)
                             
@@ -841,10 +902,18 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                             
                             if strpoints == "0" || strpoints == "0.0"
                             {
+                                //YOU CAN NOT APPLY REWARD POINT
                                 self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkmostredcolor")!
                                 self.lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language355")
                                 self.btnapplyrewardpoints.isUserInteractionEnabled = false
                             }
+                            else{
+                                self.lblmaximumrewardpointsused.text = String(format: "%@ %@ %@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language356"),strspend_min_points,myAppDelegate.changeLanguage(key: "msg_language357"),strspend_max_points,myAppDelegate.changeLanguage(key: "msg_language358"))
+                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkgreencolor")!
+                            }
+                            
+                            
+                            
                             
                             /*if strpoints == "0" || strpoints == "0.0"
                             {
@@ -943,7 +1012,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                         
                         if strsuccess == true
                         {
-                            //let str_availableRewardPoint = dictemp.value(forKey: "availableRewardPoint")as! CVarArg
+                            //let str_avail vableRewardPoint = dictemp.value(forKey: "availableRewardPoint")as! CVarArg
                             let str_appliedRewardPoint = dictemp.value(forKey: "appliedRewardPoint")as! CVarArg
                             //let str_remainingRewardPoint = dictemp.value(forKey: "remainingRewardPoint")as! CVarArg
                             let str_amountDeducted = dictemp.value(forKey: "amountDeducted")as! CVarArg

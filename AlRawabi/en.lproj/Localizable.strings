@@ -64,9 +64,9 @@
 "msg_language55" = "From Below Listing";
 "msg_language56" = "Select";
 "msg_language57" = "Selected";
-"msg_language58" = "Subscription - Daily ";
-"msg_language59" = "Subscription - Weekly ";
-"msg_language60" = "Subscription - Monthly ";
+"msg_language58" = "Subscription - Daily";
+"msg_language59" = "Subscription - Weekly";
+"msg_language60" = "Subscription - Monthly";
 "msg_language61" = "Select Start date ";
 "msg_language62" = "Select End date ";
 "msg_language63" = "Auto Renew";
@@ -164,7 +164,7 @@
 "msg_language155" = "No reviews available!";
 "msg_language156" = "global ratings";
 "msg_language157" = "Select Product Size";
-"msg_language158" = "Short Descriptions";
+"msg_language158" = "Description";
 "msg_language159" = "Benifits";
 "msg_language160" = "Nutrition Facts";
 "msg_language161" = "See More";
@@ -324,8 +324,8 @@
 "msg_language315" = "Wallet Remaining Balance Amount";
 "msg_language316" = "Please select delivery expected date";
 "msg_language317" = "Please select delivery preferred time slot.";
-"msg_language318" = "Earn";
-"msg_language319" = "for this order";
+"msg_language318" = "You earn";
+"msg_language319" = "Reward points";
 "msg_language320" = "No payment methods found!";
 "msg_language321" = "Please enter your username";
 "msg_language322" = "Please enter your passsword";
@@ -388,7 +388,7 @@
 "msg_language379" = "You have insufficient reward points available.";
 "msg_language380" = "Days";
 "msg_language381" = "Order and Pay";
-"msg_language382" = "Select Products";
+"msg_language382" = "Select Days";
 "msg_language383" = "Your information has been updated successfully";
 "msg_language384" = "You have to select minimum of 8 days of order";
 "msg_language385" = "Estimated Tax:";
@@ -503,3 +503,6 @@
 "msg_language493" = "Friday";
 "msg_language494" = "Saturday";
 "msg_language495" = "Sunday";
+
+"msg_language496" = "Search by subscription Id";
+

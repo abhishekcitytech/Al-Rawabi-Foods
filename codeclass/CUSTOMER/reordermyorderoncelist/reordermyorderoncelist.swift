@@ -359,7 +359,7 @@ class reordermyorderoncelist: UIViewController,UITableViewDelegate,UITableViewDa
                         
                         if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language401"), preferredStyle: UIAlertController.Style.alert)
+                            /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language401"), preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
@@ -371,7 +371,15 @@ class reordermyorderoncelist: UIViewController,UITableViewDelegate,UITableViewDa
                                 }else{
                                     self.tabBarController?.selectedIndex = 1
                                 }
-                            }))
+                            }))*/
+                            
+                            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                            if (strLangCode == "en")
+                            {
+                                self.tabBarController?.selectedIndex = 3
+                            }else{
+                                self.tabBarController?.selectedIndex = 1
+                            }
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)

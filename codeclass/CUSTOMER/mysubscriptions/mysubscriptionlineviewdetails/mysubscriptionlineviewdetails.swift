@@ -13,6 +13,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
     @IBOutlet weak var viewoverall: UIView!
     
     @IBOutlet weak var viewtop: UIView!
+    @IBOutlet weak var imgvplan: UIImageView!
     @IBOutlet weak var lblsubscriptionid: UILabel!
     @IBOutlet weak var lblstartdate: UILabel!
     @IBOutlet weak var lblenddate: UILabel!
@@ -59,7 +60,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         
         let strsubscription_id = String(format: "%@", diclistvalue.value(forKey: "subscription_id")as? String ?? "")
         let strsubscription_increment_id = String(format: "%@", diclistvalue.value(forKey: "subscription_increment_id")as? String ?? "")
-        //let strsubscription_plan = String(format: "%@", diclistvalue.value(forKey: "subscription_plan")as? String ?? "")
+        let strsubscription_plan = String(format: "%@", diclistvalue.value(forKey: "subscription_plan")as? String ?? "")
         let strsubscription_start_date = String(format: "%@", diclistvalue.value(forKey: "subscription_start_date")as? String ?? "DD/MM/YYYY")
         let strsubscription_end_date = String(format: "%@", diclistvalue.value(forKey: "subscription_end_date")as? String ?? "DD/MM/YYYY")
         let strsubscription_status = String(format: "%@", diclistvalue.value(forKey: "subscription_status")as? String ?? "")
@@ -120,6 +121,16 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         }
         btncancel.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language77")), for: .normal)
         self.getallmysubscriptionDetail(strsubscriptionid: strsubscription_id)
+        
+        let  strplanidentify = strsubscription_plan
+        print("strplanidentify",strplanidentify)
+        if strplanidentify.containsIgnoreCase("daily") || strplanidentify.containsIgnoreCase("يوميًا"){
+            self.imgvplan.image = UIImage(named: "ribbonlinedaily")
+        }else if strplanidentify.containsIgnoreCase("weekly") || strplanidentify.containsIgnoreCase("أسبوعي"){
+            self.imgvplan.image = UIImage(named: "ribbonlineweekly")
+        }else if strplanidentify.containsIgnoreCase("monthly") || strplanidentify.containsIgnoreCase("شهريا"){
+            self.imgvplan.image = UIImage(named: "ribbonlinemonthly")
+        }
         
     }
     

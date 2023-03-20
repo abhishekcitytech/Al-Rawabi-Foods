@@ -7,11 +7,12 @@
 
 import UIKit
 
-class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSource
+class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate
 {
-
+    
     @IBOutlet weak var viewoverall: UIView!
-
+    @IBOutlet weak var searchbar: UISearchBar!
+    
     @IBOutlet weak var tabvmysubscription: UITableView!
     var reuseIdentifier1 = "celltabvmysubscription"
     var msg = ""
@@ -57,7 +58,9 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
         tabvmysubscription.backgroundColor=UIColor.clear
         tabvmysubscription.separatorColor=UIColor.clear
         tabvmysubscription.showsVerticalScrollIndicator = false
-    
+      
+        searchbar.delegate = self
+        searchbar.placeholder = myAppDelegate.changeLanguage(key: "msg_language496")
     }
     
     //MARK: - press back method
@@ -65,7 +68,24 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
     {
         self.navigationController?.popViewController(animated: true)
     }
-
+    
+    //MARK: - press Search bar delegate method
+    /*func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        //code
+        print("searchText \(searchText)")
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
+        //code
+        var namePredicate = NSPredicate(format: "subscription_increment_id contains[c] %@",  String(searchBar.text!));
+        let filteredArray = self.arrMmysubscriptions.filter { namePredicate.evaluate(with: $0) };
+        if filteredArray.count != 0
+        {
+            print("filteredArray",filteredArray)
+        }
+    }*/
+    
     // MARK: - tableView delegate & datasource Method
     func numberOfSections(in tableView: UITableView) -> Int
     {
@@ -135,7 +155,7 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
         let strsubscription_status_code = String(format: "%@", dic.value(forKey: "subscription_status_code")as? String ?? "")
         
         let stris_renew = dic.value(forKey: "is_renew")as? Bool ?? false
-
+        
         cell.lblsubscriptionno.text = String(format: "# %@", strsubscription_increment_id)
         cell.lblsubscriptionname.text = String(format: "%@",strsubscription_plan)
         
@@ -262,7 +282,7 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
             self.getallRenewmysubscription(strid: strsubscription_id)
         }))
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-              print("Handle Cancel Logic here")
+            print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
     }
@@ -308,13 +328,13 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
                     
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
-                   
-                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     //print("strstatus",strstatus)
-                     //print("strsuccess",strsuccess)
-                     //print("strmessage",strmessage)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    //print("strstatus",strstatus)
+                    //print("strsuccess",strsuccess)
+                    //print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -402,19 +422,19 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
                     
                     let dictemp = json as NSDictionary
                     //print("dictemp --->",dictemp)
-                   
-                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     //print("strstatus",strstatus)
-                     //print("strsuccess",strsuccess)
-                     //print("strmessage",strmessage)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    //print("strstatus",strstatus)
+                    //print("strsuccess",strsuccess)
+                    //print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
                         if strsuccess == true
                         {
-                           
+                            
                             let dicrenewdata = dictemp.value(forKey: "subscriptionRenewdata") as! NSDictionary
                             
                             let ctrl = renewsubscriptiondetails(nibName: "renewsubscriptiondetails", bundle: nil)

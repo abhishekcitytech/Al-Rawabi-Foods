@@ -222,7 +222,22 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
     //MARK: - press Keepshopping method
     @IBAction func pressKeepShopping(_ sender: Any)
     {
-        self.navigationController?.popViewController(animated: true)
+        //self.navigationController?.popViewController(animated: true)
+        
+        if let viewControllers = self.navigationController?.viewControllers {
+               for vc in viewControllers {
+                    if vc.isKind(of: maidorderonce.classForCoder()) {
+                         print("It is in stack")
+                         //Your Process
+                        self.navigationController?.backToViewController(vc: maidorderonce.self)
+                    }
+                   else{
+                       let obj = maidorderonce(nibName: "maidorderonce", bundle: nil)
+                       self.navigationController?.pushViewController(obj, animated: true)
+                       return
+                   }
+               }
+         }
     }
     
     
@@ -780,7 +795,22 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                                 self.lbltaxvalue.text = ""
                                 
                                 let strearn_point = String (format: "%@", dictemp.value(forKey: "earn_point")as? String ?? "")
-                                self.lblearnpointsvalue.text = String(format: "%@ %@ %@",myAppDelegate.changeLanguage(key: "msg_language318"), strearn_point,myAppDelegate.changeLanguage(key: "msg_language319"))
+                                print("strearn_point",strearn_point)
+                                
+                                if strearn_point.count > 0{
+                                    
+                                    let splitStringArray = strearn_point.split(separator: " ", maxSplits: 1).map(String.init)
+                                    print(splitStringArray)
+                                    let str1pointsvalue = splitStringArray[0]
+                                    let str2resttext = splitStringArray[1]
+                                    
+                                    self.lblearnpointsvalue.text = String(format: "%@ %@ %@",myAppDelegate.changeLanguage(key: "msg_language318"), str1pointsvalue,myAppDelegate.changeLanguage(key: "msg_language319"))
+                                }
+                                else{
+                                    self.lblearnpointsvalue.text = ""
+                                }
+                                
+                                
                                 
                                 //FIXME
                                 if str5 != "0" || str6 != ""
@@ -844,7 +874,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                             
                             self.btnclearall.isHidden = true
                             
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
@@ -1528,4 +1558,36 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
         task.resume()
     }
     
+}
+extension UINavigationController {
+
+    func containsViewController(ofKind kind: AnyClass) -> Bool {
+        return self.viewControllers.contains(where: { $0.isKind(of: kind) })
+    }
+
+    func popPushToVC(ofKind kind: AnyClass, pushController: UIViewController) {
+        if containsViewController(ofKind: kind) {
+            for controller in self.viewControllers {
+                if controller.isKind(of: kind) {
+                    popToViewController(controller, animated: true)
+                    break
+                }
+            }
+        } else {
+            pushViewController(pushController, animated: true)
+        }
+    }
+}
+extension UINavigationController {
+
+   func backToViewController(vc: Any) {
+      // iterate to find the type of vc
+      for element in viewControllers as Array {
+        if "\(type(of: element)).Type" == "\(type(of: vc))" {
+            self.popToViewController(element, animated: true)
+            break
+         }
+      }
+   }
+
 }

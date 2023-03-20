@@ -86,7 +86,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOT-e8-5td">
-                                    <rect key="frame" x="270" y="8" width="81" height="27"/>
+                                    <rect key="frame" x="237" y="8" width="114" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="14"/>
@@ -99,7 +99,6 @@
                                     <color key="backgroundColor" name="greencolor"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="PAUSE"/>
                                     <connections>
                                         <action selector="presspause:" destination="-1" eventType="touchUpInside" id="EVr-jC-Vau"/>
                                     </connections>

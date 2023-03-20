@@ -125,6 +125,8 @@ class myaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! cellmyaddress
         cell.selectionStyle=UITableViewCell.SelectionStyle.none
         cell.accessoryType = UITableViewCell.AccessoryType.none
@@ -160,6 +162,9 @@ class myaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSource
         cell.lblmobileno.text = String(format: "%@", strmobileno)
         cell.lblcity.text = strcity
         cell.txtvaddress.text = strFinalAddress
+        
+        cell.lbldefault.text = myAppDelegate.changeLanguage(key: "msg_language121")
+        
         
         if strdefault_shipping == "1"{
             cell.lbldefault.isHidden = false

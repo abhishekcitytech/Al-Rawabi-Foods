@@ -76,7 +76,7 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
         
-        btnpaycheckout.layer.cornerRadius = 16.0
+        btnpaycheckout.layer.cornerRadius = 18.0
         btnpaycheckout.layer.masksToBounds = true
      
         tabvmyaddress.register(UINib(nibName: "cellSelectShippingAddress", bundle: nil), forCellReuseIdentifier: reuseIdentifier1)
@@ -99,6 +99,9 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
         coltimeslots.backgroundColor = .clear
         
         setupRTLLTR()
+        
+        self.lbldeliveryslotpopupHeader.isHidden = true
+        self.coltimeslots.isHidden = true
         
     }
     
@@ -562,6 +565,9 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
                                 print("Click of default button")
                             }))
                         }
+                        
+                        self.lbldeliveryslotpopupHeader.isHidden = false
+                        self.coltimeslots.isHidden = false
                     }
                 }
             }

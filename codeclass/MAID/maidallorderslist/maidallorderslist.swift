@@ -137,8 +137,12 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         cell.lblordernovalue.text = String(format: "# %@", strorder_increment_id)
         cell.lbldeliverydatevalue.text = strcreated_at
-        cell.lblquantityvalue.text = strordered_qty
-        cell.lbltotalamountvalue.text = String(format: "%@ %@",strcurrency_code, strtotal_amount)
+        
+        let fltamount1  = (strordered_qty as NSString).floatValue
+        let fltamount2  = (strtotal_amount as NSString).floatValue
+        
+        cell.lblquantityvalue.text = String(format: "%0.0f",fltamount1)
+        cell.lbltotalamountvalue.text = String(format: "%@ %0.2f",strcurrency_code, fltamount2)
         
        
         cell.btndetails.layer.borderWidth = 1.0
@@ -163,6 +167,10 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         cell.lblorderno.text = myAppDelegate.changeLanguage(key: "msg_language207")
         cell.lbldeliverydate.text = myAppDelegate.changeLanguage(key: "msg_language208")
+        
+        
+        
+        
         cell.lblquantity.text = myAppDelegate.changeLanguage(key: "msg_language209")
         cell.lbltotalamount.text = myAppDelegate.changeLanguage(key: "msg_language210")
         
@@ -187,6 +195,8 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
     {
         let dic = self.arrMmyorders.object(at: sender.tag)as! NSDictionary
         let strorder_id = String(format: "%@", dic.value(forKey: "order_id")as! CVarArg)
+        let strorder_id1 = String(format: "%@", dic.value(forKey: "order_increment_id")as? String ?? "")
+        
         
         let ctrl = myorderhistorydetails(nibName: "myorderhistorydetails", bundle: nil)
         ctrl.strorder_id = strorder_id

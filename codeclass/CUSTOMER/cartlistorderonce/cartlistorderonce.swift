@@ -754,7 +754,23 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                                 str4 = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
                                 
                                 let strearn_point = String (format: "%@", dictemp.value(forKey: "earn_point")as? String ?? "")
-                                self.lblearnrewardpointsvalue.text = String(format: "%@ %@ %@",myAppDelegate.changeLanguage(key: "msg_language318"), strearn_point,myAppDelegate.changeLanguage(key: "msg_language319"))
+                                print("strearn_point",strearn_point)
+                                
+                                if strearn_point.count > 0{
+                                    
+                                    let splitStringArray = strearn_point.split(separator: " ", maxSplits: 1).map(String.init)
+                                    print(splitStringArray)
+                                    let str1pointsvalue = splitStringArray[0]
+                                    let str2resttext = splitStringArray[1]
+                                    
+                                    self.lblearnrewardpointsvalue.text = String(format: "%@ %@ %@",myAppDelegate.changeLanguage(key: "msg_language318"), str1pointsvalue,myAppDelegate.changeLanguage(key: "msg_language319"))
+                                }
+                                else{
+                                    self.lblearnrewardpointsvalue.text = ""
+                                }
+                                
+                                
+                                
                                 
                                 let intstr1 = Float(str1)
                                 let intstr2 = Float(str2)

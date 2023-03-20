@@ -125,12 +125,11 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         
         let  strplanidentify = strsubscription_plan
         print("strplanidentify",strplanidentify)
-        
-        if strsubscription_plan.containsIgnoreCase("daily") || strplanidentify.containsIgnoreCase("يوميًا"){
+        if strplanidentify.containsIgnoreCase("daily") || strplanidentify.containsIgnoreCase("يوميًا"){
             self.imgvplan.image = UIImage(named: "ribbonlinedaily")
-        }else if strsubscription_plan.containsIgnoreCase("weekly") || strplanidentify.containsIgnoreCase("أسبوعي"){
+        }else if strplanidentify.containsIgnoreCase("weekly") || strplanidentify.containsIgnoreCase("أسبوعي"){
             self.imgvplan.image = UIImage(named: "ribbonlineweekly")
-        }else if strsubscription_plan.containsIgnoreCase("monthly") || strplanidentify.containsIgnoreCase("شهريا"){
+        }else if strplanidentify.containsIgnoreCase("monthly") || strplanidentify.containsIgnoreCase("شهريا"){
             self.imgvplan.image = UIImage(named: "ribbonlinemonthly")
         }
         
