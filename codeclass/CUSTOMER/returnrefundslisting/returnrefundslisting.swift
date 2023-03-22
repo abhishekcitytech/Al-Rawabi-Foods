@@ -252,6 +252,13 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
         let flt11 = Float(strgrandTotal)
         cell.lblamount.text = String(format: "%@ %0.2f", myAppDelegate.changeLanguage(key: "msg_language481"),flt11!)
         
+        cell.btnViewDetails.layer.cornerRadius = 14.0
+        cell.btnViewDetails.layer.masksToBounds = true
+        
+        cell.btnViewDetails.tag = indexPath.row
+        cell.btnViewDetails.setTitle(myAppDelegate.changeLanguage(key: "msg_language497"), for: .normal)
+        cell.btnViewDetails.addTarget(self, action: #selector(pressviewdetails), for: .touchUpInside)
+        
         cell.viewcell.tag = indexPath.section
         cell.viewcell.backgroundColor = UIColor(named: "plate7")!
         cell.viewcell.layer.masksToBounds = false
@@ -290,6 +297,23 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
             
             self.createEditpopupProductItems()
         }
+    }
+    @objc func pressviewdetails(sender:UIButton)
+    {
+        let dic = self.arrMmyorders.object(at: sender.tag)as! NSDictionary
+        let arrm1 = dic.value(forKey: "creditMemoDetails") as? NSArray ?? []
+        
+        let dic1 = arrm1.object(at: sender.tag)as! NSDictionary
+        let arrm2 = dic1.value(forKey: "product") as? NSArray ?? []
+        print("arrm2",arrm2)
+        
+        if arrMProductItems.count > 0 {
+            arrMProductItems.removeAllObjects()
+        }
+        self.arrMProductItems = NSMutableArray(array: arrm2)
+        print("arrMProductItems --->",self.arrMProductItems)
+        
+        self.createEditpopupProductItems()
     }
     
     

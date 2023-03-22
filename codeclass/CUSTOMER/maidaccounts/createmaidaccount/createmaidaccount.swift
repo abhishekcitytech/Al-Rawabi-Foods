@@ -503,6 +503,9 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     //MARK: - Create maid account API Method
     func createmaidaccountAPIMethod(straddresslist:String)
     {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        //language
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -575,7 +578,8 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                         
                         if strsuccess == true
                         {
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language424"), preferredStyle: UIAlertController.Style.alert)
+                            //myAppDelegate.changeLanguage(key: "msg_language424")
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")

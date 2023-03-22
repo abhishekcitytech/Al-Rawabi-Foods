@@ -65,6 +65,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     @IBOutlet weak var lblchoosesubscriptionplan: UILabel!
     @IBOutlet weak var lblalertmessagelocationchecking: UILabel!
     @IBOutlet weak var btnBuyoncepopup: UIButton!
+    @IBOutlet weak var lborrrr: UILabel!
     
     @IBOutlet var viewpopupSubscribeDaily: UIView!
     @IBOutlet weak var btnpopupSubscribeDaily: UIButton!
@@ -137,6 +138,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
         let subscribebyoncepopupshown = UserDefaults.standard.integer(forKey: "subscribebyoncepopupshown")
+        print("subscribebyoncepopupshown",subscribebyoncepopupshown)
         if subscribebyoncepopupshown == 0
         {
             //POPUP SHOW FIRST TIME
@@ -147,6 +149,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         }
         else if subscribebyoncepopupshown == 2
         {
+            
             //POPUP ALREADY CREATED BUT LOCATION EDIT
             print("subscribebyoncepopupshown",subscribebyoncepopupshown)
             
@@ -174,8 +177,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 }))
             }
         }
+        else if subscribebyoncepopupshown == 1
+        {
+            //POPUP SHOW EVERY TIME
+            print("subscribebyoncepopupshown",subscribebyoncepopupshown)
+            
+            self.createSubscribePopup()
+        }
         else{
-            //POPUP NOT SHOW FIRST TIME
+            //POPUP SHOW NOT  FIRST TIME
             print("subscribebyoncepopupshown",subscribebyoncepopupshown)
         }
         
@@ -714,6 +724,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         lblmonthly1.text = myAppDelegate.changeLanguage(key: "msg_language39")
         lblmonthly2.text = myAppDelegate.changeLanguage(key: "msg_language452")
         
+        lborrrr.text = myAppDelegate.changeLanguage(key: "msg_language19")
+        
         lblgetyourdelivery.isHidden = true
         lblgetyourdelivery.text = myAppDelegate.changeLanguage(key: "msg_language43")
         
@@ -785,18 +797,23 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         if (strLangCode == "en")
         {
             self.tabBarController?.selectedIndex = 1
+            
+            let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
+            let SV = navVC.topViewController as! subsriptionclass
+            SV.strpreSelectedplanfromHome = "Daily"
+            let appDel = UIApplication.shared.delegate as! AppDelegate
+            appDel.strSelectedPLAN = "Daily"
         }
         else
         {
             self.tabBarController?.selectedIndex = 3
+            
+            let navVC = self.tabBarController!.viewControllers![3] as! UINavigationController
+            let SV = navVC.topViewController as! subsriptionclass
+            SV.strpreSelectedplanfromHome = "Daily"
+            let appDel = UIApplication.shared.delegate as! AppDelegate
+            appDel.strSelectedPLAN = "Daily"
         }
-        
-        let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
-        let SV = navVC.topViewController as! subsriptionclass
-        SV.strpreSelectedplanfromHome = "Daily"
-        let appDel = UIApplication.shared.delegate as! AppDelegate
-        appDel.strSelectedPLAN = "Daily"
-
     }
     @IBAction func pressSubscriptionpopupWeekly(_ sender: Any)
     {
@@ -809,18 +826,23 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         if (strLangCode == "en")
         {
             self.tabBarController?.selectedIndex = 1
+            
+            let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
+            let SV = navVC.topViewController as! subsriptionclass
+            SV.strpreSelectedplanfromHome = "Weekly"
+            let appDel = UIApplication.shared.delegate as! AppDelegate
+            appDel.strSelectedPLAN = "Weekly"
         }
         else
         {
             self.tabBarController?.selectedIndex = 3
+            
+            let navVC = self.tabBarController!.viewControllers![3] as! UINavigationController
+            let SV = navVC.topViewController as! subsriptionclass
+            SV.strpreSelectedplanfromHome = "Weekly"
+            let appDel = UIApplication.shared.delegate as! AppDelegate
+            appDel.strSelectedPLAN = "Weekly"
         }
-        
-        let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
-        let SV = navVC.topViewController as! subsriptionclass
-        SV.strpreSelectedplanfromHome = "Weekly"
-        let appDel = UIApplication.shared.delegate as! AppDelegate
-        appDel.strSelectedPLAN = "Weekly"
-        
     }
     @IBAction func pressSubscriptionpopupMonthly(_ sender: Any)
     {
@@ -833,18 +855,24 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         if (strLangCode == "en")
         {
             self.tabBarController?.selectedIndex = 1
+            
+            let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
+            let SV = navVC.topViewController as! subsriptionclass
+            SV.strpreSelectedplanfromHome = "Monthly"
+            let appDel = UIApplication.shared.delegate as! AppDelegate
+            appDel.strSelectedPLAN = "Monthly"
         }
         else
         {
             self.tabBarController?.selectedIndex = 3
+            
+            let navVC = self.tabBarController!.viewControllers![3] as! UINavigationController
+            let SV = navVC.topViewController as! subsriptionclass
+            SV.strpreSelectedplanfromHome = "Monthly"
+            let appDel = UIApplication.shared.delegate as! AppDelegate
+            appDel.strSelectedPLAN = "Monthly"
         }
         
-        let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
-        let SV = navVC.topViewController as! subsriptionclass
-        SV.strpreSelectedplanfromHome = "Monthly"
-        let appDel = UIApplication.shared.delegate as! AppDelegate
-        appDel.strSelectedPLAN = "Monthly"
-       
     }
     
     @IBAction func presslocationselect(_ sender: Any)
@@ -1179,6 +1207,29 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let strimageurl = String(format: "%@", dict.value(forKey: "image") as? String ?? "")
         let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
         print("strFinalurl",strFinalurl)
+        
+        /*print("dict",dict)
+        let strcategory_id = String(format: "%@", dict.value(forKey: "category_id") as! CVarArg)
+        print("strcategory_id",strcategory_id)
+        print("self.arrMcategory",self.arrMcategory)
+        for x in 0 ..< self.arrMcategory.count
+        {
+            let dict = self.arrMcategory.object(at: x)as? NSDictionary
+            let strtext = String(format: "%@", dict!.value(forKey: "text") as? String ?? "")
+            let strid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+            //let strcategoryImage = String(format: "%@", dict!.value(forKey: "categoryImage") as? String ?? "")
+            let arrm1 = dict!.value(forKey: "children") as? NSArray ?? []
+            
+            if strcategory_id == strid
+            {
+                let ctrl = productcatalogue(nibName: "productcatalogue", bundle: nil)
+                ctrl.strpageidentifier = "1001"
+                ctrl.strFromCategoryID = strid
+                ctrl.strFromCategoryNAME = strtext
+                ctrl.arrmsubcatlist = NSMutableArray(array: arrm1)
+                self.navigationController?.pushViewController(ctrl, animated: true)
+            }
+        }*/
         
         //let fullScreenController = viewbanner.presentFullScreenController(from: self)
         // set the activity indicator for full screen controller (skipping the line will show no activity indicator)

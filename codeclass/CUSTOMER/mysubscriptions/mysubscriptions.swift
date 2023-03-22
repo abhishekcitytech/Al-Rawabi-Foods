@@ -157,7 +157,7 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
         let stris_renew = dic.value(forKey: "is_renew")as? Bool ?? false
         
         cell.lblsubscriptionno.text = String(format: "# %@", strsubscription_increment_id)
-        cell.lblsubscriptionname.text = String(format: "%@",strsubscription_plan)
+        cell.lblsubscriptionname.text = String(format: "%@:%@",myAppDelegate.changeLanguage(key: "msg_language74"),strsubscription_plan)
         
         cell.lblstartdate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language208"),strsubscription_start_date)
         cell.lblenddate.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language299"),strsubscription_end_date)

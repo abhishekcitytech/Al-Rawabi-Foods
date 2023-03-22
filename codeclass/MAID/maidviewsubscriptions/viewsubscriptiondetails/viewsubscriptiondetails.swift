@@ -386,6 +386,9 @@ class viewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewD
     //MARK: - post PAUSE / RESUME API Method
     func postPAUSERESUMEAPIMethod(strresumedate:String)
     {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        //language
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -456,7 +459,7 @@ class viewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewD
                             
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")

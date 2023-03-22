@@ -105,7 +105,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         }
         else if strsubscription_status_code == "3"{
             //Expired
-            btnpause.isHidden = false
+            btnpause.isHidden = true
             btncancel.isHidden = true
             self.lblstatus.backgroundColor =  UIColor(named: "lightblue")!
             
@@ -124,12 +124,42 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         
         let  strplanidentify = strsubscription_plan
         print("strplanidentify",strplanidentify)
-        if strplanidentify.containsIgnoreCase("daily") || strplanidentify.containsIgnoreCase("يوميًا"){
-            self.imgvplan.image = UIImage(named: "ribbonlinedaily")
-        }else if strplanidentify.containsIgnoreCase("weekly") || strplanidentify.containsIgnoreCase("أسبوعي"){
-            self.imgvplan.image = UIImage(named: "ribbonlineweekly")
-        }else if strplanidentify.containsIgnoreCase("monthly") || strplanidentify.containsIgnoreCase("شهريا"){
-            self.imgvplan.image = UIImage(named: "ribbonlinemonthly")
+        if strplanidentify.containsIgnoreCase("daily") || strplanidentify.containsIgnoreCase("يوميًا")
+        {
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.imgvplan.image = UIImage(named: "rb-daily-en")
+            }
+            else
+            {
+                self.imgvplan.image = UIImage(named: "rb-daily-ar")
+            }
+            
+        }else if strplanidentify.containsIgnoreCase("weekly") || strplanidentify.containsIgnoreCase("أسبوعي")
+        {
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.imgvplan.image = UIImage(named: "rb-weekly-en")
+            }
+            else
+            {
+                self.imgvplan.image = UIImage(named: "rb-weekly-ar")
+            }
+            
+        }else if strplanidentify.containsIgnoreCase("monthly") || strplanidentify.containsIgnoreCase("شهريا")
+        {
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.imgvplan.image = UIImage(named: "rb-monthly-en")
+            }
+            else
+            {
+                self.imgvplan.image = UIImage(named: "rb-monthly-ar")
+            }
+            
         }
         
     }
@@ -434,6 +464,9 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
     //MARK: - post PAUSE / RESUME API Method
     func postPAUSERESUMEAPIMethod(strresumedate:String)
     {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        //language
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -504,7 +537,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                             
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
@@ -534,6 +567,9 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
     //MARK: - post CANCEL API Method
     func postCANCELAPIMethod()
     {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        //language
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -604,7 +640,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                             
                         }
                         else{
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")

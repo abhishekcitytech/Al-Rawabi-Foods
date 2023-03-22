@@ -264,10 +264,11 @@ class maidallorderslist: UIViewController,UITableViewDelegate,UITableViewDataSou
                             //print("arrmorder",arrmorder)
                             
                             //SORT ASCENDING FALSE ARRAY LIST BY SUBSCRIPTION ID //
-                            let descriptor: NSSortDescriptor = NSSortDescriptor(key: "order_increment_id", ascending: false)
+                            /*let descriptor: NSSortDescriptor = NSSortDescriptor(key: "order_increment_id", ascending: false)
                             let sortedResults = arrmorder.sortedArray(using: [descriptor]) as NSArray
                             let aarrm1 = NSMutableArray(array: sortedResults)
-                            self.arrMmyorders = NSMutableArray(array: aarrm1)
+                             */
+                            self.arrMmyorders = NSMutableArray(array: arrmorder)
                             //print("arrMmyorders --->",self.arrMmyorders)
                             
                             if self.arrMmyorders.count == 0{

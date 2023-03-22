@@ -11,7 +11,7 @@ import SDWebImage
 import Alamofire
 import Cosmos
 
-class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource
+class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource, UIWebViewDelegate
 {
     @IBOutlet weak var viewoverall: UIView!
     @IBOutlet weak var scrolloverall: UIScrollView!
@@ -1158,9 +1158,47 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                             self.txtvbenifits.attributedText = strbenefits.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "left")
                             
                             //SET NUTRITION FACTS DESCRIPTION
-                            let strnutrition_facts = String(format: "%@", self.dicMProductDetails.value(forKey: "nutrition_facts")as? String ?? "")
-                            //self.txtvnutritionfacts.attributedText = strnutrition_facts.htmlToAttributedString
-                            self.txtvnutritionfacts.attributedText = strnutrition_facts.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "center")
+                            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                            if (strLangCode == "en")
+                            {
+                                let str11 = "<p dir=\"ltr\">"
+                                print("str11",str11)
+                                let str22 = "</p>"
+
+                                let strnutrition_facts = String(format: "%@%@%@", str11,self.dicMProductDetails.value(forKey: "nutrition_facts")as? String ?? "",str22)
+                                print("strnutrition_facts",strnutrition_facts)
+                                //self.txtvnutritionfacts.attributedText = strnutrition_facts.htmlToAttributedString
+                                //self.txtvnutritionfacts.attributedText = strnutrition_facts.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "center")
+                                
+                                self.txtvnutritionfacts.backgroundColor = .clear
+                                let webV:UIWebView = UIWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
+                                webV.loadHTMLString(strnutrition_facts, baseURL: nil)
+                                webV.delegate = self;
+                                webV.backgroundColor = .clear
+                                webV.bringSubviewToFront(self.viewbenifits)
+                                self.txtvnutritionfacts.addSubview(webV)
+                            }
+                            else
+                            {
+                                let str11 = "<p dir=\"rtl\">"
+                                print("str11",str11)
+                                let str22 = "</p>"
+                                
+                                let strnutrition_facts = String(format: "%@%@%@", str11,self.dicMProductDetails.value(forKey: "nutrition_facts")as? String ?? "",str22)
+                                print("strnutrition_facts",strnutrition_facts)
+                                //self.txtvnutritionfacts.attributedText = strnutrition_facts.htmlToAttributedString
+                                //self.txtvnutritionfacts.attributedText = strnutrition_facts.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "center")
+                                
+                                self.txtvnutritionfacts.backgroundColor = .clear
+                                let webV:UIWebView = UIWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
+                                webV.loadHTMLString(strnutrition_facts, baseURL: nil)
+                                webV.delegate = self;
+                                webV.backgroundColor = .clear
+                                webV.bringSubviewToFront(self.viewbenifits)
+                                self.txtvnutritionfacts.addSubview(webV)
+                            }
+                            
+                            
                             
                             //SET FULL DESCRIPTION DESCRIPTION
                             let strdescription = String(format: "%@", self.dicMProductDetails.value(forKey: "description")as? String ?? "")

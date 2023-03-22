@@ -19,6 +19,7 @@ class cellreturnrefund: UITableViewCell
     
     @IBOutlet weak var imgvarrow: UIImageView!
     
+    @IBOutlet weak var btnViewDetails: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

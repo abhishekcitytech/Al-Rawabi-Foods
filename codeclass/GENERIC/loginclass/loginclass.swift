@@ -143,8 +143,8 @@ class loginclass: UIViewController,UITextFieldDelegate
         //sandipan.mukherjee@citytechsoftware.com / 123456
         //banibrota.citytech@gmail.com  / 000000
         
-        txtusername.text = "arpan.ray@citytechcorp.com"
-        txtpassword.text = "$#Admin2"
+        //txtusername.text = "arpan.ray@citytechcorp.com"
+        //txtpassword.text = "$#Admin2"
         
         self.btnhideshowpassword.isSelected = false
         self.txtpassword.isSecureTextEntry = true

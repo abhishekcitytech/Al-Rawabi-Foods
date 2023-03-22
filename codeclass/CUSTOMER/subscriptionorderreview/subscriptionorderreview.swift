@@ -2281,7 +2281,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         print(myFloat1)
         
         
-        lblheaderpopupdeliveryslot.text = appDel.changeLanguage(key: "msg_language338")
+        lblheaderpopupdeliveryslot.text = appDel.changeLanguage(key: "msg_language338") 
         lblpopupdeliveryslot11.text = appDel.changeLanguage(key: "msg_language339")
         lblpopupdeliveryslot22.text = appDel.changeLanguage(key: "msg_language340")
         lblpopupdeliveryslot33.text = appDel.changeLanguage(key: "msg_language341")
@@ -2308,7 +2308,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         if strpageidentifier == "100"
         {
             //DAILY
-            self.txtsubsriptionplanpopup2.text = "Daily"
+            self.txtsubsriptionplanpopup2.text = appDel.changeLanguage(key: "msg_language37") //"Daily"
             
             self.txtsubsriptionplanpopup2.backgroundColor = UIColor(named: "lightgreencolor")!
             self.txtsubsriptionplanpopup2.isUserInteractionEnabled = false
@@ -2354,7 +2354,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         else if strpageidentifier == "200"
         {
             //WEEKLY
-            self.txtsubsriptionplanpopup2.text = "Weekly"
+            self.txtsubsriptionplanpopup2.text = appDel.changeLanguage(key: "msg_language38") //"Weekly"
             
             self.txtsubsriptionplanpopup2.backgroundColor = UIColor(named: "lightgreencolor")!
             self.txtsubsriptionplanpopup2.isUserInteractionEnabled = false
@@ -2399,7 +2399,7 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
         }
         else if strpageidentifier == "300"{
             //MONTHLY
-            self.txtsubsriptionplanpopup2.text = "Monthly"
+            self.txtsubsriptionplanpopup2.text = appDel.changeLanguage(key: "msg_language39") //"Monthly"
             
             self.txtsubsriptionplanpopup2.backgroundColor = UIColor(named: "lightgreencolor")!
             self.txtsubsriptionplanpopup2.isUserInteractionEnabled = false

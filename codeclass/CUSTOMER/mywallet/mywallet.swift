@@ -186,7 +186,8 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
         let strtransaction_at = String(format: "%@", dict?.value(forKey: "transaction_at")as? String ?? "")
         
         let strcurrent_amount = String(format: "%@", dict?.value(forKey: "current_amount")as? String ?? "")
-        let strcurrence_code = String(format: "%@", dict?.value(forKey: "currence_code")as? String ?? "")
+        var strcurrence_code = String(format: "%@", dict?.value(forKey: "currence_code")as? String ?? "")
+        strcurrence_code = myAppDelegate.changeLanguage(key: "msg_language481")
         
         let straction = String(format: "%@", dict?.value(forKey: "action")as? String ?? "")
         

@@ -120,13 +120,40 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
     
         print("strplan_id",strplan_id)
         if strplan_id == "1"{
-            self.imgvplan.image = UIImage(named: "ribbonlinedaily")
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.imgvplan.image = UIImage(named: "rb-daily-en")
+            }
+            else
+            {
+                self.imgvplan.image = UIImage(named: "rb-daily-ar")
+            }
+            
         }
         else if strplan_id == "2"{
-            self.imgvplan.image = UIImage(named: "ribbonlineweekly")
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.imgvplan.image = UIImage(named: "rb-weekly-en")
+            }
+            else
+            {
+                self.imgvplan.image = UIImage(named: "rb-weekly-ar")
+            }
+            
         }
         else if strplan_id == "3"{
-            self.imgvplan.image = UIImage(named: "ribbonlinemonthly")
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.imgvplan.image = UIImage(named: "rb-monthly-en")
+            }
+            else
+            {
+                self.imgvplan.image = UIImage(named: "rb-monthly-ar")
+            }
+            
         }
         txtstartdate.text = strsubscription_start_date
         txtenddate.text = strsubscription_end_date
@@ -1125,7 +1152,9 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
                             self.strDISCOUNTAMOUNT = strdiscount_amount
                             self.strDISCOUNTCODE = strcoupon_code
                             
-                            self.lblgrandtotal.text = String(format: "%@: (%@ %@ %@)",myAppDelegate.changeLanguage(key: "msg_language86"),myAppDelegate.changeLanguage(key: "msg_language443"),myAppDelegate.changeLanguage(key: "msg_language481"), self.strDISCOUNTAMOUNT)
+                            let fltamount111  = (self.strDISCOUNTAMOUNT as NSString).floatValue
+                            
+                            self.lblgrandtotal.text = String(format: "%@: (%@ %@ %0.2f)",myAppDelegate.changeLanguage(key: "msg_language86"),myAppDelegate.changeLanguage(key: "msg_language443"),myAppDelegate.changeLanguage(key: "msg_language481"), fltamount111)
                             
                             
                             self.txtcouponcode.isUserInteractionEnabled = false

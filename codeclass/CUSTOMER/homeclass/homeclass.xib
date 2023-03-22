@@ -45,6 +45,7 @@
                 <outlet property="lbltopdeals" destination="pOD-lb-RUR" id="Mz6-Te-1od"/>
                 <outlet property="lblweekly1" destination="eLq-4r-Zlk" id="hhG-NN-HwA"/>
                 <outlet property="lblweekly2" destination="NBo-Ly-E9e" id="ixx-Q2-nXA"/>
+                <outlet property="lborrrr" destination="aFQ-cF-NNm" id="lqo-1h-GHZ"/>
                 <outlet property="scrolloverall" destination="6bR-yg-21j" id="AYq-qz-zBa"/>
                 <outlet property="txtlocationselect" destination="KvF-Df-fbz" id="9Fe-dt-umc"/>
                 <outlet property="txtsearchbar" destination="j0j-4x-eoU" id="sLE-IV-KdT"/>

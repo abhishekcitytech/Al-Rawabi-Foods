@@ -95,7 +95,7 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
         
-        lblsubscriptionselected.text = String(format: "%@ - %@",myAppDelegate.changeLanguage(key: "msg_language74"), strplanname)
+        lblsubscriptionselected.text = String(format: "%@ - %@",myAppDelegate.changeLanguage(key: "msg_language74"), myAppDelegate.changeLanguage(key: "msg_language38"))
         
         lblmessage.text = myAppDelegate.changeLanguage(key: "msg_language65")
         lblautorenew.text = myAppDelegate.changeLanguage(key: "msg_language63")

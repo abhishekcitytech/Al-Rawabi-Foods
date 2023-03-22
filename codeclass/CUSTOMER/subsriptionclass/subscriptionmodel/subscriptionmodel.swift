@@ -101,7 +101,8 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
         txtstartdate.setLeftPaddingPoints(10)
         txtenddate.setLeftPaddingPoints(10)
         
-        lblsubscriptionselected.text = String(format: "%@ - %@",myAppDelegate.changeLanguage(key: "msg_language74"), strplanname)
+
+        lblsubscriptionselected.text = String(format: "%@ - %@",myAppDelegate.changeLanguage(key: "msg_language74"), myAppDelegate.changeLanguage(key: "msg_language37"))
         
         lblmessage.text = myAppDelegate.changeLanguage(key: "msg_language64")
         lblautorenew.text = myAppDelegate.changeLanguage(key: "msg_language63")

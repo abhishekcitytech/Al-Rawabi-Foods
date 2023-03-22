@@ -691,7 +691,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 self.tabvplan.reloadData()
                 
                 let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language325"), preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: String(format: "%@ & %@", myAppDelegate.changeLanguage(key: "msg_language50"),myAppDelegate.changeLanguage(key: "msg_language49")), style: .default, handler: { [self] (action: UIAlertAction!) in
+                refreshAlert.addAction(UIAlertAction(title: String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language49")), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "1"
@@ -785,7 +785,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 self.tabvplan.reloadData()
                 
                 let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language326"), preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: String(format: "%@ & %@", myAppDelegate.changeLanguage(key: "msg_language50"),myAppDelegate.changeLanguage(key: "msg_language49")), style: .default, handler: { [self] (action: UIAlertAction!) in
+                refreshAlert.addAction(UIAlertAction(title: String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language49")), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "2"
@@ -880,7 +880,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 self.tabvplan.reloadData()
                 
                 let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language327"), preferredStyle: UIAlertController.Style.alert)
-                refreshAlert.addAction(UIAlertAction(title: String(format: "%@ & %@", myAppDelegate.changeLanguage(key: "msg_language50"),myAppDelegate.changeLanguage(key: "msg_language49")), style: .default, handler: { [self] (action: UIAlertAction!) in
+                refreshAlert.addAction(UIAlertAction(title: String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language49")), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "3"

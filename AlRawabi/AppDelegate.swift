@@ -379,7 +379,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         var shortStringSubscription = String(myAppDelegate.changeLanguage(key: "msg_language478").prefix(trimToCharacter)) //msg_language74
         let shortStringOrderOnce = String(myAppDelegate.changeLanguage(key: "msg_language479").prefix(trimToCharacter)) //msg_language104
         let shortStringCart = String(myAppDelegate.changeLanguage(key: "msg_language114").prefix(trimToCharacter))
-        let shortStringMenu = String(myAppDelegate.changeLanguage(key: "msg_language145").prefix(trimToCharacter))
+        var shortStringMenu = String(myAppDelegate.changeLanguage(key: "msg_language145").prefix(trimToCharacter))
         
         let home:UIViewController
         if type == "login" {
@@ -417,6 +417,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         cartorderonce.tabBarItem.selectedImage = UIImage(named: "tab5")
         let cartorderonceNav  = UINavigationController(rootViewController: cartorderonce)
         
+        shortStringMenu = myAppDelegate.changeLanguage(key: "msg_language145")
         let menu = menuclass(nibName: "menuclass", bundle: nil)
         menu.tabBarItem.title = shortStringMenu
         menu.tabBarItem.image = UIImage(named: "tab44")

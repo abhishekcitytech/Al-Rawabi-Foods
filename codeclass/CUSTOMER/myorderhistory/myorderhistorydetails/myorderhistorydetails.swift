@@ -279,8 +279,10 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                             
                             let strgrandtotal = String(format: "%@", self.dicMOrderDetails.value(forKey: "grand_total")as? String ?? "")
                             let floatgrandtotal = Float(strgrandtotal)
-                            let strgrandtotalcurrency = String(format: "%@", self.dicMOrderDetails.value(forKey: "currence_code")as? String ?? "")
-                            self.lblordergrandtotal.text = String(format: "%@: %@ %0.2f ", myAppDelegate.changeLanguage(key: "msg_language86"),strgrandtotalcurrency,floatgrandtotal!)
+                            var strgrandtotalcurrency = String(format: "%@", self.dicMOrderDetails.value(forKey: "currence_code")as? String ?? "")
+                            strgrandtotalcurrency = myAppDelegate.changeLanguage(key: "msg_language481")
+                            
+                            self.lblordergrandtotal.text = String(format: "%@: %@ %0.2f", myAppDelegate.changeLanguage(key: "msg_language86"),strgrandtotalcurrency,floatgrandtotal!)
                             self.strciurrency = strgrandtotalcurrency
                             
                             let strpaymentmethod = String(format: "%@: %@", myAppDelegate.changeLanguage(key: "msg_language402"),self.dicMOrderDetails.value(forKey: "payment_method")as? String ?? "")

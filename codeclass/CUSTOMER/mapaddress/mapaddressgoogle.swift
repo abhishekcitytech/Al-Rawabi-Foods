@@ -104,7 +104,7 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
         
         self.lblalertstatus.text = ""
         self.lblalertstatus.isHidden = true
-        self.lblalertstatus.layer.cornerRadius = 8.0
+        self.lblalertstatus.layer.cornerRadius = 12.0
         self.lblalertstatus.layer.masksToBounds = true
         
         self.btnConfirmLocation.isHidden = true
@@ -254,9 +254,10 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
         self.mapview.camera = camera
         self.mapview.delegate = self
         self.mapview.mapType = .normal
-        //self.mapview.isMyLocationEnabled = false
+        self.mapview.isMyLocationEnabled = true
         self.mapview.isTrafficEnabled = true
         self.mapview.isBuildingsEnabled = true
+        self.mapview.settings.myLocationButton = true
         self.mapview.setMinZoom(0.5, maxZoom: 10000.0)
         
         self.mapview.bringSubviewToFront(pinImage)

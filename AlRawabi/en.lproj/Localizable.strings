@@ -74,7 +74,7 @@
 "msg_language65" = "You have to select 'Minimum 3 days orders a week OR full week i.e. 7 days' for Weekly subscription plan.";
 "msg_language66" = "You have to select 'Minimum 8 days orders a month OR full month i.e. no. of days in a month' for Monthly subscription plan.";
 "msg_language67" = "Review & Place Order";
-"msg_language68" = "Sub Total:";
+"msg_language68" = "Subtotal + Tax";
 "msg_language69" = "Note:  To add more product items for this date, you can go to product category  & add more.";
 "msg_language70" = "ADD TO ALL";
 "msg_language71" = "ADD ONCE";
@@ -90,11 +90,11 @@
 "msg_language81" = "Review Your Order";
 "msg_language82" = "Do you want to clear your selected subscription items?";
 "msg_language83" = "Click to choose preferred delivery slot"; 
-"msg_language84" = "Cart Subtotal + Tax";
+"msg_language84" = "Subtotal + Tax";
 "msg_language85" = "Shipping Charges";
 "msg_language86" = "Grand Total";
 "msg_language87" = "Total Product Items";
-"msg_language88" = "Sub Total:";
+"msg_language88" = "Subtotal + Tax";
 "msg_language89" = "Delivery on";
 "msg_language90" = "Shop AED 15 or more, for FREE delivery";
 "msg_language91" = "Details";
@@ -114,7 +114,7 @@
 "msg_language105" = "Choose Delivery Date";
 "msg_language106" = "Done";
 "msg_language107" = "Cancel";
-"msg_language108" = "Sub Total:";
+"msg_language108" = "Subtotal + Tax";
 "msg_language109" = "Shipping Charges:";
 "msg_language110" = "Discount:";
 "msg_language111" = "Tax:";
@@ -123,7 +123,7 @@
 "msg_language114" = "Cart";
 "msg_language115" = "Do you want to remove this item from your cart?";
 "msg_language116" = "Code -";
-"msg_language117" = "No cart products found!";
+"msg_language117" = "Cart empty!";
 "msg_language118" = "No shipping method found!";
 "msg_language119" = "Addresses";
 "msg_language120" = "Set as a default";
@@ -310,14 +310,14 @@
 "msg_language301" = "Subscription Details";
 "msg_language302" = "Do you want to Pause this subscription?";
 "msg_language303" = "Do you want to Resume this subscription?";
-"msg_language304" = "SubTotal";
+"msg_language304" = "Subtotal + Tax";
 "msg_language305" = "Shipping Amount";
 "msg_language306" = "Discount Amount";
 "msg_language307" = "Grnad Total";
 "msg_language308" = "Order";
 "msg_language309" = "Place on";
 "msg_language310" = "Profile Details";
-"msg_language311" = "Sub Total + Tax:";
+"msg_language311" = "Subtotal + Tax";
 "msg_language312" = "Ordered Amount";
 "msg_language313" = "Payment To Be Made";
 "msg_language314" = "Wallet Balance Amount";
@@ -430,7 +430,7 @@
 "msg_language421" = "Your maid account has been removed succsefully.";
 "msg_language422" = "Create Maid";
 "msg_language423" = "Maid purchase limit should be below or equal to AED 200";
-"msg_language424" = "Your maid account has been created succsefully.";
+"msg_language424" = "The maid account has been created successfully";
 "msg_language425" = "View";
 "msg_language426" = "Renew";
 "msg_language427" = "Do you want to Renew this subscription?";
@@ -488,7 +488,7 @@
 "msg_language479" = "Order";
 "msg_language480" = "Shippment#";
 "msg_language481" = "AED";
-"msg_language482" = "CONTINUE TO CHECKOUT";
+"msg_language482" = "Continue to Checkout";
 "msg_language483" = "Subscribe";
 "msg_language484" = "Pending";
 "msg_language485" = "Active";
@@ -505,4 +505,6 @@
 "msg_language495" = "Sunday";
 
 "msg_language496" = "Search by subscription Id";
+
+"msg_language497" = "View Details";
 
