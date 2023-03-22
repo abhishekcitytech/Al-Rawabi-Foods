@@ -466,7 +466,7 @@ class pausesubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         print("strbearertoken",strbearertoken)
         
         let strsubscription_id = String(format: "%@", dicsubscriptionlist.value(forKey: "subscription_id")as? String ?? "")
-        let parameters = ["subscription_id": strsubscription_id,"resumeDate":strresumedate] as [String : Any]
+        let parameters = ["subscription_id": strsubscription_id,"resumeDate":strresumedate,"language":strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod83)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

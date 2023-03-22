@@ -525,7 +525,7 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                           "maxorderamount": txtpurchaseamountlimit.text!,
                           "mobilenumber":txtmobileno.text!,
                           "countryCode":Constants.conn.STATICTELECPHONECODE,
-                          "allowedaddress":straddresslist] as [String : Any]
+                          "allowedaddress":straddresslist,"language":strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod67)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

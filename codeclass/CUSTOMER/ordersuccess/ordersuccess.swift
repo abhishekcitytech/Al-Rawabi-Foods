@@ -98,7 +98,10 @@ class ordersuccess: UIViewController
         
         if strpayfromOrderonce == "1"
         {
-            //SUBSCRIPTION CREATE
+            UserDefaults.standard.set("1", forKey: "paymentcompleted")
+            UserDefaults.standard.synchronize()
+            
+            //ORDER ONCE
             guard let vc = self.navigationController?.viewControllers else { return }
             for controller in vc {
                 if controller.isKind(of: homeclass.self) {
@@ -121,6 +124,9 @@ class ordersuccess: UIViewController
         }
         else if strpayfromOrderonce == "3"
         {
+            UserDefaults.standard.set("3", forKey: "paymentcompleted")
+            UserDefaults.standard.synchronize()
+            
             //RENEW
             guard let vc = self.navigationController?.viewControllers else { return }
             for controller in vc {
@@ -140,6 +146,9 @@ class ordersuccess: UIViewController
         }
         else if strpayfromOrderonce == "2"
         {
+            UserDefaults.standard.set("2", forKey: "paymentcompleted")
+            UserDefaults.standard.synchronize()
+            
             //SUBSCRIPTION CREATE
             guard let vc = self.navigationController?.viewControllers else { return }
             for controller in vc {

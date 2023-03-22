@@ -438,7 +438,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                           "maxorderamount": txtpurchaseamountlimit.text!,
                           "mobilenumber":txtmobileno.text!,
                           "countryCode":Constants.conn.STATICTELECPHONECODE,
-                          "allowedaddress":straddresslist] as [String : Any]
+                          "allowedaddress":straddresslist,"language":strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod67)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -528,6 +528,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
     //MARK: - Remove maid account API Method
     func removemaidaccountAPIMethod(rowid:String)
     {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -539,7 +540,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
-        let parameters = ["rowid": rowid] as [String : Any]
+        let parameters = ["rowid": rowid,"language":strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod70)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

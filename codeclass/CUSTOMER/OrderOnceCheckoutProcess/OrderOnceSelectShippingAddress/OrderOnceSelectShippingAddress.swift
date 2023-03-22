@@ -206,6 +206,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         if tableView == tabvmyaddress
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! cellSelectShippingAddress
@@ -294,13 +295,16 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
             }
             
             
+            cell.lbldefault.text = myAppDelegate.changeLanguage(key: "msg_language121")
+            cell.lblSetAsDefault.text = myAppDelegate.changeLanguage(key: "msg_language120")
+            
             cell.switchSetdefault.tag = indexPath.section
             cell.switchSetdefault.addTarget(self, action: #selector(pressswitchSetdefault), for: .touchUpInside)
             
             return cell;
         }
         
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier2, for: indexPath) as! cellSelectShippingMethod
         cell.selectionStyle=UITableViewCell.SelectionStyle.none
         cell.accessoryType = UITableViewCell.AccessoryType.none
@@ -326,6 +330,8 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
         else{
             cell.imgvradio.image = UIImage(named: "uncheckRadio")
         }
+        
+       
         
         cell.imgvradio.isHidden = true
         return cell;

@@ -52,54 +52,54 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     
     
     lazy var titleStackView: UIStackView = {
-            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-            let titleLabel = UILabel()
-            titleLabel.textAlignment = .center
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let titleLabel = UILabel()
+        titleLabel.textAlignment = .center
         titleLabel.textColor = UIColor(named: "themecolor")
         titleLabel.font = UIFont(name: "NunitoSans-Bold", size: 17)
-            titleLabel.text = myAppDelegate.changeLanguage(key: "msg_language74")
-            let stackView = UIStackView(arrangedSubviews: [titleLabel])
-            return stackView
-        }()
-
+        titleLabel.text = myAppDelegate.changeLanguage(key: "msg_language74")
+        let stackView = UIStackView(arrangedSubviews: [titleLabel])
+        return stackView
+    }()
+    
     
     /*var shortStringSubscription = ""
-    override func awakeFromNib() {
-        
-        self.tabBarController?.tabBarItem.title = shortStringSubscription
-    }
-    
-    //MARK: - press tab bar controller Did Select Method
-    func tabBarController(_ tabBarController: UITabBarController,shouldSelect viewController: UIViewController) -> Bool
-    {
-        let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController)!
-        print("selectedIndex",selectedIndex as Any)
-        return true
-    }
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController)
-    {
-        let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController)!
-        print("selectedIndex",selectedIndex as Any)
-        
-        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-        if (strLangCode == "en")
-        {
-            if selectedIndex == 1{
-                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-                let trimToCharacter = 6
-                shortStringSubscription = String(myAppDelegate.changeLanguage(key: "msg_language74").prefix(trimToCharacter))
-                
-            }
-        }
-        else{
-            if selectedIndex == 3{
-                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-                let trimToCharacter = 6
-                shortStringSubscription = String(myAppDelegate.changeLanguage(key: "msg_language74").prefix(trimToCharacter))
-                
-            }
-        }
-    }*/
+     override func awakeFromNib() {
+     
+     self.tabBarController?.tabBarItem.title = shortStringSubscription
+     }
+     
+     //MARK: - press tab bar controller Did Select Method
+     func tabBarController(_ tabBarController: UITabBarController,shouldSelect viewController: UIViewController) -> Bool
+     {
+     let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController)!
+     print("selectedIndex",selectedIndex as Any)
+     return true
+     }
+     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController)
+     {
+     let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController)!
+     print("selectedIndex",selectedIndex as Any)
+     
+     let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+     if (strLangCode == "en")
+     {
+     if selectedIndex == 1{
+     let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+     let trimToCharacter = 6
+     shortStringSubscription = String(myAppDelegate.changeLanguage(key: "msg_language74").prefix(trimToCharacter))
+     
+     }
+     }
+     else{
+     if selectedIndex == 3{
+     let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+     let trimToCharacter = 6
+     shortStringSubscription = String(myAppDelegate.changeLanguage(key: "msg_language74").prefix(trimToCharacter))
+     
+     }
+     }
+     }*/
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -182,16 +182,16 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     }
     
     override func viewWillLayoutSubviews() {
-            super.viewWillLayoutSubviews()
-
-            if view.traitCollection.horizontalSizeClass == .compact {
-                titleStackView.axis = .vertical
-                titleStackView.spacing = UIStackView.spacingUseDefault
-            } else {
-                titleStackView.axis = .horizontal
-                titleStackView.spacing = 20.0
-            }
-}
+        super.viewWillLayoutSubviews()
+        
+        if view.traitCollection.horizontalSizeClass == .compact {
+            titleStackView.axis = .vertical
+            titleStackView.spacing = UIStackView.spacingUseDefault
+        } else {
+            titleStackView.axis = .horizontal
+            titleStackView.spacing = 20.0
+        }
+    }
     
     // MARK: - viewDidLoad method
     override func viewDidLoad()
@@ -239,7 +239,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         tabvplan.backgroundColor=UIColor.clear
         tabvplan.separatorColor=UIColor.clear
         tabvplan.showsVerticalScrollIndicator = false
-         
+        
         lblhowto.text = String(format: "%@\n%@", myAppDelegate.changeLanguage(key: "msg_language54"),myAppDelegate.changeLanguage(key: "msg_language55"))
         lblor.text = myAppDelegate.changeLanguage(key: "msg_language19")
         btnbuynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language44")), for: .normal)
@@ -248,10 +248,10 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     
     //MARK: - press Search method
     /*@objc func pressSearch()
-    {
-        let ctrl = searchproductlist(nibName: "searchproductlist", bundle: nil)
-        self.navigationController?.pushViewController(ctrl, animated: true)
-    }*/
+     {
+     let ctrl = searchproductlist(nibName: "searchproductlist", bundle: nil)
+     self.navigationController?.pushViewController(ctrl, animated: true)
+     }*/
     
     //MARK: - press Cartbag method
     @objc func presscartbag()
@@ -275,15 +275,15 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         if textField.isEqual(txtdeliveryaddress)
         {
             /*self.view.endEditing(true)
-            let ctrl = mapaddress(nibName: "mapaddress", bundle: nil)
-            ctrl.strFrompageMap = "subsriptionclass"
-            self.navigationController?.pushViewController(ctrl, animated: true)
+             let ctrl = mapaddress(nibName: "mapaddress", bundle: nil)
+             ctrl.strFrompageMap = "subsriptionclass"
+             self.navigationController?.pushViewController(ctrl, animated: true)
              
              let ctrl = mapaddressgoogle(nibName: "mapaddressgoogle", bundle: nil)
              ctrl.strFrompageMap = "subsriptionclass"
              self.navigationController?.pushViewController(ctrl, animated: true)
              
-            return false*/
+             return false*/
             
             self.view.endEditing(true)
             if isBoolDropdown == true {
@@ -439,11 +439,11 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             title1.backgroundColor = UIColor.clear
             title1.font = UIFont.systemFont(ofSize: 14)
             cell.contentView.addSubview(title1)
-          
+            
             let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
             let strvalue = String(format: "%@", dictemp.value(forKey: "value")as! CVarArg)
             let strlabel = String(format: "%@", dictemp.value(forKey: "label")as? String ?? "")
-           
+            
             title1.text = strlabel
             
             let lblSeparator = UILabel(frame: CGRect(x: 0, y: 39, width: tableView.frame.size.width, height: 1))
@@ -630,7 +630,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                 {
                     self.strSelectedplanCurrently = "1"
                     self.insertSubscriptionmodelTable(strplanname: "Daily", strplanid: "1")
-                   
+                    
                     let ctrl = subscriptionmodel(nibName: "subscriptionmodel", bundle: nil)
                     ctrl.strplanname = strplanname
                     self.navigationController?.pushViewController(ctrl, animated: true)
@@ -659,11 +659,11 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath)
     {
-       
+        
     }
     
     
-
+    
     //MARK: - press Buy Once Method
     @IBAction func pressbuynow(_ sender: Any) {
         
@@ -695,9 +695,9 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "1"
-                    let ctrl = subscriptionmodel(nibName: "subscriptionmodel", bundle: nil)
-                    ctrl.strplanname = "Daily"
-                    self.navigationController?.pushViewController(ctrl, animated: true)*/
+                     let ctrl = subscriptionmodel(nibName: "subscriptionmodel", bundle: nil)
+                     ctrl.strplanname = "Daily"
+                     self.navigationController?.pushViewController(ctrl, animated: true)*/
                     
                     //Remove Subscriptionmodel table data
                     let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
@@ -748,6 +748,8 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     self.tabvplan.reloadData()
                     self.tabvplan.isUserInteractionEnabled = true
                     
+                    
+                    
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
             }
@@ -761,6 +763,22 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             self.strSelectedplanCurrently = ""
             self.tabvplan.reloadData()
             self.tabvplan.isUserInteractionEnabled = true
+        }
+        
+        let strpaymentcompleted = UserDefaults.standard.value(forKey: "paymentcompleted")as? String ?? ""
+        print("strpaymentcompleted",strpaymentcompleted)
+        if strpaymentcompleted == "2"{
+            UserDefaults.standard.removeObject(forKey: "paymentcompleted")
+            UserDefaults.standard.synchronize()
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.tabBarController?.selectedIndex = 0
+            }
+            else
+            {
+                self.tabBarController?.selectedIndex = 4
+            }
         }
     }
     
@@ -789,9 +807,9 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "2"
-                    let ctrl = subscriptionmodelweekly(nibName: "subscriptionmodelweekly", bundle: nil)
-                    ctrl.strplanname = "Weekly"
-                    self.navigationController?.pushViewController(ctrl, animated: true)*/
+                     let ctrl = subscriptionmodelweekly(nibName: "subscriptionmodelweekly", bundle: nil)
+                     ctrl.strplanname = "Weekly"
+                     self.navigationController?.pushViewController(ctrl, animated: true)*/
                     
                     //Remove Subscriptionmodel table data
                     let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
@@ -844,7 +862,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
-               
+                
             }
             else{
                 self.strSelectedplanCurrently = ""
@@ -856,6 +874,22 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             self.strSelectedplanCurrently = ""
             self.tabvplan.reloadData()
             self.tabvplan.isUserInteractionEnabled = true
+        }
+        
+        let strpaymentcompleted = UserDefaults.standard.value(forKey: "paymentcompleted")as? String ?? ""
+        print("strpaymentcompleted",strpaymentcompleted)
+        if strpaymentcompleted == "2"{
+            UserDefaults.standard.removeObject(forKey: "paymentcompleted")
+            UserDefaults.standard.synchronize()
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.tabBarController?.selectedIndex = 0
+            }
+            else
+            {
+                self.tabBarController?.selectedIndex = 4
+            }
         }
     }
     
@@ -884,9 +918,9 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     print("Handle Continue Logic here")
                     
                     /*self.strSelectedplanCurrently = "3"
-                    let ctrl = subscriptionmodelmonthly(nibName: "subscriptionmodelmonthly", bundle: nil)
-                    ctrl.strplanname = "Monthly"
-                    self.navigationController?.pushViewController(ctrl, animated: true)*/
+                     let ctrl = subscriptionmodelmonthly(nibName: "subscriptionmodelmonthly", bundle: nil)
+                     ctrl.strplanname = "Monthly"
+                     self.navigationController?.pushViewController(ctrl, animated: true)*/
                     
                     //Remove Subscriptionmodel table data
                     let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
@@ -939,7 +973,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
                     
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
-               
+                
             }
             else{
                 self.strSelectedplanCurrently = ""
@@ -951,6 +985,23 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
             self.strSelectedplanCurrently = ""
             self.tabvplan.reloadData()
             self.tabvplan.isUserInteractionEnabled = true
+        }
+        
+        let strpaymentcompleted = UserDefaults.standard.value(forKey: "paymentcompleted")as? String ?? ""
+        print("strpaymentcompleted",strpaymentcompleted)
+        if strpaymentcompleted == "2"{
+            UserDefaults.standard.removeObject(forKey: "paymentcompleted")
+            UserDefaults.standard.synchronize()
+
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.tabBarController?.selectedIndex = 0
+            }
+            else
+            {
+                self.tabBarController?.selectedIndex = 4
+            }
         }
     }
     
@@ -975,7 +1026,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         do{
             try manageContent.save()
         }catch let error as NSError {
-           print("could not save . \(error), \(error.userInfo)")
+            print("could not save . \(error), \(error.userInfo)")
         }
     }
     

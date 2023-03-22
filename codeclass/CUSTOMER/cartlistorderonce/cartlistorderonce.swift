@@ -10,7 +10,7 @@ import DatePickerDialog
 
 class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate
 {
-
+    
     
     @IBOutlet weak var viewoverall: UIView!
     
@@ -96,6 +96,22 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
+        let strpaymentcompleted = UserDefaults.standard.value(forKey: "paymentcompleted")as? String ?? ""
+        print("strpaymentcompleted",strpaymentcompleted)
+        if strpaymentcompleted == "1"{
+            UserDefaults.standard.removeObject(forKey: "paymentcompleted")
+            UserDefaults.standard.synchronize()
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.tabBarController?.selectedIndex = 0
+            }
+            else
+            {
+                self.tabBarController?.selectedIndex = 4
+            }
+        }
+        
         self.viewoverall.isHidden = true
         self.postCartlistOrderonceAPIMethod()
     }
@@ -136,7 +152,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
         back.tintColor = UIColor.black
         //self.navigationItem.leftBarButtonItem = back
-
+        
         txtchoosedeliverydate.layer.borderWidth = 1.0
         txtchoosedeliverydate.layer.borderColor = UIColor(named: "darkgreencolor")!.cgColor
         txtchoosedeliverydate.layer.cornerRadius = 6.0
@@ -165,7 +181,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
             btnapplydiscount.isHidden = true
             btnremovecoupon.isHidden = false
         }
-
+        
     }
     
     //MARK: - press back method
@@ -235,7 +251,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
             self.getRemoveCouponAPIMethod()
         }))
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-              print("Handle Cancel Logic here")
+            print("Handle Cancel Logic here")
         }))
         self.present(refreshAlert, animated: true, completion: nil)
     }
@@ -526,7 +542,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-
+        
     }
     
     //MARK: - press Plus Method
@@ -575,14 +591,14 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
             //cart item 0
             
             /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
-                print("Handle Continue Logic here")
-                self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
-            }))
-            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-                  print("Handle Cancel Logic here")
-            }))
-            self.present(refreshAlert, animated: true, completion: nil)*/
+             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+             print("Handle Continue Logic here")
+             self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
+             }))
+             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+             print("Handle Cancel Logic here")
+             }))
+             self.present(refreshAlert, animated: true, completion: nil)*/
             
             self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
         }
@@ -602,14 +618,14 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         let strquote_id = String(format: "%@", dict.value(forKey: "quote_id") as? String ?? "")
         
         /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
-        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
-            print("Handle Continue Logic here")
-            self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
-        }))
-        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-              print("Handle Cancel Logic here")
-        }))
-        self.present(refreshAlert, animated: true, completion: nil)*/
+         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+         print("Handle Continue Logic here")
+         self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
+         }))
+         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+         print("Handle Cancel Logic here")
+         }))
+         self.present(refreshAlert, animated: true, completion: nil)*/
         
         self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
     }
@@ -682,7 +698,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -862,10 +878,10 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                             self.btnclearall.isHidden = true
                             
                             /*let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                                print("Click of default button")
-                            }))*/
+                             self.present(uiAlert, animated: true, completion: nil)
+                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                             print("Click of default button")
+                             }))*/
                         }
                         
                         if self.arrMcartItems.count == 0{
@@ -969,7 +985,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -1029,7 +1045,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         let strcustomerid = UserDefaults.standard.value(forKey: "customerid")as? String ?? ""
         print("strcustomerid",strcustomerid)
         
-       
+        
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
@@ -1074,7 +1090,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                         self.view.isUserInteractionEnabled = true
                         //self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -1134,7 +1150,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
-       
+        
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod72)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
@@ -1257,7 +1273,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         let strcustomerid = UserDefaults.standard.value(forKey: "customerid")as? String ?? ""
         print("strcustomerid",strcustomerid)
         
-       
+        
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
@@ -1303,7 +1319,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                         self.view.isUserInteractionEnabled = true
                         //self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -1361,7 +1377,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
-       
+        
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod104)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
@@ -1595,8 +1611,8 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         print("strbearertoken",strbearertoken)
         
         /*let parameters = ["date": txtchoosedeliverydate.text!,
-                          "comment": "",
-                          "timeintervalid": strSelectedTimeSlotID] as [String : Any]*/
+         "comment": "",
+         "timeintervalid": strSelectedTimeSlotID] as [String : Any]*/
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod110)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -1606,9 +1622,9 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         print("strconnurl",strconnurl)
         
         /*let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
-        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
-        print("json string = \(jsonString)")
-        request.httpBody = jsonData as Data*/
+         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+         print("json string = \(jsonString)")
+         request.httpBody = jsonData as Data*/
         
         let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             guard error == nil && data != nil else
@@ -1636,7 +1652,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                         self.view.isUserInteractionEnabled = true
                         //self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -1684,16 +1700,16 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
         task.resume()
     }
-
+    
 }
 extension UILabel {
     func underline() {
         if let textString = self.text {
-          let attributedString = NSMutableAttributedString(string: textString)
+            let attributedString = NSMutableAttributedString(string: textString)
             attributedString.addAttribute(NSAttributedString.Key.underlineStyle,
                                           value: NSUnderlineStyle.single.rawValue,
                                           range: NSRange(location: 0, length: attributedString.length))
-          attributedText = attributedString
+            attributedText = attributedString
         }
     }
 }
@@ -1715,7 +1731,7 @@ extension UITabBarController {
             badgeView.layer.transform = CATransform3DMakeTranslation(1.0, +10.0, 1.0)
         }
     }
-
+    
     func repositionBadges(tab: Int? = nil) {
         if let tabIndex = tab {
             for badgeView in self.tabBar.subviews[tabIndex].subviews {

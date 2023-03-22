@@ -69,11 +69,11 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
         {
-            btnaddnewaddress.frame = CGRect(x: tabvmyaddress.frame.maxX - btnaddnewaddress.frame.size.width - 10, y: btnaddnewaddress.frame.origin.y, width: btnaddnewaddress.frame.size.width, height: btnaddnewaddress.frame.size.height)
+            //btnaddnewaddress.frame = CGRect(x: tabvmyaddress.frame.maxX - btnaddnewaddress.frame.size.width - 10, y: btnaddnewaddress.frame.origin.y, width: btnaddnewaddress.frame.size.width, height: btnaddnewaddress.frame.size.height)
         }
         else
         {
-            btnaddnewaddress.frame = CGRect(x: 10, y: btnaddnewaddress.frame.origin.y, width: btnaddnewaddress.frame.size.width, height: btnaddnewaddress.frame.size.height)
+           // btnaddnewaddress.frame = CGRect(x: 10, y: btnaddnewaddress.frame.origin.y, width: btnaddnewaddress.frame.size.width, height: btnaddnewaddress.frame.size.height)
         }
         
         let backicon = UIImage(named: "back")
@@ -178,6 +178,8 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier1, for: indexPath) as! cellSelectShippingAddress
         cell.selectionStyle=UITableViewCell.SelectionStyle.none
         cell.accessoryType = UITableViewCell.AccessoryType.none
@@ -263,6 +265,8 @@ class SubscriptionShippingAddress: UIViewController,UITableViewDelegate,UITableV
             cell.imgvSelection.image = UIImage(named: "uncheckRadio")
         }
         
+        cell.lbldefault.text = myAppDelegate.changeLanguage(key: "msg_language121")
+        cell.lblSetAsDefault.text = myAppDelegate.changeLanguage(key: "msg_language120")
         
         cell.switchSetdefault.tag = indexPath.section
         cell.switchSetdefault.addTarget(self, action: #selector(pressswitchSetdefault), for: .touchUpInside)

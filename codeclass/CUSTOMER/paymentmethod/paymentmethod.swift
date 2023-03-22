@@ -1403,7 +1403,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language348") , preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                self.navigationController?.popToRootViewController(animated: true)
+                //self.navigationController?.popToRootViewController(animated: true)
             }))
         }
         else if(status == .PaymentCancelled)
@@ -1411,7 +1411,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language349") , preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                self.navigationController?.popToRootViewController(animated: true)
+                //self.navigationController?.popToRootViewController(animated: true)
             }))
         }
     }
