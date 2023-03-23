@@ -95,7 +95,7 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
         txtmobileno.text = strphone_number
         txtpurchaseamountlimit.text = String(format: "%@",strmax_order_amount)
         
-        if strstatus == "Active"
+        if strstatus == "Active" || strstatus == "فعال"
         {
             //ACTIVE
             segmentstatus.selectedSegmentIndex = 0

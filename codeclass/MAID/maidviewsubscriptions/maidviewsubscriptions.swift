@@ -151,7 +151,7 @@ class maidviewsubscriptions: UIViewController,UITableViewDelegate,UITableViewDat
          "msg_language485" = "Active";
          "msg_language486" = "Paused";
          "msg_language487" = "Expired";
-         "msg_language488" = "Canceled";*/
+         "msg_language488" = "Canceled";
         
         if strsubscription_status.containsIgnoreCase("Pending"){
             cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language484")
@@ -167,7 +167,7 @@ class maidviewsubscriptions: UIViewController,UITableViewDelegate,UITableViewDat
         }
         else if strsubscription_status.containsIgnoreCase("Cancel"){
             cell.lblstatus.text = myAppDelegate.changeLanguage(key: "msg_language488")
-        }
+        }*/
         
         cell.lblstatus.text = String(format: "%@",strsubscription_status)
         cell.lblstatus.textColor = .white

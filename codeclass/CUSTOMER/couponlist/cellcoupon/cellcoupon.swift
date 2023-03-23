@@ -7,7 +7,8 @@
 
 import UIKit
 
-class cellcoupon: UITableViewCell {
+class cellcoupon: UITableViewCell
+{
     @IBOutlet weak var viewcell: UIView!
     @IBOutlet weak var lblcouponcode: UILabel!
     @IBOutlet weak var lblexpdate: UILabel!

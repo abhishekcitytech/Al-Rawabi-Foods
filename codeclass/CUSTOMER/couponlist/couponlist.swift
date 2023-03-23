@@ -166,8 +166,8 @@ class couponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,UITab
         cell.lblselectcopy.layer.cornerRadius = 6.0
         cell.lblselectcopy.layer.masksToBounds = true
         
-        cell.lblcouponcode.text = String(format: "Coupon Code: %@", strcouponcode)
-        cell.lblexpdate.text = String(format: "Expiration Date: %@",strexpdate)
+        cell.lblcouponcode.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language230"),strcouponcode)
+        cell.lblexpdate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language231"),strexpdate)
         
         cell.lblselectcopy.text = myAppDelegate.changeLanguage(key: "msg_language233")
         

@@ -182,7 +182,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.lblorderamount.text = String(format: "%@ %0.2f", strcurrence_code,fltamount1)
         cell.lblorderstatus.text = String(format: "%@", straction)
         
-        if straction.containsIgnoreCase("debit"){
+        if straction.containsIgnoreCase("debit") || straction.containsIgnoreCase("دَين"){
             cell.lblorderstatus.textColor = UIColor(named: "darkgreencolor")!
         }else{
             cell.lblorderstatus.textColor = UIColor(named: "darkmostredcolor")!

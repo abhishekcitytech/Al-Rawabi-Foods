@@ -178,7 +178,7 @@
                                                 <outlet property="delegate" destination="-1" id="92A-F4-VBe"/>
                                             </connections>
                                         </textField>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="downarrow" translatesAutoresizingMaskIntoConstraints="NO" id="iHk-uu-dsI">
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="downarrow" translatesAutoresizingMaskIntoConstraints="NO" id="iHk-uu-dsI">
                                             <rect key="frame" x="333" y="14" width="18" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                         </imageView>

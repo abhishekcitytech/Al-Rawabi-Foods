@@ -83,9 +83,11 @@ class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDele
         
         
         
-        webcontent.uiDelegate = self
-        webcontent.navigationDelegate = self
-        
+        self.webcontent.uiDelegate = self
+        self.webcontent.navigationDelegate = self
+        self.webcontent.scrollView.minimumZoomScale = CGFloat(100)
+        self.webcontent.scrollView.maximumZoomScale = CGFloat(500)
+        self.webcontent.scrollView.zoomScale = CGFloat(100)
         
         
         
@@ -108,7 +110,10 @@ class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDele
     func loadHTMLStringImage(strpagecontent:String)
     {
         let htmlString = strpagecontent
-        webcontent.loadHTMLString(htmlString, baseURL: nil)
+        
+        let font = "<font size='21' color= 'black'>%@"
+        let html = String(format: font, htmlString)
+        webcontent.loadHTMLString(html, baseURL: nil)
     }
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!)
     {
@@ -116,13 +121,6 @@ class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDele
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation)
     {
-        let contentSize:CGSize = self.webcontent.scrollView.contentSize
-        let viewSize:CGSize = self.view.bounds.size
-        let rw:Float = Float(viewSize.width / contentSize.width)
-        print("rw",rw)
-        self.webcontent.scrollView.minimumZoomScale = CGFloat(rw)
-        self.webcontent.scrollView.maximumZoomScale = CGFloat(rw)
-        self.webcontent.scrollView.zoomScale = CGFloat(rw)
     }
    
     
@@ -203,6 +201,43 @@ class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDele
             }
         }
         task.resume()
+    }
+
+}
+extension NSAttributedString {
+
+    convenience init(htmlString html: String, font: UIFont? = nil, useDocumentFontSize: Bool = true) throws {
+        let options: [NSAttributedString.DocumentReadingOptionKey : Any] = [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue
+        ]
+
+        let data = html.data(using: .utf8, allowLossyConversion: true)
+        guard (data != nil), let fontFamily = font?.familyName, let attr = try? NSMutableAttributedString(data: data!, options: options, documentAttributes: nil) else {
+            try self.init(data: data ?? Data(html.utf8), options: options, documentAttributes: nil)
+            return
+        }
+
+        let fontSize: CGFloat? = useDocumentFontSize ? nil : font!.pointSize
+        let range = NSRange(location: 0, length: attr.length)
+        attr.enumerateAttribute(.font, in: range, options: .longestEffectiveRangeNotRequired) { attrib, range, _ in
+            if let htmlFont = attrib as? UIFont {
+                let traits = htmlFont.fontDescriptor.symbolicTraits
+                var descrip = htmlFont.fontDescriptor.withFamily(fontFamily)
+
+                if (traits.rawValue & UIFontDescriptor.SymbolicTraits.traitBold.rawValue) != 0 {
+                    descrip = descrip.withSymbolicTraits(.traitBold)!
+                }
+
+                if (traits.rawValue & UIFontDescriptor.SymbolicTraits.traitItalic.rawValue) != 0 {
+                    descrip = descrip.withSymbolicTraits(.traitItalic)!
+                }
+
+                attr.addAttribute(.font, value: UIFont(descriptor: descrip, size: fontSize ?? htmlFont.pointSize), range: range)
+            }
+        }
+
+        self.init(attributedString: attr)
     }
 
 }

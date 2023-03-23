@@ -168,33 +168,7 @@ class myorderhistory: UIViewController,UITableViewDelegate,UITableViewDataSource
         cell.lblpauseresume.isHidden = true
         cell.switchpauseresume.isHidden = true
         
-        if strstatus == "ngenius_authorised" || strstatus == "processing"
-        {
-            cell.lblstatus.textColor = UIColor(named: "greencolor")!
-            //cell.switchpauseresume.isOn = false
-            //cell.lblpauseresume.text = "Pause"
-        }
-        else if strstatus == "complete"
-        {
-            cell.lblstatus.textColor = UIColor(named: "greencolor")!
-            //cell.switchpauseresume.isOn = false
-            //cell.lblpauseresume.text = "Pause"
-        }
-        else if strstatus == "pending"
-        {
-            cell.lblstatus.textColor = UIColor(named: "orangecolor")!
-            //cell.switchpauseresume.isOn = true
-            //cell.lblpauseresume.text = "Start"
-        }
-        else if strstatus == "canceled"
-        {
-            cell.lblstatus.textColor = UIColor(named: "darkredcolor")!
-            //cell.switchpauseresume.isOn = false
-            //cell.lblpauseresume.text = "Pause"
-        }
-        else{
-            cell.lblstatus.textColor = UIColor.darkGray
-        }
+        cell.lblstatus.textColor = UIColor.black
         
         cell.btndetails.layer.borderWidth = 1.0
         cell.btndetails.layer.borderColor = UIColor(named: "greencolor")!.cgColor

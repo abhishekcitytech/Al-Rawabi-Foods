@@ -82,20 +82,22 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
         if (strLangCode == "en")
         {
         
-            self.viewiconbox1.frame = CGRect(x: 1, y: self.viewiconbox1.frame.origin.y, width: self.viewiconbox1.frame.size.width, height: self.viewiconbox1.frame.size.height)
+            /*self.viewiconbox1.frame = CGRect(x: 1, y: self.viewiconbox1.frame.origin.y, width: self.viewiconbox1.frame.size.width, height: self.viewiconbox1.frame.size.height)
             
             self.lblcountrycode.frame = CGRect(x: self.viewiconbox1.frame.maxX, y: self.lblcountrycode.frame.origin.y, width: self.lblcountrycode.frame.size.width, height: self.lblcountrycode.frame.size.height)
-            self.txtmobileno.frame = CGRect(x: self.lblcountrycode.frame.maxX, y: self.txtmobileno.frame.origin.y, width: self.txtmobileno.frame.size.width, height: self.txtmobileno.frame.size.height)
+            self.txtmobileno.frame = CGRect(x: self.lblcountrycode.frame.maxX, y: self.txtmobileno.frame.origin.y, width: self.txtmobileno.frame.size.width, height: self.txtmobileno.frame.size.height)*/
+            
             self.txtmobileno.textAlignment = .left
             
         }
         else
         {
             
-            self.viewiconbox1.frame = CGRect(x: self.viewmobileno.frame.size.width - 53, y: self.viewiconbox1.frame.origin.y, width: self.viewiconbox1.frame.size.width, height: self.viewiconbox1.frame.size.height)
+            /*self.viewiconbox1.frame = CGRect(x: self.viewmobileno.frame.size.width - 53, y: self.viewiconbox1.frame.origin.y, width: self.viewiconbox1.frame.size.width, height: self.viewiconbox1.frame.size.height)
             
             self.lblcountrycode.frame = CGRect(x: self.viewiconbox1.frame.minX - 44, y: self.lblcountrycode.frame.origin.y, width: self.lblcountrycode.frame.size.width, height: self.lblcountrycode.frame.size.height)
-            self.txtmobileno.frame = CGRect(x: 1, y: self.txtmobileno.frame.origin.y, width: self.txtmobileno.frame.size.width, height: self.txtmobileno.frame.size.height)
+            self.txtmobileno.frame = CGRect(x: 1, y: self.txtmobileno.frame.origin.y, width: self.txtmobileno.frame.size.width, height: self.txtmobileno.frame.size.height)*/
+            
             self.txtmobileno.textAlignment = .right
             
         }

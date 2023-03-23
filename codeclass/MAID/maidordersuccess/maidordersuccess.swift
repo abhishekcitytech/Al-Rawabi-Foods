@@ -55,7 +55,16 @@ class maidordersuccess: UIViewController
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         self.title = myAppDelegate.changeLanguage(key: "msg_language198")
         
-        lbl1.text = myAppDelegate.changeLanguage(key: "msg_language199")
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            lbl1.text = String(format: "%@!", myAppDelegate.changeLanguage(key: "msg_language199"))
+        }
+        else
+        {
+            lbl1.text = String(format: "!%@", myAppDelegate.changeLanguage(key: "msg_language199"))
+        }
+        
         lbl2.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language200"),myAppDelegate.changeLanguage(key: "msg_language201"))
         
         btncontinueshopping.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language203")), for: .normal)

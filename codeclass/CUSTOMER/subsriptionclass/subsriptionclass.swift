@@ -240,7 +240,8 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         tabvplan.separatorColor=UIColor.clear
         tabvplan.showsVerticalScrollIndicator = false
         
-        lblhowto.text = String(format: "%@\n%@", myAppDelegate.changeLanguage(key: "msg_language54"),myAppDelegate.changeLanguage(key: "msg_language55"))
+        lblhowto.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language449"))
+        //String(format: "%@\n%@", myAppDelegate.changeLanguage(key: "msg_language54"),myAppDelegate.changeLanguage(key: "msg_language55"))
         lblor.text = myAppDelegate.changeLanguage(key: "msg_language19")
         btnbuynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language44")), for: .normal)
         

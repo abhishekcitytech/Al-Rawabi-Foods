@@ -168,7 +168,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
         print("strprice",strprice)
         if strprice != ""{
             let fltprice = Float(strprice)
-            cellA.lblprice.text = String(format: "%.2f", fltprice!)
+            cellA.lblprice.text = String(format: "%@ %.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!)
         }
         
         cellA.viewcell.layer.cornerRadius = 8.0

@@ -80,7 +80,7 @@
 "msg_language71" = "ADD ONCE";
 "msg_language72" = "Choose Products";
 "msg_language73" = "Edit";
-"msg_language74" = "Subscription";
+"msg_language74" = "Subscriptions";
 "msg_language75" = "no recods found!";
 "msg_language76" = "Ok";
 "msg_language77" = "Cancel";
@@ -205,7 +205,7 @@
 "msg_language196" = "CARD HOLDER";
 "msg_language197" = "EXPIRE ON";
 "msg_language198" = "Order Success";
-"msg_language199" = "Your order was successful!";
+"msg_language199" = "Your order was successful";
 "msg_language200" = "You will get a response ";
 "msg_language201" = "within few minutes";
 "msg_language202" = "Track Order";
@@ -269,7 +269,7 @@
 "msg_language260" = "Please add your address in your address book.";
 "msg_language261" = "Address not found, please try again later";
 "msg_language262" = "You are inside our delivery area!";
-"msg_language263" = "We do not deliver to this area!";
+"msg_language263" = "We don't deliver to this area";
 "msg_language264" = "Please choose your location address";
 "msg_language265" = "Search";
 "msg_language266" = "Please Choose Your Preferred Delivery Time Slot";
@@ -329,7 +329,7 @@
 "msg_language320" = "No payment methods found!";
 "msg_language321" = "Please enter your username";
 "msg_language322" = "Please enter your passsword";
-"msg_language323" = "We do not deliver to this area! please choose alternate location.";
+"msg_language323" = "We don't deliver to this area";
 "msg_language324" = "Please choose alternate location to continue";
 "msg_language325" = "Your selected Daily subscription will be deleted";
 "msg_language326" = "Your selected Weekly subscription will be deleted";
@@ -495,7 +495,6 @@
 "msg_language486" = "Paused";
 "msg_language487" = "Expired";
 "msg_language488" = "Canceled";
-
 "msg_language489" = "Monday";
 "msg_language490" = "Tuesday";
 "msg_language491" = "Wednesday";
@@ -503,8 +502,7 @@
 "msg_language493" = "Friday";
 "msg_language494" = "Saturday";
 "msg_language495" = "Sunday";
-
 "msg_language496" = "Search by subscription Id";
-
 "msg_language497" = "View Details";
+
 

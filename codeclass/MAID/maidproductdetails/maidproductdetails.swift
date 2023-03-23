@@ -10,8 +10,9 @@ import ImageSlideshow
 import SDWebImage
 import Alamofire
 import Cosmos
+import WebKit
 
-class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource, UIWebViewDelegate
+class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource, UIWebViewDelegate, WKUIDelegate
 {
     @IBOutlet weak var viewoverall: UIView!
     @IBOutlet weak var scrolloverall: UIScrollView!
@@ -1170,10 +1171,12 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                                 //self.txtvnutritionfacts.attributedText = strnutrition_facts.htmlToAttributedString
                                 //self.txtvnutritionfacts.attributedText = strnutrition_facts.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "center")
                                 
+                                
                                 self.txtvnutritionfacts.backgroundColor = .clear
-                                let webV:UIWebView = UIWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
+                                let webV:WKWebView = WKWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
                                 webV.loadHTMLString(strnutrition_facts, baseURL: nil)
-                                webV.delegate = self;
+                                webV.uiDelegate = self
+                                webV.isOpaque = false
                                 webV.backgroundColor = .clear
                                 webV.bringSubviewToFront(self.viewbenifits)
                                 self.txtvnutritionfacts.addSubview(webV)
@@ -1190,9 +1193,10 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                                 //self.txtvnutritionfacts.attributedText = strnutrition_facts.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "center")
                                 
                                 self.txtvnutritionfacts.backgroundColor = .clear
-                                let webV:UIWebView = UIWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
+                                let webV:WKWebView = WKWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
                                 webV.loadHTMLString(strnutrition_facts, baseURL: nil)
-                                webV.delegate = self;
+                                webV.uiDelegate = self
+                                webV.isOpaque = false
                                 webV.backgroundColor = .clear
                                 webV.bringSubviewToFront(self.viewbenifits)
                                 self.txtvnutritionfacts.addSubview(webV)

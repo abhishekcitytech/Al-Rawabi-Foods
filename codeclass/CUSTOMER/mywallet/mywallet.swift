@@ -201,7 +201,8 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
         cell.lblorderamount.text = String(format: "%@ %0.2f", myAppDelegate.changeLanguage(key: "msg_language481"),fltamount1)
         cell.lblorderstatus.text = String(format: "%@", straction)
         
-        if straction.containsIgnoreCase("debit"){
+        print("straction",straction)
+        if straction.containsIgnoreCase("debit") || straction.containsIgnoreCase("دَين"){
             cell.lblorderstatus.textColor = UIColor(named: "darkgreencolor")!
         }else{
             cell.lblorderstatus.textColor = UIColor(named: "darkmostredcolor")!
@@ -260,7 +261,9 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
         lblTDtransactionnote.text = myAppDelegate.changeLanguage(key: "msg_language471")
         lblTDtransactionstatus.text = myAppDelegate.changeLanguage(key: "msg_language472")
         
-        lblTDamountvalue.text = strlblTDamountvalue
+        let fltTDamountvalue  = (strlblTDamountvalue as NSString).floatValue
+        lblTDamountvalue.text = String(format: "%@ %.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltTDamountvalue)
+        
         lblTDactionvalue.text = strlblTDactionvalue
         lblTDtypevalue.text = strlblTDtypevalue
         lblTDrefrencevalue.text = strlblTDrefrencevalue

@@ -49,29 +49,40 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="205"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dlb-DR-KOH">
+                                    <rect key="frame" x="0.0" y="8" width="120" height="28"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHa-RE-Hg3">
-                                    <rect key="frame" x="8" y="36" width="206" height="27"/>
+                                    <rect key="frame" x="8" y="41" width="359" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMl-0g-u5G">
-                                    <rect key="frame" x="8" y="71" width="359" height="27"/>
+                                    <rect key="frame" x="8" y="76" width="359" height="27"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmJ-Rx-ztU">
-                                    <rect key="frame" x="8" y="99" width="359" height="27"/>
+                                    <rect key="frame" x="8" y="104" width="359" height="27"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="16"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwt-ai-iII">
+                                    <rect key="frame" x="8" y="137" width="359" height="22"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z74-yS-kfc">
-                                    <rect key="frame" x="8" y="162" width="174" height="35"/>
+                                    <rect key="frame" x="8" y="165" width="174" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <color key="backgroundColor" name="greencolor"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
@@ -82,7 +93,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FXZ-07-Q1N">
-                                    <rect key="frame" x="190" y="162" width="177" height="35"/>
+                                    <rect key="frame" x="190" y="165" width="177" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <color key="backgroundColor" name="darkredcolor"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
@@ -92,19 +103,8 @@
                                         <action selector="pressCANCEL:" destination="-1" eventType="touchUpInside" id="wwJ-xa-WTj"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwt-ai-iII">
-                                    <rect key="frame" x="8" y="132" width="359" height="22"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                    <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="16"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dlb-DR-KOH">
-                                    <rect key="frame" x="0.0" y="2" width="120" height="28"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mtc-qD-eHq">
-                                    <rect key="frame" x="230" y="36" width="137" height="26"/>
+                                    <rect key="frame" x="230" y="8" width="137" height="26"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="15"/>

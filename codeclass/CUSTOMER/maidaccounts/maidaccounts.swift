@@ -157,14 +157,16 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         let fltamountwallet = (strwalletbalance as NSString).floatValue
         let fltamountmaxwallet = (strmax_order_amount as NSString).floatValue
         
+        print("strstatus",strstatus)
+        
         cell.lblname.text = String(format: "%@", strname)
         cell.lblemail.text = String(format: "%@",stremail)
         cell.lblmaxamountlimit.text = String(format: "%@: %@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language406"),myAppDelegate.changeLanguage(key: "msg_language481"),fltamountmaxwallet)
-        cell.lblwalletbalance.text = String(format: "%@: %@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language217"),myAppDelegate.changeLanguage(key: "msg_language481"),fltamountwallet)
+        cell.lblwalletbalance.text = String(format: "%@ %@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language217"),myAppDelegate.changeLanguage(key: "msg_language481"),fltamountwallet)
         
         cell.lblstatus.text = strstatus
         
-        if strstatus == "Active"
+        if strstatus == "Active" || strstatus == "فعال"
         {
             //ACTIVE
             cell.lblstatus.textColor = .white
@@ -334,6 +336,8 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
     //MARK: - fetch maid account list API Method
     func fecthmaidaccountlistingAPIMethod()
     {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -348,7 +352,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         let parameters = ["name": "",
                           "email": "",
-                          "status": "","language":""] as [String : Any]
+                          "status": "","language":strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod66)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

@@ -320,7 +320,7 @@ class viewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewD
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -336,6 +336,7 @@ class viewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewD
                             let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
                             
                             let dicdetails = dictemp.value(forKey: "subscription_detail")as? NSDictionary
+                            
                             
                             let str1 = String(format: "%@", dicdetails?.value(forKey: "subtotal")as? String ?? "")
                             let str2 = String(format: "%@", dicdetails?.value(forKey: "shipping_amount")as? String ?? "")

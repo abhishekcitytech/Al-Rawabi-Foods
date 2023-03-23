@@ -375,10 +375,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         
         let trimToCharacter = 6
-        let shortStringHome = String(myAppDelegate.changeLanguage(key: "msg_language136").prefix(trimToCharacter))
+        var shortStringHome = String(myAppDelegate.changeLanguage(key: "msg_language136").prefix(trimToCharacter))
         var shortStringSubscription = String(myAppDelegate.changeLanguage(key: "msg_language478").prefix(trimToCharacter)) //msg_language74
-        let shortStringOrderOnce = String(myAppDelegate.changeLanguage(key: "msg_language479").prefix(trimToCharacter)) //msg_language104
-        let shortStringCart = String(myAppDelegate.changeLanguage(key: "msg_language114").prefix(trimToCharacter))
+        var shortStringOrderOnce = String(myAppDelegate.changeLanguage(key: "msg_language479").prefix(trimToCharacter)) //msg_language104
+        var shortStringCart = String(myAppDelegate.changeLanguage(key: "msg_language114").prefix(trimToCharacter))
         var shortStringMenu = String(myAppDelegate.changeLanguage(key: "msg_language145").prefix(trimToCharacter))
         
         let home:UIViewController
@@ -392,7 +392,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             home = homeclass(nibName: "homeclass", bundle: nil)
             
         }
-        
+         
+        shortStringHome = myAppDelegate.changeLanguage(key: "msg_language136")
         home.tabBarItem.title = shortStringHome
         home.tabBarItem.image = UIImage(named: "tab11")
         home.tabBarItem.selectedImage = UIImage(named: "tab1")
@@ -405,12 +406,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         subsription.tabBarItem.selectedImage = UIImage(named: "tab2")
         let subsriptionNav  = UINavigationController(rootViewController: subsription)
         
+        shortStringOrderOnce = myAppDelegate.changeLanguage(key: "msg_language479")
         let orderonce = orderonceclass(nibName: "orderonceclass", bundle: nil)
         orderonce.tabBarItem.title = shortStringOrderOnce
         orderonce.tabBarItem.image = UIImage(named: "tab33")
         orderonce.tabBarItem.selectedImage = UIImage(named: "tab3")
         let orderonceNav  = UINavigationController(rootViewController: orderonce)
         
+        shortStringCart = myAppDelegate.changeLanguage(key: "msg_language114")
         let cartorderonce = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
         cartorderonce.tabBarItem.title = shortStringCart
         cartorderonce.tabBarItem.image = UIImage(named: "tab55")

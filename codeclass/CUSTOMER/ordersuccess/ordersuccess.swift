@@ -51,7 +51,15 @@ class ordersuccess: UIViewController
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         self.title = myAppDelegate.changeLanguage(key: "msg_language198")
         
-        lbl1.text = myAppDelegate.changeLanguage(key: "msg_language199")
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            lbl1.text = String(format: "%@!", myAppDelegate.changeLanguage(key: "msg_language199"))
+        }
+        else
+        {
+            lbl1.text = String(format: "!%@", myAppDelegate.changeLanguage(key: "msg_language199"))
+        }
         lbl2.text = String(format: "%@\n%@", myAppDelegate.changeLanguage(key: "msg_language200"),myAppDelegate.changeLanguage(key: "msg_language201"))
         
         btncontinueshopping.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language203")), for: .normal)
@@ -79,7 +87,101 @@ class ordersuccess: UIViewController
     //MARK: - press back method
     @objc func pressBack()
     {
-        self.navigationController?.popViewController(animated: true)
+        //self.navigationController?.popViewController(animated: true)
+        
+        //FIXME
+        let strpayfromOrderonce = UserDefaults.standard.value(forKey: "payfromOrderonce")as? String ?? ""
+        print("strpayfromOrderonce",strpayfromOrderonce)
+        
+        if strpayfromOrderonce == "1"
+        {
+            UserDefaults.standard.set("1", forKey: "paymentcompleted")
+            UserDefaults.standard.synchronize()
+            
+            //ORDER ONCE
+            guard let vc = self.navigationController?.viewControllers else { return }
+            for controller in vc {
+                if controller.isKind(of: homeclass.self) {
+                    let tabVC = controller as! homeclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: orderonceclass.self) {
+                    let tabVC = controller as! orderonceclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: cartlistorderonce.self) {
+                    let tabVC = controller as! cartlistorderonce
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: mysubscriptions.self) {
+                    let tabVC = controller as! mysubscriptions
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+            }
+        }
+        else if strpayfromOrderonce == "3"
+        {
+            UserDefaults.standard.set("3", forKey: "paymentcompleted")
+            UserDefaults.standard.synchronize()
+            
+            //RENEW
+            guard let vc = self.navigationController?.viewControllers else { return }
+            for controller in vc {
+                if controller.isKind(of: subsriptionclass.self) {
+                    let tabVC = controller as! subsriptionclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: homeclass.self) {
+                    let tabVC = controller as! homeclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: mysubscriptions.self) {
+                    let tabVC = controller as! mysubscriptions
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+            }
+        }
+        else if strpayfromOrderonce == "2"
+        {
+            UserDefaults.standard.set("2", forKey: "paymentcompleted")
+            UserDefaults.standard.synchronize()
+            
+            //SUBSCRIPTION CREATE
+            guard let vc = self.navigationController?.viewControllers else { return }
+            for controller in vc {
+                if controller.isKind(of: subsriptionclass.self) {
+                    let tabVC = controller as! subsriptionclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: homeclass.self) {
+                    let tabVC = controller as! homeclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: cartlistorderonce.self) {
+                    let tabVC = controller as! cartlistorderonce
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+            }
+        }
+        else
+        {
+            //ORDER ONCE
+            guard let vc = self.navigationController?.viewControllers else { return }
+            for controller in vc {
+                if controller.isKind(of: homeclass.self) {
+                    let tabVC = controller as! homeclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: orderonceclass.self) {
+                    let tabVC = controller as! orderonceclass
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+                else if controller.isKind(of: cartlistorderonce.self) {
+                    let tabVC = controller as! cartlistorderonce
+                    self.navigationController?.popToViewController(tabVC, animated: true)
+                }
+            }
+        }
     }
     
     //MARK: - press Track Order Method

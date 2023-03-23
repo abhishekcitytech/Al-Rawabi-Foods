@@ -253,25 +253,7 @@ class myorderhistorydetails: UIViewController,UITableViewDelegate,UITableViewDat
                             self.lblorderstatus.layer.masksToBounds = true
                             
                             
-                            if strorderstatus == "ngenius_authorised" || strorderstatus == "processing"
-                            {
-                                self.lblorderstatus.textColor = UIColor(named: "greencolor")!
-                            }
-                            else if strorderstatus == "complete"
-                            {
-                                self.lblorderstatus.textColor = UIColor(named: "greencolor")!
-                            }
-                            else if strorderstatus == "pending"
-                            {
-                                self.lblorderstatus.textColor = UIColor(named: "orangecolor")!
-                            }
-                            else if strorderstatus == "canceled"
-                            {
-                                self.lblorderstatus.textColor = UIColor(named: "darkredcolor")!
-                            }
-                            else{
-                                self.lblorderstatus.textColor = UIColor.darkGray
-                            }
+                            self.lblorderstatus.textColor = UIColor.black
                             
                             self.viewcustomer.layer.cornerRadius = 8.0
                             self.viewcustomer.layer.masksToBounds = true

@@ -725,6 +725,8 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         cell.lblcouponcode.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language230"),strcouponcode)
         cell.lblexpdate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language231"),strexpdate)
      
+        cell.lblselectcopy.text = myAppDelegate.changeLanguage(key: "msg_language233")
+        
         //cell.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
         cell.viewcell.backgroundColor = .white
         

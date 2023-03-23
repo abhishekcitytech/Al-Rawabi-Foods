@@ -538,7 +538,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
                 ,myAppDelegate.changeLanguage(key: "msg_language204"),myAppDelegate.changeLanguage(key: "msg_language131"),myAppDelegate.changeLanguage(key: "msg_language133")
                 ,myAppDelegate.changeLanguage(key: "msg_language134"),myAppDelegate.changeLanguage(key: "msg_language275"),myAppDelegate.changeLanguage(key: "msg_language276")]
         
-        arr2 = ["acc01","fav1","acc4","acc5","acc6","acc7","acc9","acc11","acc12","acc13","logout"]
+        arr2 = ["acc01","fav1","acc4","acc5","acc6","acc7","rewardpnts","acc11","acc12","acc13","logout"]
         
         for x in 0 ..< arr1.count
         {
@@ -725,7 +725,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
                 {
                     self.tabBarController?.selectedIndex = 0
                 }else{
-                    self.tabBarController?.selectedIndex = 3
+                    self.tabBarController?.selectedIndex = 4
                 }
                 
             }

@@ -475,7 +475,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         else if tableView == tabvcouponlistpopup{
             return 70
         }
-        return 125
+        return 147
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
@@ -671,6 +671,8 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             cell.lblcouponcode.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language230"),strcouponcode)
             cell.lblexpdate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language231"),strexpdate)
          
+            cell.lblselectcopy.text = myAppDelegate.changeLanguage(key: "msg_language233")
+            
             //cell.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
             cell.viewcell.backgroundColor = .white
             

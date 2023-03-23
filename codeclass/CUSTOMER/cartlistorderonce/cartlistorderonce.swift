@@ -1189,7 +1189,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
