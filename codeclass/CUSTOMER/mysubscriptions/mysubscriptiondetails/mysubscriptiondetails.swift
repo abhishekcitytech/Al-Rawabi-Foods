@@ -728,13 +728,25 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         let arrsubscription_product = dic.value(forKey: "subscription_product")as? NSArray ?? []
         
         cell.lbldateday.text = String(format: "%@", strsubscription_order_date)
-        cell.lbltotal.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language304"),myAppDelegate.changeLanguage(key: "msg_language481"),strsubtotal)
+        
+        if strsubtotal.containsIgnoreCase("") || strsubtotal == " " || strsubtotal == "0.00"
+        {
+            //0.00 will show
+            cell.lbltotal.text = String(format: "%@: %@ %@",myAppDelegate.changeLanguage(key: "msg_language304"),myAppDelegate.changeLanguage(key: "msg_language481"),"0.00")
+        }
+        else
+        {
+            let fltTotal  = (strsubtotal as NSString).floatValue
+            cell.lbltotal.text = String(format: "%@: %@ %0.2f",myAppDelegate.changeLanguage(key: "msg_language304"),myAppDelegate.changeLanguage(key: "msg_language481"),fltTotal)
+        }
+        
         cell.lblstatus.text = String(format: "%@",strorder_status)
         
-        
+        print("strshipping_amount",strshipping_amount)
         if strshipping_amount != ""
         {
             let fltshipping = Float(strshipping_amount)
+            print("fltshipping",fltshipping as Any)
             if fltshipping! == 0.00
             {
                 cell.lblwarningmessage.textColor = UIColor(named: "darkgreencolor")!
@@ -821,13 +833,14 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         cell.btnupdatetimeslot.layer.masksToBounds = true
         
         //IF NO PRODUCT ADDED ON DATE
-        if arrsubscription_product.count == 0{
+        if arrsubscription_product.count == 0
+        {
             cell.lblwarningmessage.textColor = UIColor(named: "darkgreencolor")!
             cell.lblwarningmessage.text = myAppDelegate.changeLanguage(key: "msg_language92")
             cell.viewshippingwarning.isHidden = false
             
-            cell.imgvstatus.isHidden = true
-            cell.lblstatus.isHidden = true
+            //cell.imgvstatus.isHidden = true
+            //cell.lblstatus.isHidden = true
             
             cell.btnAddMore.isHidden = false
         }
@@ -864,7 +877,9 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
             }
         }
         
-        
+        /*if arrsubscription_product.count == 0 && strisedit != true {
+            cell.btndetail.isUserInteractionEnabled = false
+        }*/
         
         return cell;
     }
@@ -891,6 +906,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         let strsubscription_order_date = String(format: "%@", dic.value(forKey: "subscription_order_date")as? String ?? "")
         let strorder_status = String(format: "%@", dic.value(forKey: "order_status")as? String ?? "")
         let strisedit = dic.value(forKey: "is_edit")as? Bool ?? false
+        
         
         self.createEditpopupDatewiseItems(selecteddateindex: sender.tag,iseditbool: strisedit)
     }

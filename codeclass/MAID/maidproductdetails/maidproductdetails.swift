@@ -32,6 +32,7 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
     @IBOutlet weak var btnPLUS: UIButton!
     @IBOutlet weak var txtqty: UITextField!
     @IBOutlet weak var btnaddonce: UIButton!
+    @IBOutlet weak var lblproductnametitle: UILabel!
 
     @IBOutlet weak var btnaddtowishlisticon: UIButton!
     @IBOutlet weak var btnshareoption: UIButton!
@@ -142,7 +143,15 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
         back.tintColor = UIColor.black
-        self.navigationItem.leftBarButtonItem = back
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.navigationItem.leftBarButtonItem = back
+        }
+        else{
+            self.navigationItem.rightBarButtonItem = back
+        }
+        
         
         self.viewoverall.isHidden = true
         
@@ -950,6 +959,7 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                             
                             //SET PRODUCT NAME TITLE
                             self.title = String(format: "%@", self.dicMProductDetails.value(forKey: "productName")as? String ?? "")
+                            self.lblproductnametitle.text = String(format: "%@", self.dicMProductDetails.value(forKey: "productName")as? String ?? "")
                             
                             //SET PRODUCT CAROUSAL BANNER IMAGE GALLERY
                             let arrmbanners = self.dicMProductDetails.value(forKey: "media") as? NSArray ?? []

@@ -517,6 +517,20 @@ class maidloginclass: UIViewController,UITextFieldDelegate
                             UserDefaults.standard.set(diccustomerDetails, forKey: "maiddetails")
                             UserDefaults.standard.synchronize()
                             
+                            //REMEBERME SET
+                            if self.switchrememberme.isOn == true{
+                                //Save as Remember Me
+                                
+                                UserDefaults.standard.set(self.txtusername.text!, forKey: "maidusername_rememberme")
+                                UserDefaults.standard.set(self.txtpassword.text!, forKey: "maidpassword_rememberme")
+                                UserDefaults.standard.set("1", forKey: "maidis_rememberme")
+                                UserDefaults.standard.synchronize()
+                            }
+                            else{
+                                //Dont Save as Remember Me
+                                UserDefaults.standard.set("0", forKey: "maidis_rememberme")
+                                UserDefaults.standard.synchronize()
+                            }
                             
                             let obj = maidhomeclass(nibName: "maidhomeclass", bundle: nil)
                             self.navigationController?.pushViewController(obj, animated: true)

@@ -614,6 +614,22 @@ class loginclass: UIViewController,UITextFieldDelegate
                             //BY DEFAULT ALWAYS POPUP HOME WILL SHOW
                             UserDefaults.standard.set(0, forKey: "subscribebyoncepopupshown")
                             UserDefaults.standard.synchronize()
+                            
+                            
+                            //REMEBERME SET
+                            if self.switchrememberme.isOn == true{
+                                //Save as Remember Me
+                                
+                                UserDefaults.standard.set(self.txtusername.text!, forKey: "username_rememberme")
+                                UserDefaults.standard.set(self.txtpassword.text!, forKey: "password_rememberme")
+                                UserDefaults.standard.set("1", forKey: "is_rememberme")
+                                UserDefaults.standard.synchronize()
+                            }
+                            else{
+                                //Dont Save as Remember Me
+                                UserDefaults.standard.set("0", forKey: "is_rememberme")
+                                UserDefaults.standard.synchronize()
+                            }
 
                             let appDel = UIApplication.shared.delegate as! AppDelegate
                             appDel.tabSetting(type: "home")

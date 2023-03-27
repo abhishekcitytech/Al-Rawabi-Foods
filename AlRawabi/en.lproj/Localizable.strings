@@ -285,7 +285,7 @@
 "msg_language276" = "Logout";
 "msg_language277" = "Are you sure you want to logout?";
 "msg_language278" = "Back to Login";
-"msg_language279" = "+97147043000";
+"msg_language279" = "+971 4704 3100";
 "msg_language280" = "About Us";
 "msg_language281" = "Privacy Policy";
 "msg_language282" = "Delivery Policy";
@@ -505,4 +505,6 @@
 "msg_language496" = "Search by subscription Id";
 "msg_language497" = "View Details";
 
-
+"msg_language498" = "Mobile Number";
+"msg_language499" = "WhatsApp Number";
+"msg_language500" = "E-mail";

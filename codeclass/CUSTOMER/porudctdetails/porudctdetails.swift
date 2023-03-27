@@ -33,6 +33,8 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     @IBOutlet weak var btnPLUS: UIButton!
     @IBOutlet weak var txtqty: UITextField!
     @IBOutlet weak var btnaddonce: UIButton!
+    @IBOutlet weak var lblproductnametitle: UILabel!
+    
     
     @IBOutlet weak var btnaddtowishlisticon: UIButton!
     @IBOutlet weak var btnshareoption: UIButton!
@@ -915,6 +917,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                             
                             //SET PRODUCT NAME TITLE
                             self.title = String(format: "%@", self.dicMProductDetails.value(forKey: "productName")as? String ?? "")
+                            self.lblproductnametitle.text = String(format: "%@", self.dicMProductDetails.value(forKey: "productName")as? String ?? "")
                             
                             //SET PRODUCT CAROUSAL BANNER IMAGE GALLERY
                             let arrmbanners = self.dicMProductDetails.value(forKey: "media") as? NSArray ?? []

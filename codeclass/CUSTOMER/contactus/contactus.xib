@@ -26,10 +26,12 @@
                 <outlet property="btncallfunction" destination="wMh-aH-xHj" id="R6F-Hp-oXY"/>
                 <outlet property="btnemailfunction" destination="kTr-Ux-VjV" id="LEX-yY-tgt"/>
                 <outlet property="btnsubmit" destination="ifW-Ng-1Xi" id="D9N-DT-dGp"/>
+                <outlet property="btnwhatsappcallfunction" destination="80U-eY-OcM" id="qDD-It-aDJ"/>
                 <outlet property="lbladdress" destination="5Fb-mg-qIu" id="isH-KP-g3h"/>
                 <outlet property="lblemail" destination="oI3-N7-QeV" id="7H7-m2-ctc"/>
                 <outlet property="lblmobilecountrycode" destination="YOI-jm-j5f" id="njb-BN-9eA"/>
                 <outlet property="lblphoneno" destination="B20-Gk-ByC" id="SN3-CX-TVz"/>
+                <outlet property="lblwhatsappno" destination="JNj-3H-AG9" id="8eE-TY-SDD"/>
                 <outlet property="lblwhatsinyourmind" destination="mrd-nX-bRG" id="XQZ-Vb-N26"/>
                 <outlet property="scrolloverall" destination="59G-Hp-d4z" id="XBS-Fb-dY1"/>
                 <outlet property="txtemail" destination="Yp7-0J-Q4g" id="gbz-d0-DMo"/>
@@ -189,15 +191,15 @@
                                     <rect key="frame" x="0.0" y="399" width="375" height="141"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Al Khawaneej,P.O.Box: 50368,Dubai, United Arab Emirates" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Fb-mg-qIu">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Fb-mg-qIu">
                                             <rect key="frame" x="8" y="9" width="359" height="44"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="15"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+971 4704 3000" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B20-Gk-ByC">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B20-Gk-ByC">
                                             <rect key="frame" x="8" y="53" width="359" height="22"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -205,16 +207,8 @@
                                             <color key="textColor" name="themecolor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="sales@alrawabi.ae" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oI3-N7-QeV">
-                                            <rect key="frame" x="8" y="75" width="359" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="16"/>
-                                            <color key="textColor" name="themecolor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wMh-aH-xHj">
-                                            <rect key="frame" x="8" y="50" width="359" height="28"/>
+                                            <rect key="frame" x="8" y="50" width="359" height="22"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -222,8 +216,33 @@
                                                 <action selector="presscallfunction:" destination="-1" eventType="touchUpInside" id="Hxh-IS-atJ"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNj-3H-AG9">
+                                            <rect key="frame" x="8" y="80" width="359" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="16"/>
+                                            <color key="textColor" name="themecolor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="80U-eY-OcM">
+                                            <rect key="frame" x="8" y="80" width="359" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <connections>
+                                                <action selector="presswhatsappcallfunction:" destination="-1" eventType="touchUpInside" id="C9J-ja-pVf"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oI3-N7-QeV">
+                                            <rect key="frame" x="8" y="106" width="359" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="16"/>
+                                            <color key="textColor" name="themecolor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTr-Ux-VjV">
-                                            <rect key="frame" x="8" y="75" width="359" height="28"/>
+                                            <rect key="frame" x="8" y="106" width="359" height="22"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>

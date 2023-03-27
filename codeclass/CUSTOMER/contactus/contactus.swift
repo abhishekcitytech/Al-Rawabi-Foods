@@ -33,10 +33,12 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
     @IBOutlet weak var viewbottom: UIView!
     @IBOutlet weak var lbladdress: UILabel!
     @IBOutlet weak var lblphoneno: UILabel!
+    @IBOutlet weak var lblwhatsappno: UILabel!
     @IBOutlet weak var lblemail: UILabel!
     
     @IBOutlet weak var btnsubmit: UIButton!
     @IBOutlet weak var btncallfunction: UIButton!
+    @IBOutlet weak var btnwhatsappcallfunction: UIButton!
     @IBOutlet weak var btnemailfunction: UIButton!
     
     var strPagename = String()
@@ -72,9 +74,18 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
         
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        lblphoneno.text = String(format: "%@", Constants.conn.STATISCALLNO)
-        lblemail.text = String(format: "%@", Constants.conn.STATISEMAILID)
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en"){
+            lbladdress.text = String(format: "%@", Constants.conn.STATICADDTRSS)
+        }
+        else{
+            lbladdress.text = String(format: "%@", Constants.conn.STATICADDTRSS1)
+        }
+        lblphoneno.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language498"),Constants.conn.STATISCALLNO)
+        lblwhatsappno.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language499"),Constants.conn.STATISWHATSAPPCALLNO)
+        lblemail.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language500"),Constants.conn.STATISEMAILID)
         
         
         self.scrolloverall.backgroundColor = .white
@@ -156,7 +167,7 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
             
-            let phoneNumberVariable = Constants.conn.STATISCALLNO
+            let phoneNumberVariable = Constants.conn.STATISCALLNO1
             let formattedNumber = phoneNumberVariable.components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
             if let url = NSURL(string: ("tel:" + (formattedNumber))) {
                 if #available(iOS 10.0, *) {
@@ -172,6 +183,38 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
         self.present(refreshAlert, animated: true, completion: nil)
         
     }
+    @IBAction func presswhatsappcallfunction(_ sender: Any)
+    {
+        var str = String(format: "%@",Constants.conn.STATICWEBSITEURL)
+        str=str.addingPercentEncoding(withAllowedCharacters: (NSCharacterSet.urlQueryAllowed))!
+        //let whatsappURL = URL(string: "whatsapp://send?text=\(str)")
+        //let whatsappURL = URL(string: "https://wa.me/+97333581335")
+        let whatsappURL = URL(string: String(format: "%@%@", "https://wa.me/",Constants.conn.STATISWHATSAPPCALLNO1))
+        
+        if UIApplication.shared.canOpenURL(whatsappURL!) {
+            UIApplication.shared.open(whatsappURL!, options: [:], completionHandler: nil)
+        } else {
+            
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage")! as! CVarArg)
+            if (strLangCode == "ar"){
+                let uiAlert = UIAlertController(title: "", message: "لم يتم تثبيت Whatsapp على هذا الجهاز. يرجى تثبيت Whatsapp وإعادة المحاولة." , preferredStyle: UIAlertController.Style.alert)
+                self.present(uiAlert, animated: true, completion: nil)
+                uiAlert.addAction(UIAlertAction(title: "حسنا", style: .default, handler: { action in
+                    print("Click of default button")
+                }))
+            }
+            else if (strLangCode == "en"){
+                let uiAlert = UIAlertController(title: "", message: "Whatsapp is not installed on this device. Please install Whatsapp and try again." , preferredStyle: UIAlertController.Style.alert)
+                self.present(uiAlert, animated: true, completion: nil)
+                uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                    print("Click of default button")
+                }))
+            }
+            
+            
+        }
+
+    }
     @IBAction func pressemailfunction(_ sender: Any)
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -186,7 +229,7 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
             let composeVC = MFMailComposeViewController()
             composeVC.mailComposeDelegate = self
             
-            composeVC.setToRecipients([String(format: "%@", lblemail.text!)])
+            composeVC.setToRecipients([String(format: "%@", Constants.conn.STATISEMAILID)])
             composeVC.setSubject(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language454")))
             self.parent?.present(composeVC, animated: true, completion: nil)
         }))

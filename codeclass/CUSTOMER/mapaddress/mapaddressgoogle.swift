@@ -187,6 +187,31 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
                     }
                 }
             }
+            else if strFrompageMap == "popuphomepage"
+            {
+                print("From Page --> HOME PAGE POPUP")
+                
+                guard let vc = self.navigationController?.viewControllers else { return }
+                for controller in vc {
+                    if controller.isKind(of: homeclass.self) {
+                        let tabVC = controller as! homeclass
+                        
+                        /*print("strPOPUPstreetaddressfrommap",strPOPUPstreetaddressfrommap)
+                        print("strPOPUPstreetaddressfrommapLocation",strPOPUPstreetaddressfrommapLocation)
+                        print("strPOPUPstreetaddressfrommapCity",strPOPUPstreetaddressfrommapCity)
+                        print("strPOPUPSelectedLATITUDE",strPOPUPSelectedLATITUDE)
+                        print("strPOPUPSelectedLONGITUDE",strPOPUPSelectedLONGITUDE)*/
+                        
+                        tabVC.strPOPUPstreetaddressfrommap = String(format: "%@", txtsearch.text!)
+                        tabVC.strPOPUPstreetaddressfrommapLocation = strlocationname
+                        tabVC.strPOPUPstreetaddressfrommapCity = strcityname
+                        tabVC.strPOPUPSelectedLATITUDE = String(self.strsearchlat)
+                        tabVC.strPOPUPSelectedLONGITUDE = String(self.strsearchlng)
+                        tabVC.strSELECTEDPOLYGONDETAILS = self.strSelectedPolygonName
+                        self.navigationController?.popToViewController(tabVC, animated: true)
+                    }
+                }
+            }
             else if strFrompageMap == "subscriptionorderreview"
             {
                 print("From Page --> SUBSCRIPTION ORDER REVIEW")

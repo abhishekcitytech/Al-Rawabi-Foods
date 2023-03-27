@@ -468,15 +468,15 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         
         if strplanname == "Daily"{
             cell.lbl1.text = myAppDelegate.changeLanguage(key: "msg_language37")
-            cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language40")
+            cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language450")
         }
         else if strplanname == "Weekly"{
             cell.lbl1.text = myAppDelegate.changeLanguage(key: "msg_language38")
-            cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language41")
+            cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language451")
         }
         else if strplanname == "Monthly"{
             cell.lbl1.text = myAppDelegate.changeLanguage(key: "msg_language39")
-            cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language384")
+            cell.lbl2.text = myAppDelegate.changeLanguage(key: "msg_language452")
         }
         
         cell.lbl1.textColor = .black

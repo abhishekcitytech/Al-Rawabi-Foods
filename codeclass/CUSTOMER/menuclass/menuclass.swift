@@ -821,11 +821,11 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             }
             else if strplanname == myAppDelegate.changeLanguage(key: "msg_language279")
             {
-                var str = String(format: "%@ %@","Best shopping experience at Al Rawabi.","https://alrawabidairy.com/")
+                var str = String(format: "%@",Constants.conn.STATICWEBSITEURL)
                 str=str.addingPercentEncoding(withAllowedCharacters: (NSCharacterSet.urlQueryAllowed))!
                 //let whatsappURL = URL(string: "whatsapp://send?text=\(str)")
                 //let whatsappURL = URL(string: "https://wa.me/+97333581335")
-                let whatsappURL = URL(string: String(format: "%@%@", "https://wa.me/",strplanname))
+                let whatsappURL = URL(string: String(format: "%@%@", "https://wa.me/",Constants.conn.STATISWHATSAPPCALLNO1))
                 
                 if UIApplication.shared.canOpenURL(whatsappURL!) {
                     UIApplication.shared.open(whatsappURL!, options: [:], completionHandler: nil)

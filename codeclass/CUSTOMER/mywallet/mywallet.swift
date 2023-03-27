@@ -202,10 +202,14 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
         cell.lblorderstatus.text = String(format: "%@", straction)
         
         print("straction",straction)
-        if straction.containsIgnoreCase("debit") || straction.containsIgnoreCase("دَين"){
-            cell.lblorderstatus.textColor = UIColor(named: "darkgreencolor")!
-        }else{
+        
+        if straction.containsIgnoreCase("debit") || straction.containsIgnoreCase("صادره")
+        {
             cell.lblorderstatus.textColor = UIColor(named: "darkmostredcolor")!
+        }
+        else if straction.containsIgnoreCase("credit") || straction.containsIgnoreCase("وارده")
+        {
+            cell.lblorderstatus.textColor = UIColor(named: "darkgreencolor")!
         }
         
         

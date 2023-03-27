@@ -162,6 +162,7 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
         cell.lblstartdate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language208"),strsubscription_start_date)
         cell.lblenddate.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language299"),strsubscription_end_date)
         
+        print("strsubscription_renewal_status",strsubscription_renewal_status)
         cell.lblautorenew.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language300"),strsubscription_renewal_status)
         
         /*

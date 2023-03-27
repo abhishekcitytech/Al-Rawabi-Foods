@@ -95,9 +95,9 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
         
-        lblsubscriptionselected.text = String(format: "%@ - %@",myAppDelegate.changeLanguage(key: "msg_language74"), myAppDelegate.changeLanguage(key: "msg_language38"))
+        lblsubscriptionselected.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language59"))
         
-        lblmessage.text = myAppDelegate.changeLanguage(key: "msg_language65")
+        lblmessage.text = myAppDelegate.changeLanguage(key: "msg_language451")
         lblautorenew.text = myAppDelegate.changeLanguage(key: "msg_language63")
         
         btnReviewPlaceOrder.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language67")), for: .normal)

@@ -40,19 +40,31 @@ struct Constants {
         static let CutOffSubscriptionOrderTotal = 15.00
         
         //MARK: - STATIC CALL NO
-        static let STATISCALLNO = "+97147043000"
+        static let STATISCALLNO = "+971 4704 3100"
+        static let STATISCALLNO1 = "+97147043100"
+        
+        //MARK: - STATIC WHATSAPP NO
+        static let STATISWHATSAPPCALLNO = "+971 4704 3100"
+        static let STATISWHATSAPPCALLNO1 = "+97147043100"
         
         //MARK: - STATIC EMAIL
-        static let STATISEMAILID = "sales@alrawabi.ae"
+        static let STATISEMAILID = "ecom@alrawabi.ae"
+        
+        //MARK: - STATIC ADDRESS
+        static let STATICADDTRSS = "Al RAWABI DAIRY COMPANY CO. L.L.C P.O.Box: 50368, Al Khawaneej, Dubai, United Arab Emirates"
+        static let STATICADDTRSS1 = "دبي - الخوانيج ص.ب 50368 ، دبي ، الإمارات العربية المتحدة"
+        
+        //MARK: - STATIC LIVE WEBSITE URL
+        static let STATICWEBSITEURL = "https://www.alrawabifoods.com/"
         
         //MARK: - STATIC TELEPHONE CODE
-        static let STATICTELECPHONECODE = "91"
+        static let STATICTELECPHONECODE = "971"
         
         //MARK: - STATIC TELEPHONE NUMBER LENGTH
-        static let STATICTELECPHONENUMBERLENGTH = 10
+        static let STATICTELECPHONENUMBERLENGTH = 9
         
         //MARK: - STATIC TELEPHONE NUMBER REGEX
-        static let STATICTELECPHONENUMBERREGEX = "^[0-9]{10}$"
+        static let STATICTELECPHONENUMBERREGEX = "^[0-9]{9}$"
         
     }
     

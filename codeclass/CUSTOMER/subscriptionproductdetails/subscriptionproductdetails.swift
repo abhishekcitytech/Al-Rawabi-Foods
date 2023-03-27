@@ -36,6 +36,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
     @IBOutlet weak var btnplus: UIButton!
     @IBOutlet weak var txtplusminus: UITextField!
     @IBOutlet weak var lbladdonce: UILabel!
+    @IBOutlet weak var lblproductnametitle: UILabel!
     
     @IBOutlet weak var viewplusminusATA: UIView!
     @IBOutlet weak var btnminusATA: UIButton!
@@ -805,6 +806,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                             
                             //SET PRODUCT NAME TITLE
                             self.title = String(format: "%@", self.dicMProductDetails.value(forKey: "productName")as? String ?? "")
+                            self.lblproductnametitle.text = String(format: "%@", self.dicMProductDetails.value(forKey: "productName")as? String ?? "")
                             
                             //SET PRODUCT CAROUSAL BANNER IMAGE GALLERY
                             let arrmbanners = self.dicMProductDetails.value(forKey: "media") as? NSArray ?? []

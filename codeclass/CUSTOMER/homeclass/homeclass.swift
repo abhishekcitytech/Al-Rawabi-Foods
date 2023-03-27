@@ -126,6 +126,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     var strPOPUPstreetaddressfrommapCity = ""
     var strPOPUPSelectedLATITUDE = ""
     var strPOPUPSelectedLONGITUDE = ""
+    var strSELECTEDPOLYGONDETAILS = ""
     
     var arrMHomePageBottomBanner = NSMutableArray()
     
@@ -182,7 +183,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             //POPUP SHOW EVERY TIME
             print("subscribebyoncepopupshown",subscribebyoncepopupshown)
             
-            self.createSubscribePopup()
+            //self.createSubscribePopup()
         }
         else{
             //POPUP SHOW NOT  FIRST TIME
@@ -658,10 +659,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 self.btnBuyoncepopup.layer.cornerRadius = 20.0
                 self.btnBuyoncepopup.layer.masksToBounds = true
                 
-                self.btnpopupSubscribeDaily.isUserInteractionEnabled = false
-                self.btnBpopupSubscribeWeekly.isUserInteractionEnabled = false
-                self.btnpopupSubscribeMothly.isUserInteractionEnabled = false
-                self.btnBuyoncepopup.isUserInteractionEnabled = false
+                //FIXMESANDIPAN
+                self.btnpopupSubscribeDaily.isUserInteractionEnabled = true
+                self.btnBpopupSubscribeWeekly.isUserInteractionEnabled = true
+                self.btnpopupSubscribeMothly.isUserInteractionEnabled = true
+                self.btnBuyoncepopup.isUserInteractionEnabled = true
             }
         }
     }
@@ -883,8 +885,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         UserDefaults.standard.set(2, forKey: "subscribebyoncepopupshown")
         UserDefaults.standard.synchronize()
         
-        let ctrl = editchoosemaplocation(nibName: "editchoosemaplocation", bundle: nil)
-        ctrl.strFrompageMap = "popupsubscriptionorderonce"
+        let ctrl = mapaddressgoogle(nibName: "mapaddressgoogle", bundle: nil)
+        ctrl.strFrompageMap = "popuphomepage"
         self.navigationController?.pushViewController(ctrl, animated: true)
     }
     @IBAction func pressinfoSubscriptionBuyoncePopup(_ sender: Any)
@@ -993,8 +995,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             UserDefaults.standard.set(2, forKey: "subscribebyoncepopupshown")
             UserDefaults.standard.synchronize()
             
-            let ctrl = editchoosemaplocation(nibName: "editchoosemaplocation", bundle: nil)
-            ctrl.strFrompageMap = "popupsubscriptionorderonce"
+            let ctrl = mapaddressgoogle(nibName: "mapaddressgoogle", bundle: nil)
+            ctrl.strFrompageMap = "popuphomepage"
             self.navigationController?.pushViewController(ctrl, animated: true)
             
             /*if isBoolDropdown == true {
