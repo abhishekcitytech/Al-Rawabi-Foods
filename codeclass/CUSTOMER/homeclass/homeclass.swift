@@ -907,18 +907,32 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     {
          print("Current Location Updating...")
         
-         var latdouble = Double()
-         var longdouble = Double()
-         latdouble = (manager.location?.coordinate.latitude)!
-         longdouble = (manager.location?.coordinate.longitude)!
+        var latdouble = Double()
+        var longdouble = Double()
+        latdouble = (manager.location?.coordinate.latitude)!
+        longdouble = (manager.location?.coordinate.longitude)!
         
-        self.strcurrentlat = String(format: "%0.10f", latdouble)
-        self.strcurrentlong = String(format: "%0.10f", longdouble)
-        print("self.strcurrentlat",self.strcurrentlat)
-        print("self.strcurrentlong",self.strcurrentlong)
+        if strPOPUPSelectedLATITUDE.count > 0 && strPOPUPSelectedLONGITUDE .count > 0
+        {
+            self.strcurrentlat = self.strPOPUPSelectedLATITUDE
+            self.strcurrentlong = self.strPOPUPSelectedLONGITUDE
+            print("self.strcurrentlat",self.strcurrentlat)
+            print("self.strcurrentlong",self.strcurrentlong)
+            
+            //GET ADDRESS STRING FROM CURRENT LATITUDE & LONGITUDE
+            self.getAddressFromLatLong(latitude: latdouble, longitude: longdouble)
+        }
+        else
+        {
+            self.strcurrentlat = String(format: "%0.10f", latdouble)
+            self.strcurrentlong = String(format: "%0.10f", longdouble)
+            print("self.strcurrentlat",self.strcurrentlat)
+            print("self.strcurrentlong",self.strcurrentlong)
+            
+            //GET ADDRESS STRING FROM CURRENT LATITUDE & LONGITUDE
+            self.getAddressFromLatLong(latitude: latdouble, longitude: longdouble)
+        }
         
-        //GET ADDRESS STRING FROM CURRENT LATITUDE & LONGITUDE
-        self.getAddressFromLatLong(latitude: latdouble, longitude: longdouble)
         
         //CHCEKING WITHIN MULTIPLE POLYGON ZONE AREA
         self.checkpolygonPointMultiple(lat: Double(self.strcurrentlat)!, long: Double(self.strcurrentlong)!)

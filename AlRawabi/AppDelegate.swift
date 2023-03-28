@@ -58,13 +58,13 @@ struct Constants {
         static let STATICWEBSITEURL = "https://www.alrawabifoods.com/"
         
         //MARK: - STATIC TELEPHONE CODE
-        static let STATICTELECPHONECODE = "971"
+        static let STATICTELECPHONECODE = "91"
         
         //MARK: - STATIC TELEPHONE NUMBER LENGTH
-        static let STATICTELECPHONENUMBERLENGTH = 9
+        static let STATICTELECPHONENUMBERLENGTH = 10
         
         //MARK: - STATIC TELEPHONE NUMBER REGEX
-        static let STATICTELECPHONENUMBERREGEX = "^[0-9]{9}$"
+        static let STATICTELECPHONENUMBERREGEX = "^[0-9]{10}$"
         
     }
     

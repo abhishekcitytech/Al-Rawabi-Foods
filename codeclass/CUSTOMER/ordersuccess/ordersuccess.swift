@@ -39,7 +39,8 @@ class ordersuccess: UIViewController
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        lblorderid.text = String(format: "Order #%@", strorderid)
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        lblorderid.text = String(format: "%@ #%@", myAppDelegate.changeLanguage(key: "msg_language479"), strorderid)
     }
     
     // MARK: - viewDidLoad Method

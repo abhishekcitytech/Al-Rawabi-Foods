@@ -323,6 +323,9 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
         cell.btndetailsarrow.tag = indexPath.section
         cell.btndetailsarrow.addTarget(self, action: #selector(pressdetailsarrow), for: .touchUpInside)
         
+        cell.lbldefault.text = myAppDelegate.changeLanguage(key: "msg_language121")
+        cell.lblSetAsDefault.text = myAppDelegate.changeLanguage(key: "msg_language120")
+        
         print("strSelectedaddressID",strSelectedaddressID)
         //Check Address Selection
         if strSelectedaddressID == straddress_id

@@ -164,6 +164,7 @@ class myaddresslist: UIViewController,UITableViewDelegate,UITableViewDataSource
         cell.txtvaddress.text = strFinalAddress
         
         cell.lbldefault.text = myAppDelegate.changeLanguage(key: "msg_language121")
+        //cell.lblSetAsDefault.text = myAppDelegate.changeLanguage(key: "msg_language120")
         
         
         if strdefault_shipping == "1"{
