@@ -422,8 +422,32 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
             cellA.lblslotname.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language101"))
         }
         
+        var str1 = ""
+        var str2 = ""
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            str1 = strstart_time
+            str2 = strend_time
+        }
+        else
+        {
+            if strstart_time.containsIgnoreCase("AM"){
+                str1 = strstart_time.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+            }
+            else if strstart_time.containsIgnoreCase("PM"){
+                str1 = strstart_time.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+            }
+            
+            if strend_time.containsIgnoreCase("AM"){
+                str2 = strend_time.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+            }
+            else if strend_time.containsIgnoreCase("PM"){
+                str2 = strend_time.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+            }
+        }
         //cellA.lblslotname.text = strname
-        cellA.lblslottime.text = String(format: "%@ - %@", strstart_time,strend_time)
+        cellA.lblslottime.text = String(format: "%@ - %@", str1,str2)
         
         cellA.viewcell.layer.cornerRadius = 6.0
         cellA.viewcell.layer.masksToBounds = true

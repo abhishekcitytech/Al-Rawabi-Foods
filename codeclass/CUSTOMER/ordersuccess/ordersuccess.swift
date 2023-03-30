@@ -59,7 +59,7 @@ class ordersuccess: UIViewController
         }
         else
         {
-            lbl1.text = String(format: "!%@", myAppDelegate.changeLanguage(key: "msg_language199"))
+            lbl1.text = String(format: "%@!", myAppDelegate.changeLanguage(key: "msg_language199"))
         }
         lbl2.text = String(format: "%@\n%@", myAppDelegate.changeLanguage(key: "msg_language200"),myAppDelegate.changeLanguage(key: "msg_language201"))
         

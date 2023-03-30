@@ -57,7 +57,7 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         titleLabel.textAlignment = .center
         titleLabel.textColor = UIColor(named: "themecolor")
         titleLabel.font = UIFont(name: "NunitoSans-Bold", size: 17)
-        titleLabel.text = myAppDelegate.changeLanguage(key: "msg_language74")
+        titleLabel.text = myAppDelegate.changeLanguage(key: "msg_language501")
         let stackView = UIStackView(arrangedSubviews: [titleLabel])
         return stackView
     }()

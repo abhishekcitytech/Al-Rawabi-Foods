@@ -98,7 +98,7 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
             self.lblcountrycode.frame = CGRect(x: self.viewiconbox1.frame.minX - 44, y: self.lblcountrycode.frame.origin.y, width: self.lblcountrycode.frame.size.width, height: self.lblcountrycode.frame.size.height)
             self.txtmobileno.frame = CGRect(x: 1, y: self.txtmobileno.frame.origin.y, width: self.txtmobileno.frame.size.width, height: self.txtmobileno.frame.size.height)*/
             
-            self.txtmobileno.textAlignment = .right
+            self.txtmobileno.textAlignment = .left
             
         }
     }
@@ -191,8 +191,8 @@ class passwordupdatemobile: UIViewController,UITextFieldDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
         }
-        
-        let parameters = ["countrycode": strcountrycode,"mobileno": strmobileno]as [String : Any]
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        let parameters = ["countrycode": strcountrycode,"mobileno": strmobileno,"language":strLangCode]as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod87)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

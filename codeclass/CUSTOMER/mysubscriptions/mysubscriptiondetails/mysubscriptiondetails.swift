@@ -130,33 +130,33 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
             if (strLangCode == "en")
             {
-                self.imgvplan.image = UIImage(named: "rb-daily-en")
+                self.imgvplan.image = UIImage(named: "daily-en")
             }
             else
             {
-                self.imgvplan.image = UIImage(named: "rb-daily-ar")
+                self.imgvplan.image = UIImage(named: "daily-ar")
             }
         }else if strplanidentify.containsIgnoreCase("weekly") || strplanidentify.containsIgnoreCase("أسبوعي")
         {
             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
             if (strLangCode == "en")
             {
-                self.imgvplan.image = UIImage(named: "rb-weekly-en")
+                self.imgvplan.image = UIImage(named: "weekly-en")
             }
             else
             {
-                self.imgvplan.image = UIImage(named: "rb-weekly-ar")
+                self.imgvplan.image = UIImage(named: "weekly-ar")
             }
         }else if strplanidentify.containsIgnoreCase("monthly") || strplanidentify.containsIgnoreCase("شهريا")
         {
             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
             if (strLangCode == "en")
             {
-                self.imgvplan.image = UIImage(named: "rb-monthly-en")
+                self.imgvplan.image = UIImage(named: "monthly-en")
             }
             else
             {
-                self.imgvplan.image = UIImage(named: "rb-monthly-ar")
+                self.imgvplan.image = UIImage(named: "monthly-ar")
             }
         }
         
@@ -1280,8 +1280,33 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
             cellA.lblslotname.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language101"))
         }
         
+        var str1 = ""
+        var str2 = ""
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            str1 = strstart_time
+            str2 = strend_time
+        }
+        else
+        {
+            if strstart_time.containsIgnoreCase("AM"){
+                str1 = strstart_time.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+            }
+            else if strstart_time.containsIgnoreCase("PM"){
+                str1 = strstart_time.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+            }
+            
+            if strend_time.containsIgnoreCase("AM"){
+                str2 = strend_time.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+            }
+            else if strend_time.containsIgnoreCase("PM"){
+                str2 = strend_time.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+            }
+        }
+        
         //cellA.lblslotname.text = strname
-        cellA.lblslottime.text = String(format: "%@ - %@", strstart_time,strend_time)
+        cellA.lblslottime.text = String(format: "%@ - %@", str1,str2)
         
         cellA.viewcell.layer.cornerRadius = 6.0
         cellA.viewcell.layer.masksToBounds = true

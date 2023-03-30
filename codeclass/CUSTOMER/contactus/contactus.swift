@@ -79,13 +79,19 @@ class contactus: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,UIT
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en"){
             lbladdress.text = String(format: "%@", Constants.conn.STATICADDTRSS)
+            
+            lblphoneno.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language498"),Constants.conn.STATISCALLNO)
+            lblwhatsappno.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language499"),Constants.conn.STATISWHATSAPPCALLNO)
+            lblemail.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language500"),Constants.conn.STATISEMAILID)
         }
         else{
             lbladdress.text = String(format: "%@", Constants.conn.STATICADDTRSS1)
+            
+            lblphoneno.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language498"),Constants.conn.STATISCALLNOAR)
+            lblwhatsappno.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language499"),Constants.conn.STATISWHATSAPPCALLNOAR)
+            lblemail.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language500"),Constants.conn.STATISEMAILID)
         }
-        lblphoneno.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language498"),Constants.conn.STATISCALLNO)
-        lblwhatsappno.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language499"),Constants.conn.STATISWHATSAPPCALLNO)
-        lblemail.text = String(format: "%@: %@",myAppDelegate.changeLanguage(key: "msg_language500"),Constants.conn.STATISEMAILID)
+        
         
         
         self.scrolloverall.backgroundColor = .white

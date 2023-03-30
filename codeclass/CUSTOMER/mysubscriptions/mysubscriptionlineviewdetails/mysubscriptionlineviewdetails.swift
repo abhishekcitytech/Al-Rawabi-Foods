@@ -129,11 +129,11 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
             if (strLangCode == "en")
             {
-                self.imgvplan.image = UIImage(named: "rb-daily-en")
+                self.imgvplan.image = UIImage(named: "daily-en")
             }
             else
             {
-                self.imgvplan.image = UIImage(named: "rb-daily-ar")
+                self.imgvplan.image = UIImage(named: "daily-ar")
             }
             
         }else if strplanidentify.containsIgnoreCase("weekly") || strplanidentify.containsIgnoreCase("أسبوعي")
@@ -141,11 +141,11 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
             if (strLangCode == "en")
             {
-                self.imgvplan.image = UIImage(named: "rb-weekly-en")
+                self.imgvplan.image = UIImage(named: "weekly-en")
             }
             else
             {
-                self.imgvplan.image = UIImage(named: "rb-weekly-ar")
+                self.imgvplan.image = UIImage(named: "weekly-ar")
             }
             
         }else if strplanidentify.containsIgnoreCase("monthly") || strplanidentify.containsIgnoreCase("شهريا")
@@ -153,11 +153,11 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
             if (strLangCode == "en")
             {
-                self.imgvplan.image = UIImage(named: "rb-monthly-en")
+                self.imgvplan.image = UIImage(named: "monthly-en")
             }
             else
             {
-                self.imgvplan.image = UIImage(named: "rb-monthly-ar")
+                self.imgvplan.image = UIImage(named: "monthly-ar")
             }
             
         }

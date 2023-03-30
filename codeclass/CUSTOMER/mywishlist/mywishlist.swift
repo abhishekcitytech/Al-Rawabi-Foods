@@ -49,6 +49,9 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
+        
+        self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+        
         /*let searchicon = UIImage(named: "search")
          let search = UIBarButtonItem(image: searchicon, style: .plain, target: self, action: #selector(pressSearch))
          search.tintColor = UIColor.black
@@ -112,6 +115,45 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
     {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    //MARK: - Set Up Right Bar Cart Bag Item UI Design Method
+    @objc func setupRightBarCartBagDesignMethod(intcountOrder:Int)
+    {
+        let badgeCount = UILabel(frame: CGRect(x: 20, y: -4, width: 20, height: 20))
+        badgeCount.layer.borderColor = UIColor.clear.cgColor
+        badgeCount.layer.borderWidth = 0
+        badgeCount.layer.cornerRadius = badgeCount.bounds.size.height / 2
+        badgeCount.textAlignment = .center
+        badgeCount.layer.masksToBounds = true
+        badgeCount.textColor = .white
+        badgeCount.font = UIFont(name: "NunitoSans-Regular", size: 12.5)
+        badgeCount.backgroundColor = UIColor(red: 239/255, green: 53/255, blue: 48/255, alpha: 1.0)
+        badgeCount.text = String(format: "%d", intcountOrder)
+        
+        let rightBarButton = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+        rightBarButton.setBackgroundImage(UIImage(named: "cartbag"), for: .normal)
+        //rightBarButton.tintColor = .black
+        rightBarButton.addTarget(self, action: #selector(presscartbag), for: .touchUpInside)
+        rightBarButton.addSubview(badgeCount)
+        let rightBarButtomItem = UIBarButtonItem(customView: rightBarButton)
+        
+        let stackViewAppearance = UIStackView.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
+        stackViewAppearance.spacing = 1
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        navigationItem.rightBarButtonItems = [rightBarButtomItem]
+    }
+    @objc func presscartbag()
+    {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            self.tabBarController?.selectedIndex = 3
+        }else{
+            self.tabBarController?.selectedIndex = 1
+        }
+    }
+    
     //MARK: - press search method
     /*@objc func pressSearch()
      {
@@ -326,7 +368,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
         let dict = arrMWishlist.object(at: sender.tag)as? NSDictionary
         let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
         
-        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language152"), preferredStyle: UIAlertController.Style.alert)
+        /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language152"), preferredStyle: UIAlertController.Style.alert)
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
             print("Handle Continue Logic here")
             self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strproductid)
@@ -334,7 +376,9 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
               print("Handle Cancel Logic here")
         }))
-        self.present(refreshAlert, animated: true, completion: nil)
+        self.present(refreshAlert, animated: true, completion: nil)*/
+        
+        self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strproductid)
     }
     
     //MARK: - press Add Once Method
@@ -421,6 +465,8 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
                                 self.msg = myAppDelegate.changeLanguage(key: "msg_language150")
                             }
                             self.colproductlist.reloadData()
+                            
+                            self.getOrderOnceCartCountAPIMethod()
                             
                         }
                         else{
@@ -856,6 +902,137 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
                     }))
                     //self.view.activityStopAnimating()
                     self.view.isUserInteractionEnabled = true
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - get Order Once Cart Count API method
+    func getOrderOnceCartCountAPIMethod()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        /*let parameters = ["productid": strSelectedProductID
+         ] as [String : Any]*/
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod29)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        //let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        //let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        //print("json string = \(jsonString)")
+        //request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            if json["total_quantity"] != nil
+                            {
+                                print("found!")
+                                
+                                let strqty = dictemp.value(forKey: "total_quantity")as! CVarArg
+                                UserDefaults.standard.set(strqty, forKey: "orderoncecartcount")
+                                UserDefaults.standard.synchronize()
+                                
+                                let strcount = UserDefaults.standard.value(forKey: "orderoncecartcount")as? Int ?? 0
+                                print("strcount",strcount)
+                                
+                                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                                if (strLangCode == "en")
+                                {
+                                    self.tabBarController!.tabBar.items![3].badgeValue = String(format: "%d", strcount)
+                                    
+                                }else{
+                                    self.tabBarController!.tabBar.items![1].badgeValue = String(format: "%d", strcount)
+                                }
+                                
+                                self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
+                            }
+                            else{
+                                print("Not found!")//
+                                
+                                UserDefaults.standard.set("0", forKey: "orderoncecartcount")
+                                UserDefaults.standard.synchronize()
+                                
+                                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                                if (strLangCode == "en")
+                                {
+                                    self.tabBarController!.tabBar.items![3].badgeValue = ""
+                                }else{
+                                    self.tabBarController!.tabBar.items![1].badgeValue = ""
+                                }
+                                 self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                
+                            }
+                            
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
                 }
                 print("Error -> \(error)")
             }

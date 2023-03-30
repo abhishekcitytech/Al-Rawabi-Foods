@@ -2888,17 +2888,63 @@ class subscriptionorderreview: UIViewController,UITableViewDelegate,UITableViewD
                                 let strtime1 = String(format: "%@", dictemp?.value(forKey: "from")as? String ?? "")
                                 let strtime2 = String(format: "%@", dictemp?.value(forKey: "to")as? String ?? "")
                                 
+                                var str1 = ""
+                                var str2 = ""
+                                let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                                if (strLangCode == "en")
+                                {
+                                    str1 = strtime1
+                                    str2 = strtime2
+                                }
+                                else
+                                {
+                                    if strtime1.containsIgnoreCase("AM"){
+                                        str1 = strtime1.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+                                    }
+                                    else if strtime1.containsIgnoreCase("PM"){
+                                        str1 = strtime1.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+                                    }
+                                    
+                                    if strtime2.containsIgnoreCase("AM"){
+                                        str2 = strtime2.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+                                    }
+                                    else if strtime2.containsIgnoreCase("PM"){
+                                        str2 = strtime2.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+                                    }
+                                }
+                                
                                 if strname.containsIgnoreCase("Morning"){
-                                    self.lbltime111.text = myAppDelegate.changeLanguage(key: "msg_language99")
-                                    self.lbltime1.text = String(format: "%@-%@", strtime1,strtime2)
+                                    self.lbltime111.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language99"))
+                                    if (strLangCode == "en")
+                                    {
+                                        self.lbltime1.text = String(format: "%@-%@", str1,str2)
+                                    }
+                                    else{
+                                        self.lbltime1.text = String(format: "%@-%@", str2,str1)
+                                    }
+                                    
                                 }
                                 else if strname.containsIgnoreCase("Afternoon"){
-                                    self.lbltime222.text = myAppDelegate.changeLanguage(key: "msg_language100")
-                                    self.lbltime2.text = String(format: "%@-%@", strtime1,strtime2)
+                                    self.lbltime222.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language100"))
+                                    if (strLangCode == "en")
+                                    {
+                                        self.lbltime2.text = String(format: "%@-%@", str1,str2)
+                                    }
+                                    else{
+                                        self.lbltime2.text = String(format: "%@-%@", str2,str1)
+                                    }
+                                    
                                 }
                                 else if strname.containsIgnoreCase("Evening"){
-                                    self.lbltime333.text = myAppDelegate.changeLanguage(key: "msg_language101")
-                                    self.lbltime3.text = String(format: "%@-%@", strtime1,strtime2)
+                                    self.lbltime333.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language101"))
+                                    if (strLangCode == "en")
+                                    {
+                                        self.lbltime3.text = String(format: "%@-%@", str1,str2)
+                                    }
+                                    else{
+                                        self.lbltime3.text = String(format: "%@-%@", str2,str1)
+                                    }
+                                    
                                 }
                             }
                         }

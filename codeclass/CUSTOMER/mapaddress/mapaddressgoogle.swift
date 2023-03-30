@@ -679,9 +679,10 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
             }
             polygon = GMSPolygon(path: rect)
             arrmpolygonobject.add(polygon)
-            polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.2);
+
+            polygon.fillColor = UIColor(red: 152/255, green: 251/255, blue: 152/255, alpha: 0.4)
             polygon.strokeColor = UIColor(named: "darkredcolor")!
-            polygon.strokeWidth = 2
+            polygon.strokeWidth = 4
             polygon.map = self.mapview
             
             let strcombine = String(format:"%@+%@+%@",strid,strname,stremirate)

@@ -43,15 +43,20 @@ struct Constants {
         static let STATISCALLNO = "+971 4704 3100"
         static let STATISCALLNO1 = "+97147043100"
         
+        static let STATISCALLNOAR = "3100 4704 971+"
+        
+        
         //MARK: - STATIC WHATSAPP NO
         static let STATISWHATSAPPCALLNO = "+971 4704 3100"
         static let STATISWHATSAPPCALLNO1 = "+97147043100"
+        
+        static let STATISWHATSAPPCALLNOAR = "3100 4704 971+"
         
         //MARK: - STATIC EMAIL
         static let STATISEMAILID = "ecom@alrawabi.ae"
         
         //MARK: - STATIC ADDRESS
-        static let STATICADDTRSS = "Al RAWABI DAIRY COMPANY CO. L.L.C P.O.Box: 50368, Al Khawaneej, Dubai, United Arab Emirates"
+        static let STATICADDTRSS = "Address - Al RAWABI DAIRY COMPANY CO. L.L.C P.O.Box: 50368, Al Khawaneej, Dubai, United Arab Emirates"
         static let STATICADDTRSS1 = "دبي - الخوانيج ص.ب 50368 ، دبي ، الإمارات العربية المتحدة"
         
         //MARK: - STATIC LIVE WEBSITE URL
@@ -182,7 +187,7 @@ struct Constants {
         static let apimethod109 = "locationcoordinates/locationcoordinates-api"
         static let apimethod110 = "cartClear/cartClear-api"
         static let apimethod111 = "homepageBottomBanner/homepageBottomBanner-api"
-        
+        static let apimethod112 = "subscriptionOrderStatusUpdate/subscriptionOrderStatusUpdate-api"
     }
 }
 

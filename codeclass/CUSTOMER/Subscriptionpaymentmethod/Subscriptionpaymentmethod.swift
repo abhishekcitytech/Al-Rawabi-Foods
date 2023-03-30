@@ -160,9 +160,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language234")), for: .normal)
         btnremoverewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language49")), for: .normal)
         
-        lblmaximumrewardpointsused.textColor = UIColor(named: "darkgreencolor")!
-        lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language377")
-        
+         
         let backicon = UIImage(named: "back")
         let back = UIBarButtonItem(image: backicon, style: .plain, target: self, action: #selector(pressBack))
         back.tintColor = UIColor.black
@@ -192,7 +190,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         txtcouponcode.layer.cornerRadius = 0.0
         txtcouponcode.layer.masksToBounds = true
         
-        btnapplycouponcode.layer.cornerRadius = 0.0
+        btnapplycouponcode.layer.cornerRadius = 8.0
         btnapplycouponcode.layer.masksToBounds = true
         
         
@@ -211,7 +209,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         viewrewardpoints.layer.cornerRadius = 6.0
         viewrewardpoints.layer.masksToBounds = true
         
-        btnapplyrewardpoints.layer.cornerRadius = 0.0
+        btnapplyrewardpoints.layer.cornerRadius = 8.0
         btnapplyrewardpoints.layer.masksToBounds = true
         
         txtrewardpoints.setLeftPaddingPoints(10)
@@ -1520,9 +1518,14 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                             
                             if strpoints == "0" || strpoints == "0.0"
                             {
-                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkmostredcolor")!
-                                self.lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language355")
+                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "themecolor")!
+                                self.lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language377")
                                 self.btnapplyrewardpoints.isUserInteractionEnabled = false
+                            }
+                            else{
+                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "themecolor")!
+                                self.lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language377")
+                                self.btnapplyrewardpoints.isUserInteractionEnabled = true
                             }
                             
                             /*if strpoints == "0" || strpoints == "0.0"
@@ -2529,6 +2532,121 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         task.resume()
     }
     
+    
+    //MARK: - post SUBSCRIPTION Order PAYMENT FAILED / CANCELLED POST TO SERVER
+    func postSubscriptionOrderFailedCancelledToServer(strstatus:String,strorderincreamentalid:String)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        let parameters = ["paymentStatus": strstatus,"orderIncrementId":strorderincreamentalid] as [String : Any]
+        
+        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod112)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
+        let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+        print("json string = \(jsonString)")
+        request.httpBody = jsonData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                    
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                   
+                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                     //print("strstatus",strstatus)
+                     //print("strsuccess",strsuccess)
+                     //print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            print("AGAIN CREATE ORDER WILL POST TO SERVER AFTER PRESS PAYMENT BUTTON")
+                            
+                            /*if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
+                            {
+                                //CREDITCARD
+                                
+                                if self.strpageidentifier == "100"{
+                                    //DAILY
+                                    self.createorderDataDAILYSubscription()
+                                }
+                                else if self.strpageidentifier == "200"{
+                                    //WEEKLY
+                                    self.createorderDataWEEKLYSubscription()
+                                }
+                                else if self.strpageidentifier == "300"{
+                                    //MONTHLY
+                                    self.createorderDataMONTHLYSubscription()
+                                }
+                            }
+                            else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
+                            {
+                                //WALLET
+                                
+                                if strpageidentifier == "100"{
+                                    //DAILY
+                                    self.createorderDataDAILYSubscription()
+                                }
+                                else if strpageidentifier == "200"{
+                                    //WEEKLY
+                                    self.createorderDataWEEKLYSubscription()
+                                }
+                                else if strpageidentifier == "300"{
+                                    //MONTHLY
+                                    self.createorderDataMONTHLYSubscription()
+                                }
+                            }*/
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
     //MARK: - NI SDK DELEGATE METHOD
     func paymentDidCompleteWithAuthCode(with status: PaymentStatus, authCode:String)
     {
@@ -2573,6 +2691,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 //self.navigationController?.popToRootViewController(animated: true)
+                self.postSubscriptionOrderFailedCancelledToServer(strstatus: "cancel", strorderincreamentalid: self.strSubscriptionincreamentalId)
             }))
         }
         else if(status == .PaymentCancelled)
@@ -2581,6 +2700,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 //self.navigationController?.popToRootViewController(animated: true)
+                self.postSubscriptionOrderFailedCancelledToServer(strstatus: "cancel", strorderincreamentalid: self.strSubscriptionincreamentalId)
             }))
         }
     }

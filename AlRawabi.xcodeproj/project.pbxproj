@@ -160,6 +160,12 @@
 		CB7B4F3C29372CE100BF72AA /* returnrefundslisting.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB7B4F3A29372CE100BF72AA /* returnrefundslisting.xib */; };
 		CB7B4F4029372DA800BF72AA /* cellreturnrefund.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7B4F3E29372DA800BF72AA /* cellreturnrefund.swift */; };
 		CB7B4F4129372DA800BF72AA /* cellreturnrefund.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB7B4F3F29372DA800BF72AA /* cellreturnrefund.xib */; };
+		CB85254929D4B53F0031844A /* daily-en.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254329D4B53B0031844A /* daily-en.png */; };
+		CB85254A29D4B53F0031844A /* monthly-ar.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254429D4B53C0031844A /* monthly-ar.png */; };
+		CB85254B29D4B53F0031844A /* weekly-ar.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254529D4B53C0031844A /* weekly-ar.png */; };
+		CB85254C29D4B53F0031844A /* weekly-en.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254629D4B53D0031844A /* weekly-en.png */; };
+		CB85254D29D4B53F0031844A /* monthly-en.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254729D4B53E0031844A /* monthly-en.png */; };
+		CB85254E29D4B53F0031844A /* daily-ar.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254829D4B53F0031844A /* daily-ar.png */; };
 		CB8EEE0C28C219F500EAC020 /* subscriptionmodelweekly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8EEE0A28C219F500EAC020 /* subscriptionmodelweekly.swift */; };
 		CB8EEE0D28C219F500EAC020 /* subscriptionmodelweekly.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8EEE0B28C219F500EAC020 /* subscriptionmodelweekly.xib */; };
 		CB8EEE1028C21A0400EAC020 /* subscriptionmodelmonthly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8EEE0E28C21A0400EAC020 /* subscriptionmodelmonthly.swift */; };
@@ -562,6 +568,12 @@
 		CB7B4F3A29372CE100BF72AA /* returnrefundslisting.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = returnrefundslisting.xib; sourceTree = "<group>"; };
 		CB7B4F3E29372DA800BF72AA /* cellreturnrefund.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cellreturnrefund.swift; sourceTree = "<group>"; };
 		CB7B4F3F29372DA800BF72AA /* cellreturnrefund.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellreturnrefund.xib; sourceTree = "<group>"; };
+		CB85254329D4B53B0031844A /* daily-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "daily-en.png"; sourceTree = "<group>"; };
+		CB85254429D4B53C0031844A /* monthly-ar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "monthly-ar.png"; sourceTree = "<group>"; };
+		CB85254529D4B53C0031844A /* weekly-ar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weekly-ar.png"; sourceTree = "<group>"; };
+		CB85254629D4B53D0031844A /* weekly-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weekly-en.png"; sourceTree = "<group>"; };
+		CB85254729D4B53E0031844A /* monthly-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "monthly-en.png"; sourceTree = "<group>"; };
+		CB85254829D4B53F0031844A /* daily-ar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "daily-ar.png"; sourceTree = "<group>"; };
 		CB8EEE0A28C219F500EAC020 /* subscriptionmodelweekly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subscriptionmodelweekly.swift; sourceTree = "<group>"; };
 		CB8EEE0B28C219F500EAC020 /* subscriptionmodelweekly.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = subscriptionmodelweekly.xib; sourceTree = "<group>"; };
 		CB8EEE0E28C21A0400EAC020 /* subscriptionmodelmonthly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subscriptionmodelmonthly.swift; sourceTree = "<group>"; };
@@ -945,6 +957,7 @@
 		CB1C1F30283F5B530046CEBD /* extras */ = {
 			isa = PBXGroup;
 			children = (
+				CB85254229D4B5260031844A /* ribb */,
 				CBBA602E29AE33C500A504FB /* dairy_400x400_1.jpg */,
 				CB25B2B42939FF0400B8D15F /* splashgroup */,
 				CBA2B473286DBBB80062609C /* tabbarbg.png */,
@@ -1481,6 +1494,19 @@
 				CB7B4F3F29372DA800BF72AA /* cellreturnrefund.xib */,
 			);
 			path = cellreturnrefund;
+			sourceTree = "<group>";
+		};
+		CB85254229D4B5260031844A /* ribb */ = {
+			isa = PBXGroup;
+			children = (
+				CB85254829D4B53F0031844A /* daily-ar.png */,
+				CB85254329D4B53B0031844A /* daily-en.png */,
+				CB85254429D4B53C0031844A /* monthly-ar.png */,
+				CB85254729D4B53E0031844A /* monthly-en.png */,
+				CB85254529D4B53C0031844A /* weekly-ar.png */,
+				CB85254629D4B53D0031844A /* weekly-en.png */,
+			);
+			path = ribb;
 			sourceTree = "<group>";
 		};
 		CB8EEE0828C219BB00EAC020 /* subscriptionmodelweekly */ = {
@@ -2284,7 +2310,6 @@
 				CBBE80172955DBB100A161CF /* cmspage */,
 				CBCA39C828C70E1300DE1702 /* mapaddress */,
 				CB558DFA2872AB4A0071939A /* myaddresslist */,
-				CBF9132B28C06ED1009F8957 /* mywishlist */,
 				CBC8B26428730722008A68A8 /* trackorder */,
 				CBC8B25F2873000E008A68A8 /* rechargewallet */,
 				CB558E192872EF870071939A /* mywallet */,
@@ -2292,9 +2317,10 @@
 				CBA2B475286DC0280062609C /* viewallreviews */,
 				CB39291C286601A9003162E9 /* addreviewpage */,
 				CBCB9CFF2865AFE6002F5340 /* productfilerpage */,
+				CBF9132B28C06ED1009F8957 /* mywishlist */,
 				CBC9F6CD28C7C76C000AC442 /* newarrivalproduct */,
-				CB4ECBB52865CE45003C72E1 /* porudctdetails */,
 				CBC408D528D4585F00F3FF3A /* searchproductlist */,
+				CB4ECBB52865CE45003C72E1 /* porudctdetails */,
 				CBCB9CFA2865A09E002F5340 /* productcatalogue */,
 				CBA2B4CC286F36890062609C /* paymentmethod */,
 				CB78D1F828F68DAF00ED32C6 /* OrderOnceCheckoutProcess */,
@@ -2608,6 +2634,7 @@
 				CBF12CB628C5F91200F0325D /* cellorderhistoryitems.xib in Resources */,
 				CB05342B2915224800D3BCFC /* myprofile.xib in Resources */,
 				CBE42F7B2832391000B761F3 /* LaunchScreen.storyboard in Resources */,
+				CB85254E29D4B53F0031844A /* daily-ar.png in Resources */,
 				CB1D7EEA292FB472001CFA09 /* renewsubscriptiondetails.xib in Resources */,
 				CB7B4F322937104E00BF72AA /* loyaltypointbalance.xib in Resources */,
 				CB7B4F262935E06400BF72AA /* maidwalletdetails.xib in Resources */,
@@ -2633,6 +2660,7 @@
 				CB4ECBB42865BD31003C72E1 /* cellexpHeader.xib in Resources */,
 				CBF12CC028C6046100F0325D /* cellcoupon.xib in Resources */,
 				CBAF884C29647A7A000B2938 /* editchoosemaplocation.xib in Resources */,
+				CB85254A29D4B53F0031844A /* monthly-ar.png in Resources */,
 				CBBE9E5A2923D21300970344 /* celltabvlinedate.xib in Resources */,
 				CB25B2B22939F4F600B8D15F /* Splash4@2x.png in Resources */,
 				CBC408D928D4587700F3FF3A /* searchproductlist.xib in Resources */,
@@ -2652,6 +2680,7 @@
 				CBFBFBA929224AB5008332FF /* loader20.png in Resources */,
 				CBAD49A9286043480091EA2F /* NunitoSans-SemiBold.ttf in Resources */,
 				CBAD49A6286043480091EA2F /* NunitoSans-Bold.ttf in Resources */,
+				CB85254929D4B53F0031844A /* daily-en.png in Resources */,
 				CB39D4622913F23300265A03 /* celltabvmaidsubscriptionlist.xib in Resources */,
 				CBF12CB128C5E41000F0325D /* myorderhistorydetails.xib in Resources */,
 				CBAD49AF286043480091EA2F /* NunitoSans-ExtraLight.ttf in Resources */,
@@ -2671,6 +2700,7 @@
 				CBFBFBB529224AB5008332FF /* loader7.png in Resources */,
 				CB7B4F37293717B100BF72AA /* cellloyaltyhistory.xib in Resources */,
 				CBFBFBBB29224AB5008332FF /* loader22.png in Resources */,
+				CB85254B29D4B53F0031844A /* weekly-ar.png in Resources */,
 				CB1D7EDA292DF804001CFA09 /* celltimeslots.xib in Resources */,
 				CB512C542976C53200BF0ECB /* icon-40.png in Resources */,
 				CBCF06B9286484A900069382 /* subscriptionmodel.xib in Resources */,
@@ -2702,6 +2732,7 @@
 				CBFBFBB629224AB5008332FF /* loader4.png in Resources */,
 				CBFBFBAD29224AB5008332FF /* loader30.png in Resources */,
 				CB8EEE1728C21CF700EAC020 /* colcellsubmodelweekly.xib in Resources */,
+				CB85254C29D4B53F0031844A /* weekly-en.png in Resources */,
 				CBC2364C28D877BC000DBC93 /* cellcoldailyproduct.xib in Resources */,
 				CBF12CBB28C5FCC700F0325D /* couponlist.xib in Resources */,
 				CBAD49AC286043480091EA2F /* NunitoSans-ExtraLightItalic.ttf in Resources */,
@@ -2732,6 +2763,7 @@
 				CBAD49AA286043480091EA2F /* NunitoSans-SemiBoldItalic.ttf in Resources */,
 				CBE42F782832391000B761F3 /* Assets.xcassets in Resources */,
 				CB8EEE0D28C219F500EAC020 /* subscriptionmodelweekly.xib in Resources */,
+				CB85254D29D4B53F0031844A /* monthly-en.png in Resources */,
 				CB6E77D02924CDB4004F38E4 /* mysubscriptionlineviewproductlist.xib in Resources */,
 				CBC9F6CA28C781C6000AC442 /* colcellrelatedproduct.xib in Resources */,
 				CB05342F2915225400D3BCFC /* changepassword.xib in Resources */,
@@ -3274,7 +3306,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.5;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3321,7 +3353,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.5;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";

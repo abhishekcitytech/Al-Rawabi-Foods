@@ -349,12 +349,13 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         for x in 0 ..< self.arrMcategory.count
         {
             let dictemp = self.arrMcategory.object(at: x)as! NSDictionary
+            let strid = String(format: "%@", dictemp.value(forKey: "id") as! CVarArg)
             let strname = String(format: "%@", dictemp.value(forKey: "text")as? String ?? "")
             let strcategoryImage = String(format: "%@", dictemp.value(forKey: "categoryImage")as? String ?? "")
             
             arrm1 = dictemp.value(forKey: "children") as? NSArray ?? []
             
-            if strcategoryImage.containsIgnoreCase("offer")
+            if strid.containsIgnoreCase("27")
             {
                 let strid = String(format: "%@", dictemp.value(forKey: "id") as! CVarArg)
                 strcatid = strid
@@ -1224,28 +1225,61 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
         print("strFinalurl",strFinalurl)
         
-        /*print("dict",dict)
-        let strcategory_id = String(format: "%@", dict.value(forKey: "category_id") as! CVarArg)
-        print("strcategory_id",strcategory_id)
-        print("self.arrMcategory",self.arrMcategory)
-        for x in 0 ..< self.arrMcategory.count
+        /*id = 12;
+        image = "https://staging1.alrawabifoods.com/media/wysiwyg/mobile_banner_arabic/ar4.jpg";
+        imageName = "image_3";
+        type = category;*/
+        
+        let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
+        let strtype = String(format: "%@", dict.value(forKey: "type") as? String ?? "")
+        print("strid",strid)
+        print("strtype",strtype)
+        
+        if strtype.containsIgnoreCase("category")
         {
-            let dict = self.arrMcategory.object(at: x)as? NSDictionary
-            let strtext = String(format: "%@", dict!.value(forKey: "text") as? String ?? "")
-            let strid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
-            //let strcategoryImage = String(format: "%@", dict!.value(forKey: "categoryImage") as? String ?? "")
-            let arrm1 = dict!.value(forKey: "children") as? NSArray ?? []
+            //GOTO CATEGORY PAGE
             
-            if strcategory_id == strid
+            var arrm1 = NSArray()
+            var strtext2  = ""
+            var strid2 = ""
+            for x in 0 ..< self.arrMcategory.count
             {
-                let ctrl = productcatalogue(nibName: "productcatalogue", bundle: nil)
-                ctrl.strpageidentifier = "1001"
-                ctrl.strFromCategoryID = strid
-                ctrl.strFromCategoryNAME = strtext
-                ctrl.arrmsubcatlist = NSMutableArray(array: arrm1)
-                self.navigationController?.pushViewController(ctrl, animated: true)
+                let dict = self.arrMcategory.object(at: x)as? NSDictionary
+                let strtext1 = String(format: "%@", dict!.value(forKey: "text") as? String ?? "")
+                let strid1 = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+                arrm1 = dict!.value(forKey: "children") as? NSArray ?? []
+                
+                if strid == strid1
+                {
+                    strid2 = strid1
+                    strtext2 = strtext1
+                }
             }
-        }*/
+            
+            let ctrl = productcatalogue(nibName: "productcatalogue", bundle: nil)
+            ctrl.strpageidentifier = "1001"
+            ctrl.strFromCategoryID = strid2
+            ctrl.strFromCategoryNAME = strtext2
+            ctrl.arrmsubcatlist = NSMutableArray(array: arrm1)
+            self.navigationController?.pushViewController(ctrl, animated: true)
+        }
+        else if strtype.containsIgnoreCase("product")
+        {
+            //GOTO PRODUCT DETAILS PAGE
+            
+            let ctrl = porudctdetails(nibName: "porudctdetails", bundle: nil)
+            ctrl.strSelectedProductID = strid
+            ctrl.strFrompageIdentifier = "1001"
+            ctrl.strShareableProductUrl = ""
+            self.navigationController?.pushViewController(ctrl, animated: true)
+        }
+        else
+        {
+            //GOTO NEW ARRIVAL PAGE
+            
+            let ctrl = newarrivalproduct(nibName: "newarrivalproduct", bundle: nil)
+            self.navigationController?.pushViewController(ctrl, animated: true)
+        }
         
         //let fullScreenController = viewbanner.presentFullScreenController(from: self)
         // set the activity indicator for full screen controller (skipping the line will show no activity indicator)
@@ -1577,7 +1611,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             
             let arrm1 = dict.value(forKey: "children") as? NSArray ?? []
             
-            if strtext.containsIgnoreCase("new arrivals")
+            //Offer  //"عروض"
+            //New Arrival  //"وصل حديثاُ"
+            if strtext.containsIgnoreCase("New Arrival") || strtext.containsIgnoreCase("وصل حديثاُ") || strid == "28"
             {
                 print("Go to New Arrival Page")
                 let ctrl = newarrivalproduct(nibName: "newarrivalproduct", bundle: nil)
@@ -1723,7 +1759,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         if stris_addedwishlist != "True"
         {
-            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language149"), preferredStyle: UIAlertController.Style.alert)
+            /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language149"), preferredStyle: UIAlertController.Style.alert)
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 self.postAddtoWishlistAPIMethod(strproductid: strproductid)
@@ -1731,10 +1767,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                   print("Handle Cancel Logic here")
             }))
-            self.present(refreshAlert, animated: true, completion: nil)
+            self.present(refreshAlert, animated: true, completion: nil)*/
+            self.postAddtoWishlistAPIMethod(strproductid: strproductid)
         }
         else{
-            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language152"), preferredStyle: UIAlertController.Style.alert)
+            /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language152"), preferredStyle: UIAlertController.Style.alert)
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strproductid)
@@ -1742,7 +1779,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                   print("Handle Cancel Logic here")
             }))
-            self.present(refreshAlert, animated: true, completion: nil)
+            self.present(refreshAlert, animated: true, completion: nil)*/
+            
+            self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strproductid)
         }
     }
     
@@ -2843,12 +2882,12 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         if strstatus == 200
                         {
                             
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
+                            /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
                                 
-                            }))
+                            }))*/
 
                         }
                         else{

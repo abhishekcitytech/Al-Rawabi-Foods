@@ -664,6 +664,21 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
+        
+        /*$firstname,
+        $lastname,
+        $telephone,
+        $city,
+        $countryid,
+        $region,
+        $street,
+        $building,
+        $landmark,
+        $latitude,
+        $longitude,
+        $isdefaultaddress,
+        $setasmaid,
+        $locationId*/
        
         let parameters = ["firstname": self.txtfirstname.text!,
                           "lastname": self.txtlastname.text!,
@@ -676,6 +691,8 @@ class addnewaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIT
                           "longitude": self.strSelectedLONGITUDE,
                           "isdefaultaddress": strisdefaultaddress,
                           "setasmaid": "",
+                          "building":"",
+                          "landmark": "",
                           "locationId": strpolygonid
                           ] as [String : Any]
         

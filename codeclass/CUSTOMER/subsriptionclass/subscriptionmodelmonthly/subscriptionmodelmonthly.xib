@@ -32,6 +32,7 @@
                 <outlet property="lblsubscriptionselected" destination="zdD-ZL-Pxk" id="haM-RN-23W"/>
                 <outlet property="lblsubtotaleditpopup" destination="2Wv-W2-cr8" id="gUB-VT-cP2"/>
                 <outlet property="tabveditpopupitems" destination="8iD-LA-Lis" id="vlP-LI-LYC"/>
+                <outlet property="txtstartdate" destination="ref-vo-BVo" id="ofT-Qc-Rht"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewoverall" destination="LCK-yQ-mow" id="cqs-GS-SDF"/>
                 <outlet property="viewpopupedititems" destination="ZYf-jW-eBA" id="BKb-lx-qYI"/>
@@ -52,40 +53,8 @@
                             <color key="textColor" name="themecolor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lhk-No-o76">
-                            <rect key="frame" x="8" y="60" width="24" height="24"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" backgroundImage="uncheckbox"/>
-                            <state key="selected" backgroundImage="checkbox"/>
-                            <connections>
-                                <action selector="pressautorenew:" destination="-1" eventType="touchUpInside" id="egy-od-tQN"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Auto Renew" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOe-4k-5JE">
-                            <rect key="frame" x="46" y="58" width="321" height="28"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
-                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You have to select 'Minimum 8 orders a month OR full month i.e. no. of days in a month' for Monthly subscription plan." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77D-Vu-kKt">
-                            <rect key="frame" x="8" y="96" width="359" height="66"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
-                            <color key="textColor" name="themecolor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4c-mu-BFd">
-                            <rect key="frame" x="8" y="163" width="359" height="29"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                            <color key="backgroundColor" name="themecolor"/>
-                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="GHp-t6-GuL">
-                            <rect key="frame" x="8" y="200" width="359" height="359"/>
+                            <rect key="frame" x="8" y="251" width="359" height="308"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="COh-6e-Efc">
@@ -125,6 +94,53 @@
                                 <action selector="pressContinuetoAddProducts:" destination="-1" eventType="touchUpInside" id="XIN-j1-iIH"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lhk-No-o76">
+                            <rect key="frame" x="8" y="111" width="24" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" backgroundImage="uncheckbox"/>
+                            <state key="selected" backgroundImage="checkbox"/>
+                            <connections>
+                                <action selector="pressautorenew:" destination="-1" eventType="touchUpInside" id="egy-od-tQN"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Auto Renew" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOe-4k-5JE">
+                            <rect key="frame" x="46" y="109" width="321" height="28"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You have to select 'Minimum 8 orders a month OR full month i.e. no. of days in a month' for Monthly subscription plan." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77D-Vu-kKt">
+                            <rect key="frame" x="8" y="147" width="359" height="66"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                            <color key="textColor" name="themecolor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4c-mu-BFd">
+                            <rect key="frame" x="8" y="214" width="359" height="29"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <color key="backgroundColor" name="themecolor"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select Start date " minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ref-vo-BVo">
+                            <rect key="frame" x="8" y="60" width="166" height="41"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="N2S-fQ-pwl"/>
+                            </connections>
+                        </textField>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="O4A-6W-kcf">
+                            <rect key="frame" x="139" y="68" width="24" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                 </view>
@@ -204,6 +220,7 @@
         </view>
     </objects>
     <resources>
+        <image name="calendar" width="28" height="28"/>
         <image name="checkbox" width="32" height="32"/>
         <image name="crossblack" width="24" height="24"/>
         <image name="uncheckbox" width="32" height="32"/>

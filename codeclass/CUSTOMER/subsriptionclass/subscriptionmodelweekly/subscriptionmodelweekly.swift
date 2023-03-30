@@ -7,8 +7,9 @@
 
 import UIKit
 import CoreData
+import DatePickerDialog
 
-class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource
+class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate
 {
 
     @IBOutlet weak var viewoverall: UIView!
@@ -45,6 +46,9 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
     
     @IBOutlet weak var lblSelectedCounter: UILabel!
     var inSelectedDateCounter = 0
+    
+    
+    @IBOutlet weak var txtstartdate: UITextField!
     
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
@@ -99,6 +103,14 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
         
         lblmessage.text = myAppDelegate.changeLanguage(key: "msg_language451")
         lblautorenew.text = myAppDelegate.changeLanguage(key: "msg_language63")
+        
+        txtstartdate.placeholder = myAppDelegate.changeLanguage(key: "msg_language61")
+        
+        txtstartdate.setLeftPaddingPoints(10.0)
+        txtstartdate.layer.cornerRadius = 4.0
+        txtstartdate.layer.borderWidth = 1.0
+        txtstartdate.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        txtstartdate.layer.masksToBounds = true
         
         btnReviewPlaceOrder.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language67")), for: .normal)
         btnContinuetoAddProducts.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language382")), for: .normal)
@@ -172,6 +184,175 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
     @objc func pressBack()
     {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    
+    // MARK: - Textfield Delegate Method
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        if textField.isEqual(txtstartdate)
+        {
+            
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField)
+    {
+    }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
+    {
+        if textField == self.txtstartdate {
+            datePickerTappedStart()
+            return false
+        }
+        return true
+    }
+    func textFieldShouldClear(_ textField: UITextField) -> Bool
+    {
+        return true;
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool
+    {
+        return true;
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        return true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder();
+        return true;
+    }
+    
+    //MARK: - show fromdate picker method
+    let datePicker1 = DatePickerDialog()
+    func datePickerTappedStart()
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        var strdefaultdate = ""
+        print("self.arrMDateBlock",self.arrMDateBlock)
+        if self.arrMDateBlock.count > 0{
+            
+            let dict = self.arrMDateBlock.object(at: 0)as? NSMutableDictionary
+            strdefaultdate = String(format: "%@", dict?.value(forKey: "date")as? String ?? "")
+            print("strfirstdate >>>>",strdefaultdate)
+        }
+       
+        
+        let date = Date()
+        let df = DateFormatter()
+        df.dateFormat = "HH:mm:ss"
+        let timestring = df.string(from: date)
+        print("timestring",timestring)
+        
+        let s1 = timestring
+        let s2 = Constants.conn.CutOffTime //"15:00:00"
+        var strdate = String()
+        if df.date(from: s1)! > df.date(from: s2)!
+        {
+            print("Over 15:00:00 - Its over 3 PM")
+            
+            
+            let today = Date()
+            let nextdate = Calendar.current.date(byAdding: .day, value: +2, to: today)!
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "dd/MM/yyyy"
+            strdate = formatter1.string(from: nextdate)
+            print("strdate date %@",strdate)
+            
+        }
+        else
+        {
+            print("Within 15:00:00 - Its within 3 PM")
+            
+            let today = Date()
+            let nextdate = Calendar.current.date(byAdding: .day, value: +1, to: today)!
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "dd/MM/yyyy"
+            strdate = formatter1.string(from: nextdate)
+            print("strdate date %@",strdate)
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        var date111 = dateFormatter.date(from: strdate)
+        
+        var dateComponents1 = DateComponents()
+        dateComponents1.day = 365
+        let next6days = Calendar.current.date(byAdding: dateComponents1, to: date111!)
+        
+        if strdefaultdate != ""{
+            date111 = dateFormatter.date(from: strdefaultdate)
+        }
+        
+        datePicker1.show(myAppDelegate.changeLanguage(key: "msg_language61"),
+                         doneButtonTitle: myAppDelegate.changeLanguage(key: "msg_language106"),
+                         cancelButtonTitle: myAppDelegate.changeLanguage(key: "msg_language107"),
+                         defaultDate: date111!,
+                         minimumDate: date111,
+                         maximumDate: next6days,
+                         datePickerMode: .date) { (date) in
+            if let dt = date
+            {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd/MM/yyyy"
+                print("action")
+                self.txtstartdate.text = formatter.string(from: dt)
+                
+                let nextdate = formatter.date(from: self.txtstartdate.text!)
+                var intdiff = 6
+                let nextdate1 = Calendar.current.date(byAdding: .day, value: +intdiff, to: nextdate!)!
+                let formatter2 = DateFormatter()
+                formatter2.dateFormat = "dd/MM/yyyy"
+                let enddate = formatter2.string(from: nextdate1)
+                print("enddate date %@",enddate)
+                
+                //RECRETAE DATE LIST WITH FRESH DATE RANGE && DB SHOULD BE CLEAR UP
+                print("self.arrMDateBlock.count",self.arrMDateBlock.count)
+                if self.arrMDateBlock.count > 0
+                {
+                    self.arrMDateBlock.removeAllObjects()
+                    
+                    let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+                    //Remove Weeklymodel table data
+                    guard let appDelegate2 = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent2 = appDelegate2.persistentContainer.viewContext
+                    let fetchData2 = NSFetchRequest<NSFetchRequestResult>(entityName: "Weeklymodel")
+                    fetchData2.predicate = NSPredicate(format: "userid == %@ && subscriptionid == %@", strcustomerid,"2")
+                    let objects2 = try! manageContent2.fetch(fetchData2)
+                    for obj in objects2 {
+                        manageContent2.delete(obj as! NSManagedObject)
+                    }
+                    do {
+                        try manageContent2.save() // <- remember to put this :)
+                    } catch {
+                        // Do something... fatalerror
+                    }
+                    
+                    //Remove Weeklyproduct table data
+                    guard let appDelegate3 = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent3 = appDelegate3.persistentContainer.viewContext
+                    let fetchData3 = NSFetchRequest<NSFetchRequestResult>(entityName: "Weeklyproduct")
+                    let objects3 = try! manageContent3.fetch(fetchData3)
+                    for obj in objects3 {
+                        manageContent3.delete(obj as! NSManagedObject)
+                    }
+                    do {
+                        try manageContent3.save() // <- remember to put this :)
+                    } catch {
+                        // Do something... fatalerror
+                    }
+                    
+                    self.inSelectedDateCounter = 0
+                    self.lblSelectedCounter.isHidden = true
+                    self.lblSelectedCounter.text = ""
+                }
+                
+                self.listofdate(strdate: self.txtstartdate.text!, enddate: enddate)
+                
+            }
+        }
     }
     
     //MARK: - press auto renew method
@@ -257,6 +438,7 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
             let enddate = formatter1.string(from: nextdate1)
             print("enddate date %@",enddate)
             
+            self.txtstartdate.text = strdate
             self.listofdate(strdate: strdate, enddate: enddate)
         }
         else
@@ -276,6 +458,7 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
             let enddate = formatter1.string(from: nextdate1)
             print("enddate date %@",enddate)
            
+            self.txtstartdate.text = strdate
             self.listofdate(strdate: strdate, enddate: enddate)
         }
     }
@@ -311,7 +494,7 @@ class subscriptionmodelweekly: UIViewController,UICollectionViewDelegate,UIColle
             
             print("date:%@ day:%@",strdate,dayname)
             
-            //------------------- INSERT INTO Dailymodel TABLE ---------------- //
+            //------------------- INSERT INTO Weeklymodel TABLE ---------------- //
             let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
             let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}

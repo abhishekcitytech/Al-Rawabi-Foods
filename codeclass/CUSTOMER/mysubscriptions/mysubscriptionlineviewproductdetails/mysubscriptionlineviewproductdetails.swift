@@ -684,14 +684,39 @@ class mysubscriptionlineviewproductdetails: UIViewController,UITableViewDelegate
                             
                                 if strslotid == self.strfetchedtimeslotID
                                 {
+                                    var str1 = ""
+                                    var str2 = ""
+                                    let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                                    if (strLangCode == "en")
+                                    {
+                                        str1 = strstart_time
+                                        str2 = strend_time
+                                    }
+                                    else
+                                    {
+                                        if strstart_time.containsIgnoreCase("AM"){
+                                            str1 = strstart_time.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+                                        }
+                                        else if strstart_time.containsIgnoreCase("PM"){
+                                            str1 = strstart_time.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+                                        }
+                                        
+                                        if strend_time.containsIgnoreCase("AM"){
+                                            str2 = strend_time.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+                                        }
+                                        else if strend_time.containsIgnoreCase("PM"){
+                                            str2 = strend_time.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+                                        }
+                                    }
+                                    
                                     if strname.containsIgnoreCase("Morning"){
-                                        self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language99"),strstart_time,strend_time)
+                                        self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language99"),str1,str2)
                                     }
                                     else if strname.containsIgnoreCase("Afternoon"){
-                                        self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language100"),strstart_time,strend_time)
+                                        self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language100"),str1,str2)
                                     }
                                     else if strname.containsIgnoreCase("Evening"){
-                                        self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language101"),strstart_time,strend_time)
+                                        self.txttimeslot.text = String(format: "%@ (%@ - %@)", myAppDelegate.changeLanguage(key: "msg_language101"),str1,str2)
                                     }
                                     
                                 }

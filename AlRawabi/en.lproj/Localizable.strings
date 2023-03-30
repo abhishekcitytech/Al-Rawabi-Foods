@@ -80,7 +80,7 @@
 "msg_language71" = "ADD ONCE";
 "msg_language72" = "Choose Products";
 "msg_language73" = "Edit";
-"msg_language74" = "Subscriptions";
+"msg_language74" = "Subscription";
 "msg_language75" = "no recods found!";
 "msg_language76" = "Ok";
 "msg_language77" = "Cancel";
@@ -318,7 +318,7 @@
 "msg_language309" = "Place on";
 "msg_language310" = "Profile Details";
 "msg_language311" = "Subtotal + Tax";
-"msg_language312" = "Ordered Amount";
+"msg_language312" = "Order Total";
 "msg_language313" = "Payment To Be Made";
 "msg_language314" = "Wallet Balance Amount";
 "msg_language315" = "Wallet Remaining Balance Amount";
@@ -508,3 +508,8 @@
 "msg_language498" = "Mobile Number";
 "msg_language499" = "WhatsApp Number";
 "msg_language500" = "E-mail";
+
+"msg_language501" = "Subscriptions";
+
+"msg_language502" = "AM";
+"msg_language503" = "PM";

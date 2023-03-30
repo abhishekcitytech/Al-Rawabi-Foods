@@ -903,13 +903,13 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                             if strpoints == "0" || strpoints == "0.0"
                             {
                                 //YOU CAN NOT APPLY REWARD POINT
-                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkmostredcolor")!
-                                self.lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language355")
+                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "themecolor")!
+                                self.lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language377")
                                 self.btnapplyrewardpoints.isUserInteractionEnabled = false
                             }
                             else{
                                 self.lblmaximumrewardpointsused.text = String(format: "%@ %@ %@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language356"),strspend_min_points,myAppDelegate.changeLanguage(key: "msg_language357"),strspend_max_points,myAppDelegate.changeLanguage(key: "msg_language358"))
-                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "darkgreencolor")!
+                                self.lblmaximumrewardpointsused.textColor = UIColor(named: "themecolor")!
                                 self.btnapplyrewardpoints.isUserInteractionEnabled = true
                             }
                             

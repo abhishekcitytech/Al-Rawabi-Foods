@@ -342,7 +342,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         if btnaddtowishlisticon.tag == 200
         {
             //Add To Wishlist
-            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language149"), preferredStyle: UIAlertController.Style.alert)
+            /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language149"), preferredStyle: UIAlertController.Style.alert)
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 self.postAddtoWishlistAPIMethod()
@@ -350,11 +350,12 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                 print("Handle Cancel Logic here")
             }))
-            self.present(refreshAlert, animated: true, completion: nil)
+            self.present(refreshAlert, animated: true, completion: nil)*/
+            self.postAddtoWishlistAPIMethod()
         }
         else{
             //Remove From Wishlist
-            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language152"), preferredStyle: UIAlertController.Style.alert)
+            /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language152"), preferredStyle: UIAlertController.Style.alert)
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                 print("Handle Continue Logic here")
                 self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strSelectedProductID)
@@ -362,7 +363,9 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                 print("Handle Cancel Logic here")
             }))
-            self.present(refreshAlert, animated: true, completion: nil)
+            self.present(refreshAlert, animated: true, completion: nil)*/
+            
+            self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strSelectedProductID)
         }
         
     }
@@ -1154,11 +1157,11 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                         
                         if strstatus == 200
                         {
-                            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
+                            /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
-                            }))
+                            }))*/
                             
                         }
                         else{
@@ -1168,6 +1171,8 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 print("Click of default button")
                             }))
                         }
+                        
+                        self.getProductDetailsAPIMethod()
                     }
                 }
             }
