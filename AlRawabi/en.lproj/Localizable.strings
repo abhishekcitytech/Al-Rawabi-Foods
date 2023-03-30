@@ -513,3 +513,10 @@
 
 "msg_language502" = "AM";
 "msg_language503" = "PM";
+
+
+"msg_language504" = "Building Name / Villa No";
+"msg_language505" = "Landmark";
+
+"msg_language506" = "Please enter your Building Name / Villa No";
+"msg_language507" = "Please enter your Landmark";

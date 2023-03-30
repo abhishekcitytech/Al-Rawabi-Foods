@@ -192,16 +192,10 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
             
             let strcountry_id = String(format: "%@", dic.value(forKey: "country_id")as? String ?? "")
             
-            let arrstreet = (dic.value(forKey: "street")as! NSArray)
-            var strfullstreet = ""
-            for x in 0 ..< arrstreet.count
-            {
-                let tsr1 = String(format: "%@ ", arrstreet.object(at: x) as? String ?? "")
-                strfullstreet = strfullstreet.appending(tsr1)
-            }
-            print("strfullstreet",strfullstreet)
-            
-            let strFinalAddress = String(format: "%@,%@,%@", strfullstreet,strregionname,strcountry_id)
+            let strbuilding = String(format: "%@", dic.value(forKey: "building")as? String ?? "")
+            let strlandmark = String(format: "%@", dic.value(forKey: "landmark")as? String ?? "")
+            let arrstreet = String(format: "%@", dic.value(forKey: "street")as? String ?? "")
+            let strFinalAddress = String(format: "%@,%@,%@,%@", arrstreet,strbuilding,strregionname,strcountry_id)
             
             cell.lblname.text = String(format: "%@ %@", strfirstname,strlastname)
             cell.lblmobileno.text = String(format: "%@", strmobileno)

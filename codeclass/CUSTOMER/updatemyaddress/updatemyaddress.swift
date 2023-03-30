@@ -27,6 +27,14 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
     @IBOutlet var txtcity: UITextField!
     @IBOutlet var viewstreetaddress: UIView!
     @IBOutlet var txtstreetaddress: UITextView!
+    @IBOutlet var viewbuilding: UIView!
+    @IBOutlet var txtbuilding: UITextField!
+    @IBOutlet var viewlandmark: UIView!
+    @IBOutlet var txtlandmark: UITextField!
+    
+    @IBOutlet weak var lblbuilding: UILabel!
+    @IBOutlet weak var lblstreet: UILabel!
+    @IBOutlet weak var lbllandmark: UILabel!
     
     @IBOutlet weak var lblpreciselocationdetails: UILabel!
     @IBOutlet weak var btncurrentlocation: UIButton!
@@ -153,6 +161,10 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
         
         lblsetasdefault.text = myAppDelegate.changeLanguage(key: "msg_language120")
         
+        lblbuilding.text = myAppDelegate.changeLanguage(key: "msg_language504")
+        lblstreet.text = myAppDelegate.changeLanguage(key: "msg_language237")
+        lbllandmark.text = myAppDelegate.changeLanguage(key: "msg_language505")
+        
         btnupdateaddresspopup.setTitle(String(format: "   %@", myAppDelegate.changeLanguage(key: "msg_language251")), for: .normal)
         btnremoveaddress.setTitle(String(format: "   %@", myAppDelegate.changeLanguage(key: "msg_language252")), for: .normal)
 
@@ -206,6 +218,16 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
         viewstreetaddress.layer.cornerRadius = 6.0
         viewstreetaddress.layer.masksToBounds = true
         
+        viewbuilding.layer.borderWidth = 1.0
+        viewbuilding.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        viewbuilding.layer.cornerRadius = 6.0
+        viewbuilding.layer.masksToBounds = true
+        
+        viewlandmark.layer.borderWidth = 1.0
+        viewlandmark.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        viewlandmark.layer.cornerRadius = 6.0
+        viewlandmark.layer.masksToBounds = true
+        
         let toolbarDone = UIToolbar.init()
         toolbarDone.sizeToFit()
         let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.done,target: self, action: #selector(pressDonetxtMobilenumber))
@@ -227,20 +249,17 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
         
         let strcountry_id = String(format: "%@", self.dicAddressDetails.value(forKey: "country_id")as? String ?? "")
         
-        let arrstreet = (self.dicAddressDetails.value(forKey: "street")as! NSArray)
-        var strfullstreet = ""
-        for x in 0 ..< arrstreet.count
-        {
-            let tsr1 = String(format: "%@ ", arrstreet.object(at: x) as? String ?? "")
-            strfullstreet = strfullstreet.appending(tsr1)
-        }
-        print("strfullstreet",strfullstreet)
-        let strFinalAddress = String(format: "%@,%@,%@", strfullstreet,strregionname,strcountry_id)
+        let strbuilding = String(format: "%@", self.dicAddressDetails.value(forKey: "building")as? String ?? "")
+        let strlandmark = String(format: "%@", self.dicAddressDetails.value(forKey: "landmark")as? String ?? "")
+        let arrstreet = String(format: "%@", self.dicAddressDetails.value(forKey: "street")as? String ?? "")
+        let strFinalAddress = String(format: "%@,%@,%@,%@", arrstreet,strbuilding,strregionname,strcountry_id)
         
         self.txtfirstname.text = strfirstname
         self.txtlastname.text = strlastname
         self.txtmobileno.text = strmobileno
         
+        self.txtbuilding.text = strbuilding
+        self.txtlandmark.text = strlandmark
         
         
         let strcustomattributes = (self.dicAddressDetails.value(forKey: "custom_attributes")as? NSArray ?? [])
@@ -367,6 +386,22 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
         else if txtcountry.text == ""
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language244"), preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else if txtbuilding.text == ""
+        {
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language506"), preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else if txtlandmark.text == ""
+        {
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language507"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")

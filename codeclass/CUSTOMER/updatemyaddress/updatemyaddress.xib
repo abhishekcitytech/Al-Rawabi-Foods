@@ -16,6 +16,9 @@
         <array key="NunitoSans-Regular.ttf">
             <string>NunitoSans-Regular</string>
         </array>
+        <array key="NunitoSans-SemiBold.ttf">
+            <string>NunitoSans-SemiBold</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="updatemyaddress" customModule="AlRawabi" customModuleProvider="target">
@@ -23,22 +26,29 @@
                 <outlet property="btncurrentlocation" destination="ECp-sa-Yzu" id="GRB-Au-3wA"/>
                 <outlet property="btnremoveaddress" destination="9uH-yz-sVn" id="Iyw-7Z-P2y"/>
                 <outlet property="btnupdateaddresspopup" destination="lev-cA-ieQ" id="eN3-ba-yCo"/>
+                <outlet property="lblbuilding" destination="HVa-x0-B4G" id="1fG-hO-v1h"/>
+                <outlet property="lbllandmark" destination="04F-dh-zpq" id="T28-Wq-xvm"/>
                 <outlet property="lblpreciselocationdetails" destination="Dxg-q6-Y8e" id="82f-ii-O5R"/>
                 <outlet property="lblsetasdefault" destination="YN5-g0-3Xd" id="jFg-St-z43"/>
+                <outlet property="lblstreet" destination="hYb-6q-9gW" id="j6v-a6-HUt"/>
                 <outlet property="scrolloverall" destination="gzl-U7-RSp" id="w6h-Od-6TK"/>
                 <outlet property="switchformaid" destination="qx1-rp-ik6" id="apy-MM-1hT"/>
                 <outlet property="switchmakedefault" destination="SS7-uc-zki" id="xn0-6C-Igg"/>
+                <outlet property="txtbuilding" destination="wOp-79-2Ft" id="YxW-Xg-5Vw"/>
                 <outlet property="txtcity" destination="dq1-a4-JfE" id="fJ1-RY-hPS"/>
                 <outlet property="txtcountry" destination="USn-iV-XyU" id="ie6-ZV-bGq"/>
                 <outlet property="txtfirstname" destination="GsY-WR-MHl" id="zoN-kl-Pkv"/>
+                <outlet property="txtlandmark" destination="sF3-5m-x8T" id="CMR-7F-GPv"/>
                 <outlet property="txtlastname" destination="QkJ-TP-1vd" id="6cg-ka-wej"/>
                 <outlet property="txtlocation" destination="vpd-Z9-n7n" id="kl5-UL-SX2"/>
                 <outlet property="txtmobileno" destination="5Rk-Ie-dQw" id="8yD-zY-vHp"/>
                 <outlet property="txtstreetaddress" destination="Uf0-dE-cZ8" id="Q4H-UO-i5K"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewbuilding" destination="VKB-w0-1Ur" id="JDl-NG-WJ2"/>
                 <outlet property="viewcity" destination="3XZ-LQ-sBa" id="DDy-nN-jex"/>
                 <outlet property="viewcountry" destination="cIz-kO-lLH" id="gu1-OO-tIY"/>
                 <outlet property="viewfirstname" destination="mwH-lo-Qwu" id="aWv-vf-wpi"/>
+                <outlet property="viewlandmark" destination="zOT-K2-ynw" id="XJf-Vx-Azy"/>
                 <outlet property="viewlastname" destination="Sn6-oi-txF" id="wTf-fo-40w"/>
                 <outlet property="viewlocation" destination="6iY-Mf-tbC" id="Abz-Xo-BFP"/>
                 <outlet property="viewmobileno" destination="fhu-kr-k4e" id="r7j-Ym-CJ5"/>
@@ -48,14 +58,14 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="720"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="889"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1s9-F6-qDF">
-                    <rect key="frame" x="0.0" y="44" width="375" height="676"/>
+                    <rect key="frame" x="0.0" y="44" width="375" height="845"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzl-U7-RSp">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="676"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="845"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mwH-lo-Qwu">
@@ -154,7 +164,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6iY-Mf-tbC">
-                                    <rect key="frame" x="8" y="299" width="359" height="47"/>
+                                    <rect key="frame" x="8" y="495" width="359" height="47"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TcC-Aa-AD1">
@@ -187,7 +197,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3XZ-LQ-sBa">
-                                    <rect key="frame" x="8" y="354" width="359" height="47"/>
+                                    <rect key="frame" x="8" y="550" width="359" height="47"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A0e-10-VGR">
@@ -216,7 +226,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cIz-kO-lLH">
-                                    <rect key="frame" x="8" y="409" width="359" height="47"/>
+                                    <rect key="frame" x="8" y="605" width="359" height="47"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G7u-R1-H9T">
@@ -244,37 +254,8 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WII-fW-Zmx">
-                                    <rect key="frame" x="8" y="214" width="359" height="74"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YEU-qc-ucA">
-                                            <rect key="frame" x="1" y="1" width="52" height="73"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="addresstreet" translatesAutoresizingMaskIntoConstraints="NO" id="hVW-ax-nd8">
-                                                    <rect key="frame" x="14" y="24" width="24" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uf0-dE-cZ8">
-                                            <rect key="frame" x="54" y="1" width="305" height="73"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            <color key="textColor" systemColor="labelColor"/>
-                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="QJb-rm-DsH"/>
-                                            </connections>
-                                        </textView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </view>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lev-cA-ieQ">
-                                    <rect key="frame" x="8" y="583" width="359" height="40"/>
+                                    <rect key="frame" x="8" y="752" width="359" height="40"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <color key="backgroundColor" name="greencolor"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
@@ -294,7 +275,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECp-sa-Yzu">
-                                    <rect key="frame" x="244" y="175" width="123" height="31"/>
+                                    <rect key="frame" x="235" y="175" width="132" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                     <color key="backgroundColor" name="themecolor"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="12"/>
@@ -304,41 +285,36 @@
                                         <action selector="pressCurrentlocationmethod:" destination="-1" eventType="touchUpInside" id="gdN-UT-ztc"/>
                                     </connections>
                                 </button>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="location.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="N4P-28-9p1">
-                                    <rect key="frame" x="249" y="180" width="19" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </imageView>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SS7-uc-zki">
-                                    <rect key="frame" x="8" y="477" width="49" height="31"/>
+                                    <rect key="frame" x="8" y="673" width="49" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <connections>
                                         <action selector="pressmakedefault:" destination="-1" eventType="valueChanged" id="LpJ-J4-gyM"/>
                                     </connections>
                                 </switch>
                                 <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qx1-rp-ik6">
-                                    <rect key="frame" x="251" y="477" width="49" height="31"/>
+                                    <rect key="frame" x="251" y="673" width="49" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                     <connections>
                                         <action selector="pressformaid:" destination="-1" eventType="valueChanged" id="h8U-cQ-tDH"/>
                                     </connections>
                                 </switch>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set As Default" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YN5-g0-3Xd">
-                                    <rect key="frame" x="63" y="477" width="106" height="31"/>
+                                    <rect key="frame" x="63" y="673" width="106" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="For Maid" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8l-fV-ara">
-                                    <rect key="frame" x="306" y="477" width="61" height="31"/>
+                                    <rect key="frame" x="306" y="673" width="61" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9uH-yz-sVn">
-                                    <rect key="frame" x="8" y="628" width="359" height="40"/>
+                                    <rect key="frame" x="8" y="797" width="359" height="40"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <color key="backgroundColor" systemColor="systemRedColor"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
@@ -358,6 +334,119 @@
                                         <action selector="pressCurrentlocationmethod:" destination="-1" eventType="touchUpInside" id="keR-6U-uGA"/>
                                     </connections>
                                 </button>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VKB-w0-1Ur">
+                                    <rect key="frame" x="8" y="245" width="359" height="47"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TMc-03-voN">
+                                            <rect key="frame" x="1" y="1" width="52" height="45"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="addresstreet" translatesAutoresizingMaskIntoConstraints="NO" id="och-Az-vw2">
+                                                    <rect key="frame" x="14" y="10" width="24" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Building name / Villa no *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wOp-79-2Ft">
+                                            <rect key="frame" x="54" y="1" width="304" height="45"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="pEn-pp-rHa"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WII-fW-Zmx">
+                                    <rect key="frame" x="8" y="329" width="359" height="74"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YEU-qc-ucA">
+                                            <rect key="frame" x="1" y="1" width="52" height="73"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="addresstreet" translatesAutoresizingMaskIntoConstraints="NO" id="hVW-ax-nd8">
+                                                    <rect key="frame" x="14" y="24" width="24" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uf0-dE-cZ8">
+                                            <rect key="frame" x="54" y="18" width="305" height="56"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <color key="textColor" systemColor="labelColor"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="QJb-rm-DsH"/>
+                                            </connections>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zOT-K2-ynw">
+                                    <rect key="frame" x="8" y="440" width="359" height="47"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37z-lk-6kc">
+                                            <rect key="frame" x="1" y="1" width="52" height="45"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="addresstreet" translatesAutoresizingMaskIntoConstraints="NO" id="IRN-2a-Riq">
+                                                    <rect key="frame" x="14" y="10" width="24" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Landmark" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sF3-5m-x8T">
+                                            <rect key="frame" x="54" y="1" width="304" height="45"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="IcW-vJ-wgV"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04F-dh-zpq">
+                                    <rect key="frame" x="8" y="411" width="359" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="14"/>
+                                    <color key="textColor" name="themecolor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYb-6q-9gW">
+                                    <rect key="frame" x="8" y="300" width="359" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="14"/>
+                                    <color key="textColor" name="themecolor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVa-x0-B4G">
+                                    <rect key="frame" x="8" y="216" width="359" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="14"/>
+                                    <color key="textColor" name="themecolor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="location.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="N4P-28-9p1">
+                                    <rect key="frame" x="241" y="181" width="19" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </imageView>
                             </subviews>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="vgc-tl-5yo"/>
@@ -377,7 +466,7 @@
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="132" y="114.24287856071965"/>
+            <point key="canvasLocation" x="132" y="190.25487256371815"/>
         </view>
     </objects>
     <resources>
