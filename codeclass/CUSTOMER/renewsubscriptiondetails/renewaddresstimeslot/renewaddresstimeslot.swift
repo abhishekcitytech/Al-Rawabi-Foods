@@ -36,10 +36,9 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
     var strsubtotalamount = ""
     var strshippingchargesamount = ""
     var strgrandtotalamount = ""
-    var strdiscountamount = ""
-    var strcouponcode = ""
     var strautorenew = ""
-    var dicDetails = NSDictionary()
+   
+    var arrmShippingchargeslist = NSMutableArray()
     
     var myAppDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -88,8 +87,8 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: coltimeslots.frame.size.width / 3.1, height: 100)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 20)
+        layout.itemSize = CGSize(width: self.view.frame.size.width / 3, height: 100)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
         coltimeslots.collectionViewLayout = layout
@@ -114,8 +113,8 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
     //MARK: - setup RTL LTR method
     func setupRTLLTR()
     {
-        lbldeliveryslotpopupHeader.text = myAppDelegate.changeLanguage(key: "msg_language444")
-        btnaddnewaddress.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language236")), for: .normal)
+        lbldeliveryslotpopupHeader.text = myAppDelegate.changeLanguage(key: "msg_language83")
+        btnaddnewaddress.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language93")), for: .normal)
         btnpaycheckout.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language482")), for: .normal)
         
          let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
@@ -158,12 +157,10 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
             ctrl.strsubtotalamount = strsubtotalamount
             ctrl.strshippingchargesamount = strshippingchargesamount
             ctrl.strgrandtotalamount = strgrandtotalamount
-            ctrl.strdiscountamount = strdiscountamount
-            ctrl.strcouponcode = strcouponcode
             ctrl.strplanid = strplanid
-            ctrl.dicDetails = dicDetails
             ctrl.strselectedslotid = strselectedslotid
             ctrl.strSelectedaddressID = strSelectedaddressID
+            ctrl.arrmShippingchargeslist1 = arrmShippingchargeslist
             self.navigationController?.pushViewController(ctrl, animated: true)
         }
     }
@@ -452,11 +449,11 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: coltimeslots.frame.size.width / 3.1 , height: 100)
+        return CGSize(width: self.view.frame.size.width / 3 , height: 100)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
     {
-        return UIEdgeInsets(top: 0, left: 5, bottom: 10, right: 5)
+        return UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 20)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {

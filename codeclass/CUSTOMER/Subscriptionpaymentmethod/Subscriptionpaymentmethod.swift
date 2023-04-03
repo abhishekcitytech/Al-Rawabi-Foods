@@ -190,7 +190,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         txtcouponcode.layer.cornerRadius = 0.0
         txtcouponcode.layer.masksToBounds = true
         
-        btnapplycouponcode.layer.cornerRadius = 8.0
+        btnapplycouponcode.layer.cornerRadius = 14.0
         btnapplycouponcode.layer.masksToBounds = true
         
         
@@ -209,7 +209,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         viewrewardpoints.layer.cornerRadius = 6.0
         viewrewardpoints.layer.masksToBounds = true
         
-        btnapplyrewardpoints.layer.cornerRadius = 8.0
+        btnapplyrewardpoints.layer.cornerRadius = 14.0
         btnapplyrewardpoints.layer.masksToBounds = true
         
         txtrewardpoints.setLeftPaddingPoints(10)
@@ -844,6 +844,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
         
         self.strselectedpaymentmethodID = strcode
+        self.colpaymentmethods.reloadData()
         
         print("strpreviouslyselectedcode",strpreviouslyselectedcode)
         print("self.strselectedpaymentmethodID",self.strselectedpaymentmethodID)
@@ -858,6 +859,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
+                    self.strselectedpaymentmethodID = strcode
                     self.colpaymentmethods.reloadData()
                     strpreviouslyselectedcode = ""
                     
@@ -884,6 +886,9 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                 }))
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                       print("Handle Cancel Logic here")
+                    
+                    self.strselectedpaymentmethodID = strpreviouslyselectedcode
+                    self.colpaymentmethods.reloadData()
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
             }
@@ -1049,7 +1054,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                             print("arrMpaymentmethodlist --->",self.arrMpaymentmethodlist)
                             
                             if self.arrMpaymentmethodlist.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
                             }
                             
                             self.viewcoupon.isHidden = false
@@ -1284,7 +1289,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                             print("arrMCoupons --->",self.arrMCoupons)
                             
                             if self.arrMCoupons.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
                             }
                             
                             self.createCOUPONLIST()
@@ -1640,7 +1645,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                                 print("Click of default button")
                             }))
                             
-                            self.txtrewardpoints.backgroundColor = UIColor(named: "greenlighter")!
+                            self.txtrewardpoints.backgroundColor = .white
                             self.txtrewardpoints.isUserInteractionEnabled = false
                             
                             self.btnapplyrewardpoints.isUserInteractionEnabled = false

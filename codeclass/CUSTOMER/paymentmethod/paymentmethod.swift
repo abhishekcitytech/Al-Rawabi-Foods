@@ -148,11 +148,11 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         viewbottom1.layer.masksToBounds = true
         
         viewrewardpoints.layer.borderWidth = 1.0
-        viewrewardpoints.layer.borderColor = UIColor(named: "themecolor")!.cgColor
+        viewrewardpoints.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
         viewrewardpoints.layer.cornerRadius = 6.0
         viewrewardpoints.layer.masksToBounds = true
         
-        btnapplyrewardpoints.layer.cornerRadius = 0.0
+        btnapplyrewardpoints.layer.cornerRadius = 14.0
         btnapplyrewardpoints.layer.masksToBounds = true
         
         txtrewardpoints.setLeftPaddingPoints(10)
@@ -415,9 +415,10 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         let dictemp = arrMpaymentmethodlist.object(at: indexPath.row)as? NSDictionary
         let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
         let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
-        self.strselectedpaymentmethodID = strcode
         
-
+        self.strselectedpaymentmethodID = strcode
+        self.colpaymentmethods.reloadData()
+        
         print("strpreviouslyselectedcode",strpreviouslyselectedcode)
         print("self.strselectedpaymentmethodID",self.strselectedpaymentmethodID)
         
@@ -431,6 +432,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
+                    self.strselectedpaymentmethodID = strcode
                     self.colpaymentmethods.reloadData()
                     strpreviouslyselectedcode = ""
                     
@@ -466,6 +468,9 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                 }))
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                       print("Handle Cancel Logic here")
+                    
+                    self.strselectedpaymentmethodID = strpreviouslyselectedcode
+                    self.colpaymentmethods.reloadData()
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
             }
@@ -619,8 +624,9 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                                 else
                                 {
                                     //YOU CAN APPLY
-                                    self.lblmaximumrewardpointsused.text = String(format: "%@ %@ %@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language356"),strspend_min_points,myAppDelegate.changeLanguage(key: "msg_language357"),strspend_max_points,myAppDelegate.changeLanguage(key: "msg_language358"))
+                                    //self.lblmaximumrewardpointsused.text = String(format: "%@ %@ %@ %@ %@", myAppDelegate.changeLanguage(key: "msg_language356"),strspend_min_points,myAppDelegate.changeLanguage(key: "msg_language357"),strspend_max_points,myAppDelegate.changeLanguage(key: "msg_language358"))
                                     self.lblmaximumrewardpointsused.textColor = UIColor(named: "themecolor")!
+                                    self.lblmaximumrewardpointsused.text = myAppDelegate.changeLanguage(key: "msg_language377")
                                     self.btnapplyrewardpoints.isUserInteractionEnabled = true
                                 }
                                 
@@ -646,7 +652,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                                     self.btnapplyrewardpoints.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language361")), for: .normal)
                                     self.txtrewardpoints.text = strspend_points
                                     
-                                    self.txtrewardpoints.backgroundColor = UIColor(named: "greenlighter")!
+                                    self.txtrewardpoints.backgroundColor = .white
                                     
                                     
                                 }
@@ -1141,7 +1147,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                                 print("Click of default button")
                             }))
                             
-                            self.txtrewardpoints.backgroundColor = UIColor(named: "greenlighter")!
+                            self.txtrewardpoints.backgroundColor = .white
                             self.txtrewardpoints.isUserInteractionEnabled = false
                             
                             self.btnapplyrewardpoints.isUserInteractionEnabled = false

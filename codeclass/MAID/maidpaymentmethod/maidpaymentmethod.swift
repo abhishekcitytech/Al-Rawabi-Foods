@@ -267,6 +267,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
         let dictemp = arrMpaymentmethodlist.object(at: indexPath.row)as? NSDictionary
         let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
         let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
+
         
         self.strselectedpaymentmethodID = strcode
         self.colpaymentmethods.reloadData()
@@ -284,6 +285,7 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
                     print("Handle Continue Logic here")
                     
+                    self.strselectedpaymentmethodID = strcode
                     self.colpaymentmethods.reloadData()
                     strpreviouslyselectedcode = ""
                     
@@ -319,6 +321,9 @@ class maidpaymentmethod: UIViewController,UICollectionViewDelegate,UICollectionV
                 }))
                 refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
                       print("Handle Cancel Logic here")
+                    
+                    self.strselectedpaymentmethodID = strpreviouslyselectedcode
+                    self.colpaymentmethods.reloadData()
                 }))
                 self.present(refreshAlert, animated: true, completion: nil)
             }

@@ -16,6 +16,7 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
     @IBOutlet weak var lblsubscriptionid: UILabel!
     
     @IBOutlet weak var imgvplan: UIImageView!
+    @IBOutlet weak var lblplanname: UILabel!
     
     @IBOutlet weak var viewstartdate: UIView!
     @IBOutlet weak var txtstartdate: UITextField!
@@ -113,6 +114,8 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         let strsubscription_status = String(format: "%@", diclistvalue.value(forKey: "subscription_status")as? String ?? "")
         let strsubscription_status_code = String(format: "%@", diclistvalue.value(forKey: "subscription_status_code")as? String ?? "")
         //let strsubscription_renewal_status = String(format: "%@", diclistvalue.value(forKey: "subscription_renewal_status")as? String ?? "")
+        let strsubscription_plan_id = String(format: "%@", diclistvalue.value(forKey: "subscription_plan_id")as? String ?? "")
+        
         
         self.lblsubscriptionid.text = String(format: "# %@", strsubscription_increment_id)
         
@@ -125,39 +128,22 @@ class mysubscriptiondetails: UIViewController,UITableViewDelegate,UITableViewDat
         
         let  strplanidentify = strsubscription_plan
         print("strplanidentify",strplanidentify)
-        if strplanidentify.containsIgnoreCase("daily") || strplanidentify.containsIgnoreCase("يوميًا")
+        
+        print("strsubscription_plan_id",strsubscription_plan_id)
+        if strsubscription_plan_id == "1"
         {
-            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-            if (strLangCode == "en")
-            {
-                self.imgvplan.image = UIImage(named: "daily-en")
-            }
-            else
-            {
-                self.imgvplan.image = UIImage(named: "daily-ar")
-            }
-        }else if strplanidentify.containsIgnoreCase("weekly") || strplanidentify.containsIgnoreCase("أسبوعي")
+            //DAILY
+            self.lblplanname.text = myAppDelegate.changeLanguage(key: "msg_language37")
+            
+        }else if strsubscription_plan_id == "2"
         {
-            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-            if (strLangCode == "en")
-            {
-                self.imgvplan.image = UIImage(named: "weekly-en")
-            }
-            else
-            {
-                self.imgvplan.image = UIImage(named: "weekly-ar")
-            }
-        }else if strplanidentify.containsIgnoreCase("monthly") || strplanidentify.containsIgnoreCase("شهريا")
+            //WEEKLY
+            self.lblplanname.text = myAppDelegate.changeLanguage(key: "msg_language38")
+        }
+        else if strsubscription_plan_id == "3"
         {
-            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-            if (strLangCode == "en")
-            {
-                self.imgvplan.image = UIImage(named: "monthly-en")
-            }
-            else
-            {
-                self.imgvplan.image = UIImage(named: "monthly-ar")
-            }
+            //MONTHLY
+            self.lblplanname.text = myAppDelegate.changeLanguage(key: "msg_language39")
         }
         
         

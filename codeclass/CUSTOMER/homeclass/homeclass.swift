@@ -166,8 +166,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 self.strcurrentlat = self.strPOPUPSelectedLATITUDE
                 self.strcurrentlong = self.strPOPUPSelectedLONGITUDE
                 
-                self.boolcheck = true
+                //CHCEKING WITHIN MULTIPLE POLYGON ZONE AREA
+                self.checkpolygonPointMultiple(lat: Double(self.strPOPUPSelectedLATITUDE)!, long: Double(self.strPOPUPSelectedLONGITUDE)!)
                 self.alertViewFunction()
+                
+                self.locationManager.stopUpdatingLocation()
             }
             else
             {
@@ -424,7 +427,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     }
     
     //MARK: - Polygon Zone Area Method
-    func addPolygonZoneArea()
+    /*func addPolygonZoneArea()
     {
         let dict1 = NSMutableDictionary()
         dict1.setValue("JLT Dubai", forKey: "name")
@@ -518,7 +521,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         arrmPolygonlist.add(dict3)
         
         print("arrmPolygonlist",arrmPolygonlist)
-    }
+    }*/
     func createMultiPolygon()
     {
         for x in 0 ..< arrmPolygonlist.count
@@ -940,7 +943,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.alertViewFunction()
 
     }
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
+    {
         switch status {
         case .authorizedWhenInUse:
             manager.startUpdatingLocation()

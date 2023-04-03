@@ -405,7 +405,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
                             print("arrMmyaddresslist --->",self.arrMmyaddresslist)
                             
                             if self.arrMmyaddresslist.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
                             }
                             
                             //BY DEFAULT SET FIRST INDEX SHIPPING ADDRESS SAVE

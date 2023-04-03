@@ -16,47 +16,39 @@
         <array key="NunitoSans-Regular.ttf">
             <string>NunitoSans-Regular</string>
         </array>
+        <array key="NunitoSans-SemiBold.ttf">
+            <string>NunitoSans-SemiBold</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="renewsubscriptiondetails" customModule="AlRawabi" customModuleProvider="target">
             <connections>
-                <outlet property="btnapplycouponcode" destination="FdJ-YB-2Pj" id="hp8-dc-UO1"/>
                 <outlet property="btnautorenew" destination="8TA-DI-Zj8" id="1Xm-7Q-wuS"/>
                 <outlet property="btncheckout" destination="o5u-cn-18x" id="0hF-H3-Wzk"/>
-                <outlet property="btncrosscouponlistpopup" destination="aSj-5N-mGb" id="o0v-kS-nTz"/>
                 <outlet property="btncrosseditpopup" destination="AfL-xP-47M" id="aye-Ie-11C"/>
                 <outlet property="btnfirst3payment" destination="KEQ-fV-Y5d" id="84s-Qn-Rv6"/>
                 <outlet property="btnfullpayment" destination="l5V-EM-CY6" id="uDH-gR-Rqc"/>
-                <outlet property="btnremovecouponcode" destination="rBV-wP-eAQ" id="mhS-eZ-AuA"/>
-                <outlet property="btnviewcouponcode" destination="T1b-Gl-xVD" id="KGI-x8-usV"/>
-                <outlet property="imgvendcal" destination="IjW-Fi-9Xw" id="Asx-uv-Ga9"/>
+                <outlet property="btnreset" destination="tD0-xn-Tpu" id="4gX-Dx-1fc"/>
                 <outlet property="imgvplan" destination="3ev-37-L99" id="sQE-B0-2ov"/>
                 <outlet property="imgvstartcal" destination="SpC-aZ-Jke" id="hON-Xu-2be"/>
                 <outlet property="lblautorenew" destination="xBN-LF-cN0" id="EA8-JC-DSi"/>
-                <outlet property="lblcouponlistpopupheader" destination="zEG-2Z-Hq2" id="rqj-X6-ID4"/>
                 <outlet property="lbleditpopupDateDay" destination="bDd-aE-ug0" id="iHZ-g9-QpA"/>
                 <outlet property="lbleditpopupnotes" destination="uSB-6a-Ss1" id="N0e-Zr-5Ya"/>
                 <outlet property="lblfirst3payment" destination="uTw-yk-BM2" id="yGj-MQ-Jq5"/>
                 <outlet property="lblfullpayment" destination="4CA-M9-r8A" id="w4g-uH-zdF"/>
                 <outlet property="lblgrandtotal" destination="hwu-So-VnH" id="KoX-m3-L3F"/>
                 <outlet property="lblgrandtotalvalue" destination="49v-k8-k2I" id="ZmC-GK-vTV"/>
+                <outlet property="lblplanname" destination="Eld-2j-7Jr" id="aZH-Gp-dWx"/>
                 <outlet property="lblshipping" destination="dLa-hg-fT8" id="5YS-Zy-1EW"/>
                 <outlet property="lblshippingvalue" destination="wkO-lD-Mzq" id="zF4-pU-DqW"/>
                 <outlet property="lblsubtotal" destination="wZS-ee-obN" id="1Re-YL-01H"/>
                 <outlet property="lblsubtotaleditpopup" destination="gMi-Ld-9Ef" id="gEV-7K-lqR"/>
                 <outlet property="lblsubtotaleditpopupvalue" destination="Ji0-Dc-Iw6" id="pTV-85-WHP"/>
                 <outlet property="lblsubtotalvalue" destination="s9v-Ec-U30" id="qK5-Sd-4pX"/>
-                <outlet property="tabvcouponlistpopup" destination="8lS-Pt-xtn" id="0xC-ma-CZL"/>
                 <outlet property="tabveditpopupitems" destination="SA1-iJ-l45" id="n76-L0-ojC"/>
                 <outlet property="tabvorderlist" destination="me8-97-cuT" id="Noy-EC-IAa"/>
-                <outlet property="txtcouponcode" destination="93F-jy-jIt" id="Fwc-pQ-OAF"/>
-                <outlet property="txtenddate" destination="lDj-RW-iRN" id="Uy2-ol-hki"/>
                 <outlet property="txtstartdate" destination="wna-VC-Msw" id="kpV-7H-31V"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="viewcoupon" destination="zzL-JP-f4o" id="Uqz-jF-Zww"/>
-                <outlet property="viewcouponlist" destination="cse-xz-A0x" id="UhW-p0-cnP"/>
-                <outlet property="viewcouponlistheader1" destination="3Vj-3B-cGX" id="Tab-n2-YgF"/>
-                <outlet property="viewenddate" destination="ZCU-tK-sPX" id="sMB-UF-yyI"/>
                 <outlet property="viewoverall" destination="i7D-Re-K7T" id="hYt-xT-zXZ"/>
                 <outlet property="viewpaymentcondition" destination="apw-Oe-FbQ" id="u6l-km-ag7"/>
                 <outlet property="viewpopupedititems" destination="oxy-xK-0WZ" id="sBW-Wb-Pig"/>
@@ -73,43 +65,28 @@
                     <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                     <subviews>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TCy-OR-SX4">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="286"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="166"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ev-37-L99">
-                                    <rect key="frame" x="0.0" y="8" width="90" height="27"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ribbon" translatesAutoresizingMaskIntoConstraints="NO" id="3ev-37-L99">
+                                    <rect key="frame" x="0.0" y="8" width="70" height="23"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                 </imageView>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xDJ-d0-adw">
-                                    <rect key="frame" x="8" y="48" width="132" height="32"/>
+                                    <rect key="frame" x="7" y="48" width="132" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Start date" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wna-VC-Msw">
+                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Start date" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wna-VC-Msw">
                                             <rect key="frame" x="1" y="1" width="130" height="30"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="WJv-md-37E"/>
+                                            </connections>
                                         </textField>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="SpC-aZ-Jke">
-                                            <rect key="frame" x="104" y="6" width="20" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                                        </imageView>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.83137254900000002" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </view>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZCU-tK-sPX">
-                                    <rect key="frame" x="235" y="48" width="132" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="End date" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lDj-RW-iRN">
-                                            <rect key="frame" x="1" y="1" width="130" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="IjW-Fi-9Xw">
                                             <rect key="frame" x="104" y="6" width="20" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                         </imageView>
@@ -133,7 +110,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8TA-DI-Zj8">
-                                    <rect key="frame" x="8" y="175" width="24" height="24"/>
+                                    <rect key="frame" x="215" y="52" width="24" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" backgroundImage="uncheckbox"/>
@@ -143,79 +120,17 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Auto Renew" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBN-LF-cN0">
-                                    <rect key="frame" x="40" y="173" width="327" height="28"/>
+                                    <rect key="frame" x="247" y="50" width="120" height="28"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
                                     <color key="textColor" name="darkgreencolor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zzL-JP-f4o">
-                                    <rect key="frame" x="8" y="212" width="359" height="64"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                    <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter coupon code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="93F-jy-jIt">
-                                            <rect key="frame" x="8" y="1" width="265" height="35"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="-1" id="dZV-g8-HDp"/>
-                                            </connections>
-                                        </textField>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piU-ln-IfY">
-                                            <rect key="frame" x="8" y="36" width="351" height="1"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <color key="backgroundColor" name="graybordercolor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdJ-YB-2Pj">
-                                            <rect key="frame" x="281" y="1" width="78" height="35"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
-                                            <color key="backgroundColor" name="themecolor"/>
-                                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="Apply"/>
-                                            <connections>
-                                                <action selector="pressApplycouponcode:" destination="-1" eventType="touchUpInside" id="T2v-eb-aFs"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBV-wP-eAQ">
-                                            <rect key="frame" x="205" y="1" width="74" height="35"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="Remove">
-                                                <color key="titleColor" name="darkmostredcolor"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="pressRemovecouponcode:" destination="-1" eventType="touchUpInside" id="1bf-2Z-pg6"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T1b-Gl-xVD">
-                                            <rect key="frame" x="1" y="36" width="120" height="28"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="View Coupons">
-                                                <color key="titleColor" name="darkgreencolor"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="pressViewcouponcode:" destination="-1" eventType="touchUpInside" id="GV8-eS-Mgq"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49v-k8-k2I">
-                                    <rect key="frame" x="235" y="134" width="132" height="36"/>
+                                    <rect key="frame" x="235" y="134" width="132" height="25"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="15"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
                                     <color key="textColor" name="orangecolor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -235,19 +150,39 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwu-So-VnH">
-                                    <rect key="frame" x="8" y="134" width="175" height="36"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Grand Total:" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwu-So-VnH">
+                                    <rect key="frame" x="8" y="134" width="175" height="25"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="12"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eld-2j-7Jr">
+                                    <rect key="frame" x="0.0" y="8" width="59" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="13"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tD0-xn-Tpu">
+                                    <rect key="frame" x="281" y="8" width="86" height="34"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Reset">
+                                        <color key="titleColor" name="darkgreencolor"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="pressreset:" destination="-1" eventType="touchUpInside" id="vak-xT-GvG"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" name="plate7"/>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="me8-97-cuT">
-                            <rect key="frame" x="8" y="294" width="359" height="220"/>
+                            <rect key="frame" x="8" y="174" width="359" height="340"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <connections>
@@ -263,7 +198,7 @@
                                     <rect key="frame" x="42" y="8" width="107" height="29"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="12"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="11"/>
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -281,7 +216,7 @@
                                     <rect key="frame" x="185" y="8" width="166" height="29"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="12"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="11"/>
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -389,47 +324,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="834" y="3"/>
         </view>
-        <view contentMode="scaleToFill" id="cse-xz-A0x">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="420"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Vj-3B-cGX">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                    <color key="backgroundColor" red="0.95294117649999999" green="0.97647058819999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEG-2Z-Hq2">
-                    <rect key="frame" x="16" y="0.0" width="315" height="61"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                    <color key="backgroundColor" name="greenlighter"/>
-                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSj-5N-mGb">
-                    <rect key="frame" x="339" y="20" width="20" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" backgroundImage="crossblack"/>
-                    <connections>
-                        <action selector="presscrosscouponpopup:" destination="-1" eventType="touchUpInside" id="bFK-dP-Bqr"/>
-                    </connections>
-                </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8lS-Pt-xtn">
-                    <rect key="frame" x="9" y="69" width="356" height="351"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="8Db-TT-zSz"/>
-                        <outlet property="delegate" destination="-1" id="2sc-FY-FLO"/>
-                    </connections>
-                </tableView>
-            </subviews>
-            <viewLayoutGuide key="safeArea" id="wFq-aw-m7W"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="833" y="468"/>
-        </view>
     </objects>
     <resources>
         <image name="calendar" width="28" height="28"/>
@@ -437,18 +331,13 @@
         <image name="crossblack" width="24" height="24"/>
         <image name="radio1" width="32" height="32"/>
         <image name="radio2" width="32" height="32"/>
+        <image name="ribbon" width="70" height="23"/>
         <image name="uncheckbox" width="32" height="32"/>
         <namedColor name="darkgreencolor">
             <color red="0.14499999582767487" green="0.54100000858306885" blue="0.29399999976158142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="darkmostredcolor">
-            <color red="0.87099999189376831" green="0.071000002324581146" blue="0.30199998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="graybordercolor">
-            <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="greencolor">
-            <color red="0.1289999932050705" green="0.58799999952316284" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.12941176470588234" green="0.58823529411764708" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="greenlighter">
             <color red="0.95300000905990601" green="0.97600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -460,7 +349,7 @@
             <color red="0.94900000095367432" green="0.9649999737739563" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themecolor">
-            <color red="0.0" green="0.18799999356269836" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.18823529411764706" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

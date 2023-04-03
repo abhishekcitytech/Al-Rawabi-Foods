@@ -28,6 +28,7 @@
                 <outlet property="imgvplan" destination="dlb-DR-KOH" id="g8l-4z-6tP"/>
                 <outlet property="lblenddate" destination="RmJ-Rx-ztU" id="eXe-ZA-d4v"/>
                 <outlet property="lblgrandtotal" destination="cwt-ai-iII" id="J2w-Jo-Xty"/>
+                <outlet property="lblplanname" destination="NNX-ab-mnJ" id="m4H-C6-Fiu"/>
                 <outlet property="lblstartdate" destination="QMl-0g-u5G" id="9RW-zd-ur9"/>
                 <outlet property="lblstatus" destination="mtc-qD-eHq" id="MtP-WD-DZr"/>
                 <outlet property="lblsubscriptionid" destination="cHa-RE-Hg3" id="GLo-bj-6Mj"/>
@@ -49,9 +50,9 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="205"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dlb-DR-KOH">
-                                    <rect key="frame" x="0.0" y="8" width="90" height="27"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ribbon" translatesAutoresizingMaskIntoConstraints="NO" id="dlb-DR-KOH">
+                                    <rect key="frame" x="0.0" y="8" width="70" height="23"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHa-RE-Hg3">
                                     <rect key="frame" x="8" y="41" width="359" height="27"/>
@@ -111,6 +112,13 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NNX-ab-mnJ">
+                                    <rect key="frame" x="0.0" y="10" width="60" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                                    <fontDescription key="fontDescription" name="NunitoSans-SemiBold" family="Nunito Sans" pointSize="13"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" name="plate7"/>
                         </view>
@@ -140,6 +148,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ribbon" width="70" height="23"/>
         <namedColor name="darkredcolor">
             <color red="1" green="0.30199998617172241" blue="0.30199998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

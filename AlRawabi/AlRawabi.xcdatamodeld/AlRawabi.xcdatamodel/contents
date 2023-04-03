@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D68" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Dailymodel" representedClassName="Dailymodel" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="day" optional="YES" attributeType="String"/>
@@ -41,6 +41,29 @@
         <attribute name="qtyonce" optional="YES" attributeType="String"/>
         <attribute name="selected" optional="YES" attributeType="String"/>
         <attribute name="subtotal" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Renewmodel" representedClassName="Renewmodel" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="day" optional="YES" attributeType="String"/>
+        <attribute name="dayname" optional="YES" attributeType="String"/>
+        <attribute name="isrenew" optional="YES" attributeType="String"/>
+        <attribute name="shipping" optional="YES" attributeType="String"/>
+        <attribute name="subscriptionid" optional="YES" attributeType="String"/>
+        <attribute name="subtotal" optional="YES" attributeType="String"/>
+        <attribute name="userid" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Renewmodelproduct" representedClassName="Renewmodelproduct" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="day" optional="YES" attributeType="String"/>
+        <attribute name="dayname" optional="YES" attributeType="String"/>
+        <attribute name="productid" optional="YES" attributeType="String"/>
+        <attribute name="productimage" optional="YES" attributeType="String"/>
+        <attribute name="productname" optional="YES" attributeType="String"/>
+        <attribute name="productprice" optional="YES" attributeType="String"/>
+        <attribute name="qtyall" optional="YES" attributeType="String"/>
+        <attribute name="qtyonce" optional="YES" attributeType="String"/>
+        <attribute name="subscriptionid" optional="YES" attributeType="String"/>
+        <attribute name="userid" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Subscriptionmodel" representedClassName="Subscriptionmodel" syncable="YES" codeGenerationType="class">
         <attribute name="isrenew" optional="YES" attributeType="String"/>

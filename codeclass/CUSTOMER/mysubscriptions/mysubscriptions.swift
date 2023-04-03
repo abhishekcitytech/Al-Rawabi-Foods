@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate
 {
@@ -224,7 +225,7 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
         }
         
         
-        cell.lblstatus.layer.cornerRadius = 18.0
+        cell.lblstatus.layer.cornerRadius = 16.0
         cell.lblstatus.layer.masksToBounds = true
         
         cell.btnview.layer.cornerRadius = 18.0
@@ -280,7 +281,8 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
             
             let dic = self.arrMmysubscriptions.object(at: sender.tag)as! NSDictionary
             let strsubscription_id = String(format: "%@", dic.value(forKey: "subscription_id")as? String ?? "")
-            self.getallRenewmysubscription(strid: strsubscription_id)
+            let strsubscription_plan_id = String(format: "%@", dic.value(forKey: "subscription_plan_id")as? String ?? "")
+            self.getallRenewmysubscription(strid: strsubscription_id,strplanid:strsubscription_plan_id)
         }))
         refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
             print("Handle Cancel Logic here")
@@ -385,7 +387,7 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
     }
     
     //MARK: - get All My Renew subscription API method
-    func getallRenewmysubscription(strid:String)
+    func getallRenewmysubscription(strid:String,strplanid:String)
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
@@ -396,7 +398,8 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
         print("strbearertoken",strbearertoken)
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?subscriptionId=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod69,strid,strLangCode)
+        strconnurl = String(format: "%@%@?subscriptionId=%@&renewStartDate=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod69,strid,"",strLangCode)
+        print("strconnurl",strconnurl)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
@@ -422,7 +425,7 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -438,9 +441,11 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
                             
                             let dicrenewdata = dictemp.value(forKey: "subscriptionRenewdata") as! NSDictionary
                             
+                            self.insertallDataintoRenewdLocalBase(dicall: dicrenewdata)
+                            
                             let ctrl = renewsubscriptiondetails(nibName: "renewsubscriptiondetails", bundle: nil)
-                            ctrl.dicMRenewData = dicrenewdata
-                            ctrl.strsubscriptionid = strid
+                            ctrl.strsubscriptionplanid = strplanid
+                            ctrl.strmainPreviousSubscriptionid = strid
                             self.navigationController?.pushViewController(ctrl, animated: true)
                         }
                         else{
@@ -462,5 +467,121 @@ class mysubscriptions: UIViewController,UITableViewDelegate,UITableViewDataSourc
             }
         }
         task.resume()
+    }
+    
+    //MARK: - INSERT ALL DATA INTO RENEW LOCAL DATABSE EMTHOD
+    func insertallDataintoRenewdLocalBase(dicall:NSDictionary)
+    {
+        //Remove Renewmodel table data
+        let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+        guard let appDelegate1 = UIApplication.shared.delegate as? AppDelegate else {return}
+        let manageContent1 = appDelegate1.persistentContainer.viewContext
+        let fetchData1 = NSFetchRequest<NSFetchRequestResult>(entityName: "Renewmodel")
+        fetchData1.predicate = NSPredicate(format: "userid == %@", strcustomerid)
+        let objects1 = try! manageContent1.fetch(fetchData1)
+        for obj in objects1 {
+            manageContent1.delete(obj as! NSManagedObject)
+        }
+        do {
+            try manageContent1.save() // <- remember to put this :)
+        } catch {
+            // Do something... fatalerror
+        }
+        
+        //Remove Renewmodelproduct table data
+        guard let appDelegate2 = UIApplication.shared.delegate as? AppDelegate else {return}
+        let manageContent2 = appDelegate2.persistentContainer.viewContext
+        let fetchData2 = NSFetchRequest<NSFetchRequestResult>(entityName: "Renewmodelproduct")
+        fetchData2.predicate = NSPredicate(format: "userid == %@", strcustomerid)
+        let objects2 = try! manageContent2.fetch(fetchData2)
+        for obj in objects2 {
+            manageContent2.delete(obj as! NSManagedObject)
+        }
+        do {
+            try manageContent2.save() // <- remember to put this :)
+        } catch {
+            // Do something... fatalerror
+        }
+        
+        
+        let strplanid = String(format: "%@", dicall.value(forKey: "plan_id")as? String ?? "")
+        //1 Daily 2 Weekly 3 Monthly
+        let arr1 = dicall.value(forKey: "subscription_order_details") as? NSArray ?? []
+        
+        for xx in 0 ..< arr1.count
+        {
+            let dictemp = arr1.object(at: xx)as? NSDictionary
+            
+            let strorder_date = String(format: "%@", dictemp?.value(forKey: "order_date")as? String ?? "")
+            let strday = String(format: "%@", dictemp?.value(forKey: "day")as? String ?? "")
+            let strday_name = String(format: "%@", dictemp?.value(forKey: "day_name")as? String ?? "")
+            let strcurrency_code = String(format: "%@", dictemp?.value(forKey: "currency_code")as? String ?? "")
+            let strorder_subtotal = String(format: "%@", dictemp?.value(forKey: "order_subtotal")as? String ?? "")
+            let strshipping_amount = String(format: "%@", dictemp?.value(forKey: "shipping_amount")as? String ?? "")
+            let strorder_grandtotal = String(format: "%@", dictemp?.value(forKey: "order_grandtotal")as? String ?? "")
+            let strtax = String(format: "%@", dictemp?.value(forKey: "tax")as? String ?? "")
+            let strpayment_status = String(format: "%@", dictemp?.value(forKey: "payment_status")as? String ?? "")
+            
+            let arr2 = dictemp?.value(forKey: "order_product") as? NSArray ?? []
+            
+            //------------------- INSERT INTO Renewmodel TABLE ---------------- //
+            let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+            let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+            let manageContent = appDelegate.persistentContainer.viewContext
+            let userEntity = NSEntityDescription.entity(forEntityName: "Renewmodel", in: manageContent)!
+            let users = NSManagedObject(entity: userEntity, insertInto: manageContent)
+            users.setValue(strplanid, forKeyPath: "subscriptionid")
+            users.setValue(strcustomerid, forKeyPath: "userid")
+            users.setValue(strorder_date, forKeyPath: "date")
+            users.setValue(strday, forKeyPath: "day")
+            users.setValue(strday_name, forKeyPath: "dayname")
+            users.setValue("0", forKeyPath: "isrenew")
+            users.setValue(strorder_subtotal, forKeyPath: "subtotal")
+            users.setValue(strshipping_amount, forKeyPath: "shipping")
+            do{
+                try manageContent.save()
+            }catch let error as NSError {
+                print("could not save . \(error), \(error.userInfo)")
+            }
+            
+            for yy in 0 ..< arr2.count
+            {
+                let dictemp = arr2.object(at: yy)as? NSDictionary
+                
+                let strproduct_id = String(format: "%@", dictemp?.value(forKey: "product_id")as? String ?? "")
+                let strproduct_name = String(format: "%@", dictemp?.value(forKey: "product_name")as? String ?? "")
+                let strproduct_price = String(format: "%@", dictemp?.value(forKey: "product_price")as? String ?? "")
+                let strproduct_original_price = String(format: "%@", dictemp?.value(forKey: "product_original_price")as? String ?? "")
+                let strqty = String(format: "%@", dictemp?.value(forKey: "qty")as? String ?? "")
+                let strqty_all = String(format: "%@", dictemp?.value(forKey: "qty_all")as? String ?? "")
+                let strdiscount_amount = String(format: "%@", dictemp?.value(forKey: "discount_amount")as? String ?? "")
+                let strproduct_image = String(format: "%@", dictemp?.value(forKey: "product_image")as? String ?? "")
+                 
+                
+                //------------------- INSERT INTO Renewmodelproduct TABLE ---------------- //
+                guard let appDelegate1 = UIApplication.shared.delegate as? AppDelegate else {return}
+                let manageContent1 = appDelegate1.persistentContainer.viewContext
+                let userEntity1 = NSEntityDescription.entity(forEntityName: "Renewmodelproduct", in: manageContent1)!
+                let users1 = NSManagedObject(entity: userEntity1, insertInto: manageContent1)
+                users1.setValue(strplanid, forKeyPath: "subscriptionid")
+                users1.setValue(strcustomerid, forKeyPath: "userid")
+                users1.setValue(strorder_date, forKeyPath: "date")
+                users1.setValue(strday, forKeyPath: "day")
+                users1.setValue(strday_name, forKeyPath: "dayname")
+                users1.setValue(strproduct_id, forKeyPath: "productid")
+                users1.setValue(strproduct_image, forKeyPath: "productimage")
+                users1.setValue(strproduct_name, forKeyPath: "productname")
+                users1.setValue(strproduct_price, forKeyPath: "productprice")
+                users1.setValue(strqty, forKeyPath: "qtyonce")
+                users1.setValue(strqty_all, forKeyPath: "qtyall")
+                do{
+                    try manageContent1.save()
+                }catch let error1 as NSError {
+                    print("could not save . \(error1), \(error1.userInfo)")
+                }
+            }
+            
+        }
     }
 }

@@ -14,6 +14,8 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
     
     @IBOutlet weak var viewtop: UIView!
     @IBOutlet weak var imgvplan: UIImageView!
+    @IBOutlet weak var lblplanname: UILabel!
+    
     @IBOutlet weak var lblsubscriptionid: UILabel!
     @IBOutlet weak var lblstartdate: UILabel!
     @IBOutlet weak var lblenddate: UILabel!
@@ -58,6 +60,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
          '4' = 'Cancel'
          */
         
+        print("diclistvalue",diclistvalue)
         let strsubscription_id = String(format: "%@", diclistvalue.value(forKey: "subscription_id")as? String ?? "")
         let strsubscription_increment_id = String(format: "%@", diclistvalue.value(forKey: "subscription_increment_id")as? String ?? "")
         let strsubscription_plan = String(format: "%@", diclistvalue.value(forKey: "subscription_plan")as? String ?? "")
@@ -66,6 +69,8 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         let strsubscription_status = String(format: "%@", diclistvalue.value(forKey: "subscription_status")as? String ?? "")
         let strsubscription_status_code = String(format: "%@", diclistvalue.value(forKey: "subscription_status_code")as? String ?? "")
         //let strsubscription_renewal_status = String(format: "%@", diclistvalue.value(forKey: "subscription_renewal_status")as? String ?? "")
+        let strsubscription_plan_id = String(format: "%@", diclistvalue.value(forKey: "subscription_plan_id")as? String ?? "")
+        
         
         self.lblsubscriptionid.text = String(format: "# %@", strsubscription_increment_id)
         self.lblstartdate.text = String(format: "%@: %@", myAppDelegate.changeLanguage(key: "msg_language208"),strsubscription_start_date)
@@ -124,42 +129,22 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
         
         let  strplanidentify = strsubscription_plan
         print("strplanidentify",strplanidentify)
-        if strplanidentify.containsIgnoreCase("daily") || strplanidentify.containsIgnoreCase("يوميًا")
+        
+        print("strsubscription_plan_id",strsubscription_plan_id)
+        if strsubscription_plan_id == "1"
         {
-            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-            if (strLangCode == "en")
-            {
-                self.imgvplan.image = UIImage(named: "daily-en")
-            }
-            else
-            {
-                self.imgvplan.image = UIImage(named: "daily-ar")
-            }
+            //DAILY
+            self.lblplanname.text = myAppDelegate.changeLanguage(key: "msg_language37")
             
-        }else if strplanidentify.containsIgnoreCase("weekly") || strplanidentify.containsIgnoreCase("أسبوعي")
+        }else if strsubscription_plan_id == "2"
         {
-            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-            if (strLangCode == "en")
-            {
-                self.imgvplan.image = UIImage(named: "weekly-en")
-            }
-            else
-            {
-                self.imgvplan.image = UIImage(named: "weekly-ar")
-            }
-            
-        }else if strplanidentify.containsIgnoreCase("monthly") || strplanidentify.containsIgnoreCase("شهريا")
+            //WEEKLY
+            self.lblplanname.text = myAppDelegate.changeLanguage(key: "msg_language38")
+        }
+        else if strsubscription_plan_id == "3"
         {
-            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-            if (strLangCode == "en")
-            {
-                self.imgvplan.image = UIImage(named: "monthly-en")
-            }
-            else
-            {
-                self.imgvplan.image = UIImage(named: "monthly-ar")
-            }
-            
+            //MONTHLY
+            self.lblplanname.text = myAppDelegate.changeLanguage(key: "msg_language39")
         }
         
     }
@@ -737,7 +722,7 @@ class mysubscriptionlineviewdetails: UIViewController,UITableViewDelegate,UITabl
                             self.arrMsubscription_order = NSMutableArray(array: arrm)
                             print("arrMsubscription_order --->",self.arrMsubscription_order)
                             if self.arrMsubscription_order.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
                             }
                             self.tabvmysubscription.reloadData()
                         }

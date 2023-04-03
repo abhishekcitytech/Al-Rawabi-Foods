@@ -23,19 +23,28 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="renewpaymentmethodlist" customModule="AlRawabi" customModuleProvider="target">
             <connections>
+                <outlet property="btnapplycouponcode" destination="2tY-if-JWM" id="gBA-qY-ipl"/>
                 <outlet property="btnapplyrewardpoints" destination="43h-2B-rjI" id="RNY-aj-vuy"/>
+                <outlet property="btncrosscouponlistpopup" destination="3vE-bS-Wgv" id="ibL-B6-OX0"/>
                 <outlet property="btnpayment" destination="Yoy-75-Qeq" id="3dQ-HB-WvW"/>
                 <outlet property="btnpaymentwallet" destination="BEg-qm-sJa" id="Ekl-nj-m8r"/>
+                <outlet property="btnrechargewallet" destination="Kdc-8U-HrE" id="4za-1i-L8h"/>
+                <outlet property="btnremovecouponcode" destination="vfD-AT-TnN" id="GCH-BT-M6i"/>
                 <outlet property="btnremoverewardpoints" destination="jP9-sv-SSd" id="f66-Fk-Q2D"/>
+                <outlet property="btnviewcouponcode" destination="mn2-7u-fOr" id="aCO-fz-9rs"/>
                 <outlet property="colpaymentmethods" destination="bra-TE-Vyz" id="3tE-hG-Lde"/>
                 <outlet property="lblCardPaymentOrderAmount" destination="ltP-e6-LIj" id="4XS-E9-B0M"/>
+                <outlet property="lblcouponlistpopupheader" destination="hF4-4x-d9T" id="gMz-FH-mX9"/>
+                <outlet property="lbldiscountedamountvalue" destination="vRw-66-jhc" id="uN5-rR-LMp"/>
                 <outlet property="lblmaximumrewardpointsused" destination="ed4-GM-YaR" id="8pJ-Bl-LXi"/>
                 <outlet property="lblpaymentamount" destination="fMe-BP-X1W" id="RJu-W2-tPX"/>
                 <outlet property="lblremainingbalance" destination="Nwa-af-6Oc" id="hT6-jh-8Ri"/>
                 <outlet property="lblrewardpoints" destination="Zig-1v-uaI" id="WbL-qE-XtA"/>
                 <outlet property="lblwalletbalance" destination="Moa-Yt-M5W" id="6BZ-3L-3je"/>
                 <outlet property="scrolloverall" destination="tXa-Nz-Jhv" id="7fL-dL-Gtk"/>
+                <outlet property="tabvcouponlistpopup" destination="aGX-jb-vjd" id="h9a-cf-v2M"/>
                 <outlet property="txtCardPaymentOrderAmount" destination="ibA-Iz-LW2" id="Jjz-xt-IGj"/>
+                <outlet property="txtcouponcode" destination="fBm-L1-2Ds" id="mQE-pJ-cA5"/>
                 <outlet property="txtpaymentamount" destination="09e-Wg-oTE" id="7ys-uO-xLF"/>
                 <outlet property="txtremainingbalance" destination="6QE-sD-4sl" id="ncA-ke-jtn"/>
                 <outlet property="txtrewardpoints" destination="Zfc-y5-FgQ" id="Ymc-QO-Dse"/>
@@ -43,6 +52,9 @@
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewbottom" destination="4B5-uY-ilE" id="Acb-vK-f9P"/>
                 <outlet property="viewbottom1" destination="5Yq-ov-3pn" id="Qh0-G8-IM9"/>
+                <outlet property="viewcoupon" destination="e0C-vc-5aT" id="b2i-Kz-4RI"/>
+                <outlet property="viewcouponlist" destination="sAx-bp-qny" id="JpM-vH-UQ2"/>
+                <outlet property="viewcouponlistheader1" destination="Na3-3V-Bf6" id="xDX-Tj-kL7"/>
                 <outlet property="viewoverall" destination="4yT-Kf-04O" id="rLq-ow-spG"/>
                 <outlet property="viewrewardpoints" destination="dDa-fc-5u0" id="ehY-vO-6U9"/>
             </connections>
@@ -95,32 +107,8 @@
                                                 <outlet property="delegate" destination="-1" id="gH5-PW-Ja5"/>
                                             </connections>
                                         </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43h-2B-rjI">
-                                            <rect key="frame" x="271" y="34" width="80" height="40"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
-                                            <color key="backgroundColor" name="themecolor"/>
-                                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="16"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="Apply"/>
-                                            <connections>
-                                                <action selector="pressapplyrewardpoints:" destination="-1" eventType="touchUpInside" id="i6X-Vc-lxw"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jP9-sv-SSd">
-                                            <rect key="frame" x="188" y="35" width="84" height="40"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="Remove">
-                                                <color key="titleColor" name="darkmostredcolor"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="pressremoverewardpoints:" destination="-1" eventType="touchUpInside" id="f5z-9D-bgs"/>
-                                            </connections>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yg-ga-2DO">
-                                            <rect key="frame" x="8" y="74" width="343" height="1"/>
+                                            <rect key="frame" x="8" y="74" width="351" height="1"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <color key="backgroundColor" name="graybordercolor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -134,11 +122,104 @@
                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43h-2B-rjI">
+                                            <rect key="frame" x="276" y="40" width="75" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                            <color key="backgroundColor" name="themecolor"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Apply"/>
+                                            <connections>
+                                                <action selector="pressapplyrewardpoints:" destination="-1" eventType="touchUpInside" id="i6X-Vc-lxw"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jP9-sv-SSd">
+                                            <rect key="frame" x="205" y="40" width="71" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Remove">
+                                                <color key="titleColor" name="darkmostredcolor"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="pressremoverewardpoints:" destination="-1" eventType="touchUpInside" id="f5z-9D-bgs"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e0C-vc-5aT">
+                                    <rect key="frame" x="8" y="252" width="359" height="88"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter coupon code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fBm-L1-2Ds">
+                                            <rect key="frame" x="8" y="12" width="271" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="HTV-mR-ved"/>
+                                            </connections>
+                                        </textField>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ni-nu-JP2">
+                                            <rect key="frame" x="0.0" y="51" width="359" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <color key="backgroundColor" name="graybordercolor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mn2-7u-fOr">
+                                            <rect key="frame" x="8" y="58" width="128" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="View Coupons">
+                                                <color key="titleColor" name="greencolor"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="pressViewcouponcode:" destination="-1" eventType="touchUpInside" id="H6N-Sg-q7m"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRw-66-jhc">
+                                            <rect key="frame" x="175" y="51" width="184" height="37"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="14"/>
+                                            <color key="textColor" systemColor="linkColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfD-AT-TnN">
+                                            <rect key="frame" x="205" y="17" width="71" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Remove">
+                                                <color key="titleColor" name="darkmostredcolor"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="pressRemovecouponcode:" destination="-1" eventType="touchUpInside" id="Nwo-fQ-RED"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2tY-if-JWM">
+                                            <rect key="frame" x="276" y="17" width="75" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                            <color key="backgroundColor" name="themecolor"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Apply"/>
+                                            <connections>
+                                                <action selector="pressApplycouponcode:" destination="-1" eventType="touchUpInside" id="dWw-e8-JNQ"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4B5-uY-ilE">
-                                    <rect key="frame" x="8" y="260" width="359" height="140"/>
+                                    <rect key="frame" x="8" y="374" width="359" height="140"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ordered Amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltP-e6-LIj">
@@ -176,7 +257,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Yq-ov-3pn">
-                                    <rect key="frame" x="8" y="260" width="359" height="290"/>
+                                    <rect key="frame" x="8" y="374" width="359" height="290"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <subviews>
                                         <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Wallet Balance Amount" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="flb-z3-8ge">
@@ -254,6 +335,19 @@
                                                 <action selector="presspaymentwallet:" destination="-1" eventType="touchUpInside" id="kKL-tH-mtd"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kdc-8U-HrE">
+                                            <rect key="frame" x="276" y="8" width="75" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                            <color key="backgroundColor" name="themecolor"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="12"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Recharge">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="pressrechargewallet:" destination="-1" eventType="touchUpInside" id="9VQ-oi-yX3"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
@@ -277,8 +371,50 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="132" y="10.794602698650676"/>
         </view>
+        <view contentMode="scaleToFill" id="sAx-bp-qny">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="420"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Na3-3V-Bf6">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.97647058819999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hF4-4x-d9T">
+                    <rect key="frame" x="16" y="0.0" width="315" height="61"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                    <color key="backgroundColor" name="greenlighter"/>
+                    <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3vE-bS-Wgv">
+                    <rect key="frame" x="339" y="20" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" backgroundImage="crossblack"/>
+                    <connections>
+                        <action selector="presscrosscouponpopup:" destination="-1" eventType="touchUpInside" id="nTF-c4-TRK"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aGX-jb-vjd">
+                    <rect key="frame" x="9" y="69" width="356" height="351"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="59g-RG-njX"/>
+                        <outlet property="delegate" destination="-1" id="81V-vN-bRD"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="mdc-Jz-8AO"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="861.60000000000002" y="20.689655172413794"/>
+        </view>
     </objects>
     <resources>
+        <image name="crossblack" width="24" height="24"/>
         <image name="equalsign" width="32" height="32"/>
         <image name="subtractionsign" width="32" height="32"/>
         <namedColor name="darkgreencolor">
@@ -293,12 +429,18 @@
         <namedColor name="greencolor">
             <color red="0.1289999932050705" green="0.58799999952316284" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="greenlighter">
+            <color red="0.95300000905990601" green="0.97600001096725464" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="orangecolor">
             <color red="1" green="0.66699999570846558" blue="0.019999999552965164" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themecolor">
             <color red="0.0" green="0.18799999356269836" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

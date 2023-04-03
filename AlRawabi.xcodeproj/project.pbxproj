@@ -54,12 +54,6 @@
 		CB1D7EDA292DF804001CFA09 /* celltimeslots.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1D7ED8292DF804001CFA09 /* celltimeslots.xib */; };
 		CB1D7EDE292F51B6001CFA09 /* createmaidaccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1D7EDC292F51B5001CFA09 /* createmaidaccount.swift */; };
 		CB1D7EDF292F51B6001CFA09 /* createmaidaccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1D7EDD292F51B5001CFA09 /* createmaidaccount.xib */; };
-		CB1D7EE9292FB472001CFA09 /* renewsubscriptiondetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1D7EE7292FB472001CFA09 /* renewsubscriptiondetails.swift */; };
-		CB1D7EEA292FB472001CFA09 /* renewsubscriptiondetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1D7EE8292FB472001CFA09 /* renewsubscriptiondetails.xib */; };
-		CB1D7EF22930A120001CFA09 /* renewaddresstimeslot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1D7EF02930A120001CFA09 /* renewaddresstimeslot.swift */; };
-		CB1D7EF32930A120001CFA09 /* renewaddresstimeslot.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1D7EF12930A120001CFA09 /* renewaddresstimeslot.xib */; };
-		CB25B2A32938926200B8D15F /* renewpaymentmethodlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB25B2A12938926200B8D15F /* renewpaymentmethodlist.swift */; };
-		CB25B2A42938926200B8D15F /* renewpaymentmethodlist.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB25B2A22938926200B8D15F /* renewpaymentmethodlist.xib */; };
 		CB25B2A72938C39A00B8D15F /* OrderAmount3.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB25B2A62938C39A00B8D15F /* OrderAmount3.swift */; };
 		CB25B2A92938C3B200B8D15F /* OrderRequest3.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB25B2A82938C3B200B8D15F /* OrderRequest3.swift */; };
 		CB25B2AB2938C3D200B8D15F /* CreateOrderViewControllerRN.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB25B2AA2938C3D200B8D15F /* CreateOrderViewControllerRN.swift */; };
@@ -160,12 +154,6 @@
 		CB7B4F3C29372CE100BF72AA /* returnrefundslisting.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB7B4F3A29372CE100BF72AA /* returnrefundslisting.xib */; };
 		CB7B4F4029372DA800BF72AA /* cellreturnrefund.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7B4F3E29372DA800BF72AA /* cellreturnrefund.swift */; };
 		CB7B4F4129372DA800BF72AA /* cellreturnrefund.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB7B4F3F29372DA800BF72AA /* cellreturnrefund.xib */; };
-		CB85254929D4B53F0031844A /* daily-en.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254329D4B53B0031844A /* daily-en.png */; };
-		CB85254A29D4B53F0031844A /* monthly-ar.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254429D4B53C0031844A /* monthly-ar.png */; };
-		CB85254B29D4B53F0031844A /* weekly-ar.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254529D4B53C0031844A /* weekly-ar.png */; };
-		CB85254C29D4B53F0031844A /* weekly-en.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254629D4B53D0031844A /* weekly-en.png */; };
-		CB85254D29D4B53F0031844A /* monthly-en.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254729D4B53E0031844A /* monthly-en.png */; };
-		CB85254E29D4B53F0031844A /* daily-ar.png in Resources */ = {isa = PBXBuildFile; fileRef = CB85254829D4B53F0031844A /* daily-ar.png */; };
 		CB8EEE0C28C219F500EAC020 /* subscriptionmodelweekly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8EEE0A28C219F500EAC020 /* subscriptionmodelweekly.swift */; };
 		CB8EEE0D28C219F500EAC020 /* subscriptionmodelweekly.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8EEE0B28C219F500EAC020 /* subscriptionmodelweekly.xib */; };
 		CB8EEE1028C21A0400EAC020 /* subscriptionmodelmonthly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8EEE0E28C21A0400EAC020 /* subscriptionmodelmonthly.swift */; };
@@ -230,7 +218,6 @@
 		CBB143842860A83000D30A38 /* menuclass.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB143822860A83000D30A38 /* menuclass.xib */; };
 		CBB258C82962C704001058FC /* cellproductitemrefunded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB258C62962C704001058FC /* cellproductitemrefunded.swift */; };
 		CBB258C92962C704001058FC /* cellproductitemrefunded.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB258C72962C704001058FC /* cellproductitemrefunded.xib */; };
-		CBBA602F29AE33C500A504FB /* dairy_400x400_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CBBA602E29AE33C500A504FB /* dairy_400x400_1.jpg */; };
 		CBBE801A2955DBD000A161CF /* cmspage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE80182955DBD000A161CF /* cmspage.swift */; };
 		CBBE801B2955DBD000A161CF /* cmspage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBBE80192955DBD000A161CF /* cmspage.xib */; };
 		CBBE9E542923A9D500970344 /* mysubscriptionlineviewdetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE9E522923A9D500970344 /* mysubscriptionlineviewdetails.swift */; };
@@ -249,6 +236,14 @@
 		CBC2364C28D877BC000DBC93 /* cellcoldailyproduct.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBC2364A28D877BC000DBC93 /* cellcoldailyproduct.xib */; };
 		CBC2364F28D877CB000DBC93 /* cellcolweeklyproduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC2364D28D877CA000DBC93 /* cellcolweeklyproduct.swift */; };
 		CBC2365028D877CB000DBC93 /* cellcolweeklyproduct.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBC2364E28D877CB000DBC93 /* cellcolweeklyproduct.xib */; };
+		CBC3258229DA862B00FC0655 /* renewsubscriptionaddproduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC3258029DA862800FC0655 /* renewsubscriptionaddproduct.swift */; };
+		CBC3258329DA862B00FC0655 /* renewsubscriptionaddproduct.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBC3258129DA862B00FC0655 /* renewsubscriptionaddproduct.xib */; };
+		CBC3258629DA865500FC0655 /* renewpaymentmethodlist.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBC3258429DA865300FC0655 /* renewpaymentmethodlist.xib */; };
+		CBC3258729DA865500FC0655 /* renewpaymentmethodlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC3258529DA865500FC0655 /* renewpaymentmethodlist.swift */; };
+		CBC3258A29DA866B00FC0655 /* renewaddresstimeslot.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBC3258829DA866900FC0655 /* renewaddresstimeslot.xib */; };
+		CBC3258B29DA866B00FC0655 /* renewaddresstimeslot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC3258929DA866B00FC0655 /* renewaddresstimeslot.swift */; };
+		CBC3258E29DA867F00FC0655 /* renewsubscriptiondetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC3258C29DA867D00FC0655 /* renewsubscriptiondetails.swift */; };
+		CBC3258F29DA867F00FC0655 /* renewsubscriptiondetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBC3258D29DA867F00FC0655 /* renewsubscriptiondetails.xib */; };
 		CBC408D828D4587700F3FF3A /* searchproductlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC408D628D4587700F3FF3A /* searchproductlist.swift */; };
 		CBC408D928D4587700F3FF3A /* searchproductlist.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBC408D728D4587700F3FF3A /* searchproductlist.xib */; };
 		CBC5C3CD28FFC9DB009B10FD /* NISdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC5C3CC28FFC9DB009B10FD /* NISdk.framework */; };
@@ -461,12 +456,6 @@
 		CB1D7ED8292DF804001CFA09 /* celltimeslots.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = celltimeslots.xib; sourceTree = "<group>"; };
 		CB1D7EDC292F51B5001CFA09 /* createmaidaccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createmaidaccount.swift; sourceTree = "<group>"; };
 		CB1D7EDD292F51B5001CFA09 /* createmaidaccount.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = createmaidaccount.xib; sourceTree = "<group>"; };
-		CB1D7EE7292FB472001CFA09 /* renewsubscriptiondetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = renewsubscriptiondetails.swift; sourceTree = "<group>"; };
-		CB1D7EE8292FB472001CFA09 /* renewsubscriptiondetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = renewsubscriptiondetails.xib; sourceTree = "<group>"; };
-		CB1D7EF02930A120001CFA09 /* renewaddresstimeslot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = renewaddresstimeslot.swift; sourceTree = "<group>"; };
-		CB1D7EF12930A120001CFA09 /* renewaddresstimeslot.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = renewaddresstimeslot.xib; sourceTree = "<group>"; };
-		CB25B2A12938926200B8D15F /* renewpaymentmethodlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = renewpaymentmethodlist.swift; sourceTree = "<group>"; };
-		CB25B2A22938926200B8D15F /* renewpaymentmethodlist.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = renewpaymentmethodlist.xib; sourceTree = "<group>"; };
 		CB25B2A62938C39A00B8D15F /* OrderAmount3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderAmount3.swift; sourceTree = "<group>"; };
 		CB25B2A82938C3B200B8D15F /* OrderRequest3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderRequest3.swift; sourceTree = "<group>"; };
 		CB25B2AA2938C3D200B8D15F /* CreateOrderViewControllerRN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderViewControllerRN.swift; sourceTree = "<group>"; };
@@ -568,12 +557,6 @@
 		CB7B4F3A29372CE100BF72AA /* returnrefundslisting.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = returnrefundslisting.xib; sourceTree = "<group>"; };
 		CB7B4F3E29372DA800BF72AA /* cellreturnrefund.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cellreturnrefund.swift; sourceTree = "<group>"; };
 		CB7B4F3F29372DA800BF72AA /* cellreturnrefund.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellreturnrefund.xib; sourceTree = "<group>"; };
-		CB85254329D4B53B0031844A /* daily-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "daily-en.png"; sourceTree = "<group>"; };
-		CB85254429D4B53C0031844A /* monthly-ar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "monthly-ar.png"; sourceTree = "<group>"; };
-		CB85254529D4B53C0031844A /* weekly-ar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weekly-ar.png"; sourceTree = "<group>"; };
-		CB85254629D4B53D0031844A /* weekly-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weekly-en.png"; sourceTree = "<group>"; };
-		CB85254729D4B53E0031844A /* monthly-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "monthly-en.png"; sourceTree = "<group>"; };
-		CB85254829D4B53F0031844A /* daily-ar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "daily-ar.png"; sourceTree = "<group>"; };
 		CB8EEE0A28C219F500EAC020 /* subscriptionmodelweekly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subscriptionmodelweekly.swift; sourceTree = "<group>"; };
 		CB8EEE0B28C219F500EAC020 /* subscriptionmodelweekly.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = subscriptionmodelweekly.xib; sourceTree = "<group>"; };
 		CB8EEE0E28C21A0400EAC020 /* subscriptionmodelmonthly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subscriptionmodelmonthly.swift; sourceTree = "<group>"; };
@@ -638,7 +621,6 @@
 		CBB143822860A83000D30A38 /* menuclass.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = menuclass.xib; sourceTree = "<group>"; };
 		CBB258C62962C704001058FC /* cellproductitemrefunded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cellproductitemrefunded.swift; sourceTree = "<group>"; };
 		CBB258C72962C704001058FC /* cellproductitemrefunded.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellproductitemrefunded.xib; sourceTree = "<group>"; };
-		CBBA602E29AE33C500A504FB /* dairy_400x400_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dairy_400x400_1.jpg; sourceTree = "<group>"; };
 		CBBE80182955DBD000A161CF /* cmspage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cmspage.swift; sourceTree = "<group>"; };
 		CBBE80192955DBD000A161CF /* cmspage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cmspage.xib; sourceTree = "<group>"; };
 		CBBE9E522923A9D500970344 /* mysubscriptionlineviewdetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mysubscriptionlineviewdetails.swift; sourceTree = "<group>"; };
@@ -657,6 +639,14 @@
 		CBC2364A28D877BC000DBC93 /* cellcoldailyproduct.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellcoldailyproduct.xib; sourceTree = "<group>"; };
 		CBC2364D28D877CA000DBC93 /* cellcolweeklyproduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cellcolweeklyproduct.swift; sourceTree = "<group>"; };
 		CBC2364E28D877CB000DBC93 /* cellcolweeklyproduct.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellcolweeklyproduct.xib; sourceTree = "<group>"; };
+		CBC3258029DA862800FC0655 /* renewsubscriptionaddproduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = renewsubscriptionaddproduct.swift; sourceTree = "<group>"; };
+		CBC3258129DA862B00FC0655 /* renewsubscriptionaddproduct.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = renewsubscriptionaddproduct.xib; sourceTree = "<group>"; };
+		CBC3258429DA865300FC0655 /* renewpaymentmethodlist.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = renewpaymentmethodlist.xib; sourceTree = "<group>"; };
+		CBC3258529DA865500FC0655 /* renewpaymentmethodlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = renewpaymentmethodlist.swift; sourceTree = "<group>"; };
+		CBC3258829DA866900FC0655 /* renewaddresstimeslot.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = renewaddresstimeslot.xib; sourceTree = "<group>"; };
+		CBC3258929DA866B00FC0655 /* renewaddresstimeslot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = renewaddresstimeslot.swift; sourceTree = "<group>"; };
+		CBC3258C29DA867D00FC0655 /* renewsubscriptiondetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = renewsubscriptiondetails.swift; sourceTree = "<group>"; };
+		CBC3258D29DA867F00FC0655 /* renewsubscriptiondetails.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = renewsubscriptiondetails.xib; sourceTree = "<group>"; };
 		CBC408D628D4587700F3FF3A /* searchproductlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchproductlist.swift; sourceTree = "<group>"; };
 		CBC408D728D4587700F3FF3A /* searchproductlist.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = searchproductlist.xib; sourceTree = "<group>"; };
 		CBC5C3CC28FFC9DB009B10FD /* NISdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NISdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -957,8 +947,6 @@
 		CB1C1F30283F5B530046CEBD /* extras */ = {
 			isa = PBXGroup;
 			children = (
-				CB85254229D4B5260031844A /* ribb */,
-				CBBA602E29AE33C500A504FB /* dairy_400x400_1.jpg */,
 				CB25B2B42939FF0400B8D15F /* splashgroup */,
 				CBA2B473286DBBB80062609C /* tabbarbg.png */,
 			);
@@ -1077,10 +1065,11 @@
 		CB1D7EE6292FB438001CFA09 /* renewsubscriptiondetails */ = {
 			isa = PBXGroup;
 			children = (
-				CB25B2A0293891DA00B8D15F /* renewpaymentmethodlist */,
+				CBC3258C29DA867D00FC0655 /* renewsubscriptiondetails.swift */,
+				CBC3258D29DA867F00FC0655 /* renewsubscriptiondetails.xib */,
+				CBC3257F29DA860A00FC0655 /* renewsubscriptionaddproduct */,
 				CB1D7EEF2930A0F2001CFA09 /* renewaddresstimeslot */,
-				CB1D7EE7292FB472001CFA09 /* renewsubscriptiondetails.swift */,
-				CB1D7EE8292FB472001CFA09 /* renewsubscriptiondetails.xib */,
+				CB25B2A0293891DA00B8D15F /* renewpaymentmethodlist */,
 			);
 			path = renewsubscriptiondetails;
 			sourceTree = "<group>";
@@ -1088,8 +1077,8 @@
 		CB1D7EEF2930A0F2001CFA09 /* renewaddresstimeslot */ = {
 			isa = PBXGroup;
 			children = (
-				CB1D7EF02930A120001CFA09 /* renewaddresstimeslot.swift */,
-				CB1D7EF12930A120001CFA09 /* renewaddresstimeslot.xib */,
+				CBC3258929DA866B00FC0655 /* renewaddresstimeslot.swift */,
+				CBC3258829DA866900FC0655 /* renewaddresstimeslot.xib */,
 			);
 			path = renewaddresstimeslot;
 			sourceTree = "<group>";
@@ -1097,9 +1086,9 @@
 		CB25B2A0293891DA00B8D15F /* renewpaymentmethodlist */ = {
 			isa = PBXGroup;
 			children = (
+				CBC3258529DA865500FC0655 /* renewpaymentmethodlist.swift */,
+				CBC3258429DA865300FC0655 /* renewpaymentmethodlist.xib */,
 				CB25B2A52938C34B00B8D15F /* model1 */,
-				CB25B2A12938926200B8D15F /* renewpaymentmethodlist.swift */,
-				CB25B2A22938926200B8D15F /* renewpaymentmethodlist.xib */,
 			);
 			path = renewpaymentmethodlist;
 			sourceTree = "<group>";
@@ -1496,19 +1485,6 @@
 			path = cellreturnrefund;
 			sourceTree = "<group>";
 		};
-		CB85254229D4B5260031844A /* ribb */ = {
-			isa = PBXGroup;
-			children = (
-				CB85254829D4B53F0031844A /* daily-ar.png */,
-				CB85254329D4B53B0031844A /* daily-en.png */,
-				CB85254429D4B53C0031844A /* monthly-ar.png */,
-				CB85254729D4B53E0031844A /* monthly-en.png */,
-				CB85254529D4B53C0031844A /* weekly-ar.png */,
-				CB85254629D4B53D0031844A /* weekly-en.png */,
-			);
-			path = ribb;
-			sourceTree = "<group>";
-		};
 		CB8EEE0828C219BB00EAC020 /* subscriptionmodelweekly */ = {
 			isa = PBXGroup;
 			children = (
@@ -1827,6 +1803,15 @@
 				CBC2364E28D877CB000DBC93 /* cellcolweeklyproduct.xib */,
 			);
 			path = cellcolweeklyproduct;
+			sourceTree = "<group>";
+		};
+		CBC3257F29DA860A00FC0655 /* renewsubscriptionaddproduct */ = {
+			isa = PBXGroup;
+			children = (
+				CBC3258029DA862800FC0655 /* renewsubscriptionaddproduct.swift */,
+				CBC3258129DA862B00FC0655 /* renewsubscriptionaddproduct.xib */,
+			);
+			path = renewsubscriptionaddproduct;
 			sourceTree = "<group>";
 		};
 		CBC408D528D4585F00F3FF3A /* searchproductlist */ = {
@@ -2634,8 +2619,6 @@
 				CBF12CB628C5F91200F0325D /* cellorderhistoryitems.xib in Resources */,
 				CB05342B2915224800D3BCFC /* myprofile.xib in Resources */,
 				CBE42F7B2832391000B761F3 /* LaunchScreen.storyboard in Resources */,
-				CB85254E29D4B53F0031844A /* daily-ar.png in Resources */,
-				CB1D7EEA292FB472001CFA09 /* renewsubscriptiondetails.xib in Resources */,
 				CB7B4F322937104E00BF72AA /* loyaltypointbalance.xib in Resources */,
 				CB7B4F262935E06400BF72AA /* maidwalletdetails.xib in Resources */,
 				CBAD49A5286043480091EA2F /* NunitoSans-Regular.ttf in Resources */,
@@ -2650,17 +2633,16 @@
 				CBCB9D032865AFFE002F5340 /* productfilerpage.xib in Resources */,
 				CB8EEE1B28C21FF300EAC020 /* colcellsubmodelmonthly.xib in Resources */,
 				CBE42FE3283244A400B761F3 /* homeclass.xib in Resources */,
-				CB1D7EF32930A120001CFA09 /* renewaddresstimeslot.xib in Resources */,
 				CBC2364228D85091000DBC93 /* dailyproductcatalogue.xib in Resources */,
 				CB1C20432944774000966CAE /* maidSelectShippingAddress.xib in Resources */,
 				CBFBFBB029224AB5008332FF /* loader15.png in Resources */,
+				CBC3258A29DA866B00FC0655 /* renewaddresstimeslot.xib in Resources */,
 				CB05343429152ACC00D3BCFC /* reordermyorderoncelist.xib in Resources */,
 				CB02D76529C2EC5400693A6A /* colcellbottombannerhome.xib in Resources */,
 				CBB1437C2860A81300D30A38 /* subsriptionclass.xib in Resources */,
 				CB4ECBB42865BD31003C72E1 /* cellexpHeader.xib in Resources */,
 				CBF12CC028C6046100F0325D /* cellcoupon.xib in Resources */,
 				CBAF884C29647A7A000B2938 /* editchoosemaplocation.xib in Resources */,
-				CB85254A29D4B53F0031844A /* monthly-ar.png in Resources */,
 				CBBE9E5A2923D21300970344 /* celltabvlinedate.xib in Resources */,
 				CB25B2B22939F4F600B8D15F /* Splash4@2x.png in Resources */,
 				CBC408D928D4587700F3FF3A /* searchproductlist.xib in Resources */,
@@ -2680,7 +2662,6 @@
 				CBFBFBA929224AB5008332FF /* loader20.png in Resources */,
 				CBAD49A9286043480091EA2F /* NunitoSans-SemiBold.ttf in Resources */,
 				CBAD49A6286043480091EA2F /* NunitoSans-Bold.ttf in Resources */,
-				CB85254929D4B53F0031844A /* daily-en.png in Resources */,
 				CB39D4622913F23300265A03 /* celltabvmaidsubscriptionlist.xib in Resources */,
 				CBF12CB128C5E41000F0325D /* myorderhistorydetails.xib in Resources */,
 				CBAD49AF286043480091EA2F /* NunitoSans-ExtraLight.ttf in Resources */,
@@ -2700,7 +2681,6 @@
 				CBFBFBB529224AB5008332FF /* loader7.png in Resources */,
 				CB7B4F37293717B100BF72AA /* cellloyaltyhistory.xib in Resources */,
 				CBFBFBBB29224AB5008332FF /* loader22.png in Resources */,
-				CB85254B29D4B53F0031844A /* weekly-ar.png in Resources */,
 				CB1D7EDA292DF804001CFA09 /* celltimeslots.xib in Resources */,
 				CB512C542976C53200BF0ECB /* icon-40.png in Resources */,
 				CBCF06B9286484A900069382 /* subscriptionmodel.xib in Resources */,
@@ -2732,7 +2712,6 @@
 				CBFBFBB629224AB5008332FF /* loader4.png in Resources */,
 				CBFBFBAD29224AB5008332FF /* loader30.png in Resources */,
 				CB8EEE1728C21CF700EAC020 /* colcellsubmodelweekly.xib in Resources */,
-				CB85254C29D4B53F0031844A /* weekly-en.png in Resources */,
 				CBC2364C28D877BC000DBC93 /* cellcoldailyproduct.xib in Resources */,
 				CBF12CBB28C5FCC700F0325D /* couponlist.xib in Resources */,
 				CBAD49AC286043480091EA2F /* NunitoSans-ExtraLightItalic.ttf in Resources */,
@@ -2763,7 +2742,6 @@
 				CBAD49AA286043480091EA2F /* NunitoSans-SemiBoldItalic.ttf in Resources */,
 				CBE42F782832391000B761F3 /* Assets.xcassets in Resources */,
 				CB8EEE0D28C219F500EAC020 /* subscriptionmodelweekly.xib in Resources */,
-				CB85254D29D4B53F0031844A /* monthly-en.png in Resources */,
 				CB6E77D02924CDB4004F38E4 /* mysubscriptionlineviewproductlist.xib in Resources */,
 				CBC9F6CA28C781C6000AC442 /* colcellrelatedproduct.xib in Resources */,
 				CB05342F2915225400D3BCFC /* changepassword.xib in Resources */,
@@ -2795,7 +2773,6 @@
 				CB25B2B72939FF1300B8D15F /* Group73.png in Resources */,
 				CBFBFBA729224AB5008332FF /* loader29.png in Resources */,
 				CBFBFBA429224AB5008332FF /* loader5.png in Resources */,
-				CB25B2A42938926200B8D15F /* renewpaymentmethodlist.xib in Resources */,
 				CBCC3D8A28642D2100C0F7C3 /* colcelltopdeals.xib in Resources */,
 				CBA1E69A28CF37BC0043DB4D /* celltabvmyaddresschoose.xib in Resources */,
 				CBD0CC662912803900DCCA29 /* celltabvmysubscription.xib in Resources */,
@@ -2804,6 +2781,7 @@
 				CB4ECBAF2865BC15003C72E1 /* colcellfilter.xib in Resources */,
 				CBC8B25E2872F94C008A68A8 /* cellwallettransaction.xib in Resources */,
 				CBFBFBA829224AB5008332FF /* loader26.png in Resources */,
+				CBC3258629DA865500FC0655 /* renewpaymentmethodlist.xib in Resources */,
 				CB1C204D29473C5100966CAE /* maidordersuccess.xib in Resources */,
 				CBAD49A7286043480091EA2F /* NunitoSans-BlackItalic.ttf in Resources */,
 				CBCB9CFE2865A0B8002F5340 /* productcatalogue.xib in Resources */,
@@ -2825,6 +2803,8 @@
 				CBCF06822864689800069382 /* tabvcelllist.xib in Resources */,
 				CB558E032872ADE10071939A /* cellmyaddress.xib in Resources */,
 				CB39D4482913AAB500265A03 /* colcellmaidhome.xib in Resources */,
+				CBC3258F29DA867F00FC0655 /* renewsubscriptiondetails.xib in Resources */,
+				CBC3258329DA862B00FC0655 /* renewsubscriptionaddproduct.xib in Resources */,
 				CBA2B4DE286F70B20062609C /* colcellcards.xib in Resources */,
 				CBCF067D286453BB00069382 /* tabvcellplan.xib in Resources */,
 				CBFBFBBC29224AB5008332FF /* loader2.png in Resources */,
@@ -2835,7 +2815,6 @@
 				CB1D7EDF292F51B6001CFA09 /* createmaidaccount.xib in Resources */,
 				CB558E182872CE4F0071939A /* cellmyorders.xib in Resources */,
 				CBFBFBBA29224AB5008332FF /* loader18.png in Resources */,
-				CBBA602F29AE33C500A504FB /* dairy_400x400_1.jpg in Resources */,
 				CBAD49AB286043480091EA2F /* NunitoSans-Light.ttf in Resources */,
 				CBFBFBA229224AB5008332FF /* loader12.png in Resources */,
 				CBCC3DA528643E0800C0F7C3 /* colcellpromotions.xib in Resources */,
@@ -2936,7 +2915,6 @@
 				CB3929182865F810003162E9 /* tabvcellreview.swift in Sources */,
 				CBE42FD8283242B000B761F3 /* maidhomeclass.swift in Sources */,
 				CB39D45C2913F1A800265A03 /* maidpausedsubscriptions.swift in Sources */,
-				CB1D7EF22930A120001CFA09 /* renewaddresstimeslot.swift in Sources */,
 				CB7B4F29293614E200BF72AA /* Orderamount2.swift in Sources */,
 				CB1C20292943058600966CAE /* maidcartlist.swift in Sources */,
 				CBC2364B28D877BC000DBC93 /* cellcoldailyproduct.swift in Sources */,
@@ -2962,8 +2940,8 @@
 				CB1D7EDE292F51B6001CFA09 /* createmaidaccount.swift in Sources */,
 				CBD0CC5729110F4000DCCA29 /* CreateOrderViewController.swift in Sources */,
 				CB39D44A2913C19300265A03 /* Orderamount1.swift in Sources */,
-				CB25B2A32938926200B8D15F /* renewpaymentmethodlist.swift in Sources */,
 				CB27BAF82914EC550024F07F /* celltabvpopupreason.swift in Sources */,
+				CBC3258729DA865500FC0655 /* renewpaymentmethodlist.swift in Sources */,
 				CBA2B4CA286EF7640062609C /* celltabvprodustitemsedit.swift in Sources */,
 				CB27BAFD2914F7740024F07F /* maidaccounts.swift in Sources */,
 				CB699F40293BCADE0070E483 /* passwordupdatemobileOTP.swift in Sources */,
@@ -2984,6 +2962,7 @@
 				CBF7F743291B5E5C00199DE7 /* mysubscriptiondetails.swift in Sources */,
 				CBD0CC5429110E2F00DCCA29 /* OrderRequest.swift in Sources */,
 				CBB14374286072B600D30A38 /* registrationclass.swift in Sources */,
+				CBC3258B29DA866B00FC0655 /* renewaddresstimeslot.swift in Sources */,
 				CB25B2A92938C3B200B8D15F /* OrderRequest3.swift in Sources */,
 				CB1C2038294471EC00966CAE /* maidallorderslist.swift in Sources */,
 				CBD0CC652912803900DCCA29 /* celltabvmysubscription.swift in Sources */,
@@ -3035,8 +3014,10 @@
 				CB05343829152B7700D3BCFC /* cellmyorderReorder.swift in Sources */,
 				CB39291F286601C6003162E9 /* addreviewpage.swift in Sources */,
 				CBE42FA428323A1D00B761F3 /* BaseViewController.swift in Sources */,
+				CBC3258229DA862B00FC0655 /* renewsubscriptionaddproduct.swift in Sources */,
 				CB6E77D42924CE98004F38E4 /* colcellproductonly.swift in Sources */,
 				CBE75F3828C0D0A60043DCDD /* tabvcellcartorderonce.swift in Sources */,
+				CBC3258E29DA867F00FC0655 /* renewsubscriptiondetails.swift in Sources */,
 				CB25B2A72938C39A00B8D15F /* OrderAmount3.swift in Sources */,
 				CBCF06B8286484A900069382 /* subscriptionmodel.swift in Sources */,
 				CB6E77CF2924CDB4004F38E4 /* mysubscriptionlineviewproductlist.swift in Sources */,
@@ -3081,7 +3062,6 @@
 				CB27BAF32914E5810024F07F /* pausesubscriptiondetails.swift in Sources */,
 				CBCF06C1286574E700069382 /* tabvcellsubmodel.swift in Sources */,
 				CB39D44E2913C24700265A03 /* CreateOrderViewControllerOO.swift in Sources */,
-				CB1D7EE9292FB472001CFA09 /* renewsubscriptiondetails.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

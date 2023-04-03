@@ -271,7 +271,7 @@ class maidpausedsubscriptions: UIViewController,UITableViewDelegate,UITableViewD
                             print("arrMmysubscriptions --->",self.arrMmysubscriptions)
                             
                             if self.arrMmysubscriptions.count == 0{
-                                self.msg = "No orders found!"
+                                self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
                             }
                             
                             self.tabvmysubscription.reloadData()
