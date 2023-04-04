@@ -469,6 +469,9 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
             {
                 cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)
             }
+            else{
+                cellA.btnfav.setImage(UIImage(named: "fav1"), for: .normal)
+            }
             
             cellA.btnfav.isHidden = false
         }

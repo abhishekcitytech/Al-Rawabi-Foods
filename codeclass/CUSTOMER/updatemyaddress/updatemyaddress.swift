@@ -797,6 +797,8 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
                           "longitude": self.strSelectedLONGITUDE,
                           "isdefaultaddress": strisdefaultaddress,
                           "setasmaid": "",
+                          "building":txtbuilding.text!,
+                          "landmark": txtlandmark.text!,
                           "locationId": strCurrentlodationid
         ] as [String : Any]
         

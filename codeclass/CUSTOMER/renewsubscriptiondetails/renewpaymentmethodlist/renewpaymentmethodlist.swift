@@ -910,16 +910,53 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         print(strshippingchargesamount)
         print(strgrandtotalamount)
         
-        let fltTotal  = (strgrandtotalamount as NSString).floatValue
+        let fltamount4  = (strgrandtotalamount as NSString).doubleValue
+        let fltamount3  = (strwalletremainingbalance as NSString).doubleValue
         
-        let fltamount3  = (strwalletremainingbalance as NSString).floatValue
+        print("fltamount4",fltamount4)
+        print("fltamount3",fltamount3)
         
-        var fltremainingbalance = 0.00
-        fltremainingbalance = Double(fltamount3) - Double(fltTotal)
-        
-        self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
-        self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltTotal)
-        self.txtremainingbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltremainingbalance)
+        if fltamount3 == 0.00
+        {
+            //Wallet balance zero, Recharge Your Wallet First
+            
+            self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
+            
+            self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
+            
+            self.btnpaymentwallet.isUserInteractionEnabled = false
+            self.btnpaymentwallet.setTitleColor(.black, for: .normal)
+            self.btnpaymentwallet.backgroundColor = UIColor(named: "graybordercolor")!
+        }
+        else if fltamount3 < fltamount4
+        {
+            //Wallet balance low from Grand total
+            
+            self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
+            
+            self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
+            
+            self.btnpaymentwallet.isUserInteractionEnabled = false
+            self.btnpaymentwallet.setTitleColor(.black, for: .normal)
+            self.btnpaymentwallet.backgroundColor = UIColor(named: "graybordercolor")!
+        }
+        else
+        {
+            //Wallet Balance is sufficient to place order
+            
+            var fltremainingbalance = 0.00
+            fltremainingbalance = Double(fltamount3) - fltamount4
+            
+            self.txtwalletbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltamount3)
+            
+            self.txtpaymentamount.text = String(format: "%@ %0.2f",self.strcurrency,fltamount4)
+            
+            self.txtremainingbalance.text = String(format: "%@ %0.2f",self.strcurrency,fltremainingbalance)
+            
+            self.btnpaymentwallet.isUserInteractionEnabled = true
+            self.btnpaymentwallet.setTitleColor(.white, for: .normal)
+            self.btnpaymentwallet.backgroundColor = UIColor(named: "greencolor")!
+        }
     }
     
     

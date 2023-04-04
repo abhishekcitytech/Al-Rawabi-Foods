@@ -230,7 +230,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
-        
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         setupNavLogo()
         
         self.viewsearchbarbg.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
@@ -263,9 +263,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         if (strLangCode == "en")
         {
-            self.tabBarController!.tabBar.items![3].badgeValue = ""
+            (myAppDelegate.tabBarController.tabBar.items![3] ).badgeValue = ""
         }else{
-            self.tabBarController!.tabBar.items![1].badgeValue = ""
+            (myAppDelegate.tabBarController.tabBar.items![1] ).badgeValue = ""
         }
         
         self.tabBarController?.repositionBadges()
@@ -556,9 +556,25 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             
         }
         print("arrmpolygonobject",arrmpolygonobject.count)
+        
+        if arrmpolygonobject.count > 0{
+            
+            print("self.strcurrentlat",self.strcurrentlat)
+            print("self.strcurrentlong",self.strcurrentlong)
+            
+            if  self.strcurrentlat != "" && self.strcurrentlong != ""
+            {
+                //CHCEKING WITHIN MULTIPLE POLYGON ZONE AREA FOR SUBSCRIPTION POPUP VIEW
+                self.checkpolygonPointMultiple(lat: Double(self.strcurrentlat)!, long: Double(self.strcurrentlong)!)
+                self.alertViewFunction()
+            }
+        }
     }
     func checkpolygonPointMultiple(lat:Double,long:Double)
     {
+        print("lat",lat)
+        print("long",long)
+        
         for xx in 0 ..< arrmpolygonobject.count
         {
             let polyobj = arrmpolygonobject.object(at: xx)as? MKPolygon
@@ -1173,6 +1189,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     @objc func createBannerGallery(arrimages:NSMutableArray)
     {
         var imageSDWebImageSrc = [SDWebImageSource]()
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk()
         
         for x in 0 ..< arrimages.count
         {
@@ -1958,7 +1976,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             }
                             let arrmcategorytree = dictemp.value(forKey: "categoryTree") as? NSArray ?? []
                             self.arrMcategory = NSMutableArray(array: arrmcategorytree)
-                            print("arrMcategory --->",self.arrMcategory)
+                            //print("arrMcategory --->",self.arrMcategory)
                             self.btnviewalltopdeals.isHidden = false
 
                         }
@@ -2015,8 +2033,6 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         request.httpMethod = "POST"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        print("strconnurl",strconnurl)
-        
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
         print("json string = \(jsonString)")
@@ -2050,7 +2066,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                 
                     let dictemp = json as NSDictionary
-                    print("dictemp topdeals--------------->",dictemp)
+                    //print("dictemp topdeals--------------->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -2069,7 +2085,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             
                             let arrMtopdelas = dictemp.value(forKey: "productdetails") as? NSArray ?? []
                             self.arrMtopdeals = NSMutableArray(array: arrMtopdelas)
-                            print("arrMtopdeals --->",self.arrMtopdeals)
+                            //print("arrMtopdeals --->",self.arrMtopdeals)
                             
                             if self.arrMtopdeals.count > 0{
                                 self.coltopdeals.reloadData()
@@ -2302,10 +2318,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                                 let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
                                 if (strLangCode == "en")
                                 {
-                                    self.tabBarController!.tabBar.items![3].badgeValue = String(format: "%d", strcount)
                                     
+                                    (myAppDelegate.tabBarController.tabBar.items![3] ).badgeValue = String(format: "%d", strcount)
+
                                 }else{
-                                    self.tabBarController!.tabBar.items![1].badgeValue = String(format: "%d", strcount)
+                                    (myAppDelegate.tabBarController.tabBar.items![1] ).badgeValue = String(format: "%d", strcount)
                                 }
                                 
                                 //self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
@@ -2320,9 +2337,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                                 let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
                                 if (strLangCode == "en")
                                 {
-                                    self.tabBarController!.tabBar.items![3].badgeValue = ""
+                                    (myAppDelegate.tabBarController.tabBar.items![3] ).badgeValue = ""
                                 }else{
-                                    self.tabBarController!.tabBar.items![1].badgeValue = ""
+                                    (myAppDelegate.tabBarController.tabBar.items![1] ).badgeValue = ""
                                 }
                                 //self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
                                 self.tabBarController?.repositionBadges()
@@ -2761,7 +2778,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 //print("array",array)
                 
                 let dic = JSON as? NSDictionary
-                print("dic",dic as Any)
+                //print("dic",dic as Any)
                 
                 let strstatus = String(format: "%@", dic?.value(forKey: "status")as? String ?? "")
                 if strstatus == "OK"
@@ -2771,7 +2788,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     DispatchQueue.main.async {
                         
                         let arrmresults = dic?.value(forKey: "results")as? NSArray ?? []
-                        print("arrmresults",arrmresults)
+                        //print("arrmresults",arrmresults)
                         
                         let dic = arrmresults.object(at: 0)as? NSDictionary
                         

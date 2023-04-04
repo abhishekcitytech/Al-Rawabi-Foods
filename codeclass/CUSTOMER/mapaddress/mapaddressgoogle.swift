@@ -1147,7 +1147,7 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
     //MARK: -  GET Lat Long by PlaceID - Google API
     func  performGoogleSearchPlaceID(strplaceid:String)
     {
-        var strconnurl = String(format: "https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@", strplaceid,Constants.conn.GoogleAPIKey)
+        var strconnurl = String(format: "https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@&language=en", strplaceid,Constants.conn.GoogleAPIKey)
         strconnurl = strconnurl.replacingOccurrences(of: " ", with: "%20")
         print("strconnurl",strconnurl)
         AF.request(strconnurl,method: .get,encoding: JSONEncoding.default).responseJSON {
@@ -1264,7 +1264,7 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
     //MARK: -  GET Lat Long by PlaceID111 - Google API
     func  performGoogleSearchPlaceID1111(strplaceid:String)
     {
-        var strconnurl = String(format: "https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@", strplaceid,Constants.conn.GoogleAPIKey)
+        var strconnurl = String(format: "https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@&language=en", strplaceid,Constants.conn.GoogleAPIKey)
         strconnurl = strconnurl.replacingOccurrences(of: " ", with: "%20")
         print("strconnurl",strconnurl)
         AF.request(strconnurl,method: .get,encoding: JSONEncoding.default).responseJSON {

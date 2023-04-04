@@ -115,6 +115,8 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         
         self.refreshmainlist()
         
+        self.fetchDataRenewmodelSubscriptionmodelTableAUTORENEW()
+        
     }
     
     // MARK: - viewDidLoad Method
@@ -276,10 +278,79 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         if btnautorenew.isSelected == true{
             self.btnautorenew.isSelected = false
             self.strISAUTORENEW = "0"
+            self.updateDataRenewmodelSubscriptionmodelTableAUTORENEW(strselectedautorenew: "0")
         }
         else{
             self.btnautorenew.isSelected = true
             self.strISAUTORENEW = "1"
+            self.updateDataRenewmodelSubscriptionmodelTableAUTORENEW(strselectedautorenew: "1")
+        }
+    }
+    
+    //MARK: - Update SubscriptionmodelTable data Renewmodel AUTONENEW exist or not
+    func updateDataRenewmodelSubscriptionmodelTableAUTORENEW(strselectedautorenew:String)
+    {
+        let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let manageContent = appDelegate.persistentContainer.viewContext
+        let fetchData = NSFetchRequest<NSFetchRequestResult>(entityName: "Renewmodel")
+        fetchData.predicate = NSPredicate(format: "userid == %@", strcustomerid)
+        do {
+            let result = try manageContent.fetch(fetchData)
+            print("result",result)
+            if result.count > 0
+            {
+                // result available
+                
+                for data in result as! [NSManagedObject]{
+                    
+                    data.setValue(strselectedautorenew, forKey: "isrenew")
+                }
+            }
+            else{
+                //result not available
+            }
+        }catch {
+            print("err")
+        }
+    }
+    //MARK: - Fetch SubscriptionmodelTable data Renewmodel AUTONENEW exist or not
+    func fetchDataRenewmodelSubscriptionmodelTableAUTORENEW()
+    {
+        let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let manageContent = appDelegate.persistentContainer.viewContext
+        let fetchData = NSFetchRequest<NSFetchRequestResult>(entityName: "Subscriptionmodel")
+        fetchData.predicate = NSPredicate(format: "userid == %@", strcustomerid)
+        do {
+            let result = try manageContent.fetch(fetchData)
+            print("result",result)
+            if result.count > 0
+            {
+                // result available
+                
+                for data in result as! [NSManagedObject]{
+                    
+                    let strautonewcode = data.value(forKeyPath: "isrenew") ?? ""
+                    print("strautonewcode", strautonewcode)
+
+                    if strautonewcode as! String == "0"
+                    {
+                        self.btnautorenew.isSelected = false
+                        self.strISAUTORENEW = "0"
+                    }
+                    else{
+                        self.btnautorenew.isSelected = true
+                        self.strISAUTORENEW = "1"
+                    }
+                }
+            }
+            else{
+                //result not available
+            }
+        }catch {
+            print("err")
         }
     }
     

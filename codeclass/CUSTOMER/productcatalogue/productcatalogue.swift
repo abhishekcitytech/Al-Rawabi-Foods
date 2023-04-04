@@ -1434,10 +1434,10 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                                 let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
                                 if (strLangCode == "en")
                                 {
-                                    self.tabBarController!.tabBar.items![3].badgeValue = String(format: "%d", strcount)
-                                    
+                                    (myAppDelegate.tabBarController.tabBar.items![3] ).badgeValue = String(format: "%d", strcount)
+
                                 }else{
-                                    self.tabBarController!.tabBar.items![1].badgeValue = String(format: "%d", strcount)
+                                    (myAppDelegate.tabBarController.tabBar.items![1] ).badgeValue = String(format: "%d", strcount)
                                 }
                                 
                                 self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
@@ -1451,9 +1451,9 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                                 let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
                                 if (strLangCode == "en")
                                 {
-                                    self.tabBarController!.tabBar.items![3].badgeValue = ""
+                                    (myAppDelegate.tabBarController.tabBar.items![3] ).badgeValue = ""
                                 }else{
-                                    self.tabBarController!.tabBar.items![1].badgeValue = ""
+                                    (myAppDelegate.tabBarController.tabBar.items![1] ).badgeValue = ""
                                 }
                                  self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
                                 

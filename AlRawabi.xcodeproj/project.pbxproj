@@ -218,6 +218,7 @@
 		CBB143842860A83000D30A38 /* menuclass.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB143822860A83000D30A38 /* menuclass.xib */; };
 		CBB258C82962C704001058FC /* cellproductitemrefunded.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB258C62962C704001058FC /* cellproductitemrefunded.swift */; };
 		CBB258C92962C704001058FC /* cellproductitemrefunded.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB258C72962C704001058FC /* cellproductitemrefunded.xib */; };
+		CBBD4AFF29DC027B00B41CA2 /* TestLocation4.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CBBD4AFE29DC027A00B41CA2 /* TestLocation4.gpx */; };
 		CBBE801A2955DBD000A161CF /* cmspage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE80182955DBD000A161CF /* cmspage.swift */; };
 		CBBE801B2955DBD000A161CF /* cmspage.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBBE80192955DBD000A161CF /* cmspage.xib */; };
 		CBBE9E542923A9D500970344 /* mysubscriptionlineviewdetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE9E522923A9D500970344 /* mysubscriptionlineviewdetails.swift */; };
@@ -621,6 +622,7 @@
 		CBB143822860A83000D30A38 /* menuclass.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = menuclass.xib; sourceTree = "<group>"; };
 		CBB258C62962C704001058FC /* cellproductitemrefunded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cellproductitemrefunded.swift; sourceTree = "<group>"; };
 		CBB258C72962C704001058FC /* cellproductitemrefunded.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellproductitemrefunded.xib; sourceTree = "<group>"; };
+		CBBD4AFE29DC027A00B41CA2 /* TestLocation4.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TestLocation4.gpx; sourceTree = "<group>"; };
 		CBBE80182955DBD000A161CF /* cmspage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cmspage.swift; sourceTree = "<group>"; };
 		CBBE80192955DBD000A161CF /* cmspage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cmspage.xib; sourceTree = "<group>"; };
 		CBBE9E522923A9D500970344 /* mysubscriptionlineviewdetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mysubscriptionlineviewdetails.swift; sourceTree = "<group>"; };
@@ -2107,6 +2109,7 @@
 		CBE42F5F2832390D00B761F3 = {
 			isa = PBXGroup;
 			children = (
+				CBBD4AFE29DC027A00B41CA2 /* TestLocation4.gpx */,
 				CBEF57DA2952F51C00D3F36D /* TestLocation3.gpx */,
 				CBF12CA428C5B0A200F0325D /* TestLocation2.gpx */,
 				CBE42F9F283239FF00B761F3 /* Resources */,
@@ -2744,6 +2747,7 @@
 				CB8EEE0D28C219F500EAC020 /* subscriptionmodelweekly.xib in Resources */,
 				CB6E77D02924CDB4004F38E4 /* mysubscriptionlineviewproductlist.xib in Resources */,
 				CBC9F6CA28C781C6000AC442 /* colcellrelatedproduct.xib in Resources */,
+				CBBD4AFF29DC027B00B41CA2 /* TestLocation4.gpx in Resources */,
 				CB05342F2915225400D3BCFC /* changepassword.xib in Resources */,
 				CBE42F732832390D00B761F3 /* Main.storyboard in Resources */,
 				CBE75F3928C0D0A60043DCDD /* tabvcellcartorderonce.xib in Resources */,
