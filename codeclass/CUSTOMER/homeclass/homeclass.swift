@@ -166,11 +166,12 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 self.strcurrentlat = self.strPOPUPSelectedLATITUDE
                 self.strcurrentlong = self.strPOPUPSelectedLONGITUDE
                 
-                //CHCEKING WITHIN MULTIPLE POLYGON ZONE AREA
-                self.checkpolygonPointMultiple(lat: Double(self.strPOPUPSelectedLATITUDE)!, long: Double(self.strPOPUPSelectedLONGITUDE)!)
-                self.alertViewFunction()
-                
                 self.locationManager.stopUpdatingLocation()
+                //CHCEKING WITHIN MULTIPLE POLYGON ZONE AREA
+                //self.checkpolygonPointMultiple(lat: Double(self.strPOPUPSelectedLATITUDE)!, long: Double(self.strPOPUPSelectedLONGITUDE)!)
+                self.boolcheck = true
+                self.alertViewFunction()
+ 
             }
             else
             {
@@ -936,11 +937,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         {
             self.strcurrentlat = self.strPOPUPSelectedLATITUDE
             self.strcurrentlong = self.strPOPUPSelectedLONGITUDE
-            print("self.strcurrentlat",self.strcurrentlat)
-            print("self.strcurrentlong",self.strcurrentlong)
+            //print("self.strcurrentlat",self.strcurrentlat)
+            //print("self.strcurrentlong",self.strcurrentlong)
             
             //GET ADDRESS STRING FROM CURRENT LATITUDE & LONGITUDE
-            self.getAddressFromLatLong(latitude: latdouble, longitude: longdouble)
+            //self.getAddressFromLatLong(latitude: latdouble, longitude: longdouble)
         }
         else
         {
@@ -951,15 +952,13 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             
             //GET ADDRESS STRING FROM CURRENT LATITUDE & LONGITUDE
             self.getAddressFromLatLong(latitude: latdouble, longitude: longdouble)
+            
+            //CHCEKING WITHIN MULTIPLE POLYGON ZONE AREA
+            self.checkpolygonPointMultiple(lat: Double(self.strcurrentlat)!, long: Double(self.strcurrentlong)!)
+            self.alertViewFunction()
         }
-        
-        
-        //CHCEKING WITHIN MULTIPLE POLYGON ZONE AREA
-        self.checkpolygonPointMultiple(lat: Double(self.strcurrentlat)!, long: Double(self.strcurrentlong)!)
-        self.alertViewFunction()
-
     }
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
+    private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
     {
         switch status {
         case .authorizedWhenInUse:
