@@ -504,21 +504,14 @@
 "msg_language495" = "Sunday";
 "msg_language496" = "Search by Subscription ID";
 "msg_language497" = "View Details";
-
 "msg_language498" = "Mobile Number";
 "msg_language499" = "WhatsApp Number";
 "msg_language500" = "E-mail";
-
 "msg_language501" = "Subscriptions";
-
 "msg_language502" = "AM";
 "msg_language503" = "PM";
-
-
 "msg_language504" = "Building Name/ Villa No/ Flat number";
 "msg_language505" = "Landmark";
-
 "msg_language506" = "Please enter your Building Name and Flat number";
 "msg_language507" = "Please enter your Landmark";
-
 "msg_language508" = "Reset";

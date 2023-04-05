@@ -223,7 +223,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
         }
         else{
             
-            let stris_addedwishlist = String(format: "%@", dict!.value(forKey: "is_addedwishlist") as? String ?? "")
+            /*let stris_addedwishlist = String(format: "%@", dict!.value(forKey: "is_addedwishlist") as? String ?? "")
             
             cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)
             
@@ -234,11 +234,15 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
             }
             else{
                 cellA.btnfav.setImage(UIImage(named: "fav1"), for: .normal)
-            }
+            }*/
             
-            cellA.btnfav.isHidden = false
-            cellA.btnright.isHidden = true
+             cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)
+             cellA.btnfav.isHidden = false
+             cellA.btnright.isHidden = true
         }
+        
+        
+        
         
         cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
         

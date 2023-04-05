@@ -142,6 +142,8 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
         
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
+        addSwipe()
+        
         self.title = myAppDelegate.changeLanguage(key: "msg_language151")
         
         let backicon = UIImage(named: "back")
@@ -195,6 +197,29 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     @objc func pressBack()
     {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - Gesture Motion Control Method
+    func addSwipe()
+    {
+        let directions: [UISwipeGestureRecognizer.Direction] = [.right, .left]
+        for direction in directions {
+            let gesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+            gesture.direction = direction
+            self.view.addGestureRecognizer(gesture)// self.view
+        }
+    }
+    @objc func handleSwipe(sender: UISwipeGestureRecognizer) {
+        let direction = sender.direction
+        switch direction {
+            case .right:
+                print("Gesture direction: Right")
+            self.pressBack()
+            case .left:
+                print("Gesture direction: Left")
+            default:
+                print("Unrecognized Gesture Direction")
+        }
     }
     
     //MARK: - Set Up Right Bar Cart Bag Item UI Design Method

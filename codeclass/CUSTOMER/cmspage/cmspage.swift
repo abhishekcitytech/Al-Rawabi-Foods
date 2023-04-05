@@ -110,9 +110,9 @@ class cmspage: UIViewController,UIWebViewDelegate,WKNavigationDelegate, WKUIDele
     func loadHTMLStringImage(strpagecontent:String)
     {
         let htmlString = strpagecontent
-        
-        let font = "<font size='21' color= 'black'>%@"
+        let font = "<font size='5' color= 'black'>%@"
         let html = String(format: font, htmlString)
+        print("final html",html)
         webcontent.loadHTMLString(html, baseURL: nil)
     }
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!)

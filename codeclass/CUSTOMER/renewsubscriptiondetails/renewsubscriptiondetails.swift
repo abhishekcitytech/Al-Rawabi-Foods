@@ -554,6 +554,8 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         self.lblsubtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481") ,strSUBTOTAL)
         self.lblshippingvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481") , strSHIPPING)
         self.lblgrandtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481") , strGRANDTOTAL)
+        
+        self.tabvorderlist.reloadData()
     }
     func calculate3DAYSPAY()
     {
@@ -642,6 +644,8 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
         self.lblsubtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strSUBTOTAL)
         self.lblshippingvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strSHIPPING)
         self.lblgrandtotalvalue.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language481"), strGRANDTOTAL)
+        
+        self.tabvorderlist.reloadData()
     }
     
     
@@ -956,6 +960,16 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
             cell.viewleft.backgroundColor = UIColor(named: "lightred")!
             cell.btnwarning.isHidden = false
             cell.lblwarning.isHidden = false
+        }
+        
+        if strSelectedpaymentoption == "FULL"{
+            //No Yellow Top 3 ROWS
+        }else{
+            //Full Yellow color background Top 3 ROWS
+            if indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2{
+                cell.viewleft.backgroundColor = UIColor(named: "plate6")!
+                cell.viewoverall.backgroundColor = UIColor(named: "plate6")!
+            }
         }
         
         if strSelectedpaymentoption == "FULL"{

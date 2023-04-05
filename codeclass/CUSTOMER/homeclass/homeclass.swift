@@ -2084,7 +2084,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             
                             let arrMtopdelas = dictemp.value(forKey: "productdetails") as? NSArray ?? []
                             self.arrMtopdeals = NSMutableArray(array: arrMtopdelas)
-                            //print("arrMtopdeals --->",self.arrMtopdeals)
+                            print("arrMtopdeals --->",self.arrMtopdeals)
                             
                             if self.arrMtopdeals.count > 0{
                                 self.coltopdeals.reloadData()

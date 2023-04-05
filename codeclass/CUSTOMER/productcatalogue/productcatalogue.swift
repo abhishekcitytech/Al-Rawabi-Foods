@@ -86,6 +86,8 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
+        addSwipe()
+        
         if strFromCategoryNAME.count > 0 {
             self.title = strFromCategoryNAME
         }else{
@@ -162,6 +164,30 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         
         self.createSubCategoryGallery()
         
+    }
+    
+    
+    //MARK: - Gesture Motion Control Method
+    func addSwipe()
+    {
+        let directions: [UISwipeGestureRecognizer.Direction] = [.right, .left]
+        for direction in directions {
+            let gesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+            gesture.direction = direction
+            self.view.addGestureRecognizer(gesture)// self.view
+        }
+    }
+    @objc func handleSwipe(sender: UISwipeGestureRecognizer) {
+        let direction = sender.direction
+        switch direction {
+            case .right:
+                print("Gesture direction: Right")
+            self.pressBack()
+            case .left:
+                print("Gesture direction: Left")
+            default:
+                print("Unrecognized Gesture Direction")
+        }
     }
     
     //MARK: - press back method
