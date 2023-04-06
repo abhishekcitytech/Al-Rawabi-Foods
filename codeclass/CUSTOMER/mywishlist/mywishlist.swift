@@ -224,10 +224,8 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
         else{
             
             /*let stris_addedwishlist = String(format: "%@", dict!.value(forKey: "is_addedwishlist") as? String ?? "")
-            
-            cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)
-            
             print("stris_addedwishlist",stris_addedwishlist)
+             
             if stris_addedwishlist == "True"
             {
                 cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)

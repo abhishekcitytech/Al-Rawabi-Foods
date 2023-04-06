@@ -301,9 +301,11 @@ class returnrefundslisting: UIViewController,UITableViewDelegate,UITableViewData
     @objc func pressviewdetails(sender:UIButton)
     {
         let dic = self.arrMmyorders.object(at: sender.tag)as! NSDictionary
+        print("dic",dic)
         let arrm1 = dic.value(forKey: "creditMemoDetails") as? NSArray ?? []
+        print("arrm1",arrm1)
         
-        let dic1 = arrm1.object(at: sender.tag)as! NSDictionary
+        let dic1 = arrm1.object(at: 0)as! NSDictionary
         let arrm2 = dic1.value(forKey: "product") as? NSArray ?? []
         print("arrm2",arrm2)
         

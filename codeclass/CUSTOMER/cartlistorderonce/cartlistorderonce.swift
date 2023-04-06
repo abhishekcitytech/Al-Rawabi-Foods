@@ -1233,17 +1233,21 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                                 else
                                 {
                                     if strtime1.containsIgnoreCase("AM"){
-                                        str1 = strtime1.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+                                        str1 = strtime1.replacingOccurrences(of: "AM", with: "")
+                                        str1 = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language502"),str1)
                                     }
                                     else if strtime1.containsIgnoreCase("PM"){
-                                        str1 = strtime1.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+                                        str1 = strtime1.replacingOccurrences(of: "PM", with: "")
+                                        str1 = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language503"),str1)
                                     }
                                     
                                     if strtime2.containsIgnoreCase("AM"){
-                                        str2 = strtime2.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+                                        str2 = strtime2.replacingOccurrences(of: "AM", with: "")
+                                        str2 = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language502"),str2)
                                     }
                                     else if strtime2.containsIgnoreCase("PM"){
-                                        str2 = strtime2.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+                                        str2 = strtime2.replacingOccurrences(of: "PM", with: "")
+                                        str2 = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language503"),str2)
                                     }
                                 }
                                 

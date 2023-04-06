@@ -237,7 +237,9 @@ class passwordupdatemobileOTP: UIViewController,UITextFieldDelegate
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
         }
         
-        let parameters = ["countrycode": strcountrycode,"mobileno": strmobileno]as [String : Any]
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        let parameters = ["countrycode": strcountrycode,"mobileno": strmobileno,"language":strLangCode]as [String : Any]
+        
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod87)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

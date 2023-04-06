@@ -424,17 +424,21 @@ class renewaddresstimeslot: UIViewController,UITableViewDelegate,UITableViewData
         else
         {
             if strstart_time.containsIgnoreCase("AM"){
-                str1 = strstart_time.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+                str1 = strstart_time.replacingOccurrences(of: "AM", with: "")
+                str1 = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language502"),str1)
             }
             else if strstart_time.containsIgnoreCase("PM"){
-                str1 = strstart_time.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+                str1 = strstart_time.replacingOccurrences(of: "PM", with: "")
+                str1 = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language503"),str1)
             }
             
             if strend_time.containsIgnoreCase("AM"){
-                str2 = strend_time.replacingOccurrences(of: "AM", with: myAppDelegate.changeLanguage(key: "msg_language502"))
+                str2 = strend_time.replacingOccurrences(of: "AM", with: "")
+                str2 = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language502"),str2)
             }
             else if strend_time.containsIgnoreCase("PM"){
-                str2 = strend_time.replacingOccurrences(of: "PM", with: myAppDelegate.changeLanguage(key: "msg_language503"))
+                str2 = strend_time.replacingOccurrences(of: "PM", with: "")
+                str2 = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language503"),str2)
             }
         }
         //cellA.lblslotname.text = strname
