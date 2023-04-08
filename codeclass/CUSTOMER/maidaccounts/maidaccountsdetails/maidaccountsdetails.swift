@@ -266,14 +266,14 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
                 print("Click of default button")
             }))
         }
-        else if fltpurchaselimit! > 200.00 || fltpurchaselimit! <= 0.00
+        /*else if fltpurchaselimit! <= 0.00
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language410"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")
             }))
-        }
+        }*/
         else if straddresslist.count == 0
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language419"), preferredStyle: UIAlertController.Style.alert)
@@ -285,8 +285,12 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
         else
         {
             print("update successfull")
-            let strrow_id = String(format: "%@", self.dicdetails.value(forKey: "row_id")as? String ?? "")
-            self.updatemaidaccountAPIMethod(rowid: strrow_id, status: self.strstatus,straddresslist: straddresslist)
+            
+            if fltpurchaselimit! >= 0.00
+            {
+                let strrow_id = String(format: "%@", self.dicdetails.value(forKey: "row_id")as? String ?? "")
+                self.updatemaidaccountAPIMethod(rowid: strrow_id, status: self.strstatus,straddresslist: straddresslist)
+            }
         }
     }
     
@@ -318,6 +322,13 @@ class maidaccountsdetails: UIViewController,UIScrollViewDelegate,UITextFieldDele
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
+        if textField.isEqual(txtpurchaseamountlimit)
+        {
+            let maxLength = 6
+            let currentString: NSString = txtmobileno.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }
         return true
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool

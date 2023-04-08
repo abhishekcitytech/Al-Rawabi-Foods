@@ -556,7 +556,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             self.arrmpolygonobject.add(polygon)
             
         }
-        print("arrmpolygonobject",arrmpolygonobject.count)
+       //print("arrmpolygonobject",arrmpolygonobject.count)
         
         if arrmpolygonobject.count > 0{
             
@@ -1540,8 +1540,24 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         cellA.lblname.text = strname
         cellA.lblbrand.text = strbrand
-        cellA.lblqty.text = strsize
         
+
+        // if you need to Left to right flow //FIXMESANDISIZE
+        let addLTR = "\u{200E}\(strsize)"
+        cellA.lblqty.text = addLTR
+        
+        
+        /*//FIXMEPRICEVAT
+         let str2 = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
+         let fltprice = Float(strprice)
+         let str1 = String(format: "%@ %.2f %@",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!,str2)
+         
+         let range = (str1 as NSString).range(of: str2)
+         let mutableAttributedString = NSMutableAttributedString.init(string: str1)
+         mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "themecolor")!, range: range);
+         mutableAttributedString.addAttributes([NSAttributedString.Key.font: UIFont(name: "NunitoSans-Regular", size: 10) as Any], range: range)
+         cellA.lblprice.attributedText = mutableAttributedString*/
+         
         let fltprice = Float(strprice)
         cellA.lblprice.text = String(format: "%@ %.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!)
         cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
@@ -1957,7 +1973,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                 
                     let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
+                    //print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -2178,7 +2194,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                 
                     let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
+                    //print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -2290,7 +2306,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                     
                     let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
+                    //print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -2419,7 +2435,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                     
                     let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
+                    //print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -2447,7 +2463,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             
                             let arrMGallery = json.value(forKey: "bannerImage") as? NSArray ?? []
                             self.arrMHomePageBottomBanner = NSMutableArray(array: arrMGallery)
-                            print("arrMHomePageBottomBanner --->",self.arrMHomePageBottomBanner)
+                            //print("arrMHomePageBottomBanner --->",self.arrMHomePageBottomBanner)
                             
                             if self.arrMHomePageBottomBanner.count > 0 {
                                 self.colhomepagebottombanner.reloadData()
@@ -3071,7 +3087,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                     
                     let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
+                    //print("dictemp --->",dictemp)
                    
                      let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                      let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -3090,7 +3106,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             
                             let arrmlocation = dictemp.value(forKey: "location") as? NSArray ?? []
                             self.arrmPolygonlist = NSMutableArray(array: arrmlocation)
-                            print("arrmPolygonlist --->",self.arrmPolygonlist)
+                            //print("arrmPolygonlist --->",self.arrmPolygonlist)
                             
                             self.createMultiPolygon()
                             

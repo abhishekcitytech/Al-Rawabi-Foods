@@ -104,7 +104,8 @@ class subscriptionmodel: UIViewController,UITextFieldDelegate,UITableViewDelegat
 
         lblsubscriptionselected.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language58"))
         
-        lblmessage.text = myAppDelegate.changeLanguage(key: "msg_language450")
+        lblmessage.text = myAppDelegate.changeLanguage(key: "msg_language40")  //msg_language40 //msg_language450
+        
         lblautorenew.text = myAppDelegate.changeLanguage(key: "msg_language63")
         
         txtstartdate.placeholder = myAppDelegate.changeLanguage(key: "msg_language61")

@@ -132,20 +132,7 @@ class loginclass: UIViewController,UITextFieldDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        //UserDefaults.standard.set("0", forKey: "is_rememberme")
-        //UserDefaults.standard.synchronize()
-        
-        //FIXMESANDIPAN
-        //arpanray.citytech@gmail.com / $#Admin1
-        //phpteam4@citytechcorp.com / admin@1234
-        //arpan.ray@citytechcorp.com / $#Admin2
-        //abhishek.biswas@citytechcorp.com / 12345
-        //sandipan.mukherjee@citytechsoftware.com / 123456
-        //banibrota.citytech@gmail.com  / 000000
-        
-        //txtusername.text = "arpan.ray@citytechcorp.com"
-        //txtpassword.text = "$#Admin2"
-        
+       
         self.btnhideshowpassword.isSelected = false
         self.txtpassword.isSecureTextEntry = true
         
@@ -372,7 +359,7 @@ class loginclass: UIViewController,UITextFieldDelegate
         }
         else if txtpassword.text == ""
         {
-            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language321"), preferredStyle: UIAlertController.Style.alert)
+            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language322"), preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")

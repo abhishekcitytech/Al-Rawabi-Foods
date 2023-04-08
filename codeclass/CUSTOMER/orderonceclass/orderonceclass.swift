@@ -649,7 +649,10 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         
         cellA.lblname.text = strname
         cellA.lblbrand.text = strbrand
-        cellA.lblqty.text = strsize
+        
+        // if you need to Left to right flow //FIXMESIZE
+        let addLTR = "\u{200E}\(strsize)"
+        cellA.lblqty.text = addLTR
         
         print("strprice",strprice)
         if strprice != ""{

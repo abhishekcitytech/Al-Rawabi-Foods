@@ -791,6 +791,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
+                                self.btnpaycheckout.isUserInteractionEnabled = false
                             }))
                         }
                     }
@@ -804,6 +805,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
+                        self.btnpaycheckout.isUserInteractionEnabled = false
                     }))
                     self.view.activityStopAnimating()
                 }
@@ -882,6 +884,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                         if strsuccess == true
                         {
                             self.boolsetshippingmethod = true
+                            self.btnpaycheckout.isUserInteractionEnabled = true
                             self.tabvmyaddress.reloadData()
                         }
                         else{
@@ -889,6 +892,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
+                                self.btnpaycheckout.isUserInteractionEnabled = false
                             }))
                         }
                     }
@@ -902,6 +906,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
+                        self.btnpaycheckout.isUserInteractionEnabled = false
                     }))
                     self.view.activityStopAnimating()
                 }

@@ -12,7 +12,7 @@ import Alamofire
 import Cosmos
 import WebKit
 
-class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource, UIWebViewDelegate, WKUIDelegate
+class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource, UIWebViewDelegate, WKUIDelegate, WKNavigationDelegate
 {
     
     @IBOutlet weak var viewoverall: UIView!
@@ -687,10 +687,15 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
             
             cellA.lblname.text = strname
             cellA.lblbrand.text = strbrand
-            cellA.lblqty.text = strsize
+            
+            // if you need to Left to right flow //FIXMESIZE
+            let addLTR = "\u{200E}\(strsize)"
+            cellA.lblqty.text = addLTR
             
             let fltprice = Float(strprice)
             cellA.lblprice.text = String(format: "%@ %.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!)
+            
+            cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
             
             cellA.btnaddonce.isHidden = true
             
@@ -1190,25 +1195,30 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                             //SET SHORT DESCRIPTION
                             let strshortdesc = String(format: "%@", self.dicMProductDetails.value(forKey: "shortDescription")as? String ?? "")
                             //self.lblshortdescription.attributedText = strshortdesc.htmlToAttributedString
-                            self.txtvshortdescription.attributedText = strshortdesc.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 12), csscolor: "black", lineheight: 2, csstextalign: "left")
+                            
                             
                             
                             //SET BENIFITES DESCRIPTION
                             let strbenefits = String(format: "%@", self.dicMProductDetails.value(forKey: "benefits")as? String ?? "")
                             //self.txtvbenifits.attributedText = strbenefits.htmlToAttributedString
-                            self.txtvbenifits.attributedText = strbenefits.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "left")
+                            
                             
                             
                             //SET NUTRITION FACTS DESCRIPTION
                             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
                             if (strLangCode == "en")
                             {
-                                let str11 = "<p dir=\"ltr\">"
+                                self.txtvshortdescription.attributedText = strshortdesc.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "left")
+                                
+                                self.txtvbenifits.attributedText = strbenefits.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "left")
+                                
+                                let str11 = "<p font size='15' color= 'black' dir=\"ltr\">"
                                 print("str11",str11)
                                 let str22 = "</p>"
 
                                 let strnutrition_facts = String(format: "%@%@%@", str11,self.dicMProductDetails.value(forKey: "nutrition_facts")as? String ?? "",str22)
                                 print("strnutrition_facts",strnutrition_facts)
+                                
                                 //self.txtvnutritionfacts.attributedText = strnutrition_facts.htmlToAttributedString
                                 //self.txtvnutritionfacts.attributedText = strnutrition_facts.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "center")
                                 
@@ -1218,17 +1228,29 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                                 webV.uiDelegate = self;
                                 webV.isOpaque = false
                                 webV.backgroundColor = .clear
+                                webV.scrollView.isScrollEnabled = true
+                                webV.scrollView.bounces = false
+                                webV.allowsBackForwardNavigationGestures = false
+                                webV.contentMode = .scaleToFill
+                                webV.navigationDelegate = self
                                 webV.bringSubviewToFront(self.viewbenifits)
                                 self.txtvnutritionfacts.addSubview(webV)
+
                             }
                             else
                             {
+                                
+                                self.txtvshortdescription.attributedText = strshortdesc.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "right")
+                                
+                                self.txtvbenifits.attributedText = strbenefits.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "right")
+                                
                                 let str11 = "<p dir=\"rtl\">"
                                 print("str11",str11)
                                 let str22 = "</p>"
                                 
-                                let strnutrition_facts = String(format: "%@%@%@", str11,self.dicMProductDetails.value(forKey: "nutrition_facts")as? String ?? "",str22)
+                                let strnutrition_facts = String(format: "%@%@%@",str11, self.dicMProductDetails.value(forKey: "nutrition_facts")as? String ?? "",str22)
                                 print("strnutrition_facts",strnutrition_facts)
+                                
                                 //self.txtvnutritionfacts.attributedText = strnutrition_facts.htmlToAttributedString
                                 //self.txtvnutritionfacts.attributedText = strnutrition_facts.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "center")
                                 
@@ -1238,8 +1260,14 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                                 webV.uiDelegate = self;
                                 webV.isOpaque = false
                                 webV.backgroundColor = .clear
+                                webV.scrollView.isScrollEnabled = true
+                                webV.scrollView.bounces = false
+                                webV.allowsBackForwardNavigationGestures = false
+                                webV.contentMode = .scaleToFill
+                                webV.navigationDelegate = self
                                 webV.bringSubviewToFront(self.viewbenifits)
                                 self.txtvnutritionfacts.addSubview(webV)
+                                
                             }
                             
                             //SET FULL DESCRIPTION DESCRIPTION
@@ -1931,6 +1959,18 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
         }
         task.resume()
     }
+    
+    //MARK: - WWEBVIEW DELEGATE FOR NUTRITIONFACTS
+    let isAllowZoom: Bool = false
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            if isAllowZoom {
+                let javascript = "var meta = document.createElement('meta');meta.setAttribute('name', 'viewport');meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes');document.getElementsByTagName('head')[0].appendChild(meta);"
+                webView.evaluateJavaScript(javascript, completionHandler: nil)
+            } else {
+                let javascript = "var meta = document.createElement('meta');meta.setAttribute('name', 'viewport');meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');document.getElementsByTagName('head')[0].appendChild(meta);"
+                webView.evaluateJavaScript(javascript, completionHandler: nil)
+            }
+        }
 }
 extension String {
     public var convertHtmlToNSAttributedString: NSAttributedString? {
@@ -1962,4 +2002,11 @@ extension String {
             return nil
         }
     }
+}
+extension WKWebView {
+
+    func zoom(to zoomAmount: CGFloat) {
+        evaluateJavaScript("document.body.style.zoom = '\(zoomAmount)'", completionHandler: nil)
+    }
+
 }

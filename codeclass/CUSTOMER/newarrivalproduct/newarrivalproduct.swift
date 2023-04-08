@@ -244,12 +244,15 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
         
         cellA.lblname.text = strname
         cellA.lblbrand.text = strbrand
-        cellA.lblqty.text = strsize
+        
+        // if you need to Left to right flow //FIXMESIZE
+        let addLTR = "\u{200E}\(strsize)"
+        cellA.lblqty.text = addLTR
         
         print("strprice",strprice)
         if strprice != ""{
             let fltprice = Float(strprice)
-            cellA.lblprice.text = String(format: "%.2f", fltprice!)
+            cellA.lblprice.text = String(format: "%@ %.2f", myAppDelegate.changeLanguage(key: "msg_language481"),fltprice!)
         }
         
         cellA.viewcell.layer.cornerRadius = 8.0

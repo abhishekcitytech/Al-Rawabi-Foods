@@ -84,9 +84,6 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         
-        //FIXMESANDIPAN
-        //self.txtpassword.text = "$#Admin2"
-        //self.txtconfirmpassword.text = "$#Admin2"
         
         //Create Back Button
         let yourBackImage = UIImage(named: "back")
@@ -236,41 +233,41 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         }
         else
         {
-            lblregister.textAlignment = .right
-            lblquicklycreateaccount.textAlignment = .right
+            lblregister.textAlignment = .left
+            lblquicklycreateaccount.textAlignment = .left
             
             //self.viewfirstname1.frame = CGRect(x: self.viewfirstname.frame.size.width - 53, y: self.viewfirstname1.frame.origin.y, width: self.viewfirstname1.frame.size.width, height: self.viewfirstname1.frame.size.height)
             //self.txtfirstname.frame = CGRect(x: 1, y: self.txtfirstname.frame.origin.y, width: self.txtfirstname.frame.size.width, height: self.txtfirstname.frame.size.height)
-            self.txtfirstname.textAlignment = .right
-            self.txtfirstname.setRightPaddingPoints(16)
+            self.txtfirstname.textAlignment = .left
+            //self.txtfirstname.setRightPaddingPoints(16)
             
             //self.viewlastname1.frame = CGRect(x: self.viewlastname.frame.size.width - 53, y: self.viewlastname1.frame.origin.y, width: self.viewlastname1.frame.size.width, height: self.viewlastname1.frame.size.height)
             //self.txtlastname.frame = CGRect(x: 1, y: self.txtlastname.frame.origin.y, width: self.txtlastname.frame.size.width, height: self.txtlastname.frame.size.height)
-            self.txtlastname.textAlignment = .right
-            self.txtlastname.setRightPaddingPoints(16)
+            self.txtlastname.textAlignment = .left
+            //self.txtlastname.setRightPaddingPoints(16)
             
             //self.viewemil1.frame = CGRect(x: self.viewemil.frame.size.width - 53, y: self.viewemil1.frame.origin.y, width: self.viewemil1.frame.size.width, height: self.viewemil1.frame.size.height)
             //self.txtemail.frame = CGRect(x: 1, y: self.txtemail.frame.origin.y, width: self.txtemail.frame.size.width, height: self.txtemail.frame.size.height)
-            self.txtemail.textAlignment = .right
-            self.txtemail.setRightPaddingPoints(52)
+            self.txtemail.textAlignment = .left
+            //self.txtemail.setRightPaddingPoints(52)
             //self.btnemailverified.frame = CGRect(x: 8, y: self.btnemailverified.frame.origin.y, width: self.btnemailverified.frame.size.width, height: self.btnemailverified.frame.size.height)
             
             //elf.viewmobile1.frame = CGRect(x: self.viewmobile.frame.size.width - 53, y: self.viewmobile1.frame.origin.y, width: self.viewmobile1.frame.size.width, height: self.viewmobile1.frame.size.height)
             //self.txtmobile.frame = CGRect(x: 1, y: self.txtmobile.frame.origin.y, width: self.txtmobile.frame.size.width, height: self.txtmobile.frame.size.height)
-            self.txtmobile.textAlignment = .right
-            self.txtmobile.setRightPaddingPoints(80)
+            self.txtmobile.textAlignment = .left
+            //self.txtmobile.setRightPaddingPoints(80)
             //self.lblmobilecountrycode.frame = CGRect(x: self.txtmobile.frame.maxX, y: self.lblmobilecountrycode.frame.origin.y, width: self.lblmobilecountrycode.frame.size.width, height: self.lblmobilecountrycode.frame.size.height)
             //self.btnverifynow.frame = CGRect(x: 10, y: self.btnverifynow.frame.origin.y, width: self.btnverifynow.frame.size.width, height: self.btnverifynow.frame.size.height)
             
             //self.viewpassword1.frame = CGRect(x: self.viewpassword.frame.size.width - 53, y: self.viewpassword1.frame.origin.y, width: self.viewpassword1.frame.size.width, height: self.viewpassword1.frame.size.height)
            // self.txtpassword.frame = CGRect(x: 1, y: self.txtpassword.frame.origin.y, width: self.txtpassword.frame.size.width, height: self.txtpassword.frame.size.height)
-            self.txtpassword.textAlignment = .right
-            self.txtpassword.setRightPaddingPoints(52)
+            self.txtpassword.textAlignment = .left
+            //self.txtpassword.setRightPaddingPoints(52)
             
             //self.viewconfirmpassword1.frame = CGRect(x: self.viewconfirmpassword.frame.size.width - 53, y: self.viewconfirmpassword1.frame.origin.y, width: self.viewconfirmpassword1.frame.size.width, height: self.viewconfirmpassword1.frame.size.height)
             //self.txtconfirmpassword.frame = CGRect(x: 1, y: self.txtconfirmpassword.frame.origin.y, width: self.txtconfirmpassword.frame.size.width, height: self.txtconfirmpassword.frame.size.height)
-            self.txtconfirmpassword.textAlignment = .right
-            self.txtconfirmpassword.setRightPaddingPoints(52)
+            self.txtconfirmpassword.textAlignment = .left
+            //self.txtconfirmpassword.setRightPaddingPoints(52)
             
             //self.btnshowhidepassword1.frame = CGRect(x: 10, y: self.btnshowhidepassword1.frame.origin.y, width: self.btnshowhidepassword1.frame.size.width, height: self.btnshowhidepassword1.frame.size.height)
             

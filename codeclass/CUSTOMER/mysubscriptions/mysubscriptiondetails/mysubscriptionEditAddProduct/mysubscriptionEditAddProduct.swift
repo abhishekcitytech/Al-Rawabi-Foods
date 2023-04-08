@@ -206,7 +206,7 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
         print("strprice",strprice)
         if strprice != ""{
             let fltprice = Float(strprice)
-            cellA.lblprice.text = String(format: "%@ %.2f",strcurrent_currencecode,fltprice!)
+            cellA.lblprice.text = String(format: "%@ %.2f %@",strcurrent_currencecode,fltprice!,myAppDelegate.changeLanguage(key: "msg_language474"))
         }
         
         cellA.viewcell.backgroundColor = .white

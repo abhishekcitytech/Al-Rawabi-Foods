@@ -615,6 +615,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
                         
                         if strsuccess == true
                         {
+                            self.btnpaycheckout.isUserInteractionEnabled = true
                             self.tabvmyaddress.reloadData()
                         }
                         else{
@@ -622,6 +623,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
+                                self.btnpaycheckout.isUserInteractionEnabled = false
                             }))
                         }
                     }
@@ -635,6 +637,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
+                        self.btnpaycheckout.isUserInteractionEnabled = false
                     }))
                     self.view.activityStopAnimating()
                 }
@@ -712,6 +715,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
                         
                         if strsuccess == true
                         {
+                            self.btnpaycheckout.isUserInteractionEnabled = true
                             self.tabvmyaddress.reloadData()
                         }
                         else{
@@ -719,6 +723,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")
+                                self.btnpaycheckout.isUserInteractionEnabled = false
                             }))
                         }
                     }
@@ -732,6 +737,7 @@ class maidSelectShippingAddress: UIViewController,UITableViewDelegate,UITableVie
                     self.present(uiAlert, animated: true, completion: nil)
                     uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                         print("Click of default button")
+                        self.btnpaycheckout.isUserInteractionEnabled = false
                     }))
                     self.view.activityStopAnimating()
                 }

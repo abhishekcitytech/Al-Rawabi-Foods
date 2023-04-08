@@ -94,7 +94,7 @@ class subscriptionmodelmonthly: UIViewController,UICollectionViewDelegate,UIColl
         
         lblsubscriptionselected.text = String(format: "%@",myAppDelegate.changeLanguage(key: "msg_language60"))
         
-        lblmessage.text = myAppDelegate.changeLanguage(key: "msg_language452")
+        lblmessage.text = myAppDelegate.changeLanguage(key: "msg_language42")  //msg_language42 //msg_language452
         lblautorenew.text = myAppDelegate.changeLanguage(key: "msg_language63")
         
         txtstartdate.placeholder = myAppDelegate.changeLanguage(key: "msg_language61")

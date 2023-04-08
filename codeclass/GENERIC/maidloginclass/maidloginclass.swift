@@ -105,12 +105,6 @@ class maidloginclass: UIViewController,UITextFieldDelegate
         self.btnhideshowpassword.isSelected = false
         self.txtpassword.isSecureTextEntry = true
         
-        //FIXMESANDIPAN
-        //9674777246 8621812596 9051015017 6291958776
-        
-        //txtusername.text = "6291958776"
-        //txtpassword.text = "Maid@123"
-        
     }
     
     

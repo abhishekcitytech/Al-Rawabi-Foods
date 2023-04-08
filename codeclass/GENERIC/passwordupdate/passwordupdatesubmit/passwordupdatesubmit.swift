@@ -237,9 +237,9 @@ class passwordupdatesubmit: UIViewController,UITextFieldDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
         }
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
 
-        let parameters = ["countryCode": strcountrycode,"mobileNo": strmobileno,"newPassword": txtconfirmpassword.text!]as [String : Any]
+        let parameters = ["countryCode": strcountrycode,"mobileNo": strmobileno,"newPassword": txtconfirmpassword.text!,"language":strLangCode]as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod76)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

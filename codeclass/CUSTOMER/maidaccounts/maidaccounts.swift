@@ -235,12 +235,12 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         let strmax_order_amount = String(format: "%@", dic.value(forKey: "max_order_amount")as? String ?? "")
         let strwalletbalance = String(format: "%@", dic.value(forKey: "wallet_amount")as! CVarArg)
         
-        self.createTransferAmountPopup(strname: strname, strrowid: strrow_id, strmaidid: strmaid_id)
+        self.createTransferAmountPopup(strname: strname, strrowid: strrow_id, strmaidid: strmaid_id,strmaxusagelimitamount:strmax_order_amount)
     }
     
-    
+    var fltusagelimitamount = Float()
     //MARK: - create popup Transfer Amount Method
-    func createTransferAmountPopup(strname:String,strrowid:String,strmaidid:String)
+    func createTransferAmountPopup(strname:String,strrowid:String,strmaidid:String,strmaxusagelimitamount:String)
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         
@@ -248,6 +248,10 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.viewtransferpopup.removeFromSuperview()
             viewPopupAddNewExistingBG1.removeFromSuperview()
         }
+        
+        let fltTotal  = (strmaxusagelimitamount as NSString).floatValue
+        fltusagelimitamount = fltTotal
+        print("fltusagelimitamount",fltusagelimitamount)
         
         let height1 = Float(UIApplication.shared.statusBarFrame.height) as Float
         let height2 = Float((self.navigationController?.navigationBar.frame.size.height)!) as Float
@@ -273,6 +277,7 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
         let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.done,target: self, action: #selector(pressDonetxttransferamount))
         toolbarDone.items = [barBtnDone]
         self.txttransferamount.inputAccessoryView = toolbarDone
+        self.txttransferamount.text = ""
         
         viewPopupAddNewExistingBG1 = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height))
         viewPopupAddNewExistingBG1.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
@@ -288,7 +293,10 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     @IBAction func presssubmittransferamount(_ sender: UIButton)
     {
-        let fltpurchaselimit = Float(self.txttransferamount.text!)
+
+        let fltpurchaselimit  = (self.txttransferamount.text! as NSString).floatValue
+        print("fltpurchaselimit",fltpurchaselimit)
+        print("fltusagelimitamount",fltusagelimitamount)
         
         if self.txttransferamount.text == ""
         {
@@ -298,9 +306,12 @@ class maidaccounts: UIViewController,UITableViewDelegate,UITableViewDataSource
                 print("Click of default button")
             }))
         }
-        else if fltpurchaselimit! > 200.00 || fltpurchaselimit! <= 0.00
+        else if fltpurchaselimit > fltusagelimitamount || fltpurchaselimit <= 0.00
         {
-            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language410"), preferredStyle: UIAlertController.Style.alert)
+            let str1 = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language410"))
+            let strfinalmessage = str1.replacingOccurrences(of: "200", with: String(format: "%0.0f", fltusagelimitamount))
+            
+            let uiAlert = UIAlertController(title: "", message: strfinalmessage, preferredStyle: UIAlertController.Style.alert)
             self.present(uiAlert, animated: true, completion: nil)
             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                 print("Click of default button")

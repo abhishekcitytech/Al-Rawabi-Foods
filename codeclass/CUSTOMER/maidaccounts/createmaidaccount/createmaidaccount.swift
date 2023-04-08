@@ -91,6 +91,9 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         toolbarDone.items = [barBtnDone]
         txtpurchaseamountlimit.inputAccessoryView = toolbarDone
         
+        //DEFAULT SET LIMIT 200
+        txtpurchaseamountlimit.text = "200"
+        
         let toolbarDone1 = UIToolbar.init()
         toolbarDone1.sizeToFit()
         let barBtnDone1 = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.done,target: self, action: #selector(pressDonetxtmobileno))
@@ -205,14 +208,6 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
                 print("Click of default button")
             }))
         }
-        else if fltpurchaselimit! > 200.00 || fltpurchaselimit! <= 0.00
-        {
-            let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language423"), preferredStyle: UIAlertController.Style.alert)
-            self.present(uiAlert, animated: true, completion: nil)
-            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                print("Click of default button")
-            }))
-        }
         else if txtmobileno.text == ""
         {
             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language9"), preferredStyle: UIAlertController.Style.alert)
@@ -240,7 +235,12 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         else
         {
             print("submit successfull")
-            self.createmaidaccountAPIMethod(straddresslist: straddresslist)
+            
+            if fltpurchaselimit! >= 0.00
+            {
+                self.createmaidaccountAPIMethod(straddresslist: straddresslist)
+            }
+            
         }
     }
     
@@ -281,6 +281,13 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         if textField.isEqual(txtmobileno)
         {
             let maxLength = Constants.conn.STATICTELECPHONENUMBERLENGTH
+            let currentString: NSString = txtmobileno.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }
+        else if textField.isEqual(txtpurchaseamountlimit)
+        {
+            let maxLength = 6
             let currentString: NSString = txtmobileno.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
