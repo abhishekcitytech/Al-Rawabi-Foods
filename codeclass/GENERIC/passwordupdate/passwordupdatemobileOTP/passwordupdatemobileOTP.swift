@@ -335,8 +335,8 @@ class passwordupdatemobileOTP: UIViewController,UITextFieldDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
         }
-        
-        let parameters = ["mobileno": strmobileno,"verificationcode": strverifycode]as [String : Any]
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        let parameters = ["mobileno": strmobileno,"verificationcode": strverifycode,"language":strLangCode]as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod6)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

@@ -287,7 +287,7 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
                             
                             let arrmcoupon = json.value(forKey: "list") as? NSArray ?? []
                             self.arrMCoupons = NSMutableArray(array: arrmcoupon)
-                            print("arrMCoupons --->",self.arrMCoupons)
+                            //print("arrMCoupons --->",self.arrMCoupons)
                             
                             if self.arrMCoupons.count == 0{
                                 self.msg = myAppDelegate.changeLanguage(key: "msg_language206")

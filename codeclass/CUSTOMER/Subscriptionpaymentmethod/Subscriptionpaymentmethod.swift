@@ -511,13 +511,17 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         {
             if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
             {
+                let fltamountshipping  = (strshippingchargesamount as NSString).floatValue
                 let fltamount  = (self.strGRANDTOTAL as NSString).floatValue
-                self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: String(format: "%0.2f", fltamount))
+                let fltfinalsubtotal = fltamount  - fltamountshipping
+                self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: String(format: "%0.2f", fltfinalsubtotal))
             }
             else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
             {
+                let fltamountshipping  = (strshippingchargesamount as NSString).floatValue
                 let fltamount  = (self.strGRANDTOTAL as NSString).floatValue
-                self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: String(format: "%0.2f", fltamount))
+                let fltfinalsubtotal = fltamount  - fltamountshipping
+                self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: String(format: "%0.2f", fltfinalsubtotal))
             }
             
         }
@@ -1286,7 +1290,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                             
                             let arrmcoupon = json.value(forKey: "list") as? NSArray ?? []
                             self.arrMCoupons = NSMutableArray(array: arrmcoupon)
-                            print("arrMCoupons --->",self.arrMCoupons)
+                            //print("arrMCoupons --->",self.arrMCoupons)
                             
                             if self.arrMCoupons.count == 0{
                                 self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
@@ -1473,9 +1477,9 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
         
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod90)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod90,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

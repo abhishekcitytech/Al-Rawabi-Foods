@@ -476,13 +476,17 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         {
             if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
             {
+                let fltamountshippingcharges  = (self.strshippingchargesamount as NSString).floatValue
                 let fltamount  = (self.strgrandtotalamount as NSString).floatValue
-                self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: String(format: "%0.2f", fltamount))
+                let fltamountSubtotal = fltamount - fltamountshippingcharges
+                self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: String(format: "%0.2f", fltamountSubtotal))
             }
             else if self.strselectedpaymentmethodID.containsIgnoreCase("walletsystem") || self.strselectedpaymentmethodID.containsIgnoreCase("walletpayment")
             {
+                let fltamountshippingcharges  = (self.strshippingchargesamount as NSString).floatValue
                 let fltamount  = (self.strgrandtotalamount as NSString).floatValue
-                self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: String(format: "%0.2f", fltamount))
+                let fltamountSubtotal = fltamount - fltamountshippingcharges
+                self.postApplyCouponMethod(strcode: txtcouponcode.text!, strsubtotal: String(format: "%0.2f", fltamountSubtotal))
             }
             
         }
@@ -1243,7 +1247,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                             
                             let arrmcoupon = json.value(forKey: "list") as? NSArray ?? []
                             self.arrMCoupons = NSMutableArray(array: arrmcoupon)
-                            print("arrMCoupons --->",self.arrMCoupons)
+                            //print("arrMCoupons --->",self.arrMCoupons)
                             
                             if self.arrMCoupons.count == 0{
                                 self.msg = myAppDelegate.changeLanguage(key: "msg_language206")
@@ -1430,9 +1434,9 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
         
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
-        strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod90)
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod90,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

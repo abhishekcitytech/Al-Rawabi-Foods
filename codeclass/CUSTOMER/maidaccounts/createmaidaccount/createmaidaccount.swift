@@ -288,7 +288,7 @@ class createmaidaccount: BaseViewController,UIScrollViewDelegate,UITextFieldDele
         else if textField.isEqual(txtpurchaseamountlimit)
         {
             let maxLength = 6
-            let currentString: NSString = txtmobileno.text! as NSString
+            let currentString: NSString = txtpurchaseamountlimit.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
         }

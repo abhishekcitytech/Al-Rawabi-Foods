@@ -204,9 +204,36 @@ class mysubscriptionEditAddProduct: UIViewController,UITextFieldDelegate,UIColle
         cellA.lblsku.text = strbrand
         
         print("strprice",strprice)
-        if strprice != ""{
+        if strprice != ""
+        {
+            //let fltprice = Float(strprice)
+            //cellA.lblprice.text = String(format: "%@ %.2f %@",strcurrent_currencecode,fltprice!,myAppDelegate.changeLanguage(key: "msg_language474"))
+            
+            //FIXMEPRICEVAT
+            let str2 = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
             let fltprice = Float(strprice)
-            cellA.lblprice.text = String(format: "%@ %.2f %@",strcurrent_currencecode,fltprice!,myAppDelegate.changeLanguage(key: "msg_language474"))
+            let str1 = String(format: "%@ %.2f %@",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!,str2)
+            
+            let range = (str1 as NSString).range(of: str2)
+            let mutableAttributedString = NSMutableAttributedString.init(string: str1)
+            mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "themecolor")!, range: range);
+            mutableAttributedString.addAttributes([NSAttributedString.Key.font: UIFont(name: "NunitoSans-Regular", size: 10) as Any], range: range)
+            cellA.lblprice.attributedText = mutableAttributedString
+            
+            
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                cellA.lblname.textAlignment = .left
+                cellA.lblsku.textAlignment = .left
+                cellA.lblprice.textAlignment = .left
+            }
+            else
+            {
+                cellA.lblname.textAlignment = .right
+                cellA.lblsku.textAlignment = .right
+                cellA.lblprice.textAlignment = .right
+            }
         }
         
         cellA.viewcell.backgroundColor = .white

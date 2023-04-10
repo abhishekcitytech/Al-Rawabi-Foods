@@ -481,6 +481,9 @@ class updatemyaddress: UIViewController,UITextFieldDelegate,UITextViewDelegate,U
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
+        if textField == txtbuilding{
+            txtlandmark.becomeFirstResponder()
+        }
         textField.resignFirstResponder();
         return true;
     }

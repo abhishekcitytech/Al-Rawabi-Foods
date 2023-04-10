@@ -25,7 +25,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     
     @IBOutlet weak var viewoverall: UIView!
     @IBOutlet weak var scrolloverall: UIScrollView!
- 
+    
     
     @IBOutlet weak var viewsearchbar: UIView!
     @IBOutlet weak var viewsearchbarbg: UIView!
@@ -171,7 +171,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 //self.checkpolygonPointMultiple(lat: Double(self.strPOPUPSelectedLATITUDE)!, long: Double(self.strPOPUPSelectedLONGITUDE)!)
                 self.boolcheck = true
                 self.alertViewFunction()
- 
+                
             }
             else
             {
@@ -222,7 +222,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
-
+        
     }
     
     // MARK: - viewDidLoad method
@@ -275,7 +275,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         self.createExploreTopDeals()
         self.createExploreBottomBanner()
         
-
+        
         //--- Updating --- Location - Latitude - Longitude ----//
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
@@ -429,100 +429,100 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     
     //MARK: - Polygon Zone Area Method
     /*func addPolygonZoneArea()
-    {
-        let dict1 = NSMutableDictionary()
-        dict1.setValue("JLT Dubai", forKey: "name")
-        let arrm1 = NSMutableArray()
-        arrm1.add(String(format: "%@", "25.060434, 55.137123"))
-        arrm1.add(String(format: "%@", "25.069423, 55.146558"))
-        arrm1.add(String(format: "%@", "25.070085, 55.146663"))
-        arrm1.add(String(format: "%@", "25.072293, 55.144330"))
-        arrm1.add(String(format: "%@", "25.076550, 55.148299"))
-        arrm1.add(String(format: "%@", "25.075951, 55.149378"))
-        arrm1.add(String(format: "%@", "25.078505, 55.156899"))
-        arrm1.add(String(format: "%@", "25.081168, 55.154189"))
-        arrm1.add(String(format: "%@", "25.081480, 55.149907"))
-        arrm1.add(String(format: "%@", "25.076452, 55.143786"))
-        arrm1.add(String(format: "%@", "25.072730, 55.140333"))
-        arrm1.add(String(format: "%@", "25.068414, 55.136748"))
-        arrm1.add(String(format: "%@", "25.064652, 55.136311"))
-        arrm1.add(String(format: "%@", "25.060533, 55.137054"))
-        dict1.setValue(arrm1, forKey: "coordinates")
-        
-        let dict2 = NSMutableDictionary()
-        dict2.setValue("Dubai Internet City", forKey: "name")
-        let arrm2 = NSMutableArray()
-        arrm2.add(String(format: "%@", "25.089044, 55.152976"))
-        arrm2.add(String(format: "%@", "25.090310, 55.154730"))
-        arrm2.add(String(format: "%@", "25.088804, 55.156203"))
-        arrm2.add(String(format: "%@", "25.090896, 55.158728"))
-        arrm2.add(String(format: "%@", "25.092057, 55.159706"))
-        arrm2.add(String(format: "%@", "25.092333, 55.160226"))
-        arrm2.add(String(format: "%@", "25.097117, 55.165989"))
-        arrm2.add(String(format: "%@", "25.102277, 55.172210"))
-        arrm2.add(String(format: "%@", "25.103539, 55.171471"))
-        arrm2.add(String(format: "%@", "25.103927, 55.171719"))
-        arrm2.add(String(format: "%@", "25.102512, 55.170457"))
-        arrm2.add(String(format: "%@", "25.102154, 55.170484"))
-        arrm2.add(String(format: "%@", "25.099925, 55.167756"))
-        arrm2.add(String(format: "%@", "25.100210, 55.167142"))
-        arrm2.add(String(format: "%@", "25.100752, 55.167032"))
-        arrm2.add(String(format: "%@", "25.101764, 55.167378"))
-        arrm2.add(String(format: "%@", "25.102691, 55.167174"))
-        arrm2.add(String(format: "%@", "25.104602, 55.167332"))
-        arrm2.add(String(format: "%@", "25.104209, 55.168576"))
-        arrm2.add(String(format: "%@", "25.106007, 55.170437"))
-        arrm2.add(String(format: "%@", "25.106809, 55.169573"))
-        arrm2.add(String(format: "%@", "25.104688, 55.167153"))
-        arrm2.add(String(format: "%@", "25.104874, 55.165944"))
-        arrm2.add(String(format: "%@", "25.102765, 55.165609"))
-        arrm2.add(String(format: "%@", "25.102505, 55.164689"))
-        arrm2.add(String(format: "%@", "25.103144, 55.164247"))
-        arrm2.add(String(format: "%@", "25.102267, 55.162742"))
-        arrm2.add(String(format: "%@", "25.101575, 55.163578"))
-        arrm2.add(String(format: "%@", "25.100586, 55.162966"))
-        arrm2.add(String(format: "%@", "25.097416, 55.162147"))
-        arrm2.add(String(format: "%@", "25.096885, 55.161819"))
-        arrm2.add(String(format: "%@", "25.096255, 55.160881"))
-        arrm2.add(String(format: "%@", "25.096000, 55.159060"))
-        arrm2.add(String(format: "%@", "25.094896, 55.157238"))
-        arrm2.add(String(format: "%@", "25.094284, 55.156551"))
-        arrm2.add(String(format: "%@", "25.092515, 55.158430"))
-        arrm2.add(String(format: "%@", "25.091927, 55.157633"))
-        arrm2.add(String(format: "%@", "25.093538, 55.155932"))
-        arrm2.add(String(format: "%@", "25.093316, 55.155518"))
-        arrm2.add(String(format: "%@", "25.090705, 55.152697"))
-        arrm2.add(String(format: "%@", "25.089887, 55.151953"))
-        arrm2.add(String(format: "%@", "25.089429, 55.152449"))
-        arrm2.add(String(format: "%@", "25.089024, 55.152970"))
-        dict2.setValue(arrm2, forKey: "coordinates")
-        
-        
-        let dict3 = NSMutableDictionary()
-        dict3.setValue("Al Khawaneej", forKey: "name")
-        let arrm3 = NSMutableArray()
-        arrm3.add(String(format: "%@", "25.267297, 55.471900"))
-        arrm3.add(String(format: "%@", "25.253270, 55.511848"))
-        arrm3.add(String(format: "%@", "25.234973, 55.563339"))
-        arrm3.add(String(format: "%@", "25.212336, 55.552654"))
-        arrm3.add(String(format: "%@", "25.191936, 55.532475"))
-        arrm3.add(String(format: "%@", "25.193568, 55.526613"))
-        arrm3.add(String(format: "%@", "25.198362, 55.521766"))
-        arrm3.add(String(format: "%@", "25.212336, 55.508689"))
-        arrm3.add(String(format: "%@", "25.222844, 55.503526"))
-        arrm3.add(String(format: "%@", "25.226087, 55.482496"))
-        arrm3.add(String(format: "%@", "25.228755, 55.464619"))
-        arrm3.add(String(format: "%@", "25.249593, 55.468673"))
-        arrm3.add(String(format: "%@", "25.255094, 55.468673"))
-        arrm3.add(String(format: "%@", "25.267283, 55.471931"))
-        dict3.setValue(arrm3, forKey: "coordinates")
-        
-        arrmPolygonlist.add(dict1)
-        arrmPolygonlist.add(dict2)
-        arrmPolygonlist.add(dict3)
-        
-        print("arrmPolygonlist",arrmPolygonlist)
-    }*/
+     {
+     let dict1 = NSMutableDictionary()
+     dict1.setValue("JLT Dubai", forKey: "name")
+     let arrm1 = NSMutableArray()
+     arrm1.add(String(format: "%@", "25.060434, 55.137123"))
+     arrm1.add(String(format: "%@", "25.069423, 55.146558"))
+     arrm1.add(String(format: "%@", "25.070085, 55.146663"))
+     arrm1.add(String(format: "%@", "25.072293, 55.144330"))
+     arrm1.add(String(format: "%@", "25.076550, 55.148299"))
+     arrm1.add(String(format: "%@", "25.075951, 55.149378"))
+     arrm1.add(String(format: "%@", "25.078505, 55.156899"))
+     arrm1.add(String(format: "%@", "25.081168, 55.154189"))
+     arrm1.add(String(format: "%@", "25.081480, 55.149907"))
+     arrm1.add(String(format: "%@", "25.076452, 55.143786"))
+     arrm1.add(String(format: "%@", "25.072730, 55.140333"))
+     arrm1.add(String(format: "%@", "25.068414, 55.136748"))
+     arrm1.add(String(format: "%@", "25.064652, 55.136311"))
+     arrm1.add(String(format: "%@", "25.060533, 55.137054"))
+     dict1.setValue(arrm1, forKey: "coordinates")
+     
+     let dict2 = NSMutableDictionary()
+     dict2.setValue("Dubai Internet City", forKey: "name")
+     let arrm2 = NSMutableArray()
+     arrm2.add(String(format: "%@", "25.089044, 55.152976"))
+     arrm2.add(String(format: "%@", "25.090310, 55.154730"))
+     arrm2.add(String(format: "%@", "25.088804, 55.156203"))
+     arrm2.add(String(format: "%@", "25.090896, 55.158728"))
+     arrm2.add(String(format: "%@", "25.092057, 55.159706"))
+     arrm2.add(String(format: "%@", "25.092333, 55.160226"))
+     arrm2.add(String(format: "%@", "25.097117, 55.165989"))
+     arrm2.add(String(format: "%@", "25.102277, 55.172210"))
+     arrm2.add(String(format: "%@", "25.103539, 55.171471"))
+     arrm2.add(String(format: "%@", "25.103927, 55.171719"))
+     arrm2.add(String(format: "%@", "25.102512, 55.170457"))
+     arrm2.add(String(format: "%@", "25.102154, 55.170484"))
+     arrm2.add(String(format: "%@", "25.099925, 55.167756"))
+     arrm2.add(String(format: "%@", "25.100210, 55.167142"))
+     arrm2.add(String(format: "%@", "25.100752, 55.167032"))
+     arrm2.add(String(format: "%@", "25.101764, 55.167378"))
+     arrm2.add(String(format: "%@", "25.102691, 55.167174"))
+     arrm2.add(String(format: "%@", "25.104602, 55.167332"))
+     arrm2.add(String(format: "%@", "25.104209, 55.168576"))
+     arrm2.add(String(format: "%@", "25.106007, 55.170437"))
+     arrm2.add(String(format: "%@", "25.106809, 55.169573"))
+     arrm2.add(String(format: "%@", "25.104688, 55.167153"))
+     arrm2.add(String(format: "%@", "25.104874, 55.165944"))
+     arrm2.add(String(format: "%@", "25.102765, 55.165609"))
+     arrm2.add(String(format: "%@", "25.102505, 55.164689"))
+     arrm2.add(String(format: "%@", "25.103144, 55.164247"))
+     arrm2.add(String(format: "%@", "25.102267, 55.162742"))
+     arrm2.add(String(format: "%@", "25.101575, 55.163578"))
+     arrm2.add(String(format: "%@", "25.100586, 55.162966"))
+     arrm2.add(String(format: "%@", "25.097416, 55.162147"))
+     arrm2.add(String(format: "%@", "25.096885, 55.161819"))
+     arrm2.add(String(format: "%@", "25.096255, 55.160881"))
+     arrm2.add(String(format: "%@", "25.096000, 55.159060"))
+     arrm2.add(String(format: "%@", "25.094896, 55.157238"))
+     arrm2.add(String(format: "%@", "25.094284, 55.156551"))
+     arrm2.add(String(format: "%@", "25.092515, 55.158430"))
+     arrm2.add(String(format: "%@", "25.091927, 55.157633"))
+     arrm2.add(String(format: "%@", "25.093538, 55.155932"))
+     arrm2.add(String(format: "%@", "25.093316, 55.155518"))
+     arrm2.add(String(format: "%@", "25.090705, 55.152697"))
+     arrm2.add(String(format: "%@", "25.089887, 55.151953"))
+     arrm2.add(String(format: "%@", "25.089429, 55.152449"))
+     arrm2.add(String(format: "%@", "25.089024, 55.152970"))
+     dict2.setValue(arrm2, forKey: "coordinates")
+     
+     
+     let dict3 = NSMutableDictionary()
+     dict3.setValue("Al Khawaneej", forKey: "name")
+     let arrm3 = NSMutableArray()
+     arrm3.add(String(format: "%@", "25.267297, 55.471900"))
+     arrm3.add(String(format: "%@", "25.253270, 55.511848"))
+     arrm3.add(String(format: "%@", "25.234973, 55.563339"))
+     arrm3.add(String(format: "%@", "25.212336, 55.552654"))
+     arrm3.add(String(format: "%@", "25.191936, 55.532475"))
+     arrm3.add(String(format: "%@", "25.193568, 55.526613"))
+     arrm3.add(String(format: "%@", "25.198362, 55.521766"))
+     arrm3.add(String(format: "%@", "25.212336, 55.508689"))
+     arrm3.add(String(format: "%@", "25.222844, 55.503526"))
+     arrm3.add(String(format: "%@", "25.226087, 55.482496"))
+     arrm3.add(String(format: "%@", "25.228755, 55.464619"))
+     arrm3.add(String(format: "%@", "25.249593, 55.468673"))
+     arrm3.add(String(format: "%@", "25.255094, 55.468673"))
+     arrm3.add(String(format: "%@", "25.267283, 55.471931"))
+     dict3.setValue(arrm3, forKey: "coordinates")
+     
+     arrmPolygonlist.add(dict1)
+     arrmPolygonlist.add(dict2)
+     arrmPolygonlist.add(dict3)
+     
+     print("arrmPolygonlist",arrmPolygonlist)
+     }*/
     func createMultiPolygon()
     {
         for x in 0 ..< arrmPolygonlist.count
@@ -556,7 +556,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             self.arrmpolygonobject.add(polygon)
             
         }
-       //print("arrmpolygonobject",arrmpolygonobject.count)
+        //print("arrmpolygonobject",arrmpolygonobject.count)
         
         if arrmpolygonobject.count > 0{
             
@@ -602,11 +602,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             DispatchQueue.main.async {
                 
                 /*let alert = UIAlertController(title: "Alert", message: "You are inside our delivery area!", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
-                    self.boolcheck = false
-                }
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)*/
+                 let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                 self.boolcheck = false
+                 }
+                 alert.addAction(okAction)
+                 self.present(alert, animated: true, completion: nil)*/
                 
                 self.lblalertmessagelocationchecking.backgroundColor = .clear
                 self.lblalertmessagelocationchecking.text = myAppDelegate.changeLanguage(key: "msg_language262")
@@ -647,11 +647,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             DispatchQueue.main.async {
                 
                 /*let alert = UIAlertController(title: "Alert", message: "We do not deliver to this area!", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
-                    self.boolcheck = false
-                }
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)*/
+                 let okAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                 self.boolcheck = false
+                 }
+                 alert.addAction(okAction)
+                 self.present(alert, animated: true, completion: nil)*/
                 
                 self.lblalertmessagelocationchecking.backgroundColor = .clear
                 self.lblalertmessagelocationchecking.text = myAppDelegate.changeLanguage(key: "msg_language323")
@@ -752,7 +752,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         lblgetyourdelivery.isHidden = true
         lblgetyourdelivery.text = myAppDelegate.changeLanguage(key: "msg_language43")
         
-
+        
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         if (strLangCode == "en")
         {
@@ -760,7 +760,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         }
         else
         {
-
+            
         }
         
         viewPopupAddNewExistingBG123 = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height))
@@ -926,7 +926,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     //MARK: - CLLocationManager did Update location changes delegate method
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
-         print("Current Location Updating...")
+        print("Current Location Updating...")
         
         var latdouble = Double()
         var longdouble = Double()
@@ -971,8 +971,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             //handle denied
             break
         case .notDetermined:
-             manager.requestWhenInUseAuthorization()
-           break
+            manager.requestWhenInUseAuthorization()
+            break
         default:
             break
         }
@@ -1034,10 +1034,10 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             self.navigationController?.pushViewController(ctrl, animated: true)
             
             /*if isBoolDropdown == true {
-                handleTap1()
-            }else{
-                //self.popupDropdown(arrFeed: arrMALLLOCATIONS, txtfld: txtlocationselect, tagTable: 100)
-            }*/
+             handleTap1()
+             }else{
+             //self.popupDropdown(arrFeed: arrMALLLOCATIONS, txtfld: txtlocationselect, tagTable: 100)
+             }*/
             
             return false
         }
@@ -1154,11 +1154,11 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         title1.backgroundColor = UIColor.clear
         title1.font = UIFont.systemFont(ofSize: 14)
         cell.contentView.addSubview(title1)
-      
+        
         let dictemp: NSDictionary = arrMGlobalDropdownFeed[indexPath.row] as! NSDictionary
         //let strvalue = String(format: "%@", dictemp.value(forKey: "value")as! CVarArg)
         let strlabel = String(format: "%@", dictemp.value(forKey: "label")as? String ?? "")
-       
+        
         title1.text = strlabel
         
         let lblSeparator = UILabel(frame: CGRect(x: 0, y: 39, width: tableView.frame.size.width, height: 1))
@@ -1247,9 +1247,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         print("strFinalurl",strFinalurl)
         
         /*id = 12;
-        image = "https://staging1.alrawabifoods.com/media/wysiwyg/mobile_banner_arabic/ar4.jpg";
-        imageName = "image_3";
-        type = category;*/
+         image = "https://staging1.alrawabifoods.com/media/wysiwyg/mobile_banner_arabic/ar4.jpg";
+         imageName = "image_3";
+         type = category;*/
         
         let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
         let strtype = String(format: "%@", dict.value(forKey: "type") as? String ?? "")
@@ -1372,7 +1372,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         btnviewalltopdeals.layer.borderWidth = 1.0
         btnviewalltopdeals.layer.borderColor = UIColor(named: "themecolor")!.cgColor
         btnviewalltopdeals.layer.masksToBounds = true
-         
+        
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -1492,7 +1492,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             
             let strFinalurl = strimage.replacingOccurrences(of: " ", with: "%20")
             print("strFinalurl",strFinalurl)
-           
+            
             cellA.imgvcell.contentMode = .scaleToFill
             cellA.imgvcell.imageFromURL(urlString: strFinalurl)
             
@@ -1512,7 +1512,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         cellA.viewcell.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
         cellA.viewcell.layer.masksToBounds = true
         
-       
+        
         let dict = arrMtopdeals.object(at: indexPath.row) as! NSDictionary
         
         //let strproductid = String(format: "%@", dict.value(forKey: "productid") as! CVarArg)
@@ -1525,7 +1525,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         
         let strin_cart = String(format: "%@", dict.value(forKey: "in_cart") as! CVarArg)
         
-       
+        
         let stris_addedwishlist = String(format: "%@", dict.value(forKey: "is_addedwishlist") as? String ?? "")
         print("stris_addedwishlist",stris_addedwishlist)
         
@@ -1534,33 +1534,50 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let strimageurl = String(format: "%@", arrmedia.object(at: 0)as? String ?? "")
         let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
         print("strFinalurl",strFinalurl)
-       
+        
         cellA.imgv.contentMode = .scaleAspectFit
         cellA.imgv.imageFromURL(urlString: strFinalurl)
         
         cellA.lblname.text = strname
         cellA.lblbrand.text = strbrand
         
-
+        
         // if you need to Left to right flow //FIXMESANDISIZE
         let addLTR = "\u{200E}\(strsize)"
         cellA.lblqty.text = addLTR
         
         
-        /*//FIXMEPRICEVAT
-         let str2 = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
-         let fltprice = Float(strprice)
-         let str1 = String(format: "%@ %.2f %@",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!,str2)
-         
-         let range = (str1 as NSString).range(of: str2)
-         let mutableAttributedString = NSMutableAttributedString.init(string: str1)
-         mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "themecolor")!, range: range);
-         mutableAttributedString.addAttributes([NSAttributedString.Key.font: UIFont(name: "NunitoSans-Regular", size: 10) as Any], range: range)
-         cellA.lblprice.attributedText = mutableAttributedString*/
-         
+        //FIXMEPRICEVAT
+        let str2 = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
         let fltprice = Float(strprice)
-        cellA.lblprice.text = String(format: "%@ %.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!)
-        cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
+        let str1 = String(format: "%@ %.2f %@",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!,str2)
+        
+        let range = (str1 as NSString).range(of: str2)
+        let mutableAttributedString = NSMutableAttributedString.init(string: str1)
+        mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "themecolor")!, range: range);
+        mutableAttributedString.addAttributes([NSAttributedString.Key.font: UIFont(name: "NunitoSans-Regular", size: 10) as Any], range: range)
+        cellA.lblprice.attributedText = mutableAttributedString
+        
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            cellA.lblname.textAlignment = .left
+            cellA.lblbrand.textAlignment = .left
+            cellA.lblqty.textAlignment = .left
+            cellA.lblprice.textAlignment = .left
+        }
+        else
+        {
+            cellA.lblname.textAlignment = .right
+            cellA.lblbrand.textAlignment = .right
+            cellA.lblqty.textAlignment = .right
+            cellA.lblprice.textAlignment = .right
+        }
+        
+        //let fltprice = Float(strprice)
+        //cellA.lblprice.text = String(format: "%@ %.2f",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!)
+        //cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
         
         cellA.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language47")), for: .normal)
         
@@ -1743,15 +1760,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             //product qunatity item 0 - Add to cart button will show
             
             /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language115"), preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
-                print("Handle Continue Logic here")
-                
-                self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
-            }))
-            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-                print("Handle Cancel Logic here")
-            }))
-            self.present(refreshAlert, animated: true, completion: nil)*/
+             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+             print("Handle Continue Logic here")
+             
+             self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
+             }))
+             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+             print("Handle Cancel Logic here")
+             }))
+             self.present(refreshAlert, animated: true, completion: nil)*/
             
             self.postCartListRemoveItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id)
             
@@ -1779,7 +1796,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             //product qunatity item 0 - Add to cart button will show
         }
         print("intqty",intqty as Any)
-
+        
         self.postCartListUpdateQTYItemAPIMethod(stritemid: stritem_id, strquoteid: strquote_id, strproductQty: String(format: "%d", intqty))
     }
     
@@ -1797,26 +1814,26 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         if stris_addedwishlist != "True"
         {
             /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language149"), preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
-                print("Handle Continue Logic here")
-                self.postAddtoWishlistAPIMethod(strproductid: strproductid)
-            }))
-            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-                  print("Handle Cancel Logic here")
-            }))
-            self.present(refreshAlert, animated: true, completion: nil)*/
+             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+             print("Handle Continue Logic here")
+             self.postAddtoWishlistAPIMethod(strproductid: strproductid)
+             }))
+             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+             print("Handle Cancel Logic here")
+             }))
+             self.present(refreshAlert, animated: true, completion: nil)*/
             self.postAddtoWishlistAPIMethod(strproductid: strproductid)
         }
         else{
             /*let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language152"), preferredStyle: UIAlertController.Style.alert)
-            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
-                print("Handle Continue Logic here")
-                self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strproductid)
-            }))
-            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
-                  print("Handle Cancel Logic here")
-            }))
-            self.present(refreshAlert, animated: true, completion: nil)*/
+             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+             print("Handle Continue Logic here")
+             self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strproductid)
+             }))
+             refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+             print("Handle Cancel Logic here")
+             }))
+             self.present(refreshAlert, animated: true, completion: nil)*/
             
             self.postRemoveFromWishlistAPIMethod(strSelectedProductID: strproductid)
         }
@@ -1870,14 +1887,14 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let dictemp = json as NSDictionary
                     //print("dictemp --->",dictemp)
-                   
                     
-                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     print("strstatus",strstatus)
-                     print("strsuccess",strsuccess)
-                     print("strmessage",strmessage)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
@@ -1933,7 +1950,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                           "categoryName": "none",
                           "categoryId": "none","pageFromId": "2","language": strLangCode] as [String : Any]
         
-
+        
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod9)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"
@@ -1971,7 +1988,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     //print("dictemp --->",dictemp)
                     
@@ -1993,7 +2010,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             self.arrMcategory = NSMutableArray(array: arrmcategorytree)
                             //print("arrMcategory --->",self.arrMcategory)
                             self.btnviewalltopdeals.isHidden = false
-
+                            
                         }
                         else{
                             
@@ -2040,7 +2057,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         
-
+        
         let parameters = ["language": strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod8)
@@ -2079,7 +2096,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     //print("dictemp topdeals--------------->",dictemp)
                     
@@ -2192,7 +2209,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     //print("dictemp --->",dictemp)
                     
@@ -2335,7 +2352,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                                 {
                                     
                                     (myAppDelegate.tabBarController.tabBar.items![3] ).badgeValue = String(format: "%d", strcount)
-
+                                    
                                 }else{
                                     (myAppDelegate.tabBarController.tabBar.items![1] ).badgeValue = String(format: "%d", strcount)
                                 }
@@ -2454,12 +2471,12 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             
                             //Banner 1 -- Non Clickable Now
                             /*let strimageurl = String(format: "%@", dictemp.value(forKey: "bannerImage") as? String ?? "")
-                            let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
-                            print("strFinalurl",strFinalurl)
-                            
-                            self.strBottomBANNER1name = strmessage
-                            self.strBottomBANNER1image = strFinalurl
-                            self.imgvpromobox1.imageFromURL(urlString: self.strBottomBANNER1image)*/
+                             let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
+                             print("strFinalurl",strFinalurl)
+                             
+                             self.strBottomBANNER1name = strmessage
+                             self.strBottomBANNER1image = strFinalurl
+                             self.imgvpromobox1.imageFromURL(urlString: self.strBottomBANNER1image)*/
                             
                             let arrMGallery = json.value(forKey: "bannerImage") as? NSArray ?? []
                             self.arrMHomePageBottomBanner = NSMutableArray(array: arrMGallery)
@@ -2502,188 +2519,188 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     
     //MARK: - get Bottom Banner 2 API method
     /*func getBOTTOMBANNER2APIMethod()
-    {
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        DispatchQueue.main.async {
-            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
-        }
-        
-        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-        
-        let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl,Constants.methodname.apimethod100,strLangCode)
-        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        print("strconnurl",strconnurl)
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
-            guard error == nil && data != nil else
-            {
-                //check for fundamental networking error
-                DispatchQueue.main.async {
-                    
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
-                    self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                        print("Click of default button")
-                    }))
-                    
-                    self.view.activityStopAnimating()
-                    self.getBOTTOMBANNER3APIMethod()
-                }
-                print("Error=\(String(describing: error))")
-                return
-            }
-            do{
-                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
-                {
-                    DispatchQueue.main.async {
-                        self.view.activityStopAnimating()
-                    }
-                    
-                    let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
-                    
-                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    print("strstatus",strstatus)
-                    print("strsuccess",strsuccess)
-                    print("strmessage",strmessage)
-                    
-                    DispatchQueue.main.async {
-                        
-                        if strsuccess == true
-                        {
-                            //Banner 2 - Juice Redirection
-                            let strimageurl = String(format: "%@", dictemp.value(forKey: "bannerImage") as? String ?? "")
-                            let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
-                            print("strFinalurl",strFinalurl)
-                            
-                            self.strBottomBANNER2name = strmessage
-                            self.strBottomBANNER2image = strFinalurl
-                            self.imgvpromobox2.imageFromURL(urlString: self.strBottomBANNER2image)
-                        }
-                        else{
-                            /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                                print("Click of default button")
-                            }))*/
-                        }
-                        self.getBOTTOMBANNER3APIMethod()
-                    }
-                }
-            }
-            catch {
-                //check for internal server data error
-                DispatchQueue.main.async {
-                    
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
-                    self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                        print("Click of default button")
-                    }))
-                    
-                    self.view.activityStopAnimating()
-                    self.getBOTTOMBANNER3APIMethod()
-                }
-                print("Error -> \(error)")
-            }
-        }
-        task.resume()
-    }*/
+     {
+     let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+     DispatchQueue.main.async {
+     self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+     }
+     
+     let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+     
+     let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl,Constants.methodname.apimethod100,strLangCode)
+     let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+     request.httpMethod = "GET"
+     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+     print("strconnurl",strconnurl)
+     
+     let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+     guard error == nil && data != nil else
+     {
+     //check for fundamental networking error
+     DispatchQueue.main.async {
+     
+     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+     self.present(uiAlert, animated: true, completion: nil)
+     uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+     print("Click of default button")
+     }))
+     
+     self.view.activityStopAnimating()
+     self.getBOTTOMBANNER3APIMethod()
+     }
+     print("Error=\(String(describing: error))")
+     return
+     }
+     do{
+     if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+     {
+     DispatchQueue.main.async {
+     self.view.activityStopAnimating()
+     }
+     
+     let dictemp = json as NSDictionary
+     print("dictemp --->",dictemp)
+     
+     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+     print("strstatus",strstatus)
+     print("strsuccess",strsuccess)
+     print("strmessage",strmessage)
+     
+     DispatchQueue.main.async {
+     
+     if strsuccess == true
+     {
+     //Banner 2 - Juice Redirection
+     let strimageurl = String(format: "%@", dictemp.value(forKey: "bannerImage") as? String ?? "")
+     let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
+     print("strFinalurl",strFinalurl)
+     
+     self.strBottomBANNER2name = strmessage
+     self.strBottomBANNER2image = strFinalurl
+     self.imgvpromobox2.imageFromURL(urlString: self.strBottomBANNER2image)
+     }
+     else{
+     /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+      self.present(uiAlert, animated: true, completion: nil)
+      uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+      print("Click of default button")
+      }))*/
+     }
+     self.getBOTTOMBANNER3APIMethod()
+     }
+     }
+     }
+     catch {
+     //check for internal server data error
+     DispatchQueue.main.async {
+     
+     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+     self.present(uiAlert, animated: true, completion: nil)
+     uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+     print("Click of default button")
+     }))
+     
+     self.view.activityStopAnimating()
+     self.getBOTTOMBANNER3APIMethod()
+     }
+     print("Error -> \(error)")
+     }
+     }
+     task.resume()
+     }*/
     
     //MARK: - get Bottom Banner 3 API method
     /*func getBOTTOMBANNER3APIMethod()
-    {
-        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        DispatchQueue.main.async {
-            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
-        }
-        
-        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-        
-        let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl,Constants.methodname.apimethod99,strLangCode)
-        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        print("strconnurl",strconnurl)
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
-            guard error == nil && data != nil else
-            {
-                //check for fundamental networking error
-                DispatchQueue.main.async {
-                    
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
-                    self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                        print("Click of default button")
-                    }))
-                    
-                    self.view.activityStopAnimating()
-                }
-                print("Error=\(String(describing: error))")
-                return
-            }
-            do{
-                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
-                {
-                    DispatchQueue.main.async {
-                        self.view.activityStopAnimating()
-                    }
-                    
-                    let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
-                    
-                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                    print("strstatus",strstatus)
-                    print("strsuccess",strsuccess)
-                    print("strmessage",strmessage)
-                    
-                    DispatchQueue.main.async {
-                        
-                        if strsuccess == true
-                        {
-                            //Banner 3 - New Arrival Redirection
-                            let strimageurl = String(format: "%@", dictemp.value(forKey: "bannerImage") as? String ?? "")
-                            let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
-                            print("strFinalurl",strFinalurl)
-                            
-                            self.strBottomBANNER3name = strmessage
-                            self.strBottomBANNER3image = strFinalurl
-                            self.imgvpromobox3.imageFromURL(urlString: self.strBottomBANNER3image)
-                        }
-                        else{
-                           /* let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                                print("Click of default button")
-                            }))*/
-                        }
-                    }
-                }
-            }
-            catch {
-                //check for internal server data error
-                DispatchQueue.main.async {
-                    
-                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
-                    self.present(uiAlert, animated: true, completion: nil)
-                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                        print("Click of default button")
-                    }))
-                    
-                    self.view.activityStopAnimating()
-                }
-                print("Error -> \(error)")
-            }
-        }
-        task.resume()
-    }*/
+     {
+     let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+     DispatchQueue.main.async {
+     self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+     }
+     
+     let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+     
+     let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl,Constants.methodname.apimethod99,strLangCode)
+     let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+     request.httpMethod = "GET"
+     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+     print("strconnurl",strconnurl)
+     
+     let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+     guard error == nil && data != nil else
+     {
+     //check for fundamental networking error
+     DispatchQueue.main.async {
+     
+     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+     self.present(uiAlert, animated: true, completion: nil)
+     uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+     print("Click of default button")
+     }))
+     
+     self.view.activityStopAnimating()
+     }
+     print("Error=\(String(describing: error))")
+     return
+     }
+     do{
+     if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+     {
+     DispatchQueue.main.async {
+     self.view.activityStopAnimating()
+     }
+     
+     let dictemp = json as NSDictionary
+     print("dictemp --->",dictemp)
+     
+     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+     print("strstatus",strstatus)
+     print("strsuccess",strsuccess)
+     print("strmessage",strmessage)
+     
+     DispatchQueue.main.async {
+     
+     if strsuccess == true
+     {
+     //Banner 3 - New Arrival Redirection
+     let strimageurl = String(format: "%@", dictemp.value(forKey: "bannerImage") as? String ?? "")
+     let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
+     print("strFinalurl",strFinalurl)
+     
+     self.strBottomBANNER3name = strmessage
+     self.strBottomBANNER3image = strFinalurl
+     self.imgvpromobox3.imageFromURL(urlString: self.strBottomBANNER3image)
+     }
+     else{
+     /* let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+      self.present(uiAlert, animated: true, completion: nil)
+      uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+      print("Click of default button")
+      }))*/
+     }
+     }
+     }
+     }
+     catch {
+     //check for internal server data error
+     DispatchQueue.main.async {
+     
+     let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+     self.present(uiAlert, animated: true, completion: nil)
+     uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+     print("Click of default button")
+     }))
+     
+     self.view.activityStopAnimating()
+     }
+     print("Error -> \(error)")
+     }
+     }
+     task.resume()
+     }*/
     
     
     //MARK: - get Availble LOCATIONS LIST API method
@@ -2773,7 +2790,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         }
         task.resume()
     }
-
+    
     //MARK: - GET Address by Lat Long - Google API
     func getAddressFromLatLong(latitude: Double, longitude : Double)
     {
@@ -2809,30 +2826,30 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         
                         //FIXME_____ FETCH CITY AND LOCATION NAME ______//
                         /*let arraddress_components = dic?.value(forKey: "address_components")as! NSArray
-                        for xx in 0 ..< arraddress_components.count
-                        {
-                            let dicaddress = arraddress_components.object(at: xx)as! NSDictionary
-                            let strlong_name = String(format: "%@", dicaddress.value(forKey: "long_name")as? String ?? "")
-                            
-                            let arrmtypes = dicaddress.value(forKey: "types")as! NSArray
-                            for yy in 0 ..< arrmtypes.count
-                            {
-                                let strtype = String(format: "%@", arrmtypes.object(at: yy)as? String ?? "")
-                                if strtype == "sublocality" || strtype == "neighborhood" || strtype == "sublocality_level_1"
-                                {
-                                    //THEN FETCH LOCATION NAME
-                                    self.strlocationname = strlong_name
-                                }
-                                
-                                if strtype == "locality"
-                                {
-                                    //THEN FETCH CITY NAME
-                                    self.strcityname = strlong_name
-                                }
-                            }
-                        }*/
+                         for xx in 0 ..< arraddress_components.count
+                         {
+                         let dicaddress = arraddress_components.object(at: xx)as! NSDictionary
+                         let strlong_name = String(format: "%@", dicaddress.value(forKey: "long_name")as? String ?? "")
+                         
+                         let arrmtypes = dicaddress.value(forKey: "types")as! NSArray
+                         for yy in 0 ..< arrmtypes.count
+                         {
+                         let strtype = String(format: "%@", arrmtypes.object(at: yy)as? String ?? "")
+                         if strtype == "sublocality" || strtype == "neighborhood" || strtype == "sublocality_level_1"
+                         {
+                         //THEN FETCH LOCATION NAME
+                         self.strlocationname = strlong_name
+                         }
+                         
+                         if strtype == "locality"
+                         {
+                         //THEN FETCH CITY NAME
+                         self.strcityname = strlong_name
+                         }
+                         }
+                         }*/
                         
-                       
+                        
                         let strformattedaddress = String(format: "%@", dic?.value(forKey: "formatted_address")as? String ?? "")
                         print("strformattedaddress",strformattedaddress)
                         if self.txtlocationselect.text!.count > 0{
@@ -2863,9 +2880,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         }
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-      
+        
         let parameters = ["productid": strproductid
-                          ] as [String : Any]
+        ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod12)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -2902,7 +2919,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -2919,12 +2936,12 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                         {
                             
                             /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
-                            self.present(uiAlert, animated: true, completion: nil)
-                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
-                                print("Click of default button")
-                                
-                            }))*/
-
+                             self.present(uiAlert, animated: true, completion: nil)
+                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                             print("Click of default button")
+                             
+                             }))*/
+                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
@@ -2965,9 +2982,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         }
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
-      
+        
         let parameters = ["productid": strSelectedProductID
-                          ] as [String : Any]
+        ] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod31)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -3004,7 +3021,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
                     }
-                
+                    
                     let dictemp = json as NSDictionary
                     print("dictemp --->",dictemp)
                     
@@ -3088,13 +3105,13 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     let dictemp = json as NSDictionary
                     //print("dictemp --->",dictemp)
-                   
-                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
-                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
-                     let strmessage = dictemp.value(forKey: "message")as? String ?? ""
-                     print("strstatus",strstatus)
-                     print("strsuccess",strsuccess)
-                     print("strmessage",strmessage)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    print("strstatus",strstatus)
+                    print("strsuccess",strsuccess)
+                    print("strmessage",strmessage)
                     
                     DispatchQueue.main.async {
                         
