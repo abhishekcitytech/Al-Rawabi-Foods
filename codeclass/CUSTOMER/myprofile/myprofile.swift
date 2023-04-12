@@ -27,6 +27,13 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
     @IBOutlet weak var btnverifynow: UIButton!
     @IBOutlet weak var txtmobile: UITextField!
     
+    @IBOutlet weak var lblfirstname: UILabel!
+    @IBOutlet weak var lbllastname: UILabel!
+    @IBOutlet weak var lblemail: UILabel!
+    @IBOutlet weak var lblmobile: UILabel!
+    
+    
+    
     @IBOutlet weak var btnupdatesave: UIButton!
     
     var dicprofiledetails = NSMutableDictionary()
@@ -102,6 +109,7 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
         self.btnverifynow.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language429")), for: .normal)
         btnverifynow.tag = 101
         
+
         btnupdatesave.layer.cornerRadius = 16.0
         btnupdatesave.layer.masksToBounds = true
         
@@ -125,6 +133,11 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
     {
          let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
 
+        lblfirstname.text = myAppDelegate.changeLanguage(key: "msg_language28")
+        lbllastname.text = myAppDelegate.changeLanguage(key: "msg_language29")
+        lblemail.text = myAppDelegate.changeLanguage(key: "msg_language30")
+        lblmobile.text = myAppDelegate.changeLanguage(key: "msg_language31")
+        
         txtfirstname.placeholder = myAppDelegate.changeLanguage(key: "msg_language28")
         txtlastname.placeholder = myAppDelegate.changeLanguage(key: "msg_language29")
         txtemail.placeholder = myAppDelegate.changeLanguage(key: "msg_language30")

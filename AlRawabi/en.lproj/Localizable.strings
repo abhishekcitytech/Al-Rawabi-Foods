@@ -515,3 +515,4 @@
 "msg_language506" = "Please enter your Building Name and Flat number";
 "msg_language507" = "Please enter your Landmark";
 "msg_language508" = "Reset";
+"msg_language509" = "The password needs at least 6 characters";

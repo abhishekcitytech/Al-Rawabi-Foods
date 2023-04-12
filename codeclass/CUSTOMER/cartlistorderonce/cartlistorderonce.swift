@@ -139,6 +139,8 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         btnapplydiscount.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language113")), for: .normal)
         btnpaycheckout.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language94")), for: .normal)
         
+        btnapplydiscount.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.right
+
         btnkeepshopping.layer.borderWidth = 1.0
         btnkeepshopping.layer.borderColor = UIColor(named: "themecolor")!.cgColor
         btnkeepshopping.layer.cornerRadius = 16.0

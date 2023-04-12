@@ -1540,10 +1540,10 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         
         
         //FIXMESANDIPAN
-        btnaddonce.isHidden = true
-        btnaddtoall.isHidden = true
-        viewplusminus.isHidden = true
-        viewplusminusATA.isHidden = true
+        //btnaddonce.isHidden = true
+        //btnaddtoall.isHidden = true
+        //viewplusminus.isHidden = true
+        //viewplusminusATA.isHidden = true
     }
     
     //MARK: - press ADDONCE method

@@ -165,7 +165,7 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
         cell.lblselectcopy.layer.cornerRadius = 6.0
         cell.lblselectcopy.layer.masksToBounds = true
         
-        cell.lblselectcopy.text = myAppDelegate.changeLanguage(key: "msg_language233")
+        cell.lblselectcopy.text = myAppDelegate.changeLanguage(key: "msg_language56")
         
         cell.lblcouponcode.text = String(format: "%@ %@", myAppDelegate.changeLanguage(key: "msg_language230"),strcouponcode)
         cell.lblexpdate.text = String(format: "%@ %@",myAppDelegate.changeLanguage(key: "msg_language231"),strexpdate)
