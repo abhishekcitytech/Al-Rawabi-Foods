@@ -25,7 +25,10 @@ struct Constants {
         //static let ConnUrl = "https://alrawabi.task2bill.com/index.php/rest/default/V1/"
         
         //MARK: - Web Service API URL - UAT
-        static let ConnUrl = "https://staging1.alrawabifoods.com/index.php/rest/default/V1/"
+        //static let ConnUrl = "https://staging1.alrawabifoods.com/index.php/rest/default/V1/"
+        
+        //MARK: - Web Service API URL - LIVE
+        static let ConnUrl = "https://www.alrawabifoods.com/index.php/rest/default/V1/"
         
         //MARK: - GOOGLE PLACE API KEY
         static let GoogleAPIKey = "AIzaSyB0HROT7zT3VgKKv7oAEbvkyD_J0ErZ6RQ"
@@ -63,13 +66,13 @@ struct Constants {
         static let STATICWEBSITEURL = "https://www.alrawabifoods.com/"
         
         //MARK: - STATIC TELEPHONE CODE
-        static let STATICTELECPHONECODE = "91"
+        static let STATICTELECPHONECODE = "971"
         
         //MARK: - STATIC TELEPHONE NUMBER LENGTH
-        static let STATICTELECPHONENUMBERLENGTH = 10
+        static let STATICTELECPHONENUMBERLENGTH = 9
         
         //MARK: - STATIC TELEPHONE NUMBER REGEX
-        static let STATICTELECPHONENUMBERREGEX = "^[0-9]{10}$"
+        static let STATICTELECPHONENUMBERREGEX = "^[0-9]{9}$"
         
     }
     

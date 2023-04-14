@@ -536,7 +536,7 @@ class maidsearchproductlist: UIViewController,UITextFieldDelegate,UICollectionVi
                         
                         
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMCategorywiseProductlist.count > 0{
                                 self.arrMCategorywiseProductlist.removeAllObjects()
@@ -858,7 +858,7 @@ class maidsearchproductlist: UIViewController,UITextFieldDelegate,UICollectionVi
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             self.getProductListingFromCategoryIDAPIMethod(strkeywrod: self.txtsearchbar.text!)
                         }

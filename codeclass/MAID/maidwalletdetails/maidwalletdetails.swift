@@ -417,7 +417,7 @@ class maidwalletdetails: UIViewController,UITableViewDelegate,UITableViewDataSou
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
                             

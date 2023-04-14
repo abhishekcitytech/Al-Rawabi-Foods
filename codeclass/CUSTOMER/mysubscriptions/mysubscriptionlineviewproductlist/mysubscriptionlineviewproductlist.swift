@@ -388,7 +388,7 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
                         
                         
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let arrmproducts = json.value(forKey: "product") as? NSArray ?? []
                             self.arrMCategorywiseProductlist = NSMutableArray(array: arrmproducts)

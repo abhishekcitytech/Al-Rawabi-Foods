@@ -210,7 +210,7 @@ class viewallreviews: UIViewController,UITableViewDelegate,UITableViewDataSource
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let arrmproducts = json.value(forKey: "all review") as? NSArray ?? []
                             self.arrmreviews = NSMutableArray(array: arrmproducts)

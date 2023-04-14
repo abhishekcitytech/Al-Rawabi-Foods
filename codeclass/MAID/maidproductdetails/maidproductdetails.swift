@@ -1747,7 +1747,7 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             self.getProductDetailsAPIMethod()
                         }
@@ -1933,7 +1933,7 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if let total_quantity = json["total_quantity"]
                             {

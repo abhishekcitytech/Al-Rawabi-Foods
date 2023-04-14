@@ -739,7 +739,7 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMpaymentmethodlist.count > 0{
                                 self.arrMpaymentmethodlist.removeAllObjects()

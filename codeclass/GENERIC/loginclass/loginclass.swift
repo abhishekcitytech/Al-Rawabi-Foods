@@ -585,13 +585,13 @@ class loginclass: UIViewController,UITextFieldDelegate
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             
                             let diccustomerDetails = dictemp.value(forKey: "customerDetails")as? NSDictionary
                             
                             let strcustomerid = String(format: "%@", diccustomerDetails!.value(forKey: "id")as! CVarArg)
-                            print("diccustomerDetails",diccustomerDetails as Any)
+                            //print("diccustomerDetails",diccustomerDetails as Any)
                             //print("strcustomerid",strcustomerid)
                             
                             UserDefaults.standard.set(strcustomerid, forKey: "customerid")

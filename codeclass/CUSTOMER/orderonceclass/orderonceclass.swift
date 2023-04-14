@@ -1052,7 +1052,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrmcatlist.count > 0{
                                 self.arrmcatlist.removeAllObjects()
@@ -1166,7 +1166,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMproducts.count > 0 {
                                 self.arrMproducts.removeAllObjects()
@@ -1275,7 +1275,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             var strupdatedmessg = ""
                             if strmessage.contains("Item added successfully")
@@ -1384,7 +1384,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if let total_quantity = json["total_quantity"]
                             {
@@ -1516,7 +1516,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMAvailbleTimeSlots.count > 0{
                                 self.arrMAvailbleTimeSlots.removeAllObjects()
@@ -1614,7 +1614,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
@@ -1714,7 +1714,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             self.postAllCategoryHomepageAPImethod()
                         }

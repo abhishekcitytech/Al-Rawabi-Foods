@@ -528,7 +528,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let arrmproducts = json.value(forKey: "items") as? NSArray ?? []
                             self.arrMWishlist = NSMutableArray(array: arrmproducts)
@@ -632,7 +632,7 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             self.postMyWishlistApIMethod()
 

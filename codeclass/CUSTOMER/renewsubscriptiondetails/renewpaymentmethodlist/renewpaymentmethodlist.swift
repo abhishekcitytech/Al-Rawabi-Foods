@@ -1019,7 +1019,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMpaymentmethodlist.count > 0{
                                 self.arrMpaymentmethodlist.removeAllObjects()
@@ -1155,7 +1155,7 @@ class renewpaymentmethodlist: UIViewController,UICollectionViewDelegate,UICollec
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
                             

@@ -279,7 +279,7 @@ class maidcouponlist: UIViewController,UITextFieldDelegate,UITableViewDelegate,U
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMCoupons.count > 0{
                                 self.arrMCoupons.removeAllObjects()

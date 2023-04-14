@@ -1237,7 +1237,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMAvailbleTimeSlots.count > 0{
                                 self.arrMAvailbleTimeSlots.removeAllObjects()
@@ -1416,7 +1416,7 @@ class maidcartlist: UIViewController,UITableViewDelegate,UITableViewDataSource,U
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             UserDefaults.standard.set("4", forKey: "payfromOrderonce")
                             UserDefaults.standard.synchronize()

@@ -1630,7 +1630,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
@@ -1744,7 +1744,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             //BY DEFAULT SELECTED CATEGORY FIXME
                             self.strSelectedCat = "0"
@@ -1855,7 +1855,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let arrmcategorytree = dictemp.value(forKey: "categoryTree") as? NSArray ?? []
                             self.arrmcatlist = NSMutableArray(array: arrmcategorytree)
@@ -1969,7 +1969,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrmproductlist.count > 0{
                                 self.arrmproductlist.removeAllObjects()

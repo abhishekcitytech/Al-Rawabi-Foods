@@ -270,7 +270,7 @@ class maidhomeclass: UIViewController,UICollectionViewDelegate,UICollectionViewD
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if let total_quantity = json["total_quantity"]
                             {

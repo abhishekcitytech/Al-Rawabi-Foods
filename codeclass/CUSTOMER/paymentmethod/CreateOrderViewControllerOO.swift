@@ -46,6 +46,10 @@ class CreateOrderViewControllerOO: UIViewController
     }
     
     func displayErrorAndClose(error: Error?) {
+        
+        //let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        //let strmsg = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language270"))
+        
         var errorTitle = ""
         if let error = error {
             let userInfo: [String: Any] = (error as NSError).userInfo
@@ -106,6 +110,8 @@ class CreateOrderViewControllerOO: UIViewController
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data, response, error) in
             if (error != nil) {
+                print("response",response.debugDescription)
+                print("error",error.debugDescription)
                 self?.displayErrorAndClose(error: error)
             }
             if let data = data {
@@ -130,6 +136,7 @@ class CreateOrderViewControllerOO: UIViewController
                         })
                     }
                 } catch let error {
+                    print("response",response.debugDescription)
                     self?.displayErrorAndClose(error: error)
                 }
             }

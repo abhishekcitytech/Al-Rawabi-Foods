@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>347066073138-n4urvgh738ekd6uev6dlfcrcdc9h8dfs.apps.googleusercontent.com</string>
+	<string>951068973511-qedhhjgqkerce7m8dpqrbbvfodo6rf3k.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.347066073138-n4urvgh738ekd6uev6dlfcrcdc9h8dfs</string>
+	<string>com.googleusercontent.apps.951068973511-qedhhjgqkerce7m8dpqrbbvfodo6rf3k</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAN13bGjamT2RSVbK8BrjWTLuhvwpdGX38</string>
+	<string>AIzaSyDjxkzlWwgaopCPh7zxiybLdtDT7JoyUNk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>347066073138</string>
+	<string>951068973511</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.citytech.alrawabi</string>
+	<string>com.citytech.alrawabiappstore</string>
 	<key>PROJECT_ID</key>
-	<string>alrawabi-dd9d4</string>
+	<string>rawabifoods</string>
 	<key>STORAGE_BUCKET</key>
-	<string>alrawabi-dd9d4.appspot.com</string>
+	<string>rawabifoods.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:347066073138:ios:e1e1feba346f25bc7bfc2b</string>
+	<string>1:951068973511:ios:054cf7ecd7be967caf21e2</string>
 </dict>
 </plist>

@@ -663,7 +663,7 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
                         
                         
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMCategorywiseProductlist.count > 0{
                                 self.arrMCategorywiseProductlist.removeAllObjects()
@@ -763,7 +763,7 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
@@ -976,7 +976,7 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             self.getProductListingFromCategoryIDAPIMethod(strkeywrod: self.txtsearchbar.text!)
                         }

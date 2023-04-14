@@ -350,7 +350,7 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMalltransactions.count > 0{
                                 self.arrMalltransactions.removeAllObjects()
@@ -440,7 +440,7 @@ class mywallet: UIViewController,UITableViewDelegate,UITableViewDataSource
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
                             

@@ -2158,7 +2158,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             
                             let arrMtopdelas = dictemp.value(forKey: "productdetails") as? NSArray ?? []
                             self.arrMtopdeals = NSMutableArray(array: arrMtopdelas)
-                            print("arrMtopdeals --->",self.arrMtopdeals)
+                            //print("arrMtopdeals --->",self.arrMtopdeals)
                             
                             if self.arrMtopdeals.count > 0{
                                 self.coltopdeals.reloadData()
@@ -2493,7 +2493,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -2973,7 +2973,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             
                             /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
@@ -3075,7 +3075,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             self.postTopDelasHomepageAPImethod()
                         }
@@ -3145,7 +3145,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false

@@ -2459,7 +2459,7 @@ class renewsubscriptiondetails: UIViewController,UITableViewDelegate,UITableView
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMshippingcalculationOutput.count > 0 {
                                 self.arrMshippingcalculationOutput.removeAllObjects()

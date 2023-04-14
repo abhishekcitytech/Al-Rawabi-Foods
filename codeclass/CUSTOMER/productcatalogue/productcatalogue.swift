@@ -1001,7 +1001,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
@@ -1107,7 +1107,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             var strupdatedmessg = ""
                             if strmessage.contains("Item added successfully")
@@ -1215,7 +1215,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             self.getProductListingFromCategoryIDAPIMethod()
                         }

@@ -578,7 +578,7 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let arrmproducts = json.value(forKey: "product") as? NSArray ?? []
                             self.arrMNewArrivals = NSMutableArray(array: arrmproducts)
@@ -1126,7 +1126,7 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             /*let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language269") , preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
@@ -1226,7 +1226,7 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             self.postNewArrivalsApIMethod()
                         }

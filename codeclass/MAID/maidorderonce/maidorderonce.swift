@@ -804,7 +804,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let arrmcategorytree = dictemp.value(forKey: "categoryTree") as? NSArray ?? []
                             self.arrmcatlist = NSMutableArray(array: arrmcategorytree)
@@ -915,7 +915,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             
                             let arrmproducts = json.value(forKey: "product") as? NSArray ?? []
@@ -1021,7 +1021,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             var strupdatedmessg = ""
                             if strmessage.contains("Item added successfully")
@@ -1130,7 +1130,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if let total_quantity = json["total_quantity"]
                             {
@@ -1350,7 +1350,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             self.getProductListingAPIMethod(strselectedcategoryid: self.strSelectedCat)
                         }

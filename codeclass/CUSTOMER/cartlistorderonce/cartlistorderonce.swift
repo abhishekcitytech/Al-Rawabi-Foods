@@ -1041,7 +1041,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMcartItems.count > 0{
                                 self.arrMcartItems.removeAllObjects()
@@ -1243,7 +1243,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
                             
@@ -1427,7 +1427,7 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             UserDefaults.standard.set("1", forKey: "payfromOrderonce")
                             UserDefaults.standard.synchronize()

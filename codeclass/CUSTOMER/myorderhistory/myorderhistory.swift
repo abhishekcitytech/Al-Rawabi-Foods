@@ -334,7 +334,7 @@ class myorderhistory: UIViewController,UITableViewDelegate,UITableViewDataSource
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMorderstatus.count > 0{
                                 self.arrMorderstatus.removeAllObjects()
@@ -437,7 +437,7 @@ class myorderhistory: UIViewController,UITableViewDelegate,UITableViewDataSource
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             if self.arrMmyorders.count > 0{
                                 self.arrMmyorders.removeAllObjects()

@@ -1042,7 +1042,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
                             
@@ -1196,7 +1196,7 @@ class Subscriptionpaymentmethod: UIViewController,UICollectionViewDelegate,UICol
                     
                     DispatchQueue.main.async {
                         
-                        if strstatus == 200
+                        if strsuccess == true
                         {
                             let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
                             
