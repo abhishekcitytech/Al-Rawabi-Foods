@@ -473,104 +473,101 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         cellA.contentView.layer.masksToBounds = true
         
         var strin_cart = ""
-        if strpageidentifier == "1001"
+        
+        //FROM CATEGORY PAGE
+        let dict = arrMCategorywiseProductlist.object(at: indexPath.row)as? NSDictionary
+        
+        let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+        let strname = String(format: "%@", dict!.value(forKey: "name") as? String ?? "")
+        let strsku = String(format: "%@", dict!.value(forKey: "sku") as? String ?? "")
+        let strprice = String(format: "%@", dict!.value(forKey: "price") as? String ?? "")
+        let strsize = String(format: "%@", dict!.value(forKey: "size") as? String ?? "")
+        let strbrand = String(format: "%@", dict!.value(forKey: "brand") as? String ?? "")
+        let strstatus = String(format: "%@", dict!.value(forKey: "productStatus") as? String ?? "")
+        
+        var strcurrent_currencecode = String(format: "%@", dict!.value(forKey: "current_currencecode") as? String ?? "")
+        strcurrent_currencecode = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
+        
+        strin_cart = String(format: "%@", dict!.value(forKey: "in_cart") as! CVarArg)
+        
+        let arrmedia = dict!.value(forKey: "media")as? NSArray ?? []
+        if arrmedia.count > 0 {
+            let strimageurl = String(format: "%@", arrmedia.object(at: 0)as? String ?? "")
+            let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
+            print("strFinalurl",strFinalurl)
+            
+            cellA.imgv.contentMode = .scaleAspectFit
+            cellA.imgv.imageFromURL(urlString: strFinalurl)
+        }
+        else{
+            cellA.imgv.contentMode = .scaleAspectFit
+            cellA.imgv.image = UIImage(named: "productplaceholder")
+        }
+        
+        
+        cellA.lblname.text = strname
+        cellA.lblbrand.text = strbrand
+        
+        // if you need to Left to right flow //FIXMESIZE
+        let addLTR = "\u{200E}\(strsize)"
+        cellA.lblqty.text = addLTR
+        
+        print("strprice",strprice)
+        if strprice != ""
         {
-            //FROM CATEGORY PAGE
-            let dict = arrMCategorywiseProductlist.object(at: indexPath.row)as? NSDictionary
+            //let fltprice = Float(strprice)
+            //cellA.lblprice.text = String(format: "%@ %.2f",strcurrent_currencecode,fltprice!)
+            //cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
             
-            let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
-            let strname = String(format: "%@", dict!.value(forKey: "name") as? String ?? "")
-            let strsku = String(format: "%@", dict!.value(forKey: "sku") as? String ?? "")
-            let strprice = String(format: "%@", dict!.value(forKey: "price") as? String ?? "")
-            let strsize = String(format: "%@", dict!.value(forKey: "size") as? String ?? "")
-            let strbrand = String(format: "%@", dict!.value(forKey: "brand") as? String ?? "")
-            let strstatus = String(format: "%@", dict!.value(forKey: "productStatus") as? String ?? "")
+            //FIXMEPRICEVAT
+            let str2 = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
+            let fltprice = Float(strprice)
+            let str1 = String(format: "%@ %.2f %@",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!,str2)
             
-            var strcurrent_currencecode = String(format: "%@", dict!.value(forKey: "current_currencecode") as? String ?? "")
-            strcurrent_currencecode = myAppDelegate.changeLanguage(key: "msg_language481") //FIXMECURRENCY
+            let range = (str1 as NSString).range(of: str2)
+            let mutableAttributedString = NSMutableAttributedString.init(string: str1)
+            mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "themecolor")!, range: range);
+            mutableAttributedString.addAttributes([NSAttributedString.Key.font: UIFont(name: "NunitoSans-Regular", size: 10) as Any], range: range)
+            cellA.lblprice.attributedText = mutableAttributedString
+        }
+        
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        if (strLangCode == "en")
+        {
+            cellA.lblname.textAlignment = .left
+            cellA.lblbrand.textAlignment = .left
+            cellA.lblqty.textAlignment = .left
+            cellA.lblprice.textAlignment = .left
+        }
+        else
+        {
+            cellA.lblname.textAlignment = .right
+            cellA.lblbrand.textAlignment = .right
+            cellA.lblqty.textAlignment = .right
+            cellA.lblprice.textAlignment = .right
+        }
+        
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        if strbearertoken == ""{
+            cellA.btnfav.isHidden = true
+            cellA.btnright.isHidden = true
+        }
+        else{
             
-            strin_cart = String(format: "%@", dict!.value(forKey: "in_cart") as! CVarArg)
+            let stris_addedwishlist = String(format: "%@", dict!.value(forKey: "is_addedwishlist") as? String ?? "")
             
-            let arrmedia = dict!.value(forKey: "media")as? NSArray ?? []
-            if arrmedia.count > 0 {
-                let strimageurl = String(format: "%@", arrmedia.object(at: 0)as? String ?? "")
-                let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
-                print("strFinalurl",strFinalurl)
-                
-                cellA.imgv.contentMode = .scaleAspectFit
-                cellA.imgv.imageFromURL(urlString: strFinalurl)
+            print("stris_addedwishlist",stris_addedwishlist)
+            if stris_addedwishlist == "True"
+            {
+                cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)
             }
             else{
-                cellA.imgv.contentMode = .scaleAspectFit
-                cellA.imgv.image = UIImage(named: "productplaceholder")
+                cellA.btnfav.setImage(UIImage(named: "fav1"), for: .normal)
             }
             
-            
-            cellA.lblname.text = strname
-            cellA.lblbrand.text = strbrand
-            
-            // if you need to Left to right flow //FIXMESIZE
-            let addLTR = "\u{200E}\(strsize)"
-            cellA.lblqty.text = addLTR
-            
-            print("strprice",strprice)
-            if strprice != ""
-            {
-                //let fltprice = Float(strprice)
-                //cellA.lblprice.text = String(format: "%@ %.2f",strcurrent_currencecode,fltprice!)
-                //cellA.lblincludetax.text = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
-                
-                //FIXMEPRICEVAT
-                let str2 = String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language474"))
-                let fltprice = Float(strprice)
-                let str1 = String(format: "%@ %.2f %@",myAppDelegate.changeLanguage(key: "msg_language481"), fltprice!,str2)
-                
-                let range = (str1 as NSString).range(of: str2)
-                let mutableAttributedString = NSMutableAttributedString.init(string: str1)
-                mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "themecolor")!, range: range);
-                mutableAttributedString.addAttributes([NSAttributedString.Key.font: UIFont(name: "NunitoSans-Regular", size: 10) as Any], range: range)
-                cellA.lblprice.attributedText = mutableAttributedString
-            }
-            
-            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-            if (strLangCode == "en")
-            {
-                cellA.lblname.textAlignment = .left
-                cellA.lblbrand.textAlignment = .left
-                cellA.lblqty.textAlignment = .left
-                cellA.lblprice.textAlignment = .left
-            }
-            else
-            {
-                cellA.lblname.textAlignment = .right
-                cellA.lblbrand.textAlignment = .right
-                cellA.lblqty.textAlignment = .right
-                cellA.lblprice.textAlignment = .right
-            }
-            
-            
-            let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
-            if strbearertoken == ""{
-                cellA.btnfav.isHidden = true
-                cellA.btnright.isHidden = true
-            }
-            else{
-                
-                let stris_addedwishlist = String(format: "%@", dict!.value(forKey: "is_addedwishlist") as? String ?? "")
-                
-                print("stris_addedwishlist",stris_addedwishlist)
-                if stris_addedwishlist == "True"
-                {
-                    cellA.btnfav.setImage(UIImage(named: "favselected"), for: .normal)
-                }
-                else{
-                    cellA.btnfav.setImage(UIImage(named: "fav1"), for: .normal)
-                }
-                
-                cellA.btnfav.isHidden = false
-                cellA.btnright.isHidden = true
-            }
-            
+            cellA.btnfav.isHidden = false
+            cellA.btnright.isHidden = true
         }
         
         
@@ -601,17 +598,54 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
         cellA.btnPlusCart.tag = indexPath.row
         cellA.btnPlusCart.addTarget(self, action: #selector(pressPlusCart), for: .touchUpInside)
         
+        
+        //FIXMESTOCK
+        let strstock = String(format: "%@", dict!.value(forKey: "stock") as! CVarArg)
+        let strstock_status = String(format: "%@", dict!.value(forKey: "stock_status") as? String ?? "")
+        print("strstock",strstock)
+        print("strstock_status",strstock_status)
+        
+        cellA.lbloutofstock.layer.borderWidth = 1.0
+        cellA.lbloutofstock.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        cellA.lbloutofstock.layer.cornerRadius = 16.0
+        cellA.lbloutofstock.layer.masksToBounds = true
+
+        
         print("strin_cart",strin_cart)
         if strin_cart == "0"{
             print("NOT IN CART")
-            cellA.btnaddonce.isHidden = false
-            cellA.viewPlusMinus.isHidden = true
+            
+            if strstock == "0"{
+                //Out of stock
+                cellA.lbloutofstock.isHidden = false
+                cellA.btnaddonce.isHidden = true
+                cellA.viewPlusMinus.isHidden = true
+                cellA.lbloutofstock.text = strstock_status
+                
+            }else{
+                //in stock
+                cellA.lbloutofstock.isHidden = true
+                cellA.btnaddonce.isHidden = false
+                cellA.viewPlusMinus.isHidden = true
+            }
         }
         else{
             print("WITHIN CART")
-            cellA.btnaddonce.isHidden = true
-            cellA.viewPlusMinus.isHidden = false
-            cellA.txtMinusPlusCart.text = strin_cart
+            
+            if strstock == "0"{
+                //Out of stock
+                cellA.lbloutofstock.isHidden = false
+                cellA.btnaddonce.isHidden = true
+                cellA.viewPlusMinus.isHidden = true
+                cellA.lbloutofstock.text = strstock_status
+                
+            }else{
+                //in stock
+                cellA.lbloutofstock.isHidden = true
+                cellA.btnaddonce.isHidden = true
+                cellA.viewPlusMinus.isHidden = false
+                cellA.txtMinusPlusCart.text = strin_cart
+            }
         }
         
         // Set up cell

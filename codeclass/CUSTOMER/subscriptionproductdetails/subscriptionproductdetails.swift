@@ -129,6 +129,12 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
     
     var strShareableProductUrl = ""
     
+    
+    @IBOutlet weak var lbloutofstock: UILabel!
+    
+    var strstock = ""
+    var strstock_status = ""
+    
     // MARK: - viewWillAppear Method
     override func viewWillAppear(_ animated: Bool)
     {
@@ -184,6 +190,11 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         self.createBannerGallery(arrimages: [])
         self.createselectsize()
         
+        
+        self.lbloutofstock.layer.borderWidth = 1.0
+        self.lbloutofstock.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        self.lbloutofstock.layer.cornerRadius = 16.0
+        self.lbloutofstock.layer.masksToBounds = true
         
         btnSeemoreshortdescription.layer.cornerRadius = 14.0
         btnSeemoreshortdescription.layer.borderWidth = 1.0
@@ -822,7 +833,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                     
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
@@ -839,6 +850,14 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                             let dicproductdata = json.value(forKey: "productData") as? NSDictionary
                             self.dicMProductDetails = dicproductdata!.mutableCopy() as! NSMutableDictionary
                             print("dicMProductDetails --->",self.dicMProductDetails)
+                            
+                            
+                            
+                            //FIXMESTOCK
+                            self.strstock = String(format: "%@", self.dicMProductDetails.value(forKey: "stock") as! CVarArg)
+                            self.strstock_status = String(format: "%@", self.dicMProductDetails.value(forKey: "stock_status") as? String ?? "")
+                            print("self.strstock",self.strstock)
+                            print("self.strstock_status",self.strstock_status)
                             
                             
                             //SET PRODUCT NAME TITLE
@@ -1130,7 +1149,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 print("Click of default button")
                             }))
                         }
-                        
+                        self.fetchqtyonceqtyallvalue()
                     }
                 }
             }
@@ -1544,6 +1563,28 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
         //btnaddtoall.isHidden = true
         //viewplusminus.isHidden = true
         //viewplusminusATA.isHidden = true
+        
+        print("strstock",strstock)
+        
+        if strstock != ""
+        {
+            if strstock == "0"{
+                //Out of stock
+                self.lbloutofstock.isHidden = false
+                self.lbloutofstock.text = strstock_status
+                
+                btnaddonce.isHidden = true
+                btnaddtoall.isHidden = true
+                viewplusminus.isHidden = true
+                viewplusminusATA.isHidden = true
+                
+            }else{
+                //in stock
+                self.lbloutofstock.isHidden = true
+            }
+        }
+        
+        
     }
     
     //MARK: - press ADDONCE method

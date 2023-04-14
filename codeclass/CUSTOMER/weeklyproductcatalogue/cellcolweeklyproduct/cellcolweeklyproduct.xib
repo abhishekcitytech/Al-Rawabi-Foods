@@ -193,6 +193,14 @@
                                 <color key="textColor" name="themecolor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5IY-P4-tiA">
+                                <rect key="frame" x="8" y="344" width="184" height="38"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -213,6 +221,7 @@
                 <outlet property="lbladdtoall" destination="ckN-VF-MlZ" id="seC-k5-NBk"/>
                 <outlet property="lblbrand" destination="Wft-Pz-3kd" id="Kys-EO-riU"/>
                 <outlet property="lblname" destination="OR8-cW-xUB" id="oXu-9b-3Oq"/>
+                <outlet property="lbloutofstock" destination="5IY-P4-tiA" id="mAb-tO-3Yb"/>
                 <outlet property="lblprice" destination="FO9-DJ-535" id="rVB-Ev-k1G"/>
                 <outlet property="lblqty" destination="Uby-BA-RAM" id="DlE-m9-MkX"/>
                 <outlet property="txtplusminus" destination="O5m-LX-aGc" id="NtU-yc-C7q"/>

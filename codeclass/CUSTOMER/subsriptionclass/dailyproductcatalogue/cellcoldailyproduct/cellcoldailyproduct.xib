@@ -97,6 +97,16 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bwd-jp-g4F">
+                                <rect key="frame" x="8" y="387" width="184" height="31"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="12"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="ADD TO ALL">
+                                    <color key="titleColor" name="greencolor"/>
+                                </state>
+                            </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YrP-PO-4kq">
                                 <rect key="frame" x="8" y="302" width="184" height="54"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -183,16 +193,14 @@
                                 </subviews>
                                 <color key="backgroundColor" name="orangecolor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bwd-jp-g4F">
-                                <rect key="frame" x="8" y="387" width="184" height="31"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPf-Vp-Wzw">
+                                <rect key="frame" x="8" y="344" width="184" height="38"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="NunitoSans-Bold" family="Nunito Sans" pointSize="12"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="ADD TO ALL">
-                                    <color key="titleColor" name="greencolor"/>
-                                </state>
-                            </button>
+                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -213,6 +221,7 @@
                 <outlet property="lbladdtoall" destination="n7L-LJ-E51" id="sDf-Ak-EB0"/>
                 <outlet property="lblbrand" destination="tW5-ob-h0i" id="Lat-2N-Fvp"/>
                 <outlet property="lblname" destination="Rj0-jM-JgR" id="aOs-VS-JuA"/>
+                <outlet property="lbloutofstock" destination="EPf-Vp-Wzw" id="m71-rd-Wji"/>
                 <outlet property="lblprice" destination="uAf-4U-JsR" id="7uO-Mc-oov"/>
                 <outlet property="lblqty" destination="lG9-gJ-NhQ" id="LTb-eg-r4Z"/>
                 <outlet property="txtplusminus" destination="GLn-iz-ZDv" id="Zi9-zM-xc1"/>

@@ -250,7 +250,7 @@ class renewsubscriptionaddproduct: UIViewController,UITextFieldDelegate,UICollec
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         let cell = colproductlist.cellForItem(at: indexPath)as! colcellproductonly
-        cell.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+        
         
         let strcustomerid = UserDefaults.standard.string(forKey: "customerid") ?? ""
         
@@ -273,120 +273,141 @@ class renewsubscriptionaddproduct: UIViewController,UITextFieldDelegate,UICollec
         print("strFinalurl",strFinalurl)
         print("strprice",strprice)
         
-        print("strselecteddate",strselecteddate)
-        print("strselectedday",strselectedday)
-        print("strselecteddayname",strselecteddayname)
-        print("strselectedsubscriptionplanid",strselectedsubscriptionplanid)
         
+        //FIXMESTOCK
+        let strstock = String(format: "%@", dict!.value(forKey: "stock") as! CVarArg)
+        let strstock_status = String(format: "%@", dict!.value(forKey: "stock_status") as? String ?? "")
+        print("strstock",strstock)
+        print("strstock_status",strstock_status)
         
-        //-------FETCH CHECK PRODUCTID SPEFICIC DATE IS AVAILABLE OR NOT-------//
-        guard let appDelegate1 = UIApplication.shared.delegate as? AppDelegate else {return}
-        let manageContent1 = appDelegate1.persistentContainer.viewContext
-        let fetchData1 = NSFetchRequest<NSFetchRequestResult>(entityName: "Renewmodelproduct")
-        fetchData1.predicate = NSPredicate(format: "productid == %@ && date = %@", strproductid,strselecteddate)
-        do {
-            let result1 = try manageContent1.fetch(fetchData1)
-            print("result",result1)
-            
-            if result1.count > 0
-            {
-                //AVAILABLE
-                
-                for data1 in result1 as! [NSManagedObject]{
-                    
-                    // update
-                    do {
-                        
-                        let qtyonce = data1.value(forKeyPath: "qtyonce") ?? ""
-                        var intqtyonce = Float(String(format: "%@", qtyonce as! CVarArg))
-                        intqtyonce = intqtyonce! + 1 // ADDONCE + 1 INCREAMENTAL WHEN CLICK ON PLUS ICON
-                        
-                        let qtyall = data1.value(forKeyPath: "qtyall") ?? ""
-                        var intqtyall = Float(String(format: "%@", qtyall as! CVarArg))
-                        
-                        if intqtyall != 0.00
-                        {
-                            //qtyall available only update add once qty
-                            
-                            data1.setValue(String(format: "%.0f", intqtyonce!), forKey: "qtyonce")
-                            
-                        }
-                        else
-                        {
-                            //qtyall not available add new  add once qty
-                            
-                            let intsubtotalprice = Float(strprice)! * 1
-                            print("intsubtotalprice",intsubtotalprice)
-                            
-                            //------------------- INSERT INTO Dailyproduct TABLE ---------------- //
-                            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-                            let manageContent = appDelegate.persistentContainer.viewContext
-                            let userEntity = NSEntityDescription.entity(forEntityName: "Renewmodelproduct", in: manageContent)!
-                            let users = NSManagedObject(entity: userEntity, insertInto: manageContent)
-                            users.setValue(strselecteddate, forKeyPath: "date")
-                            users.setValue(strselectedday, forKeyPath: "day")
-                            users.setValue(strselecteddayname, forKeyPath: "dayname")
-                            users.setValue(strproductid, forKeyPath: "productid")
-                            users.setValue(strFinalurl, forKeyPath: "productimage")
-                            users.setValue(strname, forKeyPath: "productname")
-                            users.setValue(strprice, forKeyPath: "productprice")
-                            users.setValue("0", forKeyPath: "qtyall")
-                            users.setValue("1", forKeyPath: "qtyonce")
-                            users.setValue(self.strselectedsubscriptionplanid, forKeyPath: "subscriptionid")
-                            users.setValue(strcustomerid, forKeyPath: "userid")
-                        
-                            do{
-                                try manageContent.save()
-                            }catch let error as NSError {
-                                print("could not save . \(error), \(error.userInfo)")
-                            }
-                        }
-                        
-                        
-                        
-                        try manageContent1.save()
-                        print("update successfull")
-                        
-                    } catch let error as NSError {
-                        print("Could not Update. \(error), \(error.userInfo)")
-                    }
-                    //end update
-                }
-            }
-            else
-            {
-                //NOT AVAILABLE
-                
-                let intsubtotalprice = Float(strprice)! * 1
-                print("intsubtotalprice",intsubtotalprice)
-                
-                //------------------- INSERT INTO product TABLE ---------------- //
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-                let manageContent = appDelegate.persistentContainer.viewContext
-                let userEntity = NSEntityDescription.entity(forEntityName: "Renewmodelproduct", in: manageContent)!
-                let users = NSManagedObject(entity: userEntity, insertInto: manageContent)
-                users.setValue(strselecteddate, forKeyPath: "date")
-                users.setValue(strselectedday, forKeyPath: "day")
-                users.setValue(strselecteddayname, forKeyPath: "dayname")
-                users.setValue(strproductid, forKeyPath: "productid")
-                users.setValue(strFinalurl, forKeyPath: "productimage")
-                users.setValue(strname, forKeyPath: "productname")
-                users.setValue(strprice, forKeyPath: "productprice")
-                users.setValue("0", forKeyPath: "qtyall")
-                users.setValue("1", forKeyPath: "qtyonce")
-                users.setValue(self.strselectedsubscriptionplanid, forKeyPath: "subscriptionid")
-                users.setValue(strcustomerid, forKeyPath: "userid")
-                do{
-                    try manageContent.save()
-                }catch let error as NSError {
-                    print("could not save . \(error), \(error.userInfo)")
-                }
-            }
-        }catch {
-            print("err")
+        if strstock == "0"{
+            cell.viewcell.backgroundColor = UIColor(named: "graybordercolor")!
+            //out of stock
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let uiAlert = UIAlertController(title: "", message: strstock_status , preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                print("Click of default button")
+            }))
         }
-        
-        self.navigationController?.popViewController(animated: true)
+        else{
+            // in stock
+            cell.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+            print("strselecteddate",strselecteddate)
+            print("strselectedday",strselectedday)
+            print("strselecteddayname",strselecteddayname)
+            print("strselectedsubscriptionplanid",strselectedsubscriptionplanid)
+            
+            
+            //-------FETCH CHECK PRODUCTID SPEFICIC DATE IS AVAILABLE OR NOT-------//
+            guard let appDelegate1 = UIApplication.shared.delegate as? AppDelegate else {return}
+            let manageContent1 = appDelegate1.persistentContainer.viewContext
+            let fetchData1 = NSFetchRequest<NSFetchRequestResult>(entityName: "Renewmodelproduct")
+            fetchData1.predicate = NSPredicate(format: "productid == %@ && date = %@", strproductid,strselecteddate)
+            do {
+                let result1 = try manageContent1.fetch(fetchData1)
+                print("result",result1)
+                
+                if result1.count > 0
+                {
+                    //AVAILABLE
+                    
+                    for data1 in result1 as! [NSManagedObject]{
+                        
+                        // update
+                        do {
+                            
+                            let qtyonce = data1.value(forKeyPath: "qtyonce") ?? ""
+                            var intqtyonce = Float(String(format: "%@", qtyonce as! CVarArg))
+                            intqtyonce = intqtyonce! + 1 // ADDONCE + 1 INCREAMENTAL WHEN CLICK ON PLUS ICON
+                            
+                            let qtyall = data1.value(forKeyPath: "qtyall") ?? ""
+                            var intqtyall = Float(String(format: "%@", qtyall as! CVarArg))
+                            
+                            if intqtyall != 0.00
+                            {
+                                //qtyall available only update add once qty
+                                
+                                data1.setValue(String(format: "%.0f", intqtyonce!), forKey: "qtyonce")
+                                
+                            }
+                            else
+                            {
+                                //qtyall not available add new  add once qty
+                                
+                                let intsubtotalprice = Float(strprice)! * 1
+                                print("intsubtotalprice",intsubtotalprice)
+                                
+                                //------------------- INSERT INTO Dailyproduct TABLE ---------------- //
+                                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+                                let manageContent = appDelegate.persistentContainer.viewContext
+                                let userEntity = NSEntityDescription.entity(forEntityName: "Renewmodelproduct", in: manageContent)!
+                                let users = NSManagedObject(entity: userEntity, insertInto: manageContent)
+                                users.setValue(strselecteddate, forKeyPath: "date")
+                                users.setValue(strselectedday, forKeyPath: "day")
+                                users.setValue(strselecteddayname, forKeyPath: "dayname")
+                                users.setValue(strproductid, forKeyPath: "productid")
+                                users.setValue(strFinalurl, forKeyPath: "productimage")
+                                users.setValue(strname, forKeyPath: "productname")
+                                users.setValue(strprice, forKeyPath: "productprice")
+                                users.setValue("0", forKeyPath: "qtyall")
+                                users.setValue("1", forKeyPath: "qtyonce")
+                                users.setValue(self.strselectedsubscriptionplanid, forKeyPath: "subscriptionid")
+                                users.setValue(strcustomerid, forKeyPath: "userid")
+                            
+                                do{
+                                    try manageContent.save()
+                                }catch let error as NSError {
+                                    print("could not save . \(error), \(error.userInfo)")
+                                }
+                            }
+                            
+                            
+                            
+                            try manageContent1.save()
+                            print("update successfull")
+                            
+                        } catch let error as NSError {
+                            print("Could not Update. \(error), \(error.userInfo)")
+                        }
+                        //end update
+                    }
+                }
+                else
+                {
+                    //NOT AVAILABLE
+                    
+                    let intsubtotalprice = Float(strprice)! * 1
+                    print("intsubtotalprice",intsubtotalprice)
+                    
+                    //------------------- INSERT INTO product TABLE ---------------- //
+                    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+                    let manageContent = appDelegate.persistentContainer.viewContext
+                    let userEntity = NSEntityDescription.entity(forEntityName: "Renewmodelproduct", in: manageContent)!
+                    let users = NSManagedObject(entity: userEntity, insertInto: manageContent)
+                    users.setValue(strselecteddate, forKeyPath: "date")
+                    users.setValue(strselectedday, forKeyPath: "day")
+                    users.setValue(strselecteddayname, forKeyPath: "dayname")
+                    users.setValue(strproductid, forKeyPath: "productid")
+                    users.setValue(strFinalurl, forKeyPath: "productimage")
+                    users.setValue(strname, forKeyPath: "productname")
+                    users.setValue(strprice, forKeyPath: "productprice")
+                    users.setValue("0", forKeyPath: "qtyall")
+                    users.setValue("1", forKeyPath: "qtyonce")
+                    users.setValue(self.strselectedsubscriptionplanid, forKeyPath: "subscriptionid")
+                    users.setValue(strcustomerid, forKeyPath: "userid")
+                    do{
+                        try manageContent.save()
+                    }catch let error as NSError {
+                        print("could not save . \(error), \(error.userInfo)")
+                    }
+                }
+            }catch {
+                print("err")
+            }
+            
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
     {

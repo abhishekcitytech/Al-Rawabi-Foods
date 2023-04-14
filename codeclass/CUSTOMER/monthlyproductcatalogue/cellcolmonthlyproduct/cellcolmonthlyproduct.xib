@@ -193,6 +193,14 @@
                                 <color key="textColor" name="themecolor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7w-T8-UfJ">
+                                <rect key="frame" x="8" y="344" width="184" height="38"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -213,6 +221,7 @@
                 <outlet property="lbladdtoall" destination="1bb-QV-39s" id="CM9-li-rxo"/>
                 <outlet property="lblbrand" destination="fck-7A-HR4" id="yOa-QT-R8k"/>
                 <outlet property="lblname" destination="qf6-LK-GuV" id="qgH-nF-mz7"/>
+                <outlet property="lbloutofstock" destination="B7w-T8-UfJ" id="K75-v1-PNe"/>
                 <outlet property="lblprice" destination="jgr-Tr-ydO" id="GJM-oJ-W6H"/>
                 <outlet property="lblqty" destination="K66-QX-7Od" id="ox8-3i-1g3"/>
                 <outlet property="txtplusminus" destination="pCw-hg-d7m" id="BJ9-35-HYJ"/>

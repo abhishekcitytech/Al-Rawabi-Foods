@@ -133,6 +133,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AqI-T1-S5l">
+                                <rect key="frame" x="8" y="300" width="184" height="38"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -149,6 +157,7 @@
                 <outlet property="lblbrand" destination="Xkf-6S-pEa" id="GbV-iV-LhN"/>
                 <outlet property="lblincludetax" destination="KeI-Kf-fFf" id="smS-Tw-kML"/>
                 <outlet property="lblname" destination="ZZu-yZ-D7U" id="APw-e4-4O0"/>
+                <outlet property="lbloutofstock" destination="AqI-T1-S5l" id="3Vl-Cx-Yjh"/>
                 <outlet property="lblprice" destination="rGp-tB-nTa" id="7EB-F8-HDv"/>
                 <outlet property="lblqty" destination="FYX-1V-uQY" id="tA0-b8-8W0"/>
                 <outlet property="txtMinusPlusCart" destination="VCy-8Q-46u" id="uLO-yu-6aT"/>

@@ -253,7 +253,9 @@ class otpverifyclass: UIViewController,UITextFieldDelegate
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
         }
         
-        let parameters = ["countrycode": strcountrycode,"mobileno": strmobileno]as [String : Any]
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        
+        let parameters = ["countrycode": strcountrycode,"mobileno": strmobileno,"language":strLangCode]as [String : Any]
         
         if self.strpagefrom == "100"{
             //Back to Pop My Edit Profile Page with Verified Tag

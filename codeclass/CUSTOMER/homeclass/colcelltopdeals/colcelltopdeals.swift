@@ -28,6 +28,8 @@ class colcelltopdeals: UICollectionViewCell {
     @IBOutlet weak var btnPlusCart: UIButton!
     @IBOutlet weak var txtMinusPlusCart: UITextField!
     
+    @IBOutlet weak var lbloutofstock: UILabel!
+    
     
     
     override func awakeFromNib() {

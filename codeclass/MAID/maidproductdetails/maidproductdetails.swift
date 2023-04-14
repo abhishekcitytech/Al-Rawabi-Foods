@@ -86,6 +86,9 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
     var reuseIdentifier5 = "colcellrelatedproduct"
     var msg = ""
     
+    
+    @IBOutlet weak var lbloutofstock: UILabel!
+    
     var arrMBanners = NSMutableArray()
     var arrMsize = NSMutableArray()
     var arrmreviews = NSMutableArray()
@@ -181,6 +184,12 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
         btnSeemorenutritionfacts.layer.borderWidth = 1.0
         btnSeemorenutritionfacts.layer.borderColor = UIColor(named: "themecolor")!.cgColor
         btnSeemorenutritionfacts.layer.masksToBounds = true
+        
+        
+        lbloutofstock.layer.borderWidth = 1.0
+        lbloutofstock.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        lbloutofstock.layer.cornerRadius = 18.0
+        lbloutofstock.layer.masksToBounds = true
 
         self.createreviewrating()
         self.createrelatedProducts()
@@ -974,6 +983,13 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                             self.strquoteId = String(format: "%@", self.dicMProductDetails.value(forKey: "quoteId")as! CVarArg)
                             print("self.strcartItemId",self.strcartItemId)
                             print("self.strquoteId",self.strquoteId)
+                            
+                            
+                            //FIXMESTOCK
+                            let strstock = String(format: "%@", self.dicMProductDetails.value(forKey: "stock") as! CVarArg)
+                            let strstock_status = String(format: "%@", self.dicMProductDetails.value(forKey: "stock_status") as? String ?? "")
+                            print("strstock",strstock)
+                            print("strstock_status",strstock_status)
                            
                             let fltqtyyy  = (self.strcartQuantity as NSString).floatValue
                             print("fltqtyyy",fltqtyyy)
@@ -981,14 +997,47 @@ class maidproductdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshow
                             if self.strisAddedToCart != "0"
                             {
                                 //Already added int to cart with quantity
-                                self.viewPlusMinus.isHidden = false
-                                self.btnaddonce.isHidden = true
-                                self.txtqty.text = String(format: "%0.0f", fltqtyyy)
+                                
+                                if strstock == "0"{
+                                    //Out of stock
+                                    self.lbloutofstock.isHidden = false
+                                    self.lbloutofstock.text = strstock_status
+                                    
+                                    self.viewPlusMinus.isHidden = true
+                                    self.btnaddonce.isHidden = true
+                                    
+                                }else{
+                                    //in stock
+                                    self.lbloutofstock.isHidden = true
+                                    
+                                    self.viewPlusMinus.isHidden = false
+                                    self.btnaddonce.isHidden = true
+                                    self.txtqty.text = String(format: "%0.0f", fltqtyyy)
+                                   
+                                }
                             }
-                            else{
+                            else
+                            {
                                 //no product int to cart with quantity
-                                self.viewPlusMinus.isHidden = true
-                                self.btnaddonce.isHidden = false
+                                
+                                if strstock == "0"{
+                                    //Out of stock
+                                    self.lbloutofstock.isHidden = false
+                                    self.lbloutofstock.text = strstock_status
+                                    
+                                    self.viewPlusMinus.isHidden = true
+                                    self.btnaddonce.isHidden = true
+                                    
+                                }else{
+                                    //in stock
+                                    self.lbloutofstock.isHidden = true
+                                    
+                                    self.viewPlusMinus.isHidden = true
+                                    self.btnaddonce.isHidden = false
+                                   
+                                }
+                                
+                                
                             }
                             
                             

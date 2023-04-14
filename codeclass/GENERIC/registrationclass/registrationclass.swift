@@ -514,7 +514,9 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
         }
         
-        let parameters = ["customerEmail": txtemail.text!] as [String : Any]
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        
+        let parameters = ["customerEmail": txtemail.text!,"language":strLangCode] as [String : Any]
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod3)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
@@ -627,13 +629,17 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
         }
         
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        
         let parameters = ["firstName": txtfirstname.text!,
         "lastName": txtlastname.text!,
         "email": txtemail.text!,
         "countryCode": Constants.conn.STATICTELECPHONECODE,
         "mobileNo": txtmobile.text!,
-        "password": txtpassword.text!]
+                          "password": txtpassword.text!,
+                          "language":strLangCode]
         as [String : Any]
+        
         
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod4)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)

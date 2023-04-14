@@ -287,15 +287,35 @@ class mysubscriptionlineviewproductlist: UIViewController,UITextFieldDelegate,UI
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         let cell = colproductlist.cellForItem(at: indexPath)as! colcellproductonly
-        cell.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+        
         
         
         let dict = arrMCategorywiseProductlist.object(at: indexPath.row)as? NSDictionary
-
-        let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
-        let strprice = String(format: "%@", dict!.value(forKey: "price") as? String ?? "")
-        self.postAddProductApiMethod(strqty: "1", strproductid: strproductid,strprice: strprice)
         
+        //FIXMESTOCK
+        let strstock = String(format: "%@", dict!.value(forKey: "stock") as! CVarArg)
+        let strstock_status = String(format: "%@", dict!.value(forKey: "stock_status") as? String ?? "")
+        print("strstock",strstock)
+        print("strstock_status",strstock_status)
+        
+        if strstock == "0"{
+            //out of stock
+            cell.viewcell.backgroundColor = UIColor(named: "graybordercolor")!
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let uiAlert = UIAlertController(title: "", message: strstock_status , preferredStyle: UIAlertController.Style.alert)
+            self.present(uiAlert, animated: true, completion: nil)
+            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                print("Click of default button")
+            }))
+        }
+        else{
+            // in stock
+            cell.viewcell.backgroundColor = UIColor(named: "lightgreencolor")!
+            let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+            let strprice = String(format: "%@", dict!.value(forKey: "price") as? String ?? "")
+            self.postAddProductApiMethod(strqty: "1", strproductid: strproductid,strprice: strprice)
+        }
+
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
     {

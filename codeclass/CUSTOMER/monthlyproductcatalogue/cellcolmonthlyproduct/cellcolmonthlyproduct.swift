@@ -35,6 +35,8 @@ class cellcolmonthlyproduct: UICollectionViewCell {
     @IBOutlet weak var lbladdonce: UILabel!
     @IBOutlet weak var lbladdtoall: UILabel!
     
+    @IBOutlet weak var lbloutofstock: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

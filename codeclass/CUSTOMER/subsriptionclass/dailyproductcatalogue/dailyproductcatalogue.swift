@@ -854,6 +854,33 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         //cellA.viewplusminus.isHidden = true
         //cellA.viewplusminusATA.isHidden = true
         
+        
+        //FIXMESTOCK
+        let strstock = String(format: "%@", dict!.value(forKey: "stock") as! CVarArg)
+        let strstock_status = String(format: "%@", dict!.value(forKey: "stock_status") as? String ?? "")
+        print("strstock",strstock)
+        print("strstock_status",strstock_status)
+        
+        cellA.lbloutofstock.layer.borderWidth = 1.0
+        cellA.lbloutofstock.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        cellA.lbloutofstock.layer.cornerRadius = 16.0
+        cellA.lbloutofstock.layer.masksToBounds = true
+        
+        if strstock == "0"{
+            //Out of stock
+            cellA.lbloutofstock.isHidden = false
+            cellA.lbloutofstock.text = strstock_status
+            
+            cellA.btnaddonce.isHidden = true
+            cellA.btnaddtoall.isHidden = true
+            cellA.viewplusminus.isHidden = true
+            cellA.viewplusminusATA.isHidden = true
+            
+        }else{
+            //in stock
+            cellA.lbloutofstock.isHidden = true
+        }
+        
         // Set up cell
         return cellA
         

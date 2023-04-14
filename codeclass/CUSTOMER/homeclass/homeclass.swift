@@ -1535,6 +1535,8 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let strFinalurl = strimageurl.replacingOccurrences(of: " ", with: "%20")
         print("strFinalurl",strFinalurl)
         
+        
+        
         cellA.imgv.contentMode = .scaleAspectFit
         cellA.imgv.imageFromURL(urlString: strFinalurl)
         
@@ -1614,18 +1616,57 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         cellA.btnPlusCart.tag = indexPath.row
         cellA.btnPlusCart.addTarget(self, action: #selector(pressPlusCart), for: .touchUpInside)
         
+        
+        
+        //FIXMESTOCK
+        let strstock = String(format: "%@", dict.value(forKey: "stock") as! CVarArg)
+        let strstock_status = String(format: "%@", dict.value(forKey: "stock_status") as? String ?? "")
+        print("strstock",strstock)
+        print("strstock_status",strstock_status)
+        
+        cellA.lbloutofstock.layer.borderWidth = 1.0
+        cellA.lbloutofstock.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        cellA.lbloutofstock.layer.cornerRadius = 16.0
+        cellA.lbloutofstock.layer.masksToBounds = true
+
+        
         print("strin_cart",strin_cart)
         if strin_cart == "0"{
             print("NOT IN CART")
-            cellA.btnaddonce.isHidden = false
-            cellA.viewPlusMinus.isHidden = true
+            
+            if strstock == "0"{
+                //Out of stock
+                cellA.lbloutofstock.isHidden = false
+                cellA.btnaddonce.isHidden = true
+                cellA.viewPlusMinus.isHidden = true
+                cellA.lbloutofstock.text = strstock_status
+                
+            }else{
+                //in stock
+                cellA.lbloutofstock.isHidden = true
+                cellA.btnaddonce.isHidden = false
+                cellA.viewPlusMinus.isHidden = true
+            }
         }
         else{
             print("WITHIN CART")
-            cellA.btnaddonce.isHidden = true
-            cellA.viewPlusMinus.isHidden = false
-            cellA.txtMinusPlusCart.text = strin_cart
+            
+            if strstock == "0"{
+                //Out of stock
+                cellA.lbloutofstock.isHidden = false
+                cellA.btnaddonce.isHidden = true
+                cellA.viewPlusMinus.isHidden = true
+                cellA.lbloutofstock.text = strstock_status
+                
+            }else{
+                //in stock
+                cellA.lbloutofstock.isHidden = true
+                cellA.btnaddonce.isHidden = true
+                cellA.viewPlusMinus.isHidden = false
+                cellA.txtMinusPlusCart.text = strin_cart
+            }
         }
+        
         
         // Set up cell
         return cellA

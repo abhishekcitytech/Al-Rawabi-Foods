@@ -41,6 +41,7 @@
                 <outlet property="lblbenifitsHeader" destination="G8b-2j-yQ3" id="eUi-cS-YKL"/>
                 <outlet property="lblhowareratings" destination="T29-zH-Jt3" id="3KW-eb-6WM"/>
                 <outlet property="lblnutritionfactsHeader" destination="MTt-OE-y6N" id="Nr0-cy-ZPy"/>
+                <outlet property="lbloutofstock" destination="KvE-FE-xAG" id="i1A-hI-Wfy"/>
                 <outlet property="lblproductnametitle" destination="iRq-oW-olp" id="BJ7-Kd-g1m"/>
                 <outlet property="lblrelatedproducts" destination="Sac-du-3NT" id="vPo-mo-6gW"/>
                 <outlet property="lblselectsize" destination="N4a-y2-nXa" id="7h5-ku-4lO"/>
@@ -217,6 +218,14 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="21"/>
                                             <color key="textColor" name="themecolor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KvE-FE-xAG">
+                                            <rect key="frame" x="10" y="69" width="355" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>

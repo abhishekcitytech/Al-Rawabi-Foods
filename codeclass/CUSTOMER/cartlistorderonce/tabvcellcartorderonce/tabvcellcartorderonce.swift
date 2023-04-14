@@ -23,7 +23,7 @@ class tabvcellcartorderonce: UITableViewCell {
     
     @IBOutlet weak var btntrash: UIButton!
     
-    
+    @IBOutlet weak var lbloutofstock: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

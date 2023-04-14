@@ -544,6 +544,30 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.btntrash.tag = indexPath.section
         cell.btntrash.addTarget(self, action: #selector(pressRemove), for: .touchUpInside)
         
+        
+        //FIXMESTOCK
+        let strstock = String(format: "%@", dict.value(forKey: "stock") as! CVarArg)
+        let strstock_status = String(format: "%@", dict.value(forKey: "stock_status") as? String ?? "")
+        print("strstock",strstock)
+        print("strstock_status",strstock_status)
+        
+        cell.lbloutofstock.layer.borderWidth = 1.0
+        cell.lbloutofstock.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
+        cell.lbloutofstock.layer.cornerRadius = 14.0
+        cell.lbloutofstock.layer.masksToBounds = true
+        
+        if strstock == "0"{
+            //Out of stock
+            cell.lbloutofstock.isHidden = false
+            cell.viewplusminus.isHidden = true
+            cell.lbloutofstock.text = strstock_status
+            
+        }else{
+            //in stock
+            cell.lbloutofstock.isHidden = true
+            cell.viewplusminus.isHidden = false
+        }
+        
         return cell;
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -867,6 +891,19 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                                     self.btnclearall.isHidden = true
                                 }
                                 
+                            }
+                            
+                            
+                            let strout_of_stock_mark = String (format: "%@", json.value(forKey: "out_of_stock_mark")as! CVarArg)
+                            print("strout_of_stock_mark",strout_of_stock_mark)
+                            if strout_of_stock_mark == "1"{
+                                self.btnpaycheckout.isUserInteractionEnabled = false
+                                self.btnpaycheckout.backgroundColor = UIColor(named: "graybordercolor")!
+                                self.btnpaycheckout.setTitleColor(.darkGray, for: .normal)
+                            }else{
+                                self.btnpaycheckout.isUserInteractionEnabled = true
+                                self.btnpaycheckout.backgroundColor = UIColor(named: "greencolor")!
+                                self.btnpaycheckout.setTitleColor(.white, for: .normal)
                             }
                         }
                         else

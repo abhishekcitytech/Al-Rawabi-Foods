@@ -131,6 +131,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aq0-fH-V7c">
+                                <rect key="frame" x="8" y="304" width="184" height="38"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="NunitoSans-Regular" family="Nunito Sans" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZL-84-7PM">
                                 <rect key="frame" x="119" y="265" width="73" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES"/>
@@ -156,6 +164,7 @@
                 <outlet property="lblbrand" destination="Arc-az-dut" id="1ga-XL-4O5"/>
                 <outlet property="lblincludetax" destination="rZL-84-7PM" id="hPl-7g-qEu"/>
                 <outlet property="lblname" destination="fEf-Pq-2Gt" id="ybi-zc-wHq"/>
+                <outlet property="lbloutofstock" destination="Aq0-fH-V7c" id="o2R-oM-Ev6"/>
                 <outlet property="lblprice" destination="OP3-lu-jZ6" id="Jx0-cr-Df5"/>
                 <outlet property="lblqty" destination="Xgz-us-TEr" id="3ye-m4-Ebm"/>
                 <outlet property="txtMinusPlusCart" destination="zhe-PR-w7b" id="lZf-CR-7SM"/>
