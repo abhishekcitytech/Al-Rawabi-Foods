@@ -794,10 +794,22 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
                             {
                                 //NOT SELECTED ANY PAYMENT METHOD
                                 
-                                let dictemp = self.arrMpaymentmethodlist.object(at: 0)as? NSDictionary
+                                //BY DEFAULT CREDIT CARD PAYMENT SET ON PAGE LOAD
+                                for jj in 0 ..< self.arrMpaymentmethodlist.count
+                                {
+                                    let dictemp = self.arrMpaymentmethodlist.object(at: jj)as? NSDictionary
+                                    let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
+                                    let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
+                                    if strcode.containsIgnoreCase("ngeniusonline")
+                                    {
+                                        self.strselectedpaymentmethodID = strcode
+                                    }
+                                }
+                                
+                                /*let dictemp = self.arrMpaymentmethodlist.object(at: 0)as? NSDictionary
                                 let strcode = String(format: "%@", dictemp?.value(forKey: "code")as! CVarArg)
                                 let strtitle = String(format: "%@", dictemp?.value(forKey: "title")as? String ?? "")
-                                self.strselectedpaymentmethodID = strcode
+                                self.strselectedpaymentmethodID = strcode*/
                                 
                                 if self.strselectedpaymentmethodID.containsIgnoreCase("ngeniusonline")
                                 {

@@ -415,11 +415,11 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             self.arrMenu.add(dic10)
             
             //Disclaimer
-            let dic11 = NSMutableDictionary()
+            /*let dic11 = NSMutableDictionary()
             dic11.setValue("disclaimer", forKey: "image")
             dic11.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language285")), forKey: "value")
             dic11.setValue("", forKey: "id")
-            self.arrMenu.add(dic11)
+            self.arrMenu.add(dic11)*/
             
             //Whatsapp
             let dic12 = NSMutableDictionary()
@@ -500,11 +500,11 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             self.arrMenu.add(dic9)
             
             //Disclaimer
-            let dic10 = NSMutableDictionary()
+            /*let dic10 = NSMutableDictionary()
             dic10.setValue("disclaimer", forKey: "image")
             dic10.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language285")), forKey: "value")
             dic10.setValue("", forKey: "id")
-            self.arrMenu.add(dic10)
+            self.arrMenu.add(dic10)*/
             
             //Whatsapp
             let dic11 = NSMutableDictionary()
@@ -811,14 +811,14 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
                 ctrl.strcmsidentifier = "1005"
                 self.navigationController?.pushViewController(ctrl, animated: true)
             }
-            else if strplanname == myAppDelegate.changeLanguage(key: "msg_language285")
+            /*else if strplanname == myAppDelegate.changeLanguage(key: "msg_language285")
             {
                 //Disclaimer
                 let ctrl = cmspage(nibName: "cmspage", bundle: nil)
                 ctrl.strPagename = strplanname
                 ctrl.strcmsidentifier = "1006"
                 self.navigationController?.pushViewController(ctrl, animated: true)
-            }
+            }*/
             else if strplanname == myAppDelegate.changeLanguage(key: "msg_language279")
             {
                 var str = String(format: "%@",Constants.conn.STATICWEBSITEURL)
