@@ -40,6 +40,10 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
     
     var boolverifiedmobileno = false
     
+    
+    @IBOutlet weak var btnRemoveCustomerAccount: UIButton!
+    
+    
     // MARK: - Verify OTP record Back Delegate Method
     func savePreferences2(preferisget: Bool)
     {
@@ -110,8 +114,11 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
         btnverifynow.tag = 101
         
 
-        btnupdatesave.layer.cornerRadius = 16.0
+        btnupdatesave.layer.cornerRadius = 22.0
         btnupdatesave.layer.masksToBounds = true
+        
+        btnRemoveCustomerAccount.layer.cornerRadius = 22.0
+        btnRemoveCustomerAccount.layer.masksToBounds = true
         
         let toolbarDone = UIToolbar.init()
         toolbarDone.sizeToFit()
@@ -145,6 +152,8 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
         
         btnupdatesave.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language392")), for: .normal)
         
+        btnRemoveCustomerAccount.setTitle(String(format:"%@",myAppDelegate.changeLanguage(key: "msg_language417")), for: .normal)
+        
          let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
          if (strLangCode == "en")
          {
@@ -161,6 +170,24 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
     {
         txtmobile.resignFirstResponder()
     }
+    
+    //MARK: - press RemoveCustomerAccount Method
+    @IBAction func pressRemoveCustomerAccount(_ sender: Any)
+    {
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language418"), preferredStyle: UIAlertController.Style.alert)
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language50"), style: .default, handler: { [self] (action: UIAlertAction!) in
+            print("Handle Continue Logic here")
+            
+            self.removeCustomeraccountAPIMethod()
+
+        }))
+        refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
+    }
+    
     
     //MARK: - pressverifynow method
     @IBAction func pressverifynow(_ sender: Any)
@@ -513,6 +540,118 @@ class myprofile: BaseViewController,UIScrollViewDelegate,UITextFieldDelegate,Dat
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                            }))
+                        }
+                    }
+                }
+            }
+            catch {
+                //check for internal server data error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    self.view.activityStopAnimating()
+                }
+                print("Error -> \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: - Remove Customer account API Method
+    func removeCustomeraccountAPIMethod()
+    {
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        DispatchQueue.main.async {
+            self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
+        }
+        
+        let strcustomerid = UserDefaults.standard.value(forKey: "customerid")as? String ?? ""
+        print("strcustomerid",strcustomerid)
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        
+        var strconnurl = String()
+        strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod113,strLangCode)
+        let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("strconnurl",strconnurl)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
+            guard error == nil && data != nil else
+            {
+                //check for fundamental networking error
+                DispatchQueue.main.async {
+                    
+                    let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language271") , preferredStyle: UIAlertController.Style.alert)
+                    self.present(uiAlert, animated: true, completion: nil)
+                    uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                        print("Click of default button")
+                    }))
+                    
+                    self.view.activityStopAnimating()
+                }
+                print("Error=\(String(describing: error))")
+                return
+            }
+            do{
+                if let json = try JSONSerialization.jsonObject(with: data!) as? NSDictionary
+                {
+                    DispatchQueue.main.async {
+                        self.view.activityStopAnimating()
+                    }
+                
+                    let dictemp = json as NSDictionary
+                    print("dictemp --->",dictemp)
+                    
+                    let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
+                    let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
+                    let strmessage = dictemp.value(forKey: "message")as? String ?? ""
+                    //print("strstatus",strstatus)
+                    //print("strsuccess",strsuccess)
+                    //print("strmessage",strmessage)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if strsuccess == true
+                        {
+                            //myAppDelegate.changeLanguage(key: "msg_language421")
+                            let uiAlert = UIAlertController(title: "", message: strmessage , preferredStyle: UIAlertController.Style.alert)
+                            self.present(uiAlert, animated: true, completion: nil)
+                            uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
+                                print("Click of default button")
+                                
+                                UserDefaults.standard.removeObject(forKey: "bearertoken")
+                                UserDefaults.standard.synchronize()
+                                let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                                print("strbearertoken",strbearertoken)
+                                UserDefaults.standard.set(0, forKey: "subscribebyoncepopupshown")
+                                
+                                UserDefaults.standard.set("", forKey: "username_rememberme")
+                                UserDefaults.standard.set("", forKey: "password_rememberme")
+                                UserDefaults.standard.set("", forKey: "is_rememberme")
+                                
+                                UserDefaults.standard.synchronize()
+                                
+                                self.dismiss(animated: true, completion: nil)
+                                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                                appDelegate.tabSetting(type: "login")
+                                
+                            }))
+                        }
+                        else{
+                            let uiAlert = UIAlertController(title: "", message: strmessage, preferredStyle: UIAlertController.Style.alert)
                             self.present(uiAlert, animated: true, completion: nil)
                             uiAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language76"), style: .default, handler: { action in
                                 print("Click of default button")

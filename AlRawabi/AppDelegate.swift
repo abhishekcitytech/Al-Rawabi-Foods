@@ -191,6 +191,8 @@ struct Constants {
         static let apimethod110 = "cartClear/cartClear-api"
         static let apimethod111 = "homepageBottomBanner/homepageBottomBanner-api"
         static let apimethod112 = "subscriptionOrderStatusUpdate/subscriptionOrderStatusUpdate-api"
+        static let apimethod113 = "customerDeactive/customerDeactive-api"
+        
     }
 }
 
@@ -463,13 +465,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         self.tabBarController.tabBar.barTintColor =  UIColor(named: "themecolor")!
         UITabBar.appearance().tintColor = UIColor.gray
         
-        homeNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -20, right: 0)
-        subsriptionNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -20, right: 0)
-        orderonceNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -20, right: 0)
-        cartorderonceNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -20, right: 0)
-        menuNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -20, right: 0)
+        homeNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -10, right: 0)
+        subsriptionNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -10, right: 0)
+        orderonceNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -10, right: 0)
+        cartorderonceNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -10, right: 0)
+        menuNav.tabBarItem.imageInsets = UIEdgeInsets(top: 0 , left: 0, bottom: -10, right: 0)
         
-        UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: +10)
+        UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: +4)
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: "lightblue")!, NSAttributedString.Key.font : UIFont(name: "NunitoSans-Regular", size: 14) as Any], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font : UIFont(name: "NunitoSans-Bold", size: 14) as Any], for: .selected)
