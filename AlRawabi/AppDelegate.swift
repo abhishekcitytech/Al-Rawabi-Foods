@@ -25,10 +25,10 @@ struct Constants {
         //static let ConnUrl = "https://alrawabi.task2bill.com/index.php/rest/default/V1/"
         
         //MARK: - Web Service API URL - UAT
-        //static let ConnUrl = "https://staging1.alrawabifoods.com/index.php/rest/default/V1/"
+        static let ConnUrl = "https://staging1.alrawabifoods.com/index.php/rest/default/V1/"
         
         //MARK: - Web Service API URL - LIVE
-        static let ConnUrl = "https://www.alrawabifoods.com/index.php/rest/default/V1/"
+        //static let ConnUrl = "https://www.alrawabifoods.com/index.php/rest/default/V1/"
         
         //MARK: - GOOGLE PLACE API KEY
         static let GoogleAPIKey = "AIzaSyB0HROT7zT3VgKKv7oAEbvkyD_J0ErZ6RQ"
