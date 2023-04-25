@@ -610,52 +610,75 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         }
         else
         {
-            let strplanname = arrMplan.object(at: indexPath.section) as? String ?? ""
+            let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
             
-            let cell = tabvplan.cellForRow(at: indexPath)as! tabvcellplan
-            
-            cell.lblselect.text = myAppDelegate.changeLanguage(key: "msg_language57")
-            cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
-            cell.lbl1.textColor = .white
-            cell.lbl2.textColor = .white
-            cell.lblselect.textColor = .white
-            cell.lblselect.layer.cornerRadius = 14.0
-            cell.lblselect.layer.borderWidth = 1.0
-            cell.lblselect.layer.borderColor = UIColor.white.cgColor
-            cell.lblselect.layer.masksToBounds = true
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                // your code here
+            if strbearertoken != ""
+            {
                 
-                if strplanname == "Daily"
-                {
-                    self.strSelectedplanCurrently = "1"
-                    self.insertSubscriptionmodelTable(strplanname: "Daily", strplanid: "1")
-                    
-                    let ctrl = subscriptionmodel(nibName: "subscriptionmodel", bundle: nil)
-                    ctrl.strplanname = strplanname
-                    self.navigationController?.pushViewController(ctrl, animated: true)
-                }
-                else if strplanname == "Weekly"
-                {
-                    self.strSelectedplanCurrently = "2"
-                    self.insertSubscriptionmodelTable(strplanname: "Weekly", strplanid: "2")
-                    
-                    let ctrl = subscriptionmodelweekly(nibName: "subscriptionmodelweekly", bundle: nil)
-                    ctrl.strplanname = strplanname
-                    self.navigationController?.pushViewController(ctrl, animated: true)
-                }
-                else if strplanname == "Monthly"
-                {
-                    self.strSelectedplanCurrently = "3"
-                    self.insertSubscriptionmodelTable(strplanname: "Monthly", strplanid: "3")
-                    
-                    let ctrl = subscriptionmodelmonthly(nibName: "subscriptionmodelmonthly", bundle: nil)
-                    ctrl.strplanname = strplanname
-                    self.navigationController?.pushViewController(ctrl, animated: true)
-                }
+                let strplanname = arrMplan.object(at: indexPath.section) as? String ?? ""
                 
+                let cell = tabvplan.cellForRow(at: indexPath)as! tabvcellplan
+                
+                cell.lblselect.text = myAppDelegate.changeLanguage(key: "msg_language57")
+                cell.viewcell.backgroundColor = UIColor(named: "greencolor")!
+                cell.lbl1.textColor = .white
+                cell.lbl2.textColor = .white
+                cell.lblselect.textColor = .white
+                cell.lblselect.layer.cornerRadius = 14.0
+                cell.lblselect.layer.borderWidth = 1.0
+                cell.lblselect.layer.borderColor = UIColor.white.cgColor
+                cell.lblselect.layer.masksToBounds = true
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    // your code here
+                    
+                    if strplanname == "Daily"
+                    {
+                        self.strSelectedplanCurrently = "1"
+                        self.insertSubscriptionmodelTable(strplanname: "Daily", strplanid: "1")
+                        
+                        let ctrl = subscriptionmodel(nibName: "subscriptionmodel", bundle: nil)
+                        ctrl.strplanname = strplanname
+                        self.navigationController?.pushViewController(ctrl, animated: true)
+                    }
+                    else if strplanname == "Weekly"
+                    {
+                        self.strSelectedplanCurrently = "2"
+                        self.insertSubscriptionmodelTable(strplanname: "Weekly", strplanid: "2")
+                        
+                        let ctrl = subscriptionmodelweekly(nibName: "subscriptionmodelweekly", bundle: nil)
+                        ctrl.strplanname = strplanname
+                        self.navigationController?.pushViewController(ctrl, animated: true)
+                    }
+                    else if strplanname == "Monthly"
+                    {
+                        self.strSelectedplanCurrently = "3"
+                        self.insertSubscriptionmodelTable(strplanname: "Monthly", strplanid: "3")
+                        
+                        let ctrl = subscriptionmodelmonthly(nibName: "subscriptionmodelmonthly", bundle: nil)
+                        ctrl.strplanname = strplanname
+                        self.navigationController?.pushViewController(ctrl, animated: true)
+                    }
+                    
+                }
             }
+            else
+            {
+                //FIXMELOGINCHECK
+                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language510"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language511"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                    print("Handle Continue Logic here")
+                    let obj = loginclass(nibName: "loginclass", bundle: nil)
+                    obj.strislogin = "100"
+                    self.navigationController?.pushViewController(obj, animated: true)
+                }))
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                    print("Handle Cancel Logic here")
+                }))
+                self.present(refreshAlert, animated: true, completion: nil)
+            }
+            
         }
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath)

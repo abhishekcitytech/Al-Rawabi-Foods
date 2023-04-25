@@ -1053,6 +1053,13 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                              
                             //SET NUTRITION FACTS DESCRIPTION
                             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+                            
+                            var webV = WKWebView()
+                            if webV.tag == 1001{
+                                webV.tag = 0
+                                webV.removeFromSuperview()
+                            }
+                            
                             if (strLangCode == "en")
                             {
                                 self.txtvshortdescription.attributedText = strshortdesc.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "left")
@@ -1070,7 +1077,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 //self.txtvnutritionfacts.attributedText = strnutrition_facts.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "center")
                                 
                                 self.txtvnutritionfacts.backgroundColor = .clear
-                                let webV:WKWebView = WKWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
+                                webV = WKWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
                                 webV.loadHTMLString(strnutrition_facts, baseURL: nil)
                                 webV.uiDelegate = self;
                                 webV.isOpaque = false
@@ -1079,8 +1086,9 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 webV.scrollView.bounces = false
                                 webV.allowsBackForwardNavigationGestures = false
                                 webV.contentMode = .scaleToFill
+                                webV.tag = 1001
                                 webV.navigationDelegate = self
-                                webV.bringSubviewToFront(self.viewbenifits)
+                                webV.bringSubviewToFront(self.viewnutritionfacts)
                                 self.txtvnutritionfacts.addSubview(webV)
                             }
                             else
@@ -1100,7 +1108,7 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 //self.txtvnutritionfacts.attributedText = strnutrition_facts.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "center")
                                 
                                 self.txtvnutritionfacts.backgroundColor = .clear
-                                let webV:WKWebView = WKWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
+                                webV = WKWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
                                 webV.loadHTMLString(strnutrition_facts, baseURL: nil)
                                 webV.uiDelegate = self;
                                 webV.isOpaque = false
@@ -1109,8 +1117,9 @@ class subscriptionproductdetails: BaseViewController,UIScrollViewDelegate,ImageS
                                 webV.scrollView.bounces = false
                                 webV.allowsBackForwardNavigationGestures = false
                                 webV.contentMode = .scaleToFill
+                                webV.tag = 1001
                                 webV.navigationDelegate = self
-                                webV.bringSubviewToFront(self.viewbenifits)
+                                webV.bringSubviewToFront(self.viewnutritionfacts)
                                 self.txtvnutritionfacts.addSubview(webV)
                             }
                             

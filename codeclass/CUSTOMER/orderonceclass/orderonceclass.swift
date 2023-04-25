@@ -756,6 +756,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         if strin_cart == "0"{
             print("NOT IN CART")
             
+            
             if strstock == "0"{
                 //Out of stock
                 cellA.lbloutofstock.isHidden = false
@@ -773,6 +774,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         else{
             print("WITHIN CART")
             
+            
             if strstock == "0"{
                 //Out of stock
                 cellA.lbloutofstock.isHidden = false
@@ -787,6 +789,17 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                 cellA.viewPlusMinus.isHidden = false
                 cellA.txtMinusPlusCart.text = strin_cart
             }
+        }
+        
+        //FIXMELOGINCHECK
+        print("strbearertoken",strbearertoken)
+        if strbearertoken == ""{
+           
+            cellA.btnfav.isHidden = true
+            cellA.btnaddtocart.isHidden = false
+            cellA.viewPlusMinus.isHidden = true
+            
+            //cellA.btnaddtocart.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language512")), for: .normal)
         }
         
         // Set up cell
@@ -939,10 +952,29 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
     //MARK: - press Add To Cart Method
     @objc func pressAddtoCart(sender:UIButton)
     {
-        let dict = arrMproducts.object(at: sender.tag)as? NSDictionary
-        let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
-        
-        self.postAddToCartApiMethod(strqty: "1", strproductid: strproductid)
+        //FIXMELOGINCHECK
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        if strbearertoken == ""{
+            
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language510"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language511"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Continue Logic here")
+                let obj = loginclass(nibName: "loginclass", bundle: nil)
+                obj.strislogin = "100"
+                self.navigationController?.pushViewController(obj, animated: true)
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
+        }
+        else{
+            let dict = arrMproducts.object(at: sender.tag)as? NSDictionary
+            let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+            self.postAddToCartApiMethod(strqty: "1", strproductid: strproductid)
+        }
     }
     
     //MARK: - press Add To Wishlist Method

@@ -155,7 +155,14 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
         
-        self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+        
+        //FIXMELOGINCHECK
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        if strbearertoken != ""{
+            self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+        }
+        
         
         self.viewoverall.isHidden = true
         
@@ -500,10 +507,31 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
     //MARK: -  press Addonce  method
     @IBAction func pressaddonce(_ sender: Any) {
         
+        //FIXMELOGINCHECK
         if strFrompageIdentifier == "1001"
         {
-            //FROM CATEGORY PAGE BUY ONCE CASE
-            self.postAddToCartApiMethod(strqty: "1", strproductid: strSelectedProductID)
+            let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+            print("strbearertoken",strbearertoken)
+            if strbearertoken != ""{
+                //FROM CATEGORY PAGE BUY ONCE CASE
+                self.postAddToCartApiMethod(strqty: "1", strproductid: strSelectedProductID)
+            }
+            else{
+                
+                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language510"), preferredStyle: UIAlertController.Style.alert)
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language511"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                    print("Handle Continue Logic here")
+                    let obj = loginclass(nibName: "loginclass", bundle: nil)
+                    obj.strislogin = "100"
+                    self.navigationController?.pushViewController(obj, animated: true)
+                }))
+                refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                    print("Handle Cancel Logic here")
+                }))
+                self.present(refreshAlert, animated: true, completion: nil)
+            }
+            
         }
     }
     
@@ -1027,6 +1055,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                             {
                                 //Already added int to cart with quantity
                                 
+                                
                                 if strstock == "0"{
                                     //Out of stock
                                     self.lbloutofstock.isHidden = false
@@ -1048,6 +1077,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                             else
                             {
                                 //no product int to cart with quantity
+                              
                                 
                                 if strstock == "0"{
                                     //Out of stock
@@ -1067,6 +1097,21 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                                 }
                                 
                                 
+                            }
+                            
+                            
+                            print("strbearertoken",strbearertoken)
+                            if strbearertoken == ""{
+                                
+                            
+                                self.btnaddtowishlisticon.isHidden = true
+                                self.btnshareoption.isHidden = true
+                                self.btnwriteyourreview.isHidden = true
+                                self.btnaddonce.isHidden = false
+                                self.viewPlusMinus.isHidden = true
+                                self.btnviewallreveiw.isHidden = true
+                                
+                                //self.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language512")), for: .normal)
                             }
                             
                             
@@ -1283,6 +1328,12 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                             
                             
                             //SET NUTRITION FACTS DESCRIPTION
+                            var webV = WKWebView()
+                            if webV.tag == 1001{
+                                webV.tag = 0
+                                webV.removeFromSuperview()
+                            }
+                            
                             let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
                             if (strLangCode == "en")
                             {
@@ -1301,7 +1352,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                                 //self.txtvnutritionfacts.attributedText = strnutrition_facts.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "center")
                                 
                                 self.txtvnutritionfacts.backgroundColor = .clear
-                                let webV:WKWebView = WKWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
+                                webV = WKWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
                                 webV.loadHTMLString(strnutrition_facts, baseURL: nil)
                                 webV.uiDelegate = self;
                                 webV.isOpaque = false
@@ -1310,8 +1361,9 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                                 webV.scrollView.bounces = false
                                 webV.allowsBackForwardNavigationGestures = false
                                 webV.contentMode = .scaleToFill
+                                webV.tag = 1001
                                 webV.navigationDelegate = self
-                                webV.bringSubviewToFront(self.viewbenifits)
+                                webV.bringSubviewToFront(self.viewnutritionfacts)
                                 self.txtvnutritionfacts.addSubview(webV)
 
                             }
@@ -1333,7 +1385,7 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                                 //self.txtvnutritionfacts.attributedText = strnutrition_facts.convertHtmlToAttributedStringWithCSS(font: UIFont(name: "NunitoSans-Regular", size: 13), csscolor: "black", lineheight: 2, csstextalign: "center")
                                 
                                 self.txtvnutritionfacts.backgroundColor = .clear
-                                let webV:WKWebView = WKWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
+                                webV = WKWebView(frame: CGRectMake(0, 0, self.txtvnutritionfacts.bounds.width, self.txtvnutritionfacts.bounds.height))
                                 webV.loadHTMLString(strnutrition_facts, baseURL: nil)
                                 webV.uiDelegate = self;
                                 webV.isOpaque = false
@@ -1342,8 +1394,9 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                                 webV.scrollView.bounces = false
                                 webV.allowsBackForwardNavigationGestures = false
                                 webV.contentMode = .scaleToFill
+                                webV.tag = 1001
                                 webV.navigationDelegate = self
-                                webV.bringSubviewToFront(self.viewbenifits)
+                                webV.bringSubviewToFront(self.viewnutritionfacts)
                                 self.txtvnutritionfacts.addSubview(webV)
                                 
                             }
@@ -1373,7 +1426,9 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                                 
                             }
                             
+                            //FIXMELOGINCHECK
                             self.getOrderOnceCartCountAPIMethod()
+                            
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
@@ -1990,7 +2045,13 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                                     (myAppDelegate.tabBarController.tabBar.items![1] ).badgeValue = String(format: "%d", strcount)
                                 }
                                 
-                                self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
+                                //FIXMELOGINCHECK
+                                let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                                print("strbearertoken",strbearertoken)
+                                if strbearertoken != ""{
+                                    self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
+                                }
+                                
                             }
                             else{
                                 print("Not found!")//
@@ -2005,7 +2066,14 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                                 }else{
                                     (myAppDelegate.tabBarController.tabBar.items![1] ).badgeValue = ""
                                 }
-                                 self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                
+                                //FIXMELOGINCHECK
+                                let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                                print("strbearertoken",strbearertoken)
+                                if strbearertoken != ""{
+                                    self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                }
+                                 
                                 
                             }
                             

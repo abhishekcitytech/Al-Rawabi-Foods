@@ -113,7 +113,27 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
         
         self.viewoverall.isHidden = true
-        self.postCartlistOrderonceAPIMethod()
+        
+        
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        if strbearertoken != ""{
+            self.postCartlistOrderonceAPIMethod()
+        }else{
+            //FIXMELOGINCHECK
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language510"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language511"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Continue Logic here")
+                let obj = loginclass(nibName: "loginclass", bundle: nil)
+                obj.strislogin = "100"
+                self.navigationController?.pushViewController(obj, animated: true)
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
+        }
+        
     }
     
     //MARK: - viewDidLoad Method

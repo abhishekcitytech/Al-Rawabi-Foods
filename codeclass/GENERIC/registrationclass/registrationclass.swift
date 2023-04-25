@@ -729,6 +729,12 @@ class registrationclass: BaseViewController,UIScrollViewDelegate,UITextFieldDele
     //MARK: - post Login API method
     func postLoginAPImethod()
     {
+        //FIXMELOGINCHECK
+        UserDefaults.standard.removeObject(forKey: "bearertokenmaid")
+        UserDefaults.standard.synchronize()
+        UserDefaults.standard.removeObject(forKey: "bearertoken")
+        UserDefaults.standard.synchronize()
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)

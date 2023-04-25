@@ -9,6 +9,9 @@ import UIKit
 
 class loginclass: UIViewController,UITextFieldDelegate
 {
+    
+    var strislogin = ""
+    
     @IBOutlet weak var viewoverall: UIView!
     
     @IBOutlet weak var scrollviewoverall: UIScrollView!
@@ -94,6 +97,8 @@ class loginclass: UIViewController,UITextFieldDelegate
             //txtusername.text = ""
             //txtpassword.text = ""
         }
+        
+        
     }
     
     // MARK: - viewDidLoad method
@@ -136,6 +141,27 @@ class loginclass: UIViewController,UITextFieldDelegate
         self.btnhideshowpassword.isSelected = false
         self.txtpassword.isSecureTextEntry = true
         
+        if strislogin == "100"
+        {
+            //Create Back Button
+            let yourBackImage = UIImage(named: "homeiconback")
+            let Back = UIBarButtonItem(image: yourBackImage, style: .plain, target: self, action: #selector(pressBack))
+            Back.tintColor = UIColor.black
+            self.navigationItem.leftBarButtonItem = Back
+        }
+        
+    }
+    
+    //MARK: - press Back Button IF Login Try from Guest user scenario Method
+    @objc func pressBack(sender:UIButton)
+    {
+        self.dismiss(animated: true, completion: nil)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.tabBarController?.tabBar.isHidden = false
+        //appDelegate.tabSetting(type: "login")
+        appDelegate.tabSetting(type: "home")
+        
+        //self.navigationController?.popViewController(animated: true)
     }
     
     //MARK: - press Segment Language Method
@@ -425,6 +451,12 @@ class loginclass: UIViewController,UITextFieldDelegate
     //MARK: - post Login API method
     func postLoginAPImethod()
     {
+        //FIXMELOGINCHECK
+        UserDefaults.standard.removeObject(forKey: "bearertokenmaid")
+        UserDefaults.standard.synchronize()
+        UserDefaults.standard.removeObject(forKey: "bearertoken")
+        UserDefaults.standard.synchronize()
+        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)

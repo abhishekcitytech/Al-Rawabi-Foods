@@ -516,3 +516,6 @@
 "msg_language507" = "Please enter your Landmark";
 "msg_language508" = "Reset";
 "msg_language509" = "The password needs at least 6 characters";
+"msg_language510" = "Please login to access this feature";
+"msg_language511" = "Continue to login";
+"msg_language512" = "CLICK TO LOGIN";

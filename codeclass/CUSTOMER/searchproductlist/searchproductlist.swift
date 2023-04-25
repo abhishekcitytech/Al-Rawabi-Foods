@@ -67,7 +67,12 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
         back.tintColor = UIColor.black
         self.navigationItem.leftBarButtonItem = back
         
-        self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        if strbearertoken != ""{
+            self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+        }
+        
         
         self.viewfloatcart.backgroundColor = .clear
         self.lblfloatcartcount.layer.cornerRadius = self.lblfloatcartcount.frame.self.width / 2.0
@@ -429,6 +434,7 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
         if strin_cart == "0"{
             print("NOT IN CART")
             
+            
             if strstock == "0"{
                 //Out of stock
                 cellA.lbloutofstock.isHidden = false
@@ -446,6 +452,7 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
         else{
             print("WITHIN CART")
             
+            
             if strstock == "0"{
                 //Out of stock
                 cellA.lbloutofstock.isHidden = false
@@ -460,6 +467,19 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
                 cellA.viewPlusMinus.isHidden = false
                 cellA.txtMinusPlusCart.text = strin_cart
             }
+        }
+        
+        
+        //FIXMELOGINCHECK
+        print("strbearertoken",strbearertoken)
+        if strbearertoken == ""{
+            
+            
+            cellA.btnfav.isHidden = true
+            cellA.btnaddonce.isHidden = false
+            cellA.viewPlusMinus.isHidden = true
+            
+            //cellA.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language512")), for: .normal)
         }
         
         // Set up cell
@@ -594,9 +614,30 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
     //MARK: - press Add Once Method
     @objc func pressaddonce(sender:UIButton)
     {
-        let dict = arrMCategorywiseProductlist.object(at: sender.tag)as? NSDictionary
-        let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
-        self.postAddToCartApiMethod(strqty: "1", strproductid: strproductid)
+        //FIXMELOGINCHECK
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        if strbearertoken == ""{
+            
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language510"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language511"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Continue Logic here")
+                let obj = loginclass(nibName: "loginclass", bundle: nil)
+                obj.strislogin = "100"
+                self.navigationController?.pushViewController(obj, animated: true)
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
+        }
+        else{
+            let dict = arrMCategorywiseProductlist.object(at: sender.tag)as? NSDictionary
+            let strproductid = String(format: "%@", dict!.value(forKey: "id") as! CVarArg)
+            self.postAddToCartApiMethod(strqty: "1", strproductid: strproductid)
+        }
+        
     }
     
 
@@ -1294,7 +1335,12 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
                                     (myAppDelegate.tabBarController.tabBar.items![1] ).badgeValue = String(format: "%d", strcount)
                                 }
                                 
-                                self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
+                                let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                                print("strbearertoken",strbearertoken)
+                                if strbearertoken != ""{
+                                    self.setupRightBarCartBagDesignMethod(intcountOrder: strcount)
+                                }
+                                
                             }
                             else{
                                 print("Not found!")//
@@ -1309,7 +1355,13 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
                                 }else{
                                     (myAppDelegate.tabBarController.tabBar.items![1] ).badgeValue = ""
                                 }
-                                 self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                
+                                let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                                print("strbearertoken",strbearertoken)
+                                if strbearertoken != ""{
+                                    self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+                                }
+                                 
                                 
                             }
                             

@@ -810,90 +810,155 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     }
     @IBAction func pressSubscriptionpopupDaily(_ sender: Any)
     {
-        UserDefaults.standard.set(1, forKey: "subscribebyoncepopupshown")
-        UserDefaults.standard.synchronize()
-        self.viewpopupSubscribe.removeFromSuperview()
-        viewPopupAddNewExistingBG123.removeFromSuperview()
-        
-        
-        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-        if (strLangCode == "en")
+        //FIXMELOGINCHECK
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        if strbearertoken != ""
         {
-            self.tabBarController?.selectedIndex = 1
+            UserDefaults.standard.set(1, forKey: "subscribebyoncepopupshown")
+            UserDefaults.standard.synchronize()
+            self.viewpopupSubscribe.removeFromSuperview()
+            viewPopupAddNewExistingBG123.removeFromSuperview()
             
-            let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
-            let SV = navVC.topViewController as! subsriptionclass
-            SV.strpreSelectedplanfromHome = "Daily"
-            let appDel = UIApplication.shared.delegate as! AppDelegate
-            appDel.strSelectedPLAN = "Daily"
+            
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.tabBarController?.selectedIndex = 1
+                
+                let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
+                let SV = navVC.topViewController as! subsriptionclass
+                SV.strpreSelectedplanfromHome = "Daily"
+                let appDel = UIApplication.shared.delegate as! AppDelegate
+                appDel.strSelectedPLAN = "Daily"
+            }
+            else
+            {
+                self.tabBarController?.selectedIndex = 3
+                
+                let navVC = self.tabBarController!.viewControllers![3] as! UINavigationController
+                let SV = navVC.topViewController as! subsriptionclass
+                SV.strpreSelectedplanfromHome = "Daily"
+                let appDel = UIApplication.shared.delegate as! AppDelegate
+                appDel.strSelectedPLAN = "Daily"
+            }
+            
         }
-        else
-        {
-            self.tabBarController?.selectedIndex = 3
-            
-            let navVC = self.tabBarController!.viewControllers![3] as! UINavigationController
-            let SV = navVC.topViewController as! subsriptionclass
-            SV.strpreSelectedplanfromHome = "Daily"
-            let appDel = UIApplication.shared.delegate as! AppDelegate
-            appDel.strSelectedPLAN = "Daily"
+        else{
+            //FIXMELOGINCHECK
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language510"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language511"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Continue Logic here")
+                let obj = loginclass(nibName: "loginclass", bundle: nil)
+                obj.strislogin = "100"
+                self.navigationController?.pushViewController(obj, animated: true)
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
         }
     }
     @IBAction func pressSubscriptionpopupWeekly(_ sender: Any)
     {
-        UserDefaults.standard.set(1, forKey: "subscribebyoncepopupshown")
-        UserDefaults.standard.synchronize()
-        self.viewpopupSubscribe.removeFromSuperview()
-        viewPopupAddNewExistingBG123.removeFromSuperview()
+        //FIXMELOGINCHECK
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        if strbearertoken != ""
+        {
+            UserDefaults.standard.set(1, forKey: "subscribebyoncepopupshown")
+            UserDefaults.standard.synchronize()
+            self.viewpopupSubscribe.removeFromSuperview()
+            viewPopupAddNewExistingBG123.removeFromSuperview()
+            
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.tabBarController?.selectedIndex = 1
+                
+                let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
+                let SV = navVC.topViewController as! subsriptionclass
+                SV.strpreSelectedplanfromHome = "Weekly"
+                let appDel = UIApplication.shared.delegate as! AppDelegate
+                appDel.strSelectedPLAN = "Weekly"
+            }
+            else
+            {
+                self.tabBarController?.selectedIndex = 3
+                
+                let navVC = self.tabBarController!.viewControllers![3] as! UINavigationController
+                let SV = navVC.topViewController as! subsriptionclass
+                SV.strpreSelectedplanfromHome = "Weekly"
+                let appDel = UIApplication.shared.delegate as! AppDelegate
+                appDel.strSelectedPLAN = "Weekly"
+            }
+            
+        }
+        else{
+            //FIXMELOGINCHECK
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language510"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language511"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Continue Logic here")
+                let obj = loginclass(nibName: "loginclass", bundle: nil)
+                obj.strislogin = "100"
+                self.navigationController?.pushViewController(obj, animated: true)
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
+        }
         
-        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-        if (strLangCode == "en")
-        {
-            self.tabBarController?.selectedIndex = 1
-            
-            let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
-            let SV = navVC.topViewController as! subsriptionclass
-            SV.strpreSelectedplanfromHome = "Weekly"
-            let appDel = UIApplication.shared.delegate as! AppDelegate
-            appDel.strSelectedPLAN = "Weekly"
-        }
-        else
-        {
-            self.tabBarController?.selectedIndex = 3
-            
-            let navVC = self.tabBarController!.viewControllers![3] as! UINavigationController
-            let SV = navVC.topViewController as! subsriptionclass
-            SV.strpreSelectedplanfromHome = "Weekly"
-            let appDel = UIApplication.shared.delegate as! AppDelegate
-            appDel.strSelectedPLAN = "Weekly"
-        }
+        
     }
     @IBAction func pressSubscriptionpopupMonthly(_ sender: Any)
     {
-        UserDefaults.standard.set(1, forKey: "subscribebyoncepopupshown")
-        UserDefaults.standard.synchronize()
-        self.viewpopupSubscribe.removeFromSuperview()
-        viewPopupAddNewExistingBG123.removeFromSuperview()
-        
-        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
-        if (strLangCode == "en")
+        //FIXMELOGINCHECK
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        if strbearertoken != ""
         {
-            self.tabBarController?.selectedIndex = 1
+            UserDefaults.standard.set(1, forKey: "subscribebyoncepopupshown")
+            UserDefaults.standard.synchronize()
+            self.viewpopupSubscribe.removeFromSuperview()
+            viewPopupAddNewExistingBG123.removeFromSuperview()
             
-            let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
-            let SV = navVC.topViewController as! subsriptionclass
-            SV.strpreSelectedplanfromHome = "Monthly"
-            let appDel = UIApplication.shared.delegate as! AppDelegate
-            appDel.strSelectedPLAN = "Monthly"
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                self.tabBarController?.selectedIndex = 1
+                
+                let navVC = self.tabBarController!.viewControllers![1] as! UINavigationController
+                let SV = navVC.topViewController as! subsriptionclass
+                SV.strpreSelectedplanfromHome = "Monthly"
+                let appDel = UIApplication.shared.delegate as! AppDelegate
+                appDel.strSelectedPLAN = "Monthly"
+            }
+            else
+            {
+                self.tabBarController?.selectedIndex = 3
+                
+                let navVC = self.tabBarController!.viewControllers![3] as! UINavigationController
+                let SV = navVC.topViewController as! subsriptionclass
+                SV.strpreSelectedplanfromHome = "Monthly"
+                let appDel = UIApplication.shared.delegate as! AppDelegate
+                appDel.strSelectedPLAN = "Monthly"
+            }
+            
         }
-        else
-        {
-            self.tabBarController?.selectedIndex = 3
-            
-            let navVC = self.tabBarController!.viewControllers![3] as! UINavigationController
-            let SV = navVC.topViewController as! subsriptionclass
-            SV.strpreSelectedplanfromHome = "Monthly"
-            let appDel = UIApplication.shared.delegate as! AppDelegate
-            appDel.strSelectedPLAN = "Monthly"
+        else{
+            //FIXMELOGINCHECK
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language510"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language511"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Continue Logic here")
+                let obj = loginclass(nibName: "loginclass", bundle: nil)
+                obj.strislogin = "100"
+                self.navigationController?.pushViewController(obj, animated: true)
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
         }
         
     }
@@ -913,13 +978,13 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     @IBAction func pressinfoSubscriptionBuyoncePopup(_ sender: Any)
     {
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        
         //Please enter allowab lelocation
         let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language287") , preferredStyle: UIAlertController.Style.alert)
         self.present(uiAlert, animated: true, completion: nil)
         uiAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
             print("Click of default button")
         }))
+        
     }
     
     
@@ -1634,6 +1699,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         if strin_cart == "0"{
             print("NOT IN CART")
             
+            
             if strstock == "0"{
                 //Out of stock
                 cellA.lbloutofstock.isHidden = false
@@ -1650,6 +1716,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         }
         else{
             print("WITHIN CART")
+           
             
             if strstock == "0"{
                 //Out of stock
@@ -1665,6 +1732,18 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 cellA.viewPlusMinus.isHidden = false
                 cellA.txtMinusPlusCart.text = strin_cart
             }
+        }
+        
+        //FIXMELOGINCHECK
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        if strbearertoken == ""{
+           
+            cellA.btnfav.isHidden = true
+            cellA.btnaddonce.isHidden = false
+            cellA.viewPlusMinus.isHidden = true
+            
+            //cellA.btnaddonce.setTitle(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language512")), for: .normal)
         }
         
         
@@ -1883,9 +1962,28 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     //MARK: - press ADD TO CART TOP DEALS
     @objc func pressaddtocarttopdeals(sender:UIButton)
     {
-        let dict = arrMtopdeals.object(at: sender.tag) as! NSDictionary
-        let strproductid = String(format: "%@", dict.value(forKey: "productid") as! CVarArg)
-        self.postAddToCartApiMethod(strqty: "1", strproductid: strproductid)
+        //FIXMELOGINCHECK
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        if strbearertoken != ""{
+            let dict = arrMtopdeals.object(at: sender.tag) as! NSDictionary
+            let strproductid = String(format: "%@", dict.value(forKey: "productid") as! CVarArg)
+            self.postAddToCartApiMethod(strqty: "1", strproductid: strproductid)
+        }
+        else{
+            let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let refreshAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language510"), preferredStyle: UIAlertController.Style.alert)
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language511"), style: .default, handler: { [self] (action: UIAlertAction!) in
+                print("Handle Continue Logic here")
+                let obj = loginclass(nibName: "loginclass", bundle: nil)
+                obj.strislogin = "100"
+                self.navigationController?.pushViewController(obj, animated: true)
+            }))
+            refreshAlert.addAction(UIAlertAction(title: myAppDelegate.changeLanguage(key: "msg_language77"), style: .destructive, handler: { (action: UIAlertAction!) in
+                print("Handle Cancel Logic here")
+            }))
+            self.present(refreshAlert, animated: true, completion: nil)
+        }
     }
     
     //MARK: - get home page banner API method
@@ -2104,7 +2202,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod8)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "POST"
-        request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        if strbearertoken != ""{
+            request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")
+        }
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let jsonData : NSData = try! JSONSerialization.data(withJSONObject: parameters) as NSData
         let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
@@ -2126,7 +2226,16 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }))
                     
                     self.view.activityStopAnimating()
-                    self.getOrderOnceCartCountAPIMethod()
+                    
+                    //FIXMELOGINCHECK
+                    let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                    if strbearertoken != ""{
+                        self.getOrderOnceCartCountAPIMethod()
+                    }
+                    else{
+                        self.getBOTTOMBANNER1APIMethod()
+                    }
+                    
                 }
                 print("Error=\(String(describing: error))")
                 return
@@ -2139,7 +2248,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp topdeals--------------->",dictemp)
+                    print("dictemp topdeals--------------->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -2172,7 +2281,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             }))
                         }
                         
-                        self.getOrderOnceCartCountAPIMethod()
+                        //FIXMELOGINCHECK
+                        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                        if strbearertoken != ""{
+                            self.getOrderOnceCartCountAPIMethod()
+                        }
+                        else{
+                            self.getBOTTOMBANNER1APIMethod()
+                        }
+                        
                     }
                 }
             }
@@ -2187,7 +2304,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }))
                     
                     self.view.activityStopAnimating()
-                    self.getOrderOnceCartCountAPIMethod()
+                    
+                    //FIXMELOGINCHECK
+                    let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                    if strbearertoken != ""{
+                        self.getOrderOnceCartCountAPIMethod()
+                    }
+                    else{
+                        self.getBOTTOMBANNER1APIMethod()
+                    }
                 }
                 print("Error -> \(error)")
             }
@@ -2364,7 +2489,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                     
                     let dictemp = json as NSDictionary
-                    //print("dictemp --->",dictemp)
+                    print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -2783,7 +2908,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                     
                     let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
+                    //print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false
@@ -3145,7 +3270,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                     }
                     
                     let dictemp = json as NSDictionary
-                    print("dictemp --->",dictemp)
+                    //print("dictemp --->",dictemp)
                     
                     let strstatus = dictemp.value(forKey: "status")as? Int ?? 0
                     let strsuccess = dictemp.value(forKey: "success")as? Bool ?? false

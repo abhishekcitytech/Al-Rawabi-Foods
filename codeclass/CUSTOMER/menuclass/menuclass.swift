@@ -273,6 +273,24 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             
         }
         
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        if strbearertoken == ""
+        {
+            if (strLangCode == "en")
+            {
+                self.imgvaccount.isHidden = true
+                self.btnaccount.isHidden = true
+                
+            }
+            else{
+                self.imgvmenu.isHidden = true
+                self.btnaccount.isHidden = true
+                
+            }
+            
+        }
+        
     }
     
     //MARK: - press Menu Button Method
@@ -487,7 +505,7 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
             
             //Refund/ Return & Cancellation
             let dic8 = NSMutableDictionary()
-            dic8.setValue("refundreturncancel.", forKey: "image")
+            dic8.setValue("refundreturncancel", forKey: "image")
             dic8.setValue(String(format: "%@", myAppDelegate.changeLanguage(key: "msg_language283")), forKey: "value")
             dic8.setValue("", forKey: "id")
             self.arrMenu.add(dic8)
@@ -940,7 +958,8 @@ class menuclass: UIViewController,UITableViewDelegate,UITableViewDataSource,UITa
                     self.dismiss(animated: true, completion: nil)
                     
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.tabSetting(type: "login")
+                    //appDelegate.tabSetting(type: "login")
+                    appDelegate.tabSetting(type: "home")
                     // self.navigationController?.popToRootViewController(animated: true)
                     
                 }))
