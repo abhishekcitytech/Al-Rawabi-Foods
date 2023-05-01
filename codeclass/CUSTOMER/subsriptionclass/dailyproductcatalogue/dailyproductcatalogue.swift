@@ -70,8 +70,7 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.isHidden = false
         
-        fetchDataDailymodelTable()
-        postAllCategoryHomepageAPImethod()
+        
     }
     
     // MARK: - viewDidLoad method
@@ -99,6 +98,10 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         createCategoryGallery()
         
         createProductGallery()
+        
+        
+        fetchDataDailymodelTable()
+        postAllCategoryHomepageAPImethod()
         
     }
     
@@ -158,7 +161,14 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         {
             let dict = self.arrmcatlist.object(at: Int(strSelectedCat)!) as! NSDictionary
             let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
-            self.getProductListingAPIMethod(strselectedcategoryid: strid)
+            
+            if txtsearchbox.text == ""{
+                //Search bar is empty - Default category subcategory product will reload
+                self.getProductListingAPIMethod(strselectedcategoryid: strid)
+            }
+            else{
+                self.getProductListingAPIMethod(strselectedcategoryid: "")
+            }
         }
         
         textField.resignFirstResponder();
@@ -1929,7 +1939,13 @@ class dailyproductcatalogue: UIViewController,UITextFieldDelegate,UICollectionVi
         print("strsearchkeyword",strsearchkeyword)
         let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
         var strconnurl = String()
-        strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,strsearchkeyword,strSelectedSubCat,strLangCode)
+        if strselectedcategoryid == ""{
+            //ANONYMOUS SEARCH WILL PERFORM
+            strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,"",strsearchkeyword,"",strLangCode)
+        }
+        else{
+            strconnurl = String(format: "%@%@?categoryId=%@&product_name=%@&subCategoryId=%@&language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod10,strselectedcategoryid,strsearchkeyword,strSelectedSubCat,strLangCode)
+        }
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "GET"
         if strbearertoken != ""{

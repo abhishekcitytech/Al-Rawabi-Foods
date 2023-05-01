@@ -25,10 +25,10 @@ struct Constants {
         //static let ConnUrl = "https://alrawabi.task2bill.com/index.php/rest/default/V1/"
         
         //MARK: - Web Service API URL - UAT
-        //static let ConnUrl = "https://staging1.alrawabifoods.com/index.php/rest/default/V1/"
+        static let ConnUrl = "https://staging1.alrawabifoods.com/index.php/rest/default/V1/"
         
         //MARK: - Web Service API URL - LIVE
-        static let ConnUrl = "https://www.alrawabifoods.com/index.php/rest/default/V1/"
+        //static let ConnUrl = "https://www.alrawabifoods.com/index.php/rest/default/V1/"
         
         //MARK: - GOOGLE PLACE API KEY
         static let GoogleAPIKey = "AIzaSyB0HROT7zT3VgKKv7oAEbvkyD_J0ErZ6RQ"
@@ -217,6 +217,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         // Override point for customization after application launch.
+        
+        /*
+         post_install do |installer|
+           installer.pods_project.build_configurations.each do |config|
+             config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+           end
+         end*/
         
         GMSServices.provideAPIKey("AIzaSyB0HROT7zT3VgKKv7oAEbvkyD_J0ErZ6RQ")
         

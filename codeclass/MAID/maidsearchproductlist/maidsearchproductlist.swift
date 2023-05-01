@@ -40,7 +40,7 @@ class maidsearchproductlist: UIViewController,UITextFieldDelegate,UICollectionVi
         
         setupRTLLTR()
         
-        self.getProductListingFromCategoryIDAPIMethod(strkeywrod: "")
+        
     }
     
     // MARK: - viewDidLoad Method
@@ -112,6 +112,8 @@ class maidsearchproductlist: UIViewController,UITextFieldDelegate,UICollectionVi
         colproductlist.register(UINib(nibName: "colcelltopdeals", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)
         colproductlist.showsVerticalScrollIndicator = false
         colproductlist.showsHorizontalScrollIndicator = false
+        
+        self.getProductListingFromCategoryIDAPIMethod(strkeywrod: "")
     }
     
     //MARK: - press back method

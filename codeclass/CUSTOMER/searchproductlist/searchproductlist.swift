@@ -46,7 +46,7 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
         
         setupRTLLTR()
         
-        self.getProductListingFromCategoryIDAPIMethod(strkeywrod: "")
+        
     }
     
     // MARK: - viewDidLoad Method
@@ -131,6 +131,8 @@ class searchproductlist: UIViewController,UITextFieldDelegate,UICollectionViewDe
         colproductlist.register(UINib(nibName: "colcelltopdeals", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier1)
         colproductlist.showsVerticalScrollIndicator = false
         colproductlist.showsHorizontalScrollIndicator = false
+        
+        self.getProductListingFromCategoryIDAPIMethod(strkeywrod: "")
     }
     
     

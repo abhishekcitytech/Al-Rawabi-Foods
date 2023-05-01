@@ -252,6 +252,10 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             //self.navigationItem.rightBarButtonItem = search
         }
         
+
+        let accounticon = UIBarButtonItem(image: UIImage(named: "accounticon"), style: .plain, target: self, action: #selector(pressAccount))
+        accounticon.tintColor = UIColor(named: "themecolor")!
+        self.navigationItem.rightBarButtonItem = accounticon
         
         
         print("self.viewoverall.bounds.size.height",self.viewoverall.bounds.size.height)
@@ -301,6 +305,31 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
     {
         let ctrl = cartlistorderonce(nibName: "cartlistorderonce", bundle: nil)
         self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    
+    
+    //MARK: - press Account Method
+    @objc func pressAccount()
+    {
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        if strbearertoken == ""{
+            let obj = loginclass(nibName: "loginclass", bundle: nil)
+            obj.strislogin = "100"
+            self.navigationController?.pushViewController(obj, animated: true)
+        }
+        else{
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                myAppDelegate.tabBarController.selectedIndex = 4
+            }
+            else{
+                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                myAppDelegate.tabBarController.selectedIndex = 0
+            }
+        }
     }
     
     //MARK: - setup RTL LTR method

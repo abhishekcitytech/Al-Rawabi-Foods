@@ -429,7 +429,7 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
             //IF FOR FISTIMEPAGE LOAD ONLY THEN IT WILL AUTOMATICALLY CHECK CURRENT DEVICE LATITUDE LONGITUDE AREA WITH POLYGON AREA
             self.performPlaceidFromLatLong(strlat: String(format: "%0.10f", self.strsearchlat), strlong: String(format: "%0.10f", self.strsearchlng))
             
-            let camera = GMSCameraPosition.camera(withLatitude:self.strsearchlat, longitude: self.strsearchlng, zoom: 15)
+            let camera = GMSCameraPosition.camera(withLatitude:self.strsearchlat, longitude: self.strsearchlng, zoom: 18)
             self.mapview.camera = camera
             
             boolSIRSTTMEPAGELOAD = true

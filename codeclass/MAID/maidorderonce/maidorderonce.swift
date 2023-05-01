@@ -66,8 +66,7 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         
         setupRTLLTR()
         
-        createCategoryGallery()
-        postAllCategoryHomepageAPImethod()
+        
     }
     
     // MARK: - viewDidLoad method
@@ -153,7 +152,8 @@ class maidorderonce: UIViewController,UICollectionViewDelegate,UICollectionViewD
         colproductlist.showsVerticalScrollIndicator = false
         colproductlist.showsHorizontalScrollIndicator = false
         
-       
+        createCategoryGallery()
+        postAllCategoryHomepageAPImethod()
     }
     
     //MARK: - press back method

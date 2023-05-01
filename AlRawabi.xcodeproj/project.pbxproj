@@ -410,6 +410,7 @@
 /* Begin PBXFileReference section */
 		702328EF19CD467752799408 /* Pods_AlRawabi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlRawabi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88E4400AF7111DC53415B85F /* Pods-AlRawabi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlRawabi.release.xcconfig"; path = "Target Support Files/Pods-AlRawabi/Pods-AlRawabi.release.xcconfig"; sourceTree = "<group>"; };
+		A7AC3C35BA8D07E81D7C0B57 /* Pods-AlRawabi.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlRawabi.distribution.xcconfig"; path = "Target Support Files/Pods-AlRawabi/Pods-AlRawabi.distribution.xcconfig"; sourceTree = "<group>"; };
 		CB02D76229C2EC5400693A6A /* colcellbottombannerhome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colcellbottombannerhome.swift; sourceTree = "<group>"; };
 		CB02D76329C2EC5400693A6A /* colcellbottombannerhome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = colcellbottombannerhome.xib; sourceTree = "<group>"; };
 		CB05342229151FCF00D3BCFC /* contactus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactus.swift; sourceTree = "<group>"; };
@@ -2502,6 +2503,7 @@
 			children = (
 				EDA118D1BC0679231E2ACFEC /* Pods-AlRawabi.debug.xcconfig */,
 				88E4400AF7111DC53415B85F /* Pods-AlRawabi.release.xcconfig */,
+				A7AC3C35BA8D07E81D7C0B57 /* Pods-AlRawabi.distribution.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -2518,7 +2520,7 @@
 				CBE42F652832390D00B761F3 /* Frameworks */,
 				CBE42F662832390D00B761F3 /* Resources */,
 				F4849CDDADC2D5D5CF458FE0 /* [CP] Embed Pods Frameworks */,
-				2AAF700BD9F9AE440A223C68 /* [CP] Copy Pods Resources */,
+				CEF35FF42B27E66123151B47 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2848,7 +2850,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2AAF700BD9F9AE440A223C68 /* [CP] Copy Pods Resources */ = {
+		CEF35FF42B27E66123151B47 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3202,7 +3204,7 @@
 		};
 		CBD8699F29E99CE4002FAA92 /* Distribution */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EDA118D1BC0679231E2ACFEC /* Pods-AlRawabi.debug.xcconfig */;
+			baseConfigurationReference = A7AC3C35BA8D07E81D7C0B57 /* Pods-AlRawabi.distribution.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

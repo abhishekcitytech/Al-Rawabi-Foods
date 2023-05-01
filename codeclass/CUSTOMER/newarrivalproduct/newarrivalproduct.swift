@@ -38,7 +38,7 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        self.postNewArrivalsApIMethod()
+        
     }
     
     // MARK: - viewDidLoad Method
@@ -127,6 +127,7 @@ class newarrivalproduct: UIViewController,UICollectionViewDelegate,UICollectionV
         colproductlist.showsVerticalScrollIndicator = false
         colproductlist.showsHorizontalScrollIndicator = false
         
+        self.postNewArrivalsApIMethod()
     }
     
     //MARK: - press back method

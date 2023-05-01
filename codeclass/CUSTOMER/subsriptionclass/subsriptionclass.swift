@@ -220,6 +220,10 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
         let barButton = UIBarButtonItem(customView: button)
         //self.navigationItem.rightBarButtonItem = barButton
         
+        let accounticon = UIBarButtonItem(image: UIImage(named: "accounticon"), style: .plain, target: self, action: #selector(pressAccount))
+        accounticon.tintColor = UIColor(named: "themecolor")!
+        self.navigationItem.rightBarButtonItem = accounticon
+        
         viewdeliveryaddress.layer.cornerRadius = 4.0
         viewdeliveryaddress.layer.borderWidth = 1.0
         viewdeliveryaddress.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
@@ -259,6 +263,30 @@ class subsriptionclass: BaseViewController,UITextFieldDelegate,UITableViewDelega
     {
         let ctrl = subscriptionorderreview(nibName: "subscriptionorderreview", bundle: nil)
         self.navigationController?.pushViewController(ctrl, animated: true)
+    }
+    
+    //MARK: - press Account Method
+    @objc func pressAccount()
+    {
+        let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+        print("strbearertoken",strbearertoken)
+        if strbearertoken == ""{
+            let obj = loginclass(nibName: "loginclass", bundle: nil)
+            obj.strislogin = "100"
+            self.navigationController?.pushViewController(obj, animated: true)
+        }
+        else{
+            let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+            if (strLangCode == "en")
+            {
+                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                myAppDelegate.tabBarController.selectedIndex = 4
+            }
+            else{
+                let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
+                myAppDelegate.tabBarController.selectedIndex = 0
+            }
+        }
     }
     
     // MARK: - Textfield Delegate Method
