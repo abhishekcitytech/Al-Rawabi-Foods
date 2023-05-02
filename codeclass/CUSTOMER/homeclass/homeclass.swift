@@ -252,7 +252,23 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             //self.navigationItem.rightBarButtonItem = search
         }
         
-
+        //FIXMEACCOUNT BARBUTTON NAVBAR
+        /*let button =  UIButton(type: .custom)
+        button.setImage(UIImage(named: "accounticon"), for: .normal)
+        button.addTarget(self, action: #selector(pressAccount), for: .touchUpInside)
+        button.frame = CGRectMake(0, 0, 110, 31)
+        button.imageEdgeInsets = UIEdgeInsets(top: -1, left: 36, bottom: 1, right: -28)//move image to the right
+        let label = UILabel(frame: CGRectMake(0, 5, 75, 20))
+        label.font = UIFont(name: "NunitoSans-Regular", size: 14)
+        label.text = myAppDelegate.changeLanguage(key: "msg_language146")
+        label.textAlignment = .center
+        label.textColor = UIColor(named: "themecolor")!
+        label.backgroundColor =   .clear
+        button.addSubview(label)
+        button.backgroundColor = .white
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton*/
+        
         let accounticon = UIBarButtonItem(image: UIImage(named: "accounticon"), style: .plain, target: self, action: #selector(pressAccount))
         accounticon.tintColor = UIColor(named: "themecolor")!
         self.navigationItem.rightBarButtonItem = accounticon
@@ -1722,7 +1738,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         cellA.lbloutofstock.layer.borderColor = UIColor(named: "graybordercolor")!.cgColor
         cellA.lbloutofstock.layer.cornerRadius = 16.0
         cellA.lbloutofstock.layer.masksToBounds = true
-
+        
         
         print("strin_cart",strin_cart)
         if strin_cart == "0"{
@@ -1745,7 +1761,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         }
         else{
             print("WITHIN CART")
-           
+            
             
             if strstock == "0"{
                 //Out of stock
@@ -1767,7 +1783,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
         print("strbearertoken",strbearertoken)
         if strbearertoken == ""{
-           
+            
             cellA.btnfav.isHidden = true
             cellA.btnaddonce.isHidden = false
             cellA.viewPlusMinus.isHidden = true

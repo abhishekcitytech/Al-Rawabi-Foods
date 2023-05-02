@@ -117,6 +117,9 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
             self.tabBarController?.selectedIndex = 0
         }
         
+        print("selectselectcat",strSelectedCat)
+        self.getProductListingAPIMethod(strselectedcategoryid: strSelectedCat)
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -161,6 +164,23 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
         
         
         //self.setupRightBarCartBagDesignMethod(intcountOrder: 0)
+        
+        //FIXMEACCOUNT BARBUTTON NAVBAR
+        /*let button =  UIButton(type: .custom)
+        button.setImage(UIImage(named: "accounticon"), for: .normal)
+        button.addTarget(self, action: #selector(pressAccount), for: .touchUpInside)
+        button.frame = CGRectMake(0, 0, 110, 31)
+        button.imageEdgeInsets = UIEdgeInsets(top: -1, left: 36, bottom: 1, right: -28)//move image to the right
+        let label = UILabel(frame: CGRectMake(0, 5, 75, 20))
+        label.font = UIFont(name: "NunitoSans-Regular", size: 14)
+        label.text = myAppDelegate.changeLanguage(key: "msg_language146")
+        label.textAlignment = .center
+        label.textColor = UIColor(named: "themecolor")!
+        label.backgroundColor =   .clear
+        button.addSubview(label)
+        button.backgroundColor = .white
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton*/
         
         let accounticon = UIBarButtonItem(image: UIImage(named: "accounticon"), style: .plain, target: self, action: #selector(pressAccount))
         accounticon.tintColor = UIColor(named: "themecolor")!
@@ -1777,7 +1797,7 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                         
                         if strsuccess == true
                         {
-                            self.postAllCategoryHomepageAPImethod()
+                            self.getProductListingAPIMethod(strselectedcategoryid: self.strSelectedCat)
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)
