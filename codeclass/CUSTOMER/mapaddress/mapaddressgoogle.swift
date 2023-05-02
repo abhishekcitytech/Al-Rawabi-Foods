@@ -824,7 +824,6 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
             {
                 // Backspace handled
                 guard !string.isEmpty else {
-                    self.txtsearch.text = ""
                     if self.isBoolDropdown == true{
                         self.handleTap1()
                     }
@@ -845,14 +844,6 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
         }
         
         return true
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool
-    {
-        textField.resignFirstResponder();
-        return true;
-    }
-    @objc func textFieldDidChange(_ textField: UITextField)
-    {
     }
     //MARK: - press cross AutoComplete Search Boc method
     @IBAction func pressCross(_ sender: Any)

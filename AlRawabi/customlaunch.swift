@@ -54,12 +54,12 @@ class customlaunch: UIViewController,SwiftyGifDelegate
                 DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
                     
                     //BY DEFAULT ALWAYS POPUP HOME WILL SHOW
-                    UserDefaults.standard.removeObject(forKey: "bearertokenmaid")
+                    /*UserDefaults.standard.removeObject(forKey: "bearertokenmaid")
                     UserDefaults.standard.synchronize()
                     UserDefaults.standard.removeObject(forKey: "bearertoken")
                     UserDefaults.standard.synchronize()
                     UserDefaults.standard.set(0, forKey: "subscribebyoncepopupshown")
-                    UserDefaults.standard.synchronize()
+                    UserDefaults.standard.synchronize()*/
                     
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
                     self.tabBarController?.tabBar.isHidden = false
