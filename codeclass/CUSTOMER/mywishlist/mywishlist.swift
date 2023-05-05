@@ -539,8 +539,10 @@ class mywishlist: UIViewController,UICollectionViewDelegate,UICollectionViewData
                             }
                             self.colproductlist.reloadData()
                             
-                            self.getOrderOnceCartCountAPIMethod()
-                            
+                            let strbearertoken = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                            if strbearertoken != ""{
+                                self.getOrderOnceCartCountAPIMethod()
+                            }
                         }
                         else{
                             let uiAlert = UIAlertController(title: "", message: myAppDelegate.changeLanguage(key: "msg_language270") , preferredStyle: UIAlertController.Style.alert)

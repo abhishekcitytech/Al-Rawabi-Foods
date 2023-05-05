@@ -1426,8 +1426,11 @@ class porudctdetails: BaseViewController,UIScrollViewDelegate,ImageSlideshowDele
                                 
                             }
                             
-                            //FIXMELOGINCHECK
-                            self.getOrderOnceCartCountAPIMethod()
+                            
+                            let strbearertoken1 = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                            if strbearertoken1 != ""{
+                                self.getOrderOnceCartCountAPIMethod()
+                            }
                             
                         }
                         else{

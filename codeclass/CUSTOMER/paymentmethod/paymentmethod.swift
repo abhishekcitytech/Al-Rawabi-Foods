@@ -1309,8 +1309,8 @@ class paymentmethod: UIViewController,UICollectionViewDelegate,UICollectionViewD
         }
         print("parameters",parameters)
         
-        
-        let strconnurl = String(format: "%@%@", Constants.conn.ConnUrl, Constants.methodname.apimethod42)
+        let strLangCode = String(format: "%@", UserDefaults.standard.value(forKey: "applicationlanguage") as? String ?? "en")
+        let strconnurl = String(format: "%@%@?language=%@", Constants.conn.ConnUrl, Constants.methodname.apimethod42,strLangCode)
         let request = NSMutableURLRequest(url: NSURL(string: strconnurl)! as URL)
         request.httpMethod = "PUT"
         request.setValue("Bearer \(strbearertoken)", forHTTPHeaderField: "Authorization")

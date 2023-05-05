@@ -1231,7 +1231,11 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                 {
                     DispatchQueue.main.async {
                         self.view.activityStopAnimating()
-                        self.getOrderOnceCartCountAPIMethod()
+                        
+                        let strbearertoken1 = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                        if strbearertoken1 != ""{
+                            self.getOrderOnceCartCountAPIMethod()
+                        }
                     }
                     
                     let dictemp = json as NSDictionary
@@ -1270,7 +1274,11 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                                 print("Click of default button")
                             }))
                         }
-                        self.getOrderOnceCartCountAPIMethod()
+                        
+                        let strbearertoken1 = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                        if strbearertoken1 != ""{
+                            self.getOrderOnceCartCountAPIMethod()
+                        }
                     }
                 }
             }
@@ -1278,7 +1286,11 @@ class orderonceclass: UIViewController,UITextFieldDelegate,UICollectionViewDeleg
                 //check for internal server data error
                 DispatchQueue.main.async {
                     self.view.activityStopAnimating()
-                    self.getOrderOnceCartCountAPIMethod()
+                    
+                    let strbearertoken1 = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                    if strbearertoken1 != ""{
+                        self.getOrderOnceCartCountAPIMethod()
+                    }
                 }
                 print("Error -> \(error)")
             }

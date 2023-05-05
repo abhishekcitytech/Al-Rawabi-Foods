@@ -954,7 +954,10 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                             }
                             self.colproductlist.reloadData()
                             
-                            self.getOrderOnceCartCountAPIMethod()
+                            if strbearertoken != ""{
+                                self.getOrderOnceCartCountAPIMethod()
+                            }
+                            
                             
                         }
                         else{

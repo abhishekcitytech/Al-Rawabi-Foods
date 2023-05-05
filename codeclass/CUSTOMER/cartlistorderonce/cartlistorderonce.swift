@@ -1284,7 +1284,11 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     }))
                     
                     self.view.activityStopAnimating()
-                    self.getOrderOnceCartCountAPIMethod()
+                    
+                    let strbearertoken1 = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                    if strbearertoken1 != ""{
+                        self.getOrderOnceCartCountAPIMethod()
+                    }
                 }
                 print("Error=\(String(describing: error))")
                 return
@@ -1398,7 +1402,10 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                             }))
                         }
                         
-                        self.getOrderOnceCartCountAPIMethod()
+                        let strbearertoken1 = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                        if strbearertoken1 != ""{
+                            self.getOrderOnceCartCountAPIMethod()
+                        }
                     }
                 }
             }
@@ -1413,7 +1420,11 @@ class cartlistorderonce: UIViewController,UITableViewDelegate,UITableViewDataSou
                     }))
                     
                     self.view.activityStopAnimating()
-                    self.getOrderOnceCartCountAPIMethod()
+                    
+                    let strbearertoken1 = UserDefaults.standard.value(forKey: "bearertoken")as? String ?? ""
+                    if strbearertoken1 != ""{
+                        self.getOrderOnceCartCountAPIMethod()
+                    }
                 }
                 print("Error -> \(error)")
             }
