@@ -1464,7 +1464,7 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
             let screenSize = UIScreen.main.bounds
             print("floatDevider iphone SE 3 rd generation",screenSize.width)
             if screenSize.width == 375{
-                //SE
+                //SE iphone 13 mini
                 floatDevider = 3.5
             }
             else{
