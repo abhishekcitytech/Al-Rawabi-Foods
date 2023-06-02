@@ -589,12 +589,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                 let strlatitude = String(format: "%@", dic1?.value(forKey: "latitude")as! CVarArg)
                 let strlongitude = String(format: "%@", dic1?.value(forKey: "longitude")as! CVarArg)
                 
+                let str1 =  strlatitude.replacingOccurrences(of: " ", with: "")
+                let str2 =  strlongitude.replacingOccurrences(of: " ", with: "")
+                
                 //let strcoordinate = String(format: "%@", arrm?.object(at: xx)as? String ?? "")
                 //let items = strcoordinate.components(separatedBy: ", ")
                 //let str1 = items[0]
                 //let str2 = items[1]
                 
-                let point = CLLocationCoordinate2DMake(Double(strlatitude)!,Double(strlongitude)!)
+                let point = CLLocationCoordinate2DMake(Double(str1)!,Double(str2)!)
                 coordinateArray.append(point)
             }
             polygon = MKPolygon(coordinates:&coordinateArray, count:arrm!.count)
@@ -1458,7 +1461,15 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
         else
         {
             // not iPad (iPhone, mac, tv, carPlay, unspecified)
-            floatDevider = 3.0
+            let screenSize = UIScreen.main.bounds
+            print("floatDevider iphone SE 3 rd generation",screenSize.width)
+            if screenSize.width == 375{
+                //SE
+                floatDevider = 3.5
+            }
+            else{
+                floatDevider = 3.0
+            }
         }
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -3334,9 +3345,9 @@ class homeclass: BaseViewController,UICollectionViewDelegate,UICollectionViewDat
                             
                             let arrmlocation = dictemp.value(forKey: "location") as? NSArray ?? []
                             self.arrmPolygonlist = NSMutableArray(array: arrmlocation)
-                            //print("arrmPolygonlist --->",self.arrmPolygonlist)
+                            print("arrmPolygonlist --->",self.arrmPolygonlist)
                             
-                            self.createMultiPolygon()
+                           self.createMultiPolygon() //FIXMESANDIPAN
                             
                         }
                         else{
@@ -3569,6 +3580,8 @@ extension UIView{
     
     func activityStartAnimating(activityColor: UIColor, backgroundColor: UIColor)
     {
+        self.isUserInteractionEnabled = false
+        
         let backgroundView = UIView()
         backgroundView.frame = CGRect.init(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
         backgroundView.backgroundColor = backgroundColor

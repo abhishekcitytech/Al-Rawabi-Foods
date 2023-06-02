@@ -678,7 +678,7 @@ class OrderOnceSelectShippingAddress: UIViewController,UITableViewDelegate,UITab
                             
                             
                             //BY DEFAULT SHIPPING METHOD SAVED
-                            if self.arrMShippingmethodlist.count > 0
+                            if self.arrMShippingmethodlist.count > 0 //&& self.arrMmyaddresslist.count > 0 //FIXMESANDIPAN
                             {
                                 self.strSelectedshippingmethod = String(format: "%d", 0)
                                 

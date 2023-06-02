@@ -3215,7 +3215,7 @@
 				CURRENT_PROJECT_VERSION = 1.2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5C35S4H28F;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4V4WQ2YLX8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AlRawabi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Al Rawabi Foods";
@@ -3240,10 +3240,10 @@
 				);
 				MARKETING_VERSION = 3.3;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabiappstore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = RawabiFoodsProvisioningProfile13042023;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "alrawabi-adhoc-28-03-2023";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -3448,7 +3448,7 @@
 				CURRENT_PROJECT_VERSION = 1.2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5C35S4H28F;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4V4WQ2YLX8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AlRawabi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Al Rawabi Foods";
@@ -3473,10 +3473,10 @@
 				);
 				MARKETING_VERSION = 3.3;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabiappstore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = RawabiFoodsProvisioningProfile13042023;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "alrawabi-adhoc-28-03-2023";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -3500,7 +3500,7 @@
 				CURRENT_PROJECT_VERSION = 1.2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5C35S4H28F;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4V4WQ2YLX8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AlRawabi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Al Rawabi Foods";
@@ -3525,10 +3525,10 @@
 				);
 				MARKETING_VERSION = 3.3;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabiappstore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.citytech.alrawabi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = RawabiFoodsProvisioningProfile13042023;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "alrawabi-adhoc-28-03-2023";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

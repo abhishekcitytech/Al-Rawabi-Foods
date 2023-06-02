@@ -669,13 +669,16 @@ class mapaddressgoogle: UIViewController,GMSMapViewDelegate,CLLocationManagerDel
                 let strlatitude = String(format: "%@", dic1?.value(forKey: "latitude")as! CVarArg)
                 let strlongitude = String(format: "%@", dic1?.value(forKey: "longitude")as! CVarArg)
                 
+                let str1 =  strlatitude.replacingOccurrences(of: " ", with: "")
+                let str2 =  strlongitude.replacingOccurrences(of: " ", with: "")
+                
                 //let strcoordinate = String(format: "%@", arrm?.object(at: xx)as? String ?? "")
                 //let items = strcoordinate.components(separatedBy: ", ")
                 //let str1 = items[0]
                 //let str2 = items[1]
                 //let point = CLLocationCoordinate2DMake(Double(strlatitude)!,Double(strlongitude)!)
                 
-                rect.add(CLLocationCoordinate2D(latitude: Double(strlatitude)!, longitude: Double(strlongitude)!))
+                rect.add(CLLocationCoordinate2D(latitude: Double(str1)!, longitude: Double(str2)!))
             }
             polygon = GMSPolygon(path: rect)
             arrmpolygonobject.add(polygon)

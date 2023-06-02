@@ -679,13 +679,13 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
             let strtext = String(format: "%@", dict.value(forKey: "text") as? String ?? "")
             let strid = String(format: "%@", dict.value(forKey: "id") as! CVarArg)
             
-            print("strid",strid)
-            print("strtext",strtext)
+            //print("strid",strid)
+            //print("strtext",strtext)
             
             self.strSelectedSubCat = String(format: "%@", strid)
             self.colsubcategory.reloadData()
             
-            print("self.strSelectedSubCat",self.strSelectedSubCat)
+            //print("self.strSelectedSubCat",self.strSelectedSubCat)
             
             self.getProductListingFromCategoryIDAPIMethod()
         }
@@ -873,10 +873,6 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
     //MARK: - get Product Listing From Category ID API method
     func getProductListingFromCategoryIDAPIMethod()
     {
-        if self.arrMCategorywiseProductlist.count > 0{
-            self.arrMCategorywiseProductlist.removeAllObjects()
-        }
-        
         let myAppDelegate = UIApplication.shared.delegate as! AppDelegate
         DispatchQueue.main.async {
             self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.clear)
@@ -911,6 +907,7 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
             {
                 //check for fundamental networking error
                 DispatchQueue.main.async {
+                    self.colproductlist.reloadData()
                     self.view.activityStopAnimating()
                     
                 }
@@ -947,12 +944,11 @@ class productcatalogue: UIViewController,UICollectionViewDelegate,UICollectionVi
                             
                             let arrmproducts = json.value(forKey: "product") as? NSArray ?? []
                             self.arrMCategorywiseProductlist = NSMutableArray(array: arrmproducts)
-                            //print("arrMCategorywiseProductlist --->",self.arrMCategorywiseProductlist)
+                            print("arrMCategorywiseProductlist --->",self.arrMCategorywiseProductlist)
                             
                             if self.arrMCategorywiseProductlist.count == 0{
                                 self.msg = "No products found!"
                             }
-                            self.colproductlist.reloadData()
                             
                             if strbearertoken != ""{
                                 self.getOrderOnceCartCountAPIMethod()
